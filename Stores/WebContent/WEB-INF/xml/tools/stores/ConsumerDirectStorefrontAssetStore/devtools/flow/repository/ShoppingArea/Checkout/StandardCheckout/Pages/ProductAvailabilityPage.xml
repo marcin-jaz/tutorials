@@ -1,0 +1,25 @@
+<!DOCTYPE repository-entries SYSTEM "../../../../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<page-components>
+	<virtual-page id="ProductAvailabilityPage"/>
+
+	<virtual-page-interface id="ProductAvailabilityPage.i1" virtual-page-id="ProductAvailabilityPage">
+		<entry-port id="ProductAvailabilityPage.i1.e1" type="EntryPortType1"/>
+		<exit-port id="ProductAvailabilityPage.i1.xPrevious" type="ExitPortType1"/>
+	</virtual-page-interface>
+
+	<simple-implementation id="ProductAvailabilityPage.i1.impl1" url="URLForProductAvailabilityPage.i1.impl1" virtual-page-interface-id="ProductAvailabilityPage.i1">
+		<component-interface id="ProductAvailabilityPage.i1.impl1.ci1" interface="ActualProductAvailabilityPage.i1"/>
+		<exit-port-map id="ProductAvailabilityPage.i1.impl1.xpm1" interface-exit-port="ProductAvailabilityPage.i1.xPrevious" component-exit-ports="ActualProductAvailabilityPage.i1.xPrevious"/>
+	</simple-implementation>
+
+	<actual-page id="ActualProductAvailabilityPage" file="ProductAvailabilityDisplay.jsp"/>
+
+	<actual-page-interface id="ActualProductAvailabilityPage.i1" actual-page-id="ActualProductAvailabilityPage">
+		<exit-port id="ActualProductAvailabilityPage.i1.xPrevious" type="ExitPortType1"/>
+	</actual-page-interface>
+
+</page-components>
+</components>
+</repository-entries>

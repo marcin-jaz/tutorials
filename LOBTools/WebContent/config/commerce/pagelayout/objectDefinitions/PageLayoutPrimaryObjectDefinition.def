@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<PrimaryObjectDefinition definitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		isBaseDefinition="true" 
+		createWizardDefinitionName="plmPageLayoutTemplatePickerWizard"
+		newObjectMenuItemText="${plmPageLayoutResources.action_new_page_layout}"
+		newDisplayName="${plmPageLayoutResources.pageLayout_NewDisplayName}"
+		objectGroups="PageLayoutAlias"
+		idProperty="pageLayoutId" 
+		displayNameProperty="name" 
+		propertiesDefinitionName="plmPageLayoutProperties"
+		searchType="FindStorePageLayouts"
+		writeUsage="IBM_ManagePageComposerTool"
+		helpLink="concepts/cpzlayoutcont.htm"
+		previewStartDatePropertyName="startDate">
+
+		<!---
+			Refresh Service to refresh this page layout. Calling this will
+			fetch the page layout's details again from the server.
+		-->
+		<RefreshService url="/cmc/GetPageLayoutById"> 
+			<ServiceParam name="storeId"/> 
+			<ServiceParam name="assetStoreId"/>
+			<ServiceParam name="pageLayoutId" propertyName="pageLayoutId"/> 
+		</RefreshService>
+		
+		<!--- Retrieves the {@link PageLayoutFolder folders} for this page layout. -->
+		<GetReferencesService primaryObjectTypes="LayoutFolder,InheritedLayoutFolder" referenceObjectTypes="LayoutFolderItemReference,LayoutFolderInheritedItemReference,InheritedLayoutFolderInheritedItemReference" url="/cmc/GetFolderReferences">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="referenceId" propertyName="pageLayoutId"/>
+			<ServiceParam name="objectStoreId" parameterName="objectStoreId" propertyName="objectStoreId" />
+			<ServiceParam name="folderObjectType" value="LayoutFolder"/>
+			<ServiceParam name="folderItemType" value="LayoutType"/>
+		</GetReferencesService>
+		
+		<PropertyDefinition displayName="${plmPageLayoutResources.namePrompt}" maximumSize="254" propertyName="name" type="string" required="true"/>
+				
+		<PropertyDefinition propertyName="priority" type="number" maxValue="1000" minValue="0" displayName="${plmPageLayoutResources.priorityPrompt}" />
+		<PropertyDefinition propertyName="startDate" type="datetime" displayName="${plmPageLayoutResources.pageLayoutAssociationStartDatePrompt}" />
+		<PropertyDefinition propertyName="endDate" type="datetime" displayName="${plmPageLayoutResources.pageLayoutAssociationEndDatePrompt}" />
+		<PropertyDefinition propertyName="deviceClass">
+			<PropertyValue displayName="${plmPageLayoutResources.desktop_template}" value="Web" icon="webDeviceTypeIcon" isDefault="true"/>
+			<PropertyValue displayName="${plmPageLayoutResources.mobile_template}" value="Mobile" icon="mobileDeviceTypeIcon"/>
+			<PropertyValue displayName="${plmPageLayoutResources.responsive_template}" value="Any" icon="anyDeviceTypeIcon"/>
+		</PropertyDefinition>
+		
+		<StartDateEndDateValidator validatorId="dateValidator" startDatePropertyName="startDate" endDatePropertyName="endDate" />
+
+		<ChildObjectDefinition baseDefinitionName="plmLayoutContainerWidget"/>
+		<!---
+        	The layout search term location
+         -->
+        <ChildObjectDefinition baseDefinitionName="plmLayoutSearchTerm"/>
+		
+		<!-- Layout location reference object to the content page -->
+		<ReferenceObjectDefinition baseDefinitionName="plmLayoutLocationContentPageReference"/>
+		<!-- Layout location reference object to the inherited content page -->
+		<ReferenceObjectDefinition baseDefinitionName="plmLayoutLocationInheritedContentPageReference"/>
+		
+		<!-- Layout location reference object to the category page -->										
+		<ReferenceObjectDefinition baseDefinitionName="plmLayoutLocationCatalogGroupPageReference"/>
+		<!-- Layout location reference object to the inherited category page -->
+		<ReferenceObjectDefinition baseDefinitionName="plmLayoutLocationInheritedCatalogGroupPageReference"/>
+		
+		<!-- Layout location reference object to the catalog entry page -->										
+		<ReferenceObjectDefinition baseDefinitionName="plmLayoutLocationCatalogEntryPageReference"/>
+		<!-- Layout location reference object to the inherited catalog entry page -->
+		<ReferenceObjectDefinition baseDefinitionName="plmLayoutLocationInheritedCatalogEntryPageReference"/>
+
+		<UpdateService url="/cmc/UpdateLayout" sendAll="true">
+			<ServiceParam name="storeId" propertyName="objectStoreId"/>
+			<ServiceParam name="pageLayoutId" propertyName="pageLayoutId" />
+		</UpdateService>
+
+		<DeleteService url="/cmc/DeleteLayout">
+			<ServiceParam name="storeId" propertyName="objectStoreId"/>
+			<ServiceParam name="pageLayoutId" propertyName="pageLayoutId" />
+		</DeleteService>
+
+		<!---  
+			Retrieves the SEO URL for the default page layout page.
+		-->				
+		<GetPreviewURLService url="/cmc/GetPageLayoutPreviewUrl">
+			<ServiceParam name="pageLayoutId" propertyName="pageLayoutId" />
+			<ServiceParam name="catalogId" contextName="masterCatalogId" />
+			<EnablementOrCondition conditionId="locationExists">
+				<EnablementCondition conditionId="pageExistsCondition" objectPath="LayoutLocationPageReferenceAlias/PageAlias" propertyName="pageId" enablementValue="" negate="true"/>
+				<EnablementCondition conditionId="searchTermExistsCondition" objectPath="LayoutSearchTermsAlias" propertyName="searchTerm" enablementValue="" negate="true"/>
+			</EnablementOrCondition>
+		</GetPreviewURLService>
+		<!---  
+			Retrieves the layout Widget child objects.
+		-->
+		<GetChildrenService url="/cmc/GetChildLayoutWidgets">
+			<ServiceParam name="storeId"/> 
+			<ServiceParam name="pageLayoutId" propertyName="pageLayoutId"/>
+		</GetChildrenService>
+		
+		<UniqueValueForChildObjectPropertyValidator objectPath="LayoutWidgetAlias" propertyName="widgetName" validatorId="uniqueWidgetNameValidator" validatorType="uniqueWidgetName"/>
+	
+		<!-- 
+			Default value for priority.
+		 -->
+		<Xml name="template">
+			<priority>0</priority>
+		</Xml>
+	</PrimaryObjectDefinition>
+
+	<PrimaryObjectDefinition definitionName="PageLayout"
+		baseDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		displayName="${plmPageLayoutResources.pageLayout_DisplayName}"
+		creatable="true"
+		objectType="PageLayout"
+		headerIcon="pageLayoutHeaderIcon"
+		icon="pageLayoutIcon">
+
+		<!--- Create service to create the page layout object.  -->
+		<CreateService sendMultiValues="true" url="/cmc/CreateLayout">
+			<ServiceParam name="storeId" />
+			<ServiceParam name="template" value="false" />
+			<ServiceParam name="state" value="Active" />
+		</CreateService>
+
+		<PopulateNewObjectService url="/cmc/PopulateNewLayout">
+			<ServiceParam name="storeId"/>
+		</PopulateNewObjectService>
+		
+		<!---  
+			Retrieves the local page layout location (pages and rules) references.
+		-->
+		<GetChildrenService 
+			objectTypes="LayoutLocationContentPageReference,LayoutLocationInheritedContentPageReference,LayoutLocationCatalogGroupPageReference,LayoutLocationInheritedCatalogGroupPageReference,LayoutLocationCatalogEntryPageReference,LayoutLocationInheritedCatalogEntryPageReference,LayoutSearchTerm,LayoutInheritedSearchTerm" 
+			url="/cmc/GetPageLayoutLocations">
+			<ServiceParam name="storeId"/> 
+			<ServiceParam name="assetStoreId"/>
+			<ServiceParam name="pageLayoutId" propertyName="pageLayoutId"/>
+		</GetChildrenService>
+	</PrimaryObjectDefinition>
+
+	<PrimaryObjectDefinition definitionName="InheritedPageLayout"
+		baseDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		displayName="${plmPageLayoutResources.inheritedPageLayout_DisplayName}"
+		objectType="InheritedPageLayout" 
+		headerIcon="inheritedPageLayoutHeaderIcon" 
+		icon="inheritedPageLayoutIcon"
+		compatibleObjectTypes="PageLayout">
+
+		<!---
+        	The layout inherited search term location
+         -->
+        <ChildObjectDefinition baseDefinitionName="plmLayoutInheritedSearchTerm"/>
+		<!---  
+			Retrieves both local and inherited page layout location (pages and rules) references.
+		-->
+		<GetChildrenService 
+			objectTypes="LayoutLocationContentPageReference,LayoutLocationInheritedContentPageReference,InheritedLayoutLocationInheritedContentPageReference,LayoutLocationCatalogGroupPageReference,LayoutLocationInheritedCatalogGroupPageReference,InheritedLayoutLocationInheritedCatalogGroupPageReference,LayoutLocationCatalogEntryPageReference,LayoutLocationInheritedCatalogEntryPageReference,InheritedLayoutLocationInheritedCatalogEntryPageReference,LayoutSearchTerm,LayoutInheritedSearchTerm" 
+			url="/cmc/GetPageLayoutLocations">
+			<ServiceParam name="storeId"/> 
+			<ServiceParam name="assetStoreId"/>
+			<ServiceParam name="pageLayoutId" propertyName="pageLayoutId"/>
+		</GetChildrenService>
+		<!-- Inherited Layout location reference object to inherited content page -->	
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedLayoutLocationInheritedContentPageReference"/>
+		<!-- Inherited Layout location reference object to inherited category page -->
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedLayoutLocationInheritedCatalogGroupPageReference"/>
+		<!-- Inherited Layout location reference object to inherited catalog entry page -->
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedLayoutLocationInheritedCatalogEntryPageReference"/>
+		
+	</PrimaryObjectDefinition>
+
+	<ChildObjectDefinition definitionName="plmLayoutSlot" idProperty="slotId" objectType="LayoutSlot" releaseWhenClosed="false">
+		<CreateService url="/cmc/CreateLayoutSlot">
+			<ServiceParam name="storeId" />
+			<ServiceParam name="objectStoreId" parentProperty="true"/>
+			<ServiceParam name="pageLayoutId" parentProperty="true" />
+			<ServiceParam name="widgetId" propertyName="widgetId" parentProperty="true" resolvePrimaryParent="false" />
+		</CreateService>
+	</ChildObjectDefinition>
+
+	<ChildObjectDefinition 
+		definitionName="plmLayoutContainerWidget"
+		objectType="LayoutContainerWidget"
+		idProperty="widgetId">
+		
+		<CreateService url="/cmc/CreateLayoutWidget">
+			<ServiceParam name="storeId" />
+			<ServiceParam name="objectStoreId" parentProperty="true"/>
+			<ServiceParam name="pageLayoutId" parentProperty="true" />
+		</CreateService>
+		
+		<ChildObjectDefinition baseDefinitionName="plmLayoutSlot"/>
+	</ChildObjectDefinition>
+
+	<!--- 
+		This definition defines the base object from which all layout search term child objects are derived. 
+	-->
+	<ChildObjectDefinition 
+		definitionName="plmBaseLayoutSearchTerm"
+		isBaseDefinition="true" 
+		idProperty="pageLocationId"
+		objectGroups="LayoutSearchTermsAlias">
+
+		<!--- 
+	        This property definition represents the search term the layout is assigned to.
+		-->
+ 		<PropertyDefinition displayName="${plmPageLayoutResources.searchTerm}" maximumSize="254" propertyName="searchTerm" required="true" trim="true"/>
+
+		<!-- 
+			Create service to create a new layout search term location.
+		 -->
+		<CreateService url="/cmc/CreateLayoutLocation">
+			<ServiceParam name="storeId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="LayoutSearchTermCondition" enablementValue="LayoutSearchTerm" propertyName="objectType"/>			
+			</ServiceParam>
+			<ServiceParam name="objectStoreId" parameterName="storeId" parentProperty="true" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="LayoutSearchTermCondition" enablementValue="LayoutSearchTerm" propertyName="objectType" negate="true"/>
+			</ServiceParam>
+			<ServiceParam name="pageLayoutId" parentProperty="true" propertyName="pageLayoutId"/>
+			<ServiceParam name="searchTerm" propertyName="searchTerm"/>
+			<ServiceParam name="deviceClass" parentProperty="true" propertyName="deviceClass"/>
+		</CreateService>
+		<!-- 
+			Update service to update an existing layout search term location.
+		 -->
+		<UpdateService url="/cmc/UpdateLayoutLocation">
+			<ServiceParam name="storeId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="LayoutSearchTermCondition" enablementValue="LayoutSearchTerm" propertyName="objectType"/>			
+			</ServiceParam>
+			<ServiceParam name="objectStoreId" parameterName="storeId" parentProperty="true" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="LayoutSearchTermCondition" enablementValue="LayoutSearchTerm" propertyName="objectType" negate="true"/>
+			</ServiceParam>
+			<ServiceParam name="pageLayoutId" parentProperty="true" propertyName="pageLayoutId" />
+			<ServiceParam name="pageLocationId" propertyName="pageLocationId"/>
+		</UpdateService>
+
+		<!-- 
+			Delete service to delete a layout search term location.
+		 -->
+		<DeleteService url="/cmc/DeleteLayoutLocation">
+			<ServiceParam name="storeId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="LayoutSearchTermCondition" enablementValue="LayoutSearchTerm" propertyName="objectType"/>			
+			</ServiceParam>
+			<ServiceParam name="objectStoreId" parameterName="storeId" parentProperty="true" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="LayoutSearchTermCondition" enablementValue="LayoutSearchTerm" propertyName="objectType" negate="true"/>
+			</ServiceParam>
+			<ServiceParam name="pageLayoutId" parentProperty="true" propertyName="pageLayoutId" />
+			<ServiceParam name="pageLocationId" propertyName="pageLocationId"/>
+		</DeleteService>
+
+	</ChildObjectDefinition>
+	<!-- 
+		Child object definition for local search term location.
+	 -->
+	<ChildObjectDefinition baseDefinitionName="plmBaseLayoutSearchTerm" definitionName="plmLayoutSearchTerm" initializeObjectStoreId="true" objectType="LayoutSearchTerm" compatibleObjectTypes="LayoutInheritedSearchTerm">
+		<TrueEnablementCondition/>
+	</ChildObjectDefinition>
+	<!-- 
+		Child object definition for inherited search term location. Only inherited page layout contains this child.
+	 -->
+	<ChildObjectDefinition baseDefinitionName="plmBaseLayoutSearchTerm" definitionName="plmLayoutInheritedSearchTerm" initializeObjectStoreId="true" objectType="LayoutInheritedSearchTerm" compatibleObjectTypes="LayoutSearchTerm">
+		<EnablementCondition checkHasAccessRight="true" conditionId="accessRightCondition" enablementValue="true"/>
+	</ChildObjectDefinition>
+	
+</Definitions>

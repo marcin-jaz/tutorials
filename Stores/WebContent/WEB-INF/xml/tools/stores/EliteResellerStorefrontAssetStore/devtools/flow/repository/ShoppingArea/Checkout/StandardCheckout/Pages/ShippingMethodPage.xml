@@ -1,0 +1,44 @@
+<!DOCTYPE repository-entries SYSTEM "../../../../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<page-components>
+	<virtual-page id="ShippingMethodPage"/>
+
+	<virtual-page-interface id="ShippingMethodPage.i1" virtual-page-id="ShippingMethodPage">
+		<entry-port id="ShippingMethodPage.i1.e1" type="EntryPortType1"/>
+		<exit-port id="ShippingMethodPage.i1.xNext" type="ExitPortType1"/>
+		<exit-port id="ShippingMethodPage.i1.xPrevious" type="ExitPortType1"/>
+	</virtual-page-interface>
+
+	<!-- SingleShippingMethodPage Implementation -->
+	<simple-implementation id="SingleShippingMethodPage.i1.impl" url="SingleShippingMethodView" virtual-page-interface-id="ShippingMethodPage.i1">
+		<component-interface id="SingleShippingMethodPage.i1.impl.ci1" interface="ActualSingleShippingMethodPage.i1"/>
+		<exit-port-map id="SingleShippingMethodPage.i1.impl.xpm1" interface-exit-port="ShippingMethodPage.i1.xNext" component-exit-ports="ActualSingleShippingMethodPage.i1.xNext"/>
+		<exit-port-map id="SingleShippingMethodPage.i1.impl.xpm2" interface-exit-port="ShippingMethodPage.i1.xPrevious" component-exit-ports="ActualSingleShippingMethodPage.i1.xPrevious"/>
+	</simple-implementation>
+
+	<actual-page id="ActualSingleShippingMethodPage" file="SingleShippingMethodDisplay.jsp"/>
+
+	<actual-page-interface id="ActualSingleShippingMethodPage.i1" actual-page-id="ActualSingleShippingMethodPage">
+		<exit-port id="ActualSingleShippingMethodPage.i1.xNext" type="ExitPortType1"/>
+		<exit-port id="ActualSingleShippingMethodPage.i1.xPrevious" type="ExitPortType1"/>
+	</actual-page-interface>
+
+	<!-- MultipleShippingMethodPage Implementation -->	
+	<simple-implementation id="MultipleShippingMethodPage.i1.impl" url="MultipleShippingMethodView" virtual-page-interface-id="ShippingMethodPage.i1">
+		<component-interface id="MultipleShippingMethodPage.i1.impl.ci1" interface="ActualMultipleShippingMethodPage.i1"/>
+		<exit-port-map id="MultipleShippingMethodPage.i1.impl.xpm1" interface-exit-port="ShippingMethodPage.i1.xNext" component-exit-ports="ActualMultipleShippingMethodPage.i1.xNext"/>
+		<exit-port-map id="MultipleShippingMethodPage.i1.impl.xpm2" interface-exit-port="ShippingMethodPage.i1.xPrevious" component-exit-ports="ActualMultipleShippingMethodPage.i1.xPrevious"/>
+	</simple-implementation>
+
+	<actual-page id="ActualMultipleShippingMethodPage" file="MultipleShippingMethodDisplay.jsp"/>
+
+	<actual-page-interface id="ActualMultipleShippingMethodPage.i1" actual-page-id="ActualMultipleShippingMethodPage">
+		<exit-port id="ActualMultipleShippingMethodPage.i1.xNext" type="ExitPortType1"/>
+		<exit-port id="ActualMultipleShippingMethodPage.i1.xPrevious" type="ExitPortType1"/>
+	</actual-page-interface>
+
+
+</page-components>
+</components>
+</repository-entries>

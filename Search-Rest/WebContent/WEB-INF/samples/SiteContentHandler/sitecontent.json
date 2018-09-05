@@ -1,0 +1,46 @@
+{
+	"recordSetComplete": "true",
+	"recordSetCount": 4,
+	"recordSetStartNumber": 0,
+	"recordSetTotal": 4,
+	"resourceId": "http:\/\/wcsolr19.torolab.ibm.com:3737\/search\/resources\/store\/10001\/sitecontent\/webContentsBySearchTerm\/*?searchTerm=dress&catalogId=10001&pageNumber=1&responseFormat=json&langId=-1",
+	"resourceName": "sitecontent",
+	"webContentView": [
+		{
+			"identifier": "2109e52e-2a15-4e74-98ad-0ab7866a4606.html",
+			"longDescription": "About the Dress Designer for AuroraESite",
+			"mimetype": "text\/html; charset=utf-8",
+			"name": "About the Dress Designer",
+			"shortDescription": "About the Dress Designer for AuroraESite",
+			"uniqueID": "HTML_715838035_en\/auroraesite\/apparel-designer",
+			"url": "en\/auroraesite\/apparel-designer"
+		},
+		{
+			"identifier": "a91304e4-a412-4f99-9a24-97afcf38fcdc.html",
+			"longDescription": "Clothing and Dress Style Guide for AuroraESite",
+			"mimetype": "text\/html; charset=utf-8",
+			"name": "Clothing and Dress Style Guide",
+			"shortDescription": "Clothing and Dress Style Guide for AuroraESite",
+			"uniqueID": "HTML_715838035_en\/auroraesite\/apparel-style-guide",
+			"url": "en\/auroraesite\/apparel-style-guide"
+		},
+		{
+			"identifier": "312ed21c-f0c2-4387-9746-faef9b13e96b.html",
+			"longDescription": "Evening Sparkle Dress Collection Video for AuroraESite",
+			"mimetype": "text\/html; charset=utf-8",
+			"name": "Evening Sparkle Dress Collection Video",
+			"shortDescription": "Evening Sparkle Dress Collection Video for AuroraESite",
+			"uniqueID": "HTML_715838035_en\/auroraesite\/evening-dress-video",
+			"url": "en\/auroraesite\/evening-dress-video"
+		},
+		{
+			"identifier": "12adb6ef-e76a-4e9a-9b99-142a566addf8.html",
+			"longDescription": "Site Map for AuroraESite",
+			"mimetype": "text\/html; charset=utf-8",
+			"name": "Site Map for AuroraESite",
+			"shortDescription": "Site Map for AuroraESite",
+			"uniqueID": "HTML_715838035_en\/auroraesite\/sitemap",
+			"url": "en\/auroraesite\/sitemap"
+		}
+	]
+}

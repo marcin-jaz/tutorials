@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE data-deploy SYSTEM "ibm-wc-load.dtd">
+<data-deploy base-dir="." default-target="all">
+    <asset id="modelorg" location="model/modelorg.xml"/>
+    <asset id="channelorg" location="CommercePlaza/channelorg.xml"/>
+    <asset id="profileorg" location="profile/profileorg.xml"/>
+    <asset id="distributororg" location="distributorProxy/distributororg.xml"/>
+    <asset id="distproxyorg" location="CommercePlaza/distproxyorg.xml"/>
+    <asset id="master" location="store-data-assets.xml"/>
+    <asset id="resolved.master" location="store-data-assets.resolved.xml"/>
+    <asset id="foreignKeys" location="ForeignKeys.dtd" type="dtd"/>
+    <asset id="contract" location="CommercePlaza/data/contract.xml"/>
+    <asset id="account" location="profile/B2BDirectResellerStorefrontAssetStore/data/baseaccount.xml"/>
+    <asset id="memberRoles" location="model/memberRoles"/>
+    <asset id="hostingcontract" location="SampleB2BResellerStore/B2BResellerContract.xml"/>
+    <asset id="madisonsHostContract" location="MadisonsResellerStore/MadisonsResellerContract.xml"/>
+    <asset id="eliteHostContract" location="EliteResellerStore/EliteResellerContract.xml"/>
+    <asset id="strutsConfigUpdateCHS.template" location="CommercePlaza/data/struts-config-update.tpl.xml"/>
+    <asset id="strutsConfigUpdateCHS" location="CommercePlaza/data/struts-config-update.xml"/>
+    <asset id="strutsConfigUpdateBMP.template" location="profile/B2BDirectResellerStorefrontAssetStore/data/struts-config-update.tpl.xml"/>
+    <asset id="strutsConfigUpdateBMP" location="profile/B2BDirectResellerStorefrontAssetStore/data/struts-config-update.xml"/>
+    <asset id="." location=""/>
+    <deploy-task-cmd name="accountImport" class="com.ibm.commerce.tools.devtools.publish.tasks.trading.AccountImportTaskCmd"/>
+    <deploy-task-cmd name="catalogDataDeploy" class="com.ibm.commerce.tools.devtools.publish.tasks.catalog.CatalogDataDeployTaskCmd"/>
+    <deploy-task-cmd name="contractImport" class="com.ibm.commerce.tools.devtools.publish.tasks.trading.ContractImportTaskCmd"/>
+    <deploy-task-cmd name="commandInvoker" class="com.ibm.commerce.tools.devtools.publish.tasks.CommandInvokerTaskCmd"/>
+    <deploy-task-cmd name="generateParams" class="com.ibm.commerce.tools.devtools.publish.tasks.GenerateParametersTaskCmd"/>
+    <deploy-task-cmd name="copy" class="com.ibm.commerce.tools.devtools.publish.tasks.unpack.CopyTaskCmd"/>
+    <deploy-task-cmd name="reconcileStoreLanguages" class="com.ibm.commerce.tools.devtools.publish.tasks.languages.ReconcileLanguagesTaskCmd"/>
+    <deploy-task-cmd name="copyLocaleFile" class="com.ibm.commerce.tools.devtools.publish.tasks.unpack.CopyLocaleFileTaskCmd"/>
+    <deploy-task-cmd name="copyATPFiles" class="com.ibm.commerce.tools.devtools.publish.tasks.unpack.CopyTaskCmd"/>
+    <deploy-task-cmd name="findStore" class="com.ibm.commerce.tools.devtools.publish.tasks.StoreIdBaseDeployTaskCmd"/>
+    <deploy-task-cmd name="fileFilter" class="com.ibm.commerce.tools.devtools.publish.tasks.unpack.FileFilterTaskCmd"/>
+    <deploy-task-cmd name="setupContentDirectory" class="com.ibm.commerce.tools.devtools.publish.tasks.catalog.SetupContentManagedDirectoryTaskCmd"/>
+    <target id="all">
+        <task name="copyATPFiles">
+            <param name="toDir" value="${wc:StoresDataPath}/${asset:foreignKeys#STORE_DIR_MAIN}/data" />
+            <param name="fromDir" value="${wc:StoresDataPath}/${asset:foreignKeys#STORE_DIR_MAIN}/data/${asset:foreignKeys#INV_CHOICE}/data/" />
+        </task>
+    	<task name="copyLocaleFile">
+            <param name="basename" value="${asset:modelorg}" />
+    	</task>
+    	<task name="copyLocaleFile">
+            <param name="basename" value="${asset:channelorg}" />
+    	</task>
+    	<task name="copyLocaleFile">
+            <param name="basename" value="${asset:profileorg}" />
+    	</task>
+    	<task name="copyLocaleFile">
+            <param name="basename" value="${asset:distributororg}" />
+    	</task>
+    	<task name="copyLocaleFile">
+            <param name="basename" value="${asset:distproxyorg}" />
+    	</task>
+    	<task name="idresolve">
+            <param name="infile" value="${asset:master}" />
+            <param name="outfile" value="${asset:resolved.master}" />
+    	</task>
+    	<task name="massload">
+            <param name="infile" value="${asset:resolved.master}" />
+   		    <param name="maxerror" value="1" />	
+            <param name="noprimary" value="error" />
+    	</task>
+        <task name="reconcileStoreLanguages">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_CHS}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_CHS_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+    	</task>
+        <task name="reconcileStoreLanguages">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_CPS}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+    	</task>
+        <task name="reconcileStoreLanguages">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+        </task>
+        <task name="findStore">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_CHS}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_CHS_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+            <export name="storeEntityIdCHS" value="storeEntityId"/>
+    	</task>
+        <task name="fileFilter">
+            <param name="input-filename" value="${asset:strutsConfigUpdateCHS.template}"/>
+            <param name="output-filename" value="${asset:strutsConfigUpdateCHS}"/>
+            <param name="storeId" value="${context:storeEntityIdCHS}"/>
+    	</task>   
+        <task name="commandInvoker">
+            <param name="invoked_commandClassName" value="com.ibm.commerce.struts.commands.UpdateStrutsConfigFileCmd"/>
+            <param name="webAppName" value="Stores" />
+            <param name="updateFileName" value="${asset:strutsConfigUpdateCHS}"/>
+    	</task>
+        <task name="findStore">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+            <export name="storeEntityIdBMP" value="storeEntityId"/>
+    	</task>
+        <task name="fileFilter">
+            <param name="input-filename" value="${asset:strutsConfigUpdateBMP.template}"/>
+            <param name="output-filename" value="${asset:strutsConfigUpdateBMP}"/>
+            <param name="storeId" value="${context:storeEntityIdBMP}"/>
+    	</task>   
+        <task name="commandInvoker">
+            <param name="invoked_commandClassName" value="com.ibm.commerce.struts.commands.UpdateStrutsConfigFileCmd"/>
+            <param name="webAppName" value="Stores" />
+            <param name="updateFileName" value="${asset:strutsConfigUpdateBMP}"/>
+    	</task>
+	<task name="copyLocaleFile">
+            <param name="basename" value="${asset:hostingcontract}" />
+    	</task>
+        <task name="accountImport">
+            <param name="tradingXMLFileName" value="${asset:account}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+    	</task>
+        <task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:hostingcontract}" />
+            <param name="isXSD" value="true" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_CHS}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_CHS_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+    	</task>
+        <task name="setupContentDirectory">
+            <param name="storeDir" value="${asset:foreignKeys#STORE_DIR_CHS}" />
+        </task>
+        <task name="setupContentDirectory">
+            <param name="storeDir" value="${asset:foreignKeys#STORE_DIR_CPS}" />
+        </task>
+        <task name="setupContentDirectory">
+            <param name="storeDir" value="${asset:foreignKeys#STORE_DIR}" />
+        </task>
+        <task name="setupContentDirectory">
+            <param name="storeDir" value="${asset:foreignKeys#STORE_DIR_BMP}" />
+        </task>
+        <task name="commandInvoker">
+            <param name="invoked_commandClassName" value="com.ibm.commerce.scheduler.commands.RefreshRegistryCmd" />
+            <param name="URL" value="/ignore" />
+    	</task>
+        <task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_CHS}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_CHS_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+    	</task>
+        <task name="generateParams">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_CHS}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_CHS_PART}${asset:foreignKeys#ORGANIZATION_DN}" />    
+        </task>
+    	<task name="findStore">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_CPS}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+            <export name="storeEntityIdCPS" value="storeEntityId"/>
+    	</task>
+    	<task name="catalogDataDeploy">
+    				<param name="STORE_DIR" value="${asset:foreignKeys#STORE_DIR_RPS2}" />
+    				<param name="STORE_ID_CPS" value="${context:storeEntityIdCPS}" />
+      			<param name="storeArchiveFilename" value="${wc:SampleSarPath}${asset:foreignKeys#SAR_PATH_RPS2}" />
+      			<param name="INV_CHOICE" value="${asset:foreignKeys#INV_CHOICE}" />
+    	</task>
+    	<task name="catalogDataDeploy">
+    				<param name="STORE_DIR" value="${asset:foreignKeys#STORE_DIR_BMP2}" />
+    				<param name="STORE_ID_CPS" value="${context:storeEntityIdCPS}" />
+      			<param name="storeArchiveFilename" value="${wc:SampleSarPath}${asset:foreignKeys#SAR_PATH_BMP2}" />
+      			<param name="INV_CHOICE" value="${asset:foreignKeys#INV_CHOICE}" />
+    	</task>
+			<task name="copyLocaleFile">
+            <param name="basename" value="${asset:madisonsHostContract}" />
+    	</task>
+        <task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:madisonsHostContract}" />
+            <param name="isXSD" value="true" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_CHS}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_CHS_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+    	</task>
+			<task name="copyLocaleFile">
+            <param name="basename" value="${asset:eliteHostContract}" />
+    	</task>
+        <task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:eliteHostContract}" />
+            <param name="isXSD" value="true" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_CHS}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_CHS_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+    	</task>
+    	<task name="catalogDataDeploy">
+            <param name="STORE_DIR" value="${asset:foreignKeys#STORE_DIR_CPS}" />
+            <param name="CAT_STORE_DIR" value="${asset:foreignKeys#STORE_DIR_CPS}" />
+            <param name="CAT_STORE_IDENTIFIER" value="${asset:foreignKeys#STORE_IDENTIFIER_CPS}" />
+            <param name="CAT_ORGANIZATION_DN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+            <param name="MAR_STORE_DIR" value="${asset:foreignKeys#STORE_DIR_RPS2}" />
+            <param name="MAR_STORE_IDENTIFIER" value="${asset:foreignKeys#STORE_IDENTIFIER_RPS2}" />
+            <param name="MAR_ORGANIZATION_DN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+            <param name="HOS_STORE_DIR" value="${asset:foreignKeys#STORE_DIR_HOS}" />
+            <param name="HOS_STORE_IDENTIFIER" value="${asset:foreignKeys#STORE_IDENTIFIER_HOS}" />
+            <param name="HOS_ORGANIZATION_DN" value="${asset:foreignKeys#ORGANIZATION_DN_HOS}" />
+            <param name="storeArchiveFilename" value="${wc:SampleSarPath}/${asset:foreignKeys#SAMPLE_CHOICE}" />
+            <param name="AOP_CHOICE" value="${asset:foreignKeys#AOP_CHOICE}" />
+            <param name="FREE_SHIPPING_CARRIER" value="${asset:foreignKeys#FREE_SHIPPING_CARRIER}" />
+            <param name="FREE_SHIPPING_CODE" value="${asset:foreignKeys#FREE_SHIPPING_CODE}" />
+            <param name="INV_CHOICE" value="${asset:foreignKeys#INV_CHOICE}" />
+    	</task>
+   </target>
+   <target id="launch-store">
+       <task name="DummyTaskWorkaroundToLaunchStore">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_CHS}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_CHS_PART}${asset:foreignKeys#ORGANIZATION_DN}" />    
+       </task>
+   </target>
+</data-deploy>

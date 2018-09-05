@@ -1,0 +1,21 @@
+<!DOCTYPE repository-entries SYSTEM "../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<area-components>
+
+	<area id="ShoppingArea"/>
+	
+	<interface id="ShoppingArea.i1" component-id="ShoppingArea">
+		<entry-port id="ShoppingArea.i1.e1" type="EntryPortType1"/>
+		<entry-port id="ShoppingArea.i1.e2" type="EntryPortType1"/>
+	</interface>
+
+	<implementation id="ShoppingArea.i1.impl1" interface-id="ShoppingArea.i1">
+		<component-interface id="ShoppingArea.i1.impl1.ci1" interface="CheckoutSection.i1" always-enabled="yes"/>
+		<entry-port-map id="ShoppingArea.i1.impl1.epm1" interface-entry-ports="ShoppingArea.i1.e1" component-entry-port="CheckoutSection.i1.e1"/>
+		<entry-port-map id="ShoppingArea.i1.impl1.epm2" interface-entry-ports="ShoppingArea.i1.e2" component-entry-port="CheckoutSection.i1.e2"/>
+	</implementation>
+
+</area-components>
+</components>
+</repository-entries>

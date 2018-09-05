@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("ibmimagedatauri","kk",{error:"Қазір кескінді қоюға қолдау көрсетілмейді. Құралдар тақтасының опциясының орнына 'Insert Image' пайдаланыңыз."});

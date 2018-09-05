@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE data-deploy SYSTEM "ibm-wc-load.dtd">
+<data-deploy base-dir="." default-target="all">
+    <asset id="master" location="store-data-assets.xml"/>
+    <asset id="resolved.master" location="store-data-assets.resolved.xml"/>
+    <asset id="foreignKeys" location="ForeignKeys.dtd" type="dtd"/>
+    <asset id="." location=""/>
+    <deploy-task-cmd name="commandInvoker" class="com.ibm.commerce.tools.devtools.publish.tasks.CommandInvokerTaskCmd"/>
+    <target id="all">
+    	<task name="idresolve">
+            <param name="infile" value="${asset:master}" />
+            <param name="outfile" value="${asset:resolved.master}" />
+    	</task>
+    	<task name="massload">
+            <param name="infile" value="${asset:resolved.master}" />
+   		    <param name="maxerror" value="1" />	
+            <param name="noprimary" value="error" />
+    	</task>
+    </target>
+</data-deploy>

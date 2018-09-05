@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<!---
+		This grid displays the default content associated with an e-Marketing Spot. It can list marketing content,
+		categories and catalog entries in the same grid.
+	-->
+	<ObjectGrid definitionName="plmCatalogEntryListingMarketingDefaultContentGrid" preferenceKey="plmCatalogEntryListingMarketingDefaultContentGrid">
+		<GridText alignment="right" datatype="number" editable="false" name="uniqueID" propertyName="uniqueId" text="${mktMarketingResources.uniqueId}" visible="false" width="90"/>
+		<GridIconTypeImage name="type" required="true" text="${mktMarketingResources.type}" width="60"/>
+		<GridStoreName name="store" propertyName="objectStoreId" text="${mktMarketingResources.store}" width="125">
+			<GridCellDescriptor name="contentStore" objectPath="MarketingContentGroup" propertyName="objectStoreId"/>
+			<GridCellDescriptor name="categoryStore" objectPath="CatalogGroupAlias" propertyName="objectStoreId"/>
+			<GridCellDescriptor name="catentryStore" objectPath="CatalogEntry" propertyName="objectStoreId"/>
+		</GridStoreName>
+		<GridText editable="false" name="contentName" required="true" text="${mktMarketingResources.objectName}" visible="true" width="250">
+			<GridCellDescriptor name="contentName" objectPath="MarketingContentGroup" propertyName="name"/>
+			<GridCellDescriptor name="categoryName" objectPath="CatalogGroupAlias/CatalogGroupDescription" propertyName="name"/>
+			<GridCellDescriptor name="catentryName" objectPath="CatalogEntry/CatalogEntryDescription" propertyName="name"/>
+		</GridText>
+		<GridStepper name="orderBySequence" datatype="number" propertyName="sequence" editable="true" 
+			text="${plmPageLayoutResources.productListingWidgetContentPosition}" visible="true" required="true"
+			minimumValue="1" maximumValue="2147483647" width="120"/>
+	</ObjectGrid>
+
+</Definitions>

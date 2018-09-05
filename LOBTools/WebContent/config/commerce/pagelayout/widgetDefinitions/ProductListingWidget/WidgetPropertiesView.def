@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<GridObjectProperties definitionName="plmWidgetProperties_ProductListingWidget">
+    	<PropertyPane>
+    		<PropertyGroup name="widgetProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetPropertiesPrompt}">
+				<PropertyInputText name="${plmPageLayoutResources.widgetNamePrompt}" propertyName="widgetName"
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_productListingWidgetWidgetName}" promptText="${plmPageLayoutResources.widgetNamePrompt}"/>
+				<PropertyRadioGroup propertyName="xWidgetProp_pageView" extendedHelpText="${plmPageLayoutResources.extendedHelpText_productListingWidgetInitialView}"
+					promptText="${plmPageLayoutResources.productListingWidgetInitialViewPrompt}"/>
+				<PropertyCheckbox propertyName="xWidgetProp_enableSKUListView" 
+					text="${plmPageLayoutResources.productListingWidgetEnableSKUListView}" extendedHelpText="${plmPageLayoutResources.extendedHelpText_productListingWidgetEnableSKUListView}" />
+				<PropertyCombobox propertyName="xWidgetProp_sortBy" extendedHelpText="${plmPageLayoutResources.extendedHelpText_productListingWidgetOrderBy}"
+					promptText="${plmPageLayoutResources.productListingWidgetOrderByPrompt}"/>
+				<PropertyCheckbox propertyName="xWidgetProp_disableProductCompare" 
+					text="${plmPageLayoutResources.productListingWidgetShowCompareBoxPrompt}" extendedHelpText="${plmPageLayoutResources.extendedHelpText_productListingWidgetShowCompareBox}" />
+			</PropertyGroup>			
+			<PropertyGroup name="widgetContent" collapsable="false" groupTitle="${plmPageLayoutResources.widgetContentPrompt}">
+    			
+    			<PropertyStaticText text="${plmPageLayoutResources.productListingWidgetContentDescription}"/>
+    			
+    			<PropertyCheckbox 
+    				propertyName="xWidgetProp_addAdditionalContent"
+    				text="${plmPageLayoutResources.productListingWidgetAddContent}"
+    				extendedHelpText="${plmPageLayoutResources.productListingWidgetAddContentToolTip}"/>
+    			
+				<!--  Property group for widget default content of local page layout-->
+				<PropertyGroup collapsable="false" name="widgetDefaultContent">
+					<EnablementAndCondition>
+						<EnablementCondition checkObjectDefinition="true" conditionId="layoutCondition" 
+							enablementValue="PageLayout" propertyName="objectType" parentProperty="true"/>
+						<EnablementCondition conditionId="addContentCondition" 
+							enablementValue="true" propertyName="xWidgetProp_addAdditionalContent"/>
+					</EnablementAndCondition>				
+					<PropertyChildListEditor 
+						listDefinitionName="plmCatalogEntryListingMarketingDefaultContentGrid" 
+						name="DefaultMarketingContentListEditor" 
+						objectTypes="DefaultEMarketingSpotMarketingContentReference,InheritedDefaultEMarketingSpotMarketingContentReference" 
+						promptText="${plmPageLayoutResources.widgetContent}" 
+						required="false"
+						hideEditColumnAction="true"
+						allowCreateReferencedPrimary="true"
+						extendedHelpText="${plmPageLayoutResources.productListingWidgetDefaultContentToolTip}"
+						validatorTypes="uniqueSequenceESiteStore"/>
+				</PropertyGroup>
+				
+				<!--  Property group for widget default content of inherited page layout-->
+				<PropertyGroup collapsable="false" name="widgetDefaultContentInherited">
+					<EnablementAndCondition>
+						<EnablementCondition checkObjectDefinition="true" conditionId="inheritedLayoutCondition" 
+							enablementValue="InheritedPageLayout" propertyName="objectType" parentProperty="true"/>
+						<EnablementCondition conditionId="addContentCondition" 
+							enablementValue="true" propertyName="xWidgetProp_addAdditionalContent"/>
+					</EnablementAndCondition>						
+					<PropertyChildListEditor 
+						listDefinitionName="plmCatalogEntryListingMarketingDefaultContentGrid" 
+						name="InheritedDefaultMarketingContentListEditor" 
+						objectTypes="InheritedDefaultEMarketingSpotInheritedMarketingContentReference" 
+						promptText="${plmPageLayoutResources.widgetContent}" 
+						required="false"
+						hideEditColumnAction="true"
+						displayObjectStoreName="true"
+						extendedHelpText="${plmPageLayoutResources.productListingWidgetDefaultContentInheritedToolTip}"
+						validatorTypes="uniqueSequenceAssetStore"/>
+					<PropertyChildListEditor 
+						listDefinitionName="plmCatalogEntryListingMarketingDefaultContentGrid" 
+						name="LocalDefaultMarketingContentListEditor" 
+						objectTypes="DefaultEMarketingSpotMarketingContentReference,InheritedDefaultEMarketingSpotMarketingContentReference" 
+						promptText="${plmPageLayoutResources.widgetContent}" 
+						required="false"
+						hideEditColumnAction="true"
+						allowCreateReferencedPrimary="true"
+						displayStoreName="true"
+						extendedHelpText="${plmPageLayoutResources.productListingWidgetDefaultContentToolTip}"
+						validatorTypes="uniqueSequenceESiteStore"/>
+				</PropertyGroup>
+				
+			</PropertyGroup>
+		</PropertyPane>
+	</GridObjectProperties>
+			
+</Definitions>

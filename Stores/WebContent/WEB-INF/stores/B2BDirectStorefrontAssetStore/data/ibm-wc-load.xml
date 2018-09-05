@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE data-deploy SYSTEM "ibm-wc-load.dtd">
+<data-deploy base-dir="." default-target="all">
+    <asset id="profileorg" location="profileorg.xml"/>
+    <asset id="master" location="store-data-assets.xml"/>
+    <asset id="foreignKeys" location="ForeignKeys.dtd" type="dtd"/>
+    <asset id="strutsConfigUpdateBMP.template" location="struts-config-update.tpl.xml"/>    
+    <asset id="strutsConfigUpdateBMP" location="struts-config-update.xml"/>
+    <asset id="account" location="baseaccount.xml"/>
+    <asset id="contract" location="contract.xml"/>
+    <asset id="en_US_contract" location="en_US/contract.xml"/>
+		<asset id="de_DE_contract" location="de_DE/contract.xml"/>
+		<asset id="es_ES_contract" location="es_ES/contract.xml"/>
+		<asset id="fr_FR_contract" location="fr_FR/contract.xml"/>
+		<asset id="it_IT_contract" location="it_IT/contract.xml"/>
+		<asset id="ja_JP_contract" location="ja_JP/contract.xml"/>
+		<asset id="ko_KR_contract" location="ko_KR/contract.xml"/>
+		<asset id="pl_PL_contract" location="pl_PL/contract.xml"/>
+		<asset id="pt_BR_contract" location="pt_BR/contract.xml"/>
+		<asset id="ro_RO_contract" location="ro_RO/contract.xml"/>
+		<asset id="ru_RU_contract" location="ru_RU/contract.xml"/>
+		<asset id="zh_CN_contract" location="zh_CN/contract.xml"/>
+		<asset id="zh_TW_contract" location="zh_TW/contract.xml"/>
+    <asset id="." location=""/>
+    <deploy-task-cmd name="dataload" class="com.ibm.commerce.tools.devtools.publish.tasks.DataLoadTaskCmd"/>
+    <deploy-task-cmd name="contractImport" class="com.ibm.commerce.tools.devtools.publish.tasks.trading.ContractImportTaskCmd"/>
+    <deploy-task-cmd name="accountImport" class="com.ibm.commerce.tools.devtools.publish.tasks.trading.AccountImportTaskCmd"/>
+    <deploy-task-cmd name="commandInvoker" class="com.ibm.commerce.tools.devtools.publish.tasks.CommandInvokerTaskCmd"/>
+    <deploy-task-cmd name="reconcileStoreLanguages" class="com.ibm.commerce.tools.devtools.publish.tasks.languages.ReconcileLanguagesTaskCmd"/>
+    <deploy-task-cmd name="copyLocaleFile" class="com.ibm.commerce.tools.devtools.publish.tasks.unpack.CopyLocaleFileTaskCmd"/>
+    <deploy-task-cmd name="copyATPFiles" class="com.ibm.commerce.tools.devtools.publish.tasks.unpack.CopyTaskCmd"/>
+    <deploy-task-cmd name="findStore" class="com.ibm.commerce.tools.devtools.publish.tasks.StoreIdBaseDeployTaskCmd"/>
+    <deploy-task-cmd name="fileFilter" class="com.ibm.commerce.tools.devtools.publish.tasks.unpack.FileFilterTaskCmd"/>
+    <deploy-task-cmd name="setupContentDirectory" class="com.ibm.commerce.tools.devtools.publish.tasks.catalog.SetupContentManagedDirectoryTaskCmd"/>
+    <target id="all">
+        <task name="copyATPFiles">
+            <param name="toDir" value="${wc:StoresDataPath}/${asset:foreignKeys#STORE_DIR}/data" />
+            <param name="fromDir" value="${wc:StoresDataPath}/${asset:foreignKeys#STORE_DIR}/data/${asset:foreignKeys#INV_CHOICE}/data/" />
+        </task>
+    	<task name="copyLocaleFile">
+            <param name="basename" value="${asset:profileorg}" />
+    	</task>
+    	<task name="dataload">
+						<param name="infile" value="${asset:master}" />
+						<param name="storePublish" value="true" />
+			</task>
+      <task name="accountImport">
+            <param name="tradingXMLFileName" value="${asset:account}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+    	</task>
+    	<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+    	</task>
+    	<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:en_US_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+   		<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:de_DE_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+   		<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:es_ES_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+   		<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:fr_FR_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+   		<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:it_IT_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+   		<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:ja_JP_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+   		<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:ko_KR_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+   		<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:pl_PL_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+   		<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:pt_BR_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+   		<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:ro_RO_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+   		<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:ru_RU_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+   		<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:zh_CN_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+   		<task name="contractImport">
+      	<param name="tradingXMLFileName" value="${asset:zh_TW_contract}" />
+      	<param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+      	<param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+      	<param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+   		</task>
+    	<task name="reconcileStoreLanguages">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+    	</task>
+        <task name="findStore">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_BMP}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PROFILE_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+            <export name="storeEntityIdBMP" value="storeEntityId"/>
+    	</task>
+        <task name="fileFilter">
+            <param name="input-filename" value="${asset:strutsConfigUpdateBMP.template}"/>
+            <param name="output-filename" value="${asset:strutsConfigUpdateBMP}"/>
+            <param name="storeId" value="${context:storeEntityIdBMP}"/>
+    	</task>   
+	<task name="commandInvoker">
+            <param name="invoked_commandClassName" value="com.ibm.commerce.struts.commands.UpdateStrutsConfigFileCmd"/>
+            <param name="webAppName" value="Stores" />
+            <param name="updateFileName" value="${asset:strutsConfigUpdateBMP}"/>
+    	</task>
+        <task name="setupContentDirectory">
+            <param name="storeDir" value="${asset:foreignKeys#STORE_DIR}" />
+        </task>
+        <task name="commandInvoker">
+            <param name="invoked_commandClassName" value="com.ibm.commerce.scheduler.commands.RefreshRegistryCmd" />
+            <param name="URL" value="/ignore" />
+    	</task>
+   </target>
+</data-deploy>

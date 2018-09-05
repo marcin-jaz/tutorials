@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<Definitions>
+	<PrimaryObjectDefinition copyProtected="true"
+		definitionName="mktBaseCustomerSegmentExportPrimaryObjectDefinition"
+		displayName="${mktMarketingResources.customerSegmentExportObjectName}"
+		idProperty="customerSegmentExportId" isBaseDefinition="true"
+		newDisplayName="${mktMarketingResources.newCustomerSegmentExportDisplayName}"
+		displayNameProperty="customerSegmentExportName" objectGroups="customerSegmentExportGroup"
+		propertiesDefinitionName="mktCustomerSegmentExportProperties" searchType="FindCustomerSegmentExports"
+		headerIcon="customerSegmentExportHeaderIcon" icon="customerSegmentExportIcon"
+		helpLink="tasks/tprexportpromo.htm"
+		writeUsage="IBM_ManageMarketingTool">
+
+		<!--- The property for specifying the customer segment export name. -->
+		<PropertyDefinition displayName="${mktMarketingResources.customerSegmentExport_name}"
+			maximumSize="250" propertyName="customerSegmentExportName" required="true" type="string">
+			<PropertyStringValidator validatorId="customerSegmentExportNameValidator" invalidCharacters="&amp;&gt;&lt;&quot;?=#/$%\*~`!@^()+{}[]|';:.,"/>
+		</PropertyDefinition>
+		
+		<!--- The property for displaying the customerSegmentName -->
+		<PropertyDefinition
+			displayName="${mktMarketingResources.customerSegmentExport_customerSegmentName}"
+			propertyName="customerSegmentName" send="true" />
+
+		<!--- The property for specifying whether or not to include customer names. -->
+		<PropertyDefinition displayName="${mktMarketingResources.customerSegmentExport_IncludeCustomerNames}"
+			propertyName="customerSegmentExportIncludeCustomerNames" type="integer">
+		</PropertyDefinition>
+
+		<!--- The property for specifying whether or not to include the customer logon ID. -->
+		<PropertyDefinition displayName="${mktMarketingResources.customerSegmentExport_includeLogonId}"
+			propertyName="customerSegmentExportIncludeLogonId" type="integer">
+		</PropertyDefinition>
+
+		<!--- The property for specifying whether or not to include email opt out customers. -->
+		<PropertyDefinition displayName="${mktMarketingResources.customerSegmentExport_includeEmailsOptOutCustomers}"
+			propertyName="customerSegmentExportIncludeEmailsOptOutCustomers" type="integer">
+		</PropertyDefinition>
+
+		<!--- The property for displaying the customer segment member group ID -->
+		<PropertyDefinition
+			displayName="${mktMarketingResources.customerSegmentExport_uniqueId}"
+			propertyName="uniqueId" type="string" />
+
+		<!--- The property for displaying the summary of the customer segment export task -->
+		<PropertyDefinition copyProtected="true"
+			displayName="${mktMarketingResources.customerSegmentExport_summary}"
+			propertyName="summary" send="false" />
+			
+		<!--- The property for displaying the status of the customer segment export task. Valid options include "Processing", "Failed", "Cancelled", and "Complete". -->
+		<PropertyDefinition copyProtected="true" displayName="${mktMarketingResources.customerSegmentExportStatus}" propertyName="status">
+			<PropertyValue displayName="${mktMarketingResources.customerSegmentExport_statusProcessing}" value="Processing"/>
+			<PropertyValue displayName="${mktMarketingResources.customerSegmentExport_statusFailed}" value="Failed"/>
+			<PropertyValue displayName="${mktMarketingResources.customerSegmentExport_statusCancelled}" value="Cancelled"/>
+			<PropertyValue displayName="${mktMarketingResources.customerSegmentExport_statusComplete}" value="Complete"/>			
+		</PropertyDefinition>
+
+		<!-- Create service to create a new customer segment export task -->
+		<CreateService url="/cmc/CreateCustomerSegmentExport">
+			<ServiceParam name="storeId" />
+			<ServiceParam name="customerSegmentExportName" propertyName="customerSegmentExportName" />
+			<ServiceParam name="uniqueId" propertyName="uniqueId" />
+		</CreateService>
+		
+		<!--- Delete service to delete the customer segment export object on the server.  -->
+		<DeleteService url="/cmc/DeleteCustomerSegmentExport">
+			<ServiceParam name="storeId" parameterName="storeId">
+				<EnablementCondition checkObjectDefinition="true"
+					conditionId="customerSegmentExportCondition" enablementValue="CustomerSegmentExport"
+					propertyName="objectType" />
+			</ServiceParam>
+			<ServiceParam name="parentStoreId" parameterName="storeId"
+				propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true"
+					conditionId="customerSegmentExportCondition" enablementValue="InheritedCustomerSegmentExport"
+					propertyName="objectType" />
+			</ServiceParam>
+			<ServiceParam name="customerSegmentExportId" propertyName="customerSegmentExportId"/>
+		</DeleteService>
+
+		<!-- Refresh service to reload the customer segment export details with the latest data in the server -->		
+		<RefreshService url="/cmc/GetCustomerSegmentExport">
+			<ServiceParam name="storeId" parameterName="storeId">
+				<EnablementCondition checkObjectDefinition="true"
+					conditionId="customerSegmentExportCondition" enablementValue="CustomerSegmentExport"
+					propertyName="objectType" />
+			</ServiceParam>
+			<ServiceParam name="parentStoreId" parameterName="storeId"
+				propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true"
+					conditionId="customerSegmentExportCondition" enablementValue="InheritedCustomerSegmentExport"
+					propertyName="objectType" />
+			</ServiceParam>
+			<ServiceParam name="customerSegmentExportId" propertyName="customerSegmentExportId" />
+		</RefreshService>
+		
+		<!--- Custom action defined to download the customer segment export.  -->
+		<DownloadCustomerSegmentExportClientAction displayName="${mktMarketingResources.customerSegmentExport_downloadCustomerSegments}" package="mkt">
+
+			<EnablementAndCondition conditionId="downloadableCondition">
+				<EnablementCondition conditionId="exportCompleted" enablementValue="Complete" propertyName="status"/>
+				<EnablementCondition conditionId="downloadAllowed" enablementValue="true" propertyName="downloadable"/>				
+			</EnablementAndCondition>
+
+		</DownloadCustomerSegmentExportClientAction>
+		
+		<!--
+			Child object definition for storing the download history of a customer segment export
+		-->
+	<ChildObjectDefinition baseDefinitionName="mktCustomerSegmentExportDownloadHistory"/>
+		
+	</PrimaryObjectDefinition>
+
+	<PrimaryObjectDefinition
+		baseDefinitionName="mktBaseCustomerSegmentExportPrimaryObjectDefinition"
+		creatable="false" definitionName="CustomerSegmentExport" objectType="CustomerSegmentExport" />
+
+	<PrimaryObjectDefinition
+		baseDefinitionName="mktBaseCustomerSegmentExportPrimaryObjectDefinition"
+		compatibleObjectTypes="CustomerSegmentExport" creatable="false"
+		definitionName="InheritedCustomerSegmentExport" headerIcon="customerSegmentExportInheritedHeaderIcon" icon="customerSegmentExportInheritedIcon"
+		objectType="InheritedCustomerSegmentExport">
+		<FalseEnablementCondition conditionId="customerSegmentExportCondition" />
+	</PrimaryObjectDefinition>
+
+    <ChildObjectDefinition definitionName="mktCustomerSegmentExportDownloadHistory" idProperty="userIdentifier" objectType="CustomerSegmentExportDownloadHistory"/>
+
+</Definitions>

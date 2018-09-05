@@ -1,0 +1,56 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%-- 
+  *****
+  * This is a JSP fragments for extensions. It is a blank page by default.
+  *****
+--%>
+
+<script type="text/javascript">
+	 dojo.addOnLoad(function(){B2BOrgTooltip.tooltipInit('buyerOrgToolTip')});
+</script>
+
+<div class="column" id="WC_UserRegistrationAddForm_B2BBuyerOrg_1">
+   <div id="WC_UserRegistrationAddForm_B2BBuyerOrg_2">
+      <label for="WC_UserRegistrationAddForm_B2BBuyerOrg_input_1" class="nodisplay">
+   		<fmt:message key="ACCESSIBLE_LABEL_TEXT" bundle="${storeText}">
+	    <fmt:param><fmt:message key="REG_BUYER" bundle="${storeText}"/></fmt:param>
+	    <fmt:param><fmt:message key="ACCESSIBLE_LABEL_REQUIRED_INFO" bundle="${storeText}"/></fmt:param></fmt:message>
+	</label>
+      	
+      
+      <div class="required-field" id="WC_UserRegistrationAddForm_B2BBuyerOrg_3"> *</div>
+      <fmt:message key="REG_BUYER" bundle="${storeText}"/>
+      <span id="buyerOrgToolTip" tabindex="0" class="info_icon"><img src="<c:out value='${jspStoreImgDir}${vfileColor}/info.png'/>"  alt="<fmt:message key="BUYER_ORG_DEFINITION" bundle="${storeText}"/>"/></span>     
+   </div>
+   <div id="buyer_org" class="buyer_org">
+   	<input onblur="javascript:B2BLogonForm.setParentMemberValue()" type="text" size="35" maxlength="254" name="ancestorOrgs" id="WC_UserRegistrationAddForm_B2BBuyerOrg_input_1" value="<c:out value="${WCParam.ancestorOrgs}"/>"/>
+   </div>
+   <div id="buyerOrgToolTipSection" style="display:none">		   
+	   <span dojoType="wc.widget.Tooltip" connectId="buyerOrgToolTip" style="display: none;">
+			<div id="tooltip_popup">
+				<div class="header" id="WC_UserRegistrationAddForm_B2BBuyerOrg_tooltip_div_1"> 
+					<div class="close" id="WC_UserRegistrationAddForm_B2BBuyerOrg_tooltip_div_2">
+					<fmt:message key="WHAT_IS_BO" bundle="${storeText}"/></div>
+				</div>
+				<div class="bodyarea" id="WC_UserRegistrationAddForm_B2BBuyerOrg_tooltip_div_3">
+					<div class="bodycontent" id="WC_UserRegistrationAddForm_B2BBuyerOrg_tooltip_div_4">
+						<fmt:message key="BUYER_ORG_DEFINITION" bundle="${storeText}"/>
+					</div>
+				</div>
+				<div class="footer" id="WC_UserRegistrationAddForm_B2BBuyerOrg_tooltip_div_5"> </div>
+			</div>
+		</span>
+	</div>
+</div>

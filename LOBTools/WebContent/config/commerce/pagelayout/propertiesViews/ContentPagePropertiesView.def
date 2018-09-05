@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<ObjectProperties definitionName="plmContentPageProperties">
+		<PropertyPane name="pane">
+			<PropertyGroup baseDefinitionName="wcfPropertyAssetInformationGroup" name="assetGroup"/>
+
+			<!-- Property Group: General Page Information. This properties group contains general page information such as name, description etc -->
+			<PropertyGroup groupTitle="${plmPageLayoutResources.pageProperties}" name="generalInfoPropGrp" open="true">
+	            <!-- Property: Name. An input box for the name property. -->			
+				<PropertyInputText promptText="${plmPageLayoutResources.pageNamePrompt}" propertyName="name"/>
+				
+				<!-- Editor to manage the parent of a content page -->				
+				<CollectionListEditor
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_contentPageFolder}"
+					listDefinitionName="plmContentPageFolderListDefinition"
+					name="parentCollEditorContentPage"
+					promptText="${plmPageLayoutResources.folderPrompt}"
+					objectTypes="ContentPageFolder,InheritedContentPageFolder"/>				
+			</PropertyGroup>
+	        
+	        <!-- Property Group: Contains the content page SEO properties inherited from the extended site asset store -->
+			<PropertyGroup groupTitle="${plmPageLayoutResources.searchEngineOptimizationTab}" name="plmContentPageSeoAssetStoreSection" baseDefinitionName="plmManageInheritedContentPageSeoAttributes" open="true"/>
+			
+			<!-- Property Group: Contains the content page SEO properties of the local store (shows store name in the group title) -->
+			<PropertyGroup groupTitle="${plmPageLayoutResources.searchEngineOptimizationTab}" name="plmPageSeoESiteStoreSection" baseDefinitionName="plmManageContentPageSeoAttributes" open="true">
+				<EnablementAndCondition conditionId="inheritedObjectTypesAndStoreCondition">
+						<EnablementCondition conditionId="seoEnabledCondition" contextName="seoEnabled" enablementValue="true"/>
+						<EnablementCondition checkObjectDefinition="true" conditionId="inheritedcontentPageCondition" enablementValue="InheritedContentPage" propertyName="objectType"/>
+				</EnablementAndCondition>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the page SEO properties of the local store (no group title) -->
+			<PropertyGroup groupTitle="${plmPageLayoutResources.searchEngineOptimizationTab}" name="plmPageSeoLocalStoreSection" baseDefinitionName="plmManageContentPageSeoAttributes" displayObjectStoreName="false" displayStoreName="false" open="true">
+				<EnablementAndCondition conditionId="localObjectTypesAndStoreCondition">
+						<EnablementCondition conditionId="seoEnabledCondition" contextName="seoEnabled" enablementValue="true"/>
+						<EnablementCondition checkObjectDefinition="true" conditionId="ContentPageCondition" enablementValue="ContentPage" propertyName="objectType"/>
+				</EnablementAndCondition>
+			</PropertyGroup>
+		</PropertyPane>
+	</ObjectProperties>
+	
+	<PropertyGroup definitionName="plmManageContentPageSeoAttributes" displayObjectStoreName="false" displayStoreName="true">
+		<!-- Property Group: Contains the URL keyword and full URL for the content page -->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoUrlSection">
+				<EnablementCondition checkObjectDefinition="true" conditionId="contentPageCondition" enablementValue="ContentPage" propertyName="objectType"/>
+				<PropertyUrlPreview name="desktopUrlKeyword" extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoDesktopUrl_ContentPage}" objectPath="ContentPageBaseSeoURL/ContentPageSeoURL" package="cat" promptText="${plmPageLayoutResources.seoDesktopUrlPrompt}" propertyName="seo_urlkeyword">
+					<EnablementCondition parentProperty="true" propertyName="urlConfigurable" enablementValue="true"/>
+				</PropertyUrlPreview>
+		</PropertyGroup>	  
+		
+		<!-- Property Group: Contains the URL keyword and full URL for the content page (for eSites) -->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoESitesUrlSection">
+				<EnablementCondition checkObjectDefinition="true" conditionId="inheritedcontentPageCondition" enablementValue="InheritedContentPage" propertyName="objectType"/>
+				<PropertyUrlPreview name="desktopUrlKeyword1" extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoDesktopUrlEsite_ContentPage}" objectPath="ContentPageBaseSeoURL/ContentPageSeoURL" package="cat" promptText="${plmPageLayoutResources.seoDesktopUrlPrompt}" propertyName="seo_urlkeyword">
+					<EnablementCondition parentProperty="true" propertyName="urlConfigurable" enablementValue="true"/>
+				</PropertyUrlPreview>
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the title of the content page -->
+		<PropertyGroup collapsable="false" displayGrouping="false" name="seoTMDSection">
+			<EnablementCondition checkObjectDefinition="true" conditionId="contentPageCondition" enablementValue="ContentPage" propertyName="objectType"/>
+
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoTitleSection">
+				<PropertyInputLongText extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoTitle_ContentPage}" objectPath="ContentPageBaseSeoAttributes/ContentPageSeoAttributes"
+					promptText="${plmPageLayoutResources.seoTitlePrompt}" propertyName="seo_title">
+				</PropertyInputLongText>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the meta description of the content page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaDescSection">
+				<PropertyInputMultiLineText extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoMetaDesc_ContentPage}" objectPath="ContentPageBaseSeoAttributes/ContentPageSeoAttributes"
+					promptText="${plmPageLayoutResources.seoMetaDescPrompt}" propertyName="seo_metadesc">
+				</PropertyInputMultiLineText>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the meta keyword of the content page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaKeywordSection">
+				<PropertyInputMultiLineText extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoMetaKeyword_ContentPage}" objectPath="ContentPageBaseSeoAttributes/ContentPageSeoAttributes"
+					promptText="${plmPageLayoutResources.seoMetaKeywordPrompt}" propertyName="seo_metakeyword">
+				</PropertyInputMultiLineText>
+			</PropertyGroup>
+		</PropertyGroup>
+		
+		<PropertyGroup collapsable="false" displayGrouping="false" name="seoEsitesTMDSection">
+			<EnablementCondition checkObjectDefinition="true" conditionId="inheritedcontentPageCondition" enablementValue="InheritedContentPage" propertyName="objectType"/>
+
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoTitleSection">
+				<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoTitleEsite_ContentPage}" objectPath="ContentPageBaseSeoAttributes/ContentPageSeoAttributes"
+						promptText="${plmPageLayoutResources.seoTitlePrompt}" propertyName="seo_useTitleDefault">
+					<RadioButtonDescriptor value="0" text="${plmPageLayoutResources.seoDefaultTitleOptionEsiteStorePrompt}" name="seo_title"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${plmPageLayoutResources.seoOverrideTitleOptionEsiteStorePrompt}" editorPropertyName="seo_title"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the meta description of the content page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaDescSection">
+				<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoMetaDescEsite_ContentPage}" objectPath="ContentPageBaseSeoAttributes/ContentPageSeoAttributes"
+						promptText="${plmPageLayoutResources.seoMetaDescPrompt}" propertyName="seo_useMetaDescDefault">
+					<RadioButtonDescriptor value="0" text="${plmPageLayoutResources.seoDefaultDescOptionEsiteStorePrompt}" name="seo_metadesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${plmPageLayoutResources.seoOverrideDescOptionEsiteStorePrompt}" editorPropertyName="seo_metadesc" multiline="true"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the meta keyword of the content page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaKeywordSection">
+				<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoMetaKeywordEsite_ContentPage}" objectPath="ContentPageBaseSeoAttributes/ContentPageSeoAttributes"
+						promptText="${plmPageLayoutResources.seoMetaKeywordPrompt}" propertyName="seo_useMetaKeywordDefault">
+					<RadioButtonDescriptor value="0" text="${plmPageLayoutResources.seoDefaultKeywordOptionEsiteStorePrompt}" name="seo_metakeyword"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${plmPageLayoutResources.seoOverrideKeywordOptionEsiteStorePrompt}" editorPropertyName="seo_metakeyword" multiline="true"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+		</PropertyGroup>		
+	</PropertyGroup>
+	
+	<PropertyGroup definitionName="plmManageInheritedContentPageSeoAttributes" displayObjectStoreName="true" displayStoreName="false">
+		<EnablementAndCondition conditionId="inheritedObjectTypesAndStoreCondition">
+			<EnablementCondition conditionId="seoEnabledCondition" contextName="seoEnabled" enablementValue="true"/>
+			<EnablementCondition checkObjectDefinition="true" conditionId="inheritedContentPageCondition" enablementValue="InheritedContentPage" propertyName="objectType"/>
+		</EnablementAndCondition>
+		
+		<!-- Property Group: Contains the URL keyword and full URL for the content page -->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoUrlSection">
+				<PropertyUrlPreview name="desktopUrlKeyword" extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoDesktopUrl_ContentPage}" objectPath="InheritedContentPageBaseSeoURL/ContentPageSeoURL" package="cat" promptText="${plmPageLayoutResources.seoDesktopUrlPrompt}" propertyName="seo_urlkeyword">
+					<EnablementCondition parentProperty="true" propertyName="urlConfigurable" enablementValue="true"/>
+				</PropertyUrlPreview>	
+		</PropertyGroup>	  
+		
+		<!-- Property Group: Contains the title of the content page -->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoTitleSection">
+			<PropertyInputLongText extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoTitle_ContentPage}" objectPath="InheritedContentPageBaseSeoAttributes/ContentPageSeoAttributes"
+				promptText="${plmPageLayoutResources.seoTitlePrompt}" propertyName="seo_title">
+			</PropertyInputLongText>
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the meta description of the content page --> 
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaDescSection">
+			<PropertyInputMultiLineText extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoMetaDesc_ContentPage}" objectPath="InheritedContentPageBaseSeoAttributes/ContentPageSeoAttributes"
+					promptText="${plmPageLayoutResources.seoMetaDescPrompt}" propertyName="seo_metadesc">
+			</PropertyInputMultiLineText>
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the meta keyword of the content page --> 
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaKeywordSection">
+			<PropertyInputMultiLineText extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoMetaKeyword_ContentPage}" objectPath="InheritedContentPageBaseSeoAttributes/ContentPageSeoAttributes"
+					promptText="${plmPageLayoutResources.seoMetaKeywordPrompt}" propertyName="seo_metakeyword">
+			</PropertyInputMultiLineText>
+		</PropertyGroup>
+	</PropertyGroup>
+		
+</Definitions>

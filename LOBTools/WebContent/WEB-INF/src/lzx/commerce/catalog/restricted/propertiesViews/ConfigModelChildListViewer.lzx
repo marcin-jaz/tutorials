@@ -1,0 +1,62 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+
+<library>		
+	
+	<!---
+		<p>
+		This class is a child list viewer that will list the child CatalogEntryConfigModel of the object's parent object.
+		</p>	
+	-->
+	<class name="catConfigModelChildListViewer" extends="wcfChildListViewer">
+		
+		<!---
+			@keywords private
+			This method sets the model object for this view to the specified object.
+			@param wcfModelObject newObject The new object
+		-->
+		<method name="setModelObject" args="newObject">
+			<![CDATA[
+			if (wcfLogger.enabled) {
+				wcfLogger.entering("com.ibm.commerce.lobtools.foundation.view", "catConfigModelChildListViewer", "setModelObject(newObject)",[newObject]);
+			}	
+			var po = newObject;
+			if (newObject) {
+			    wcfLogger.entering("com.ibm.commerce.lobtools.foundation.view", "catConfigModelChildListViewer", "newObject",newObject.logString());
+				for (var i = 0; i < newObject.references.length; i++) {
+					var ro = newObject.references[i];
+					wcfLogger.log("com.ibm.commerce.lobtools.foundation.view", "INFO", "catConfigModelChildListViewer", "ro", ro.logString());
+					if (ro.objectType == "DynamicKitChildPDK" || ro.objectType == "DynamicKitChildInheritedPDK") {
+						po = ro.parentObject;
+						break;
+					}
+				}
+				if(po) {
+					wcfLogger.log("com.ibm.commerce.lobtools.foundation.view", "INFO", "catConfigModelChildListViewer", "po", po.logString());
+				}
+				this.updateModelObjectDel.register(newObject, "onreferences");
+				newObject.loadReferences();
+			}
+			super.setModelObject(po);
+			
+			if (wcfLogger.enabled) {
+				wcfLogger.exiting("com.ibm.commerce.lobtools.foundation.view", "catConfigModelChildListViewer", "setModelObject(po)",[po]);
+			}
+			]]>
+		</method>		
+	</class>
+	
+
+</library>

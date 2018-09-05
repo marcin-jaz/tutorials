@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE store-front SYSTEM "StoreFront.dtd">
+<store-front>
+    <store-front-images>
+        <image id="logo" max-height="50" max-width="150"/>
+        <image id="banner" max-height="50" max-width="815"/>
+    </store-front-images>
+
+    <store-front-text>
+
+    	<!-- Home page - ShoppingArea/CatalogSection/CategorySubsection/StoreCatalogDisplay.jsp -->
+        <page>
+       		<label>
+        		<message key="Home" resource="storetext_dynamic_labels"/>
+        	</label>
+        	<description>
+        		<message key="Home_Text" resource="storetext_dynamic_labels"/>
+        	</description>
+  	     	<content rows="15">
+        		<message key="Home_Text1" resource="storetext_dynamic"/>
+        	</content>
+         	<location file="tools/stores/$storeDir$/text/preview/$locale$/Preview_HomePage.html" />
+        </page>
+
+    	<!-- Order Confirmation page - ShoppingArea/CheckoutSection/StandardCheckoutSubsection/OrderConfirmationDisplay.jsp -->
+        <page>
+       		<label>
+        		<message key="OrderConfirmation" resource="storetext_dynamic_labels"/>
+        	</label>
+        	<description>
+        		<message key="OrderConfirmation_Text" resource="storetext_dynamic_labels"/>
+        	</description>
+  	     	<content rows="15">
+        		<message key="OrderCon_Text2" resource="storetext_dynamic"/>
+        	</content>
+         	<location file="tools/stores/$storeDir$/text/preview/$locale$/Preview_OrderConfirmationPage1.html" />
+        </page>
+
+        <page>
+       		<label>
+        		<message key="ThankConfirmation" resource="storetext_dynamic_labels"/>
+        	</label>
+        	<description>
+        		<message key="ThankConfirmation_Text" resource="storetext_dynamic_labels"/>
+        	</description>
+  	     	<content rows="15">
+        		<message key="OrderCon_Text3" resource="storetext_dynamic"/>
+        	</content>
+         	<location file="tools/stores/$storeDir$/text/preview/$locale$/Preview_OrderConfirmationPage2.html" />
+        </page>
+
+    </store-front-text>
+
+</store-front>

@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","he",{redo:"שחזור פעולה",undo:"ביטול פעולה"});

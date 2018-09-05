@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<WidgetObjectDefinition package="plm"
+		definitionName="plmLayoutWidget_ProductRecommendationWidget" 
+		baseDefinitionName="plmBaseLayoutWidget"
+		parentDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		objectType="ProductRecommendationWidget"
+		gridPropertiesDefinitionName="plmWidgetProperties_ProductRecommendationWidget"
+		iconPath="/images/pagelayouts/widgetIcons/catalog_entry_recommend.png"
+		widgetDisplayGroups="AnyPage,CatalogEntryPage,CategoryPage,SearchPage"
+		helpLink="concepts/cpzwidcerec.htm">
+		
+		<PropertyDefinition propertyName="xWidgetProp_widgetOrientation">
+			<PropertyValue displayName="${plmPageLayoutResources.productRecommendationWidgetWidgetOrientation_Horizontal}" value="horizontal" />
+			<PropertyValue displayName="${plmPageLayoutResources.productRecommendationWidgetWidgetOrientation_Vertical}" value="vertical" />
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_displayPreference">
+			<PropertyValue displayName="${plmPageLayoutResources.productRecommendationWidgetDisplayPreference_Style1}" value="1" />
+			<PropertyValue displayName="${plmPageLayoutResources.productRecommendationWidgetDisplayPreference_Style2}" value="2" />
+			<PropertyValue displayName="${plmPageLayoutResources.productRecommendationWidgetDisplayPreference_Style3}" value="3" />
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsName" copyProtected="true">
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsId" copyProtected="true">
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsIdOverride" copyProtected="true">
+		</PropertyDefinition>		
+		
+		<PropertyDefinition propertyName="xWidgetProp_pageSize"
+			displayName="${plmPageLayoutResources.productRecommendationWidgetMaxProductsToDisplay}" 
+			maxValue="2147483647" 
+			minValue="1"
+			type="integer">
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_populationChoice">
+			<PropertyValue displayName="${plmPageLayoutResources.productRecommendationWidgetRecommendCatalogEntries}" value="useCatalogEntry" isDefault="true"/>
+			<PropertyValue displayName="${plmPageLayoutResources.productRecommendationWidgetRecommendWebActivity}" value="useWebactivity" />
+		</PropertyDefinition>
+
+
+		
+		<CreateService baseDefinitionName="plmBaseCreateLayoutWidget" />
+		<UpdateService baseDefinitionName="plmBaseUpdateLayoutWidget" />	
+		
+
+		<ChildObjectDefinition baseDefinitionName="plmWidgetDisplayTitle"/>
+		<ChildObjectDefinition baseDefinitionName="plmInheritedWidgetDisplayTitle"/>
+	
+		<ReferenceObjectDefinition 
+		 	baseDefinitionName="plmBaseDefaultMarketingContentReference" 
+		 	objectType="DefaultEMarketingSpotCatalogEntryContentReference" 
+		 	referencedTypes="Product,Bundle,CatalogGroupSKU,ProductSKU,Kit">
+		 	<TrueEnablementCondition/>
+		</ReferenceObjectDefinition>
+		
+		<ReferenceObjectDefinition 
+		 	baseDefinitionName="plmBaseDefaultMarketingContentReference" 
+		 	objectType="InheritedDefaultEMarketingSpotInheritedCatalogEntryContentReference" 
+		 	referencedTypes="InheritedProduct,InheritedBundle,InheritedCatalogGroupSKU,InheritedProductSKU,InheritedKit"
+		 	allowedParentTypes="InheritedPageLayout"
+		 	objectGroups="DefaultMarketingContentReferenceGroup,AssetStoreObjectsGroup">
+		 	<EnablementCondition checkHasAccessRight="true" conditionId="accessRightCondition" enablementValue="true"/>
+		</ReferenceObjectDefinition>
+		
+		<ReferenceObjectDefinition 
+		 	baseDefinitionName="plmBaseDefaultMarketingContentReference" 
+		 	objectType="InheritedDefaultEMarketingSpotCatalogEntryContentReference" 
+		 	referencedTypes="InheritedProduct,InheritedBundle,InheritedCatalogGroupSKU,InheritedProductSKU,InheritedKit">
+		 	<TrueEnablementCondition/>
+		</ReferenceObjectDefinition>
+
+		<ReferenceObjectDefinition baseDefinitionName="plmActivityReference"/>
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedActivityReference"/>
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedActivityInheritedReference"/>
+		
+		<Xml name="template">
+			<xWidgetProp_widgetOrientation>horizontal</xWidgetProp_widgetOrientation>
+			<xWidgetProp_pageSize>4</xWidgetProp_pageSize>
+			<xWidgetProp_showFeed>false</xWidgetProp_showFeed>
+			<xWidgetProp_populationChoice>useCatalogEntry</xWidgetProp_populationChoice>
+			<xWidgetProp_displayPreference>1</xWidgetProp_displayPreference>
+			<sequence>0</sequence>
+		</Xml>
+		
+		<MarketingWidgetValidator package="plm" />
+		<MarketingWidgetInheritedObjectValidator package="plm" />
+		
+	</WidgetObjectDefinition>
+
+</Definitions>

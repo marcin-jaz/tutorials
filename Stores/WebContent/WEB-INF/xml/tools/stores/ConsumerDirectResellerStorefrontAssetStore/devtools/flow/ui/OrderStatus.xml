@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+
+	<panel id="OrderStatusPanel" title="OrderStatusPanel.title" description="OrderStatusPanel.description" display-priority="6" />
+
+	<option-group id="OrderStatus.checkbox" title="OrderStatus.checkboxEnable.title" type="checkbox" display-priority="1" panel="OrderStatusPanel" >
+		
+		<option id="OrderStatus.checkboxEnable"
+			label="OrderStatus.checkboxEnable.label"
+			enables-features="TrackingStatus" />
+	</option-group>
+
+	<option-group id="OrderStatusTrackURL.checkbox" title="OrderStatusTrackURL.checkboxEnable.title" type="checkbox" display-priority="2" panel="OrderStatusPanel" >
+		
+		<option id="OrderStatusTrackURL.checkboxEnable"
+			label="OrderStatusTrackURL.checkboxEnable.label"
+			enables-features="TrackingURL" />
+			
+	</option-group>
+	
+</display>

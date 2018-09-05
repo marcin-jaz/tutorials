@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","el",{redo:"Ακύρωση αναίρεσης",undo:"Αναίρεση"});

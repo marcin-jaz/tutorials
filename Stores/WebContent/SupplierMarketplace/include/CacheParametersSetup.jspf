@@ -1,0 +1,99 @@
+<%
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2001, 2002
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+%>
+
+<%@ page import="com.ibm.commerce.beans.DataBeanManager" %>
+<%@ page import="com.ibm.commerce.user.beans.UserRegistrationDataBean" %>
+<%@ page import="com.ibm.commerce.user.beans.RoleDataBean" %>
+
+<jsp:useBean id="userRegistrationDataBean" class="com.ibm.commerce.user.beans.UserRegistrationDataBean" scope="page">
+    <%
+    userRegistrationDataBean.setCommandContext(cmdcontext);
+    DataBeanManager.activate(userRegistrationDataBean, request);
+    %>
+</jsp:useBean>
+
+<%
+	// LiveHelp
+	boolean liveHelp = com.ibm.commerce.collaboration.livehelp.beans.LiveHelpShopperConfiguration.isEnabled();
+
+	Long   userId       = null;
+	String userState    = null;
+	String userType	    = null;
+	Integer[] userRoles = null;
+    boolean bSeller         = false;
+    boolean bSiteAdmin      = false;
+    boolean bSellerAdmin    = false;
+	boolean bBuyerApprover	= false;
+	boolean bBuyerBuySide	= false;
+	boolean bBuyerAdmin		= false;
+	boolean bAdmin          = false;
+	boolean rfqLinkDisplayed   = false;
+	boolean displayApproverLink= false;
+	boolean bRegisteredUser	= false;
+	boolean bGuessUser		= false;
+
+	if  (cmdcontext != null) {
+		userId	= cmdcontext.getUserId();
+		userState	= cmdcontext.getUser().getState();
+		userType	= cmdcontext.getUser().getRegisterType();
+		userRoles	= userRegistrationDataBean.getRoles();
+
+		if   (userRegistrationDataBean.findUser()) {
+			bRegisteredUser = true;
+			bGuessUser      = false;
+		}
+		else {
+			bRegisteredUser = false;
+			bGuessUser      = true;
+		}
+
+		if (userRoles != null) {
+		
+			for (int i=0; i < userRoles.length; i++) {
+		            if (userRoles[i].intValue() == -1 || userRoles[i].intValue() == -27) {
+		                bSiteAdmin = true;
+		            }
+		            else if (userRoles[i].intValue() == -4) {
+		                bSeller = true;
+		            }
+		            else if (userRoles[i].intValue() == -20) {
+		                bSellerAdmin = true;
+		            }
+		            else if (userRoles[i].intValue() == -21) {
+		                bBuyerAdmin = true;
+		            }
+		            else if (userRoles[i].intValue() == -22) {
+		                bBuyerApprover = true;
+		            }
+		            else if (userRoles[i].intValue() == -24) {
+		                bBuyerBuySide = true;
+		            }
+			}
+		}
+
+		if ( (bBuyerBuySide) &&   (! rfqLinkDisplayed) ) {
+			rfqLinkDisplayed = true;
+		}
+
+		if (bBuyerBuySide && (bBuyerApprover || bBuyerAdmin) ) {
+			displayApproverLink = true;
+		}
+
+		if (bSellerAdmin || bSiteAdmin || bBuyerAdmin) {
+		    bAdmin = true;
+		}
+	}
+%>

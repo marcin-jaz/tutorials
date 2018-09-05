@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<WidgetObjectDefinition package="plm"
+		definitionName="plmLayoutWidget_RotatingContentWidget" 
+		baseDefinitionName="plmBaseLayoutWidget"
+		parentDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		objectType="RotatingContentWidget"
+		gridPropertiesDefinitionName="plmWidgetProperties_RotatingContentWidget"
+		iconPath="/images/pagelayouts/widgetIcons/rotating_image.png"
+		widgetDisplayGroups="AnyPage,CatalogEntryPage,CategoryPage,SearchPage"
+		helpLink="concepts/cpzwidrotate.htm">
+		
+		<PropertyDefinition propertyName="xWidgetProp_ribbonImageType">
+			<PropertyValue displayName="${plmPageLayoutResources.rotatingContentWidgetRibbonImageType_None}" value="none" />
+			<PropertyValue displayName="${plmPageLayoutResources.rotatingContentWidgetRibbonImageType_ThumbnailImages}" value="thumbnail" />
+			<PropertyValue displayName="${plmPageLayoutResources.rotatingContentWidgetRibbonImageType_DotImages}" value="dot" />
+			<PropertyValue displayName="${plmPageLayoutResources.rotatingContentWidgetRibbonImageType_Numbered}" value="number" />
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsName" copyProtected="true">
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsId" copyProtected="true">
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsIdOverride" copyProtected="true">
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_populationChoice">
+			<PropertyValue displayName="${plmPageLayoutResources.chooseDefaultContent}" value="useDefaultContent" isDefault="true"/>
+			<PropertyValue displayName="${plmPageLayoutResources.chooseWebActivity}" value="useWebactivity" />
+		</PropertyDefinition>		
+
+		<CreateService baseDefinitionName="plmBaseCreateLayoutWidget" />
+		<UpdateService baseDefinitionName="plmBaseUpdateLayoutWidget" />	
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmDefaultEMarketingSpotMarketingContentReference"/>
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedDefaultEMarketingSpotInheritedMarketingContentReference"/>
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedDefaultEMarketingSpotMarketingContentReference"/>
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmActivityReference"/>
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedActivityReference"/>
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedActivityInheritedReference"/>
+		
+		<Xml name="template">
+			<xWidgetProp_ribbonImageType>none</xWidgetProp_ribbonImageType>
+			<xWidgetProp_ribbonArrows>true</xWidgetProp_ribbonArrows>
+			<sequence>0</sequence>
+			<xWidgetProp_populationChoice>useDefaultContent</xWidgetProp_populationChoice>
+		</Xml>
+		
+		<MarketingWidgetValidator package="plm" />
+		<MarketingWidgetInheritedObjectValidator package="plm" />
+		
+	</WidgetObjectDefinition>
+
+</Definitions>

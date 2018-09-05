@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","ja",{redo:"やり直し",undo:"取り消し"});

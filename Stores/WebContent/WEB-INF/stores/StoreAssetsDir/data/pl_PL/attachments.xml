@@ -1,0 +1,14 @@
+  <!-- Attachments -->
+  <!-- New Attachment feature does NOT use ATTACHMENT or ATTACHUSG tables -->
+  <!-- Valid Attachment Object Types are CATALOG, CATGROUP, CATENTRY, CALLATERAL -->
+  <!-- Valid Attachment Relations are No Usages Selected, Warranty, Images, Full Images, User Manual -->
+  <!-- Attachments #1 will be the category image used by the mobile store   -->
+  <!-- Description of the attachment relation usage -->
+  <atchrlusds atchrlus_id="@atchrlus_id_Mobile" atchrlusds_id="@atchrlusds_id_Mobile_pl_PL" language_id="&pl_PL;" name="Mobile" shortdescription="Image used by mobile page."/>
+  <!--               -->
+  <!-- Attachment #1 -->
+  <!--               -->
+  <!-- Description of the attachment target -->
+  <atchtgtdsc atchtgt_id="@atchtgt_id_mobilecategory_1" atchtgtdsc_id="@atchtgtdsc_id_mobilecategory_1_pl_PL" language_id="&pl_PL;" name="Mobile image for furniture category used by mobile page" shortdescription="Mobile image for furniture category used by mobile page"/>
+  <!-- Description for the attachment relationship -->
+  <atchreldsc atchrel_id="@atchrel_id_mobilecategory_1" atchreldsc_id="@atchreldsc_id_mobilecategory_1_pl_PL" language_id="&pl_PL;" name="Mobile" shortdescription="Mobile furniture category"/>

@@ -1,0 +1,19 @@
+<c:url var="ShoppingCartURL" value="OrderCalculate">
+	<c:param name="storeId" value="${WCParam.storeId}" />
+	<c:param name="catalogId" value="${WCParam.catalogId}" />
+	<c:param name="orderId" value="${WCParam.orderId}" />
+	<c:param name="URL" value="OrderItemDisplay" />
+</c:url>
+
+<c:url var="ShippingAddressURL" value="${WCParam.ShippingURL}">
+	<c:param name="storeId" value="${WCParam.storeId}" />
+	<c:param name="catalogId" value="${WCParam.catalogId}" />
+	<c:param name="orderId" value="${WCParam.orderId}" />
+</c:url> 
+
+<c:url var="ShippingMethodURL" value="MultipleShippingMethodView">
+	<c:param name="storeId" value="${WCParam.storeId}" />
+	<c:param name="catalogId" value="${WCParam.catalogId}" />
+	<c:param name="orderId" value="${WCParam.orderId}" />
+	<c:param name="ShippingURL" value="${WCParam.ShippingURL}"/>
+</c:url>

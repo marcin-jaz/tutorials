@@ -1,0 +1,84 @@
+<%
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2008    
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+%>
+<%-- 
+  *****
+  * This JSP fragment displays the breadcrumb trail section of the checkout flow if the "Pick up in store"
+  * option is selected. It will display "Store Selection", "Address", and "Shipping and Billing" links in
+  * the checkout flow breadcrumb trail.
+  *****
+--%>
+<!-- BEGIN SingleShipmentSummaryBreadCrumbExt.jspf -->
+					<c:set var="pickUpInStoreOrder" value="false"/>
+					<c:if test="${order.orderItem[0].orderItemShippingInfo.shippingMode.shippingModeIdentifier.externalIdentifier.shipModeCode == 'PickupInStore'}">
+						<c:set var="pickUpInStoreOrder" value="true"/>
+					</c:if>
+					
+					<c:choose>
+						<c:when test="${pickUpInStoreOrder}">
+							<wcf:url var="StoreSelectionURL" value="CheckoutStoreSelectionView">
+							  <wcf:param name="langId" value="${langId}" />
+							  <wcf:param name="storeId" value="${WCParam.storeId}" />
+							  <wcf:param name="catalogId" value="${WCParam.catalogId}" />
+							  <wcf:param name="fromPage" value="ShoppingCart" />
+							</wcf:url>
+							
+							<wcf:url var="CheckoutAddressURL" value="CheckoutPayInStoreView">
+							  <wcf:param name="langId" value="${langId}" />
+							  <wcf:param name="storeId" value="${WCParam.storeId}" />
+							  <wcf:param name="catalogId" value="${WCParam.catalogId}" />
+							</wcf:url>
+							
+							<wcf:url var="ShippingAndBillingURL" value="DOMOrderShippingBillingView" type="Ajax">
+								<wcf:param name="langId" value="${langId}" />
+								<wcf:param name="storeId" value="${WCParam.storeId}" />
+								<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+							</wcf:url>
+							<a href="<c:out value="${StoreSelectionURL}"/>" id="WC_SingleShipmentDisplay_links_2"><span><fmt:message key="BCT_STORE_SELECTION" bundle="${storeText}"/></span></a> | 
+							<a href="<c:out value="${CheckoutAddressURL}"/>" id="WC_SingleShipmentDisplay_links_3"><span><fmt:message key="BCT_ADDRESS" bundle="${storeText}"/></span></a> | 
+							<a href="<c:out value="${ShippingAndBillingURL}"/>" id="WC_SingleShipmentSummary_links_3"> <span><fmt:message key="BCT_SHIPPING_AND_BILLING" bundle="${storeText}"/></span></a> | 
+						</c:when>
+						<c:otherwise>
+							<flow:ifEnabled feature="SharedShippingBillingPage">
+							<wcf:url var="ShippingAndBillingURL" value="OrderShippingBillingView" type="Ajax">
+								<wcf:param name="langId" value="${langId}" />						
+								<wcf:param name="storeId" value="${WCParam.storeId}" />
+								<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+								<wcf:param name="purchaseorder_id" value="${WCParam.purchaseorder_id}"/>
+								<wcf:param name="quickCheckoutProfileForPayment" value="${WCParam.quickCheckoutProfileForPayment}"/>
+							</wcf:url>
+							<a href="<c:out value="${ShippingAndBillingURL}"/>" id="WC_SingleShipmentSummary_links_3"> <span><fmt:message key="BCT_SHIPPING_AND_BILLING" bundle="${storeText}"/></span></a> | 
+							</flow:ifEnabled>
+							<flow:ifDisabled feature="SharedShippingBillingPage">
+							<wcf:url var="TraditionalShippingURL" value="OrderShippingBillingView" type="Ajax">
+								<wcf:param name="langId" value="${langId}" />						
+								<wcf:param name="storeId" value="${WCParam.storeId}" />
+								<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+								<wcf:param name="forceShipmentType" value="1" />
+							</wcf:url>
+							<wcf:url var="TraditionalBillingURL" value="OrderBillingView" type="Ajax">
+								<wcf:param name="langId" value="${langId}" />						
+								<wcf:param name="storeId" value="${WCParam.storeId}" />
+								<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+								<wcf:param name="forceShipmentType" value="1" />
+								<c:if test="${WCParam.purchaseorder_id != null}">
+									<wcf:param name="purchaseorder_id" value="${WCParam.purchaseorder_id}"/>
+								</c:if>
+							</wcf:url>
+							<a href="<c:out value="${TraditionalShippingURL}"/>" id="WC_SingleShipmentSummary_links_3a"> <span><fmt:message key="BCT_SHIPPING" bundle="${storeText}"/></span></a> | <a href="<c:out value="${TraditionalBillingURL}"/>" id="WC_SingleShipmentSummary_links_3b"> <span><fmt:message key="BCT_BILLING" bundle="${storeText}"/></span></a> | 
+							</flow:ifDisabled>
+						</c:otherwise>
+					</c:choose>
+<!-- END SingleShipmentSummaryBreadCrumbExt.jspf -->

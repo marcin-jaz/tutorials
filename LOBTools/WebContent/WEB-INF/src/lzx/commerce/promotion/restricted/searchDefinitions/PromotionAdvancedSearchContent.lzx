@@ -1,0 +1,222 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<library>
+
+		<!---
+			<p>
+			Class definition for the advanced search class for Promotions.
+			This class extends from the wcfAdvancedSearchContent class and is in charge of building the 
+			user interface for gathering the input from the user to perform the advanced search.
+			</p>
+			
+			<p>
+			As required by extending the wcfAdvancedSearchContent, a setSearchOptions method is
+			implemented to set the searchOptions attribute of the super class. The searchOptions is an
+			object that contains the name/value pairs that will be sent to the search service.
+			</p>
+			
+			<p>
+			This search is used to find the following:
+			{@link proBasePromotionPrimaryObjectDefinition Promotions}
+			</p>
+			
+			<p>			
+			Search parameters included in this class : 
+				<ol>
+					<li> promotionName - Represents the name of the promotion.
+					<li> startDateDate1 - Represents the start date of the promotion is after this date.   
+					<li> startDateDate2 - Represents the start date of the promotion is before this date.
+					<li> promotionStatus - Represents the specific status of the promotion.
+					<li> promotionType - Represents the specific type of the promotion.
+					<li> promotionRedemptionMethod - Represents the specific redemption method of the promotion.
+				</ol>
+			</p>									  
+			
+			<p>
+			If this class is extended to append some extra search parameters, you must also write the
+			setSearchOptions method that calls the super.setSearchOptions() and then appends the new
+			extra search parameters to the searchOptions attribute.
+			</p>
+		-->
+		<class name="proPromotionAdvancedSearchContent" extends="wcfAdvancedSearchContent">
+			<attribute name="myStyle" value="${this.parent.parent.parent.parent.parent.style}"/>
+			
+			<simplelayout axis="y" spacing="6"/>
+			<view name="section1" width="100%">
+					<simplelayout axis="y"/>
+					<view name="filler1" height="15"/>
+					<!-- Instructional text to the user -->
+					<text text="${promotionResources.searchInstructionalText.string}" multiline="true" width="100%" />
+					<view name="filler2" height="2"/>
+			</view>
+			<view name="section2" width="410">
+					<simplelayout axis="y" spacing="2"/>
+					<view name="section2_1" width="100%">
+						<text text="${promotionResources.searchInstructionalText_findPromotion.string}" multiline="true" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}" fontstyle="bold" />					
+					</view>
+					<view name="section2_2" width="100%">
+						<text text="${promotionResources.searchInstructionalText_namePrompt.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}"/>
+					</view>					
+					<view name="section2_3" width="100%">
+						<!-- Text field for the promotionName search parameter -->
+						<wcfInputText name="promotionName" width="177"/>
+					</view>
+			</view>
+			
+			<view name="section3" width="410">
+				<simplelayout axis="y" spacing="2"/>
+				<view resource="dividerLine" stretches="width" width="${parent.width - 3}"/>
+				<view name="filler5" height="2"/>	
+				<view name="section3_1" width="100%">
+					<text text="${promotionResources.searchInstructionalText_narrowBy.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}" fontstyle="bold"/>
+				</view>
+				<view name="section3_2" width="100%">
+					<text text="${promotionResources.searchInstructionalText_dateRange.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}"/>
+					<view name="filler6" height="5"/>
+				</view>
+				<view name="section3_3" width="97%">
+					<simplelayout axis="y" spacing="2"/>
+					<text text="${promotionResources.searchInstructionalText_date1.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}"/>
+					<wcfDateTimePicker name="startDateDate1" showTimeZone="false"/>
+					<view name="filler7" height="2"/>
+					<text text="${promotionResources.searchInstructionalText_date2.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}"/>
+					<wcfDateTimePicker name="startDateDate2" endOfDay="true" showTimeZone="false"/>
+				</view>
+			</view>			
+			
+		 	<view name="section5" width="410">
+				<simplelayout axis="x"/>
+				<view name="section5_1" width="100%">
+					<simplelayout axis="y" spacing="2"/>
+					<view name="section5_1_1" width="100%">
+						<text text="${promotionResources.promotion_newPromotionPromotionType.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}"/>
+					</view>
+					<view name="section5_1_2" width="100%">
+						  <!-- 
+							  An instance of the Promotion Type Selection widget used 
+							  for choosing the specific type of promotion.
+							  This is for the promotionType search parameter.
+						   -->
+						  <proPromotionSelectionWidget advancedSearchContent="${classroot}" name="promotionSelection" width="300"/>
+					</view> 
+				</view>
+			</view>			
+					
+		 	<view name="section6" width="410">
+				<simplelayout axis="x"/>
+				<view name="section6_1" width="100%">
+					<simplelayout axis="y" spacing="2"/>
+					<view name="section6_1_1" width="100%">
+						<text text="${promotionResources.promotion_newPromotionUsageType.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}"/>
+					</view>
+					<view name="section6_1_2" width="100%">
+						<wcfBaseComboBox name="selectorRM">
+							<mktTextlistitem value="*" displayName="${promotionResources['promotionRedemptionMethodText_any'].string}" selected="true"/>
+							<mktTextlistitem value="0" displayName="${promotionResources['promotion_newPromotionRegularTitle'].string}"/>
+							<mktTextlistitem value="1" displayName="${promotionResources['promotion_newPromotionPromoCodeTitle'].string}"/>
+							<mktTextlistitem value="-1" displayName="${promotionResources['promotion_newPromotionCouponTitle'].string}"/>
+						</wcfBaseComboBox>
+					</view> 
+				</view>
+			</view>	
+									
+			<view name="section4" width="410">
+
+					<simplelayout axis="y" spacing="2"/>
+					<view name="section4_1" width="100%">
+						<text text="${promotionResources.promotionStatusText.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}"/>
+					</view>					
+					<view name="section4_2" width="97%">
+						<simplelayout axis="y" />
+						<wcfBaseRadioGroup x="5" name="statusSelection">
+							    <wcfBaseRadioButton value="1" text="${promotionResources.promotionStatusText_any.string}" selected="true"/>
+							    <wcfBaseRadioButton value="2" text="${promotionResources.promotionStatusText_specific.string}"/>
+						</wcfBaseRadioGroup>
+						<view name="filler9" height="6"/>
+						<view name="section4_2_1" width="100%" x="24" visible="${immediateparent.statusSelection.value == 2}">
+							<simplelayout axis="y" spacing="2"/>
+							<!-- Checkbox for the typeActive search parameter -->
+							<wcfBaseCheckbox name="typeActive" text="${promotionResources.promotionStatusText_active.string}" width="160"/>
+							<!-- Checkbox for the typeInactive search parameter -->
+							<wcfBaseCheckbox name="typeInactive" text="${promotionResources.promotionStatusText_inactive.string}" width="160"/>									
+							<!-- Checkbox for the typeArchived search parameter -->
+							<wcfBaseCheckbox name="typeArchived" text="${promotionResources.promotionStatusText_archived.string}" width="160"/>
+							<!-- Checkbox for the typeActivating search parameter -->
+							<wcfBaseCheckbox name="typeActivating" text="${promotionResources.promotionStatusText_activating.string}" width="160"/>									
+							<!-- Checkbox for the typeSuspended search parameter -->
+							<wcfBaseCheckbox name="typeSuspended" text="${promotionResources.promotionStatusText_suspended.string}" width="160"/>									
+						</view>
+					</view>
+			</view>			
+			<!---
+				Construct the search options for the all promotion advanced search.
+			-->
+			<method name="setSearchOptions">
+				<![CDATA[
+					super.setSearchOptions();
+					var newSearchOptions = {};
+					newSearchOptions.promotionName = this.section2.section2_3.promotionName.getText();
+
+					var date1 = this.section3.section3_3.startDateDate1.getDateTime();
+					if (date1 != null) {
+						newSearchOptions.startDateDate1 = wcfDateUtil.format(date1, wcfDateUtil.DATE_TIME_FORMAT);
+					} 
+					var date2 = this.section3.section3_3.startDateDate2.getDateTime();
+					if (date2 != null) {
+						newSearchOptions.startDateDate2 = wcfDateUtil.format(date2, wcfDateUtil.DATE_TIME_FORMAT);
+					}						
+					
+					newSearchOptions.statusSelection = this.section4.section4_2.statusSelection.getValue();
+					if (newSearchOptions.statusSelection == 2) {
+						newSearchOptions.promotionStatus = '';
+						if(this.section4.section4_2.section4_2_1.typeActive.getValue()){
+							newSearchOptions.promotionStatus = '1';
+						}
+						if(this.section4.section4_2.section4_2_1.typeInactive.getValue()){
+							if(newSearchOptions.promotionStatus != ''){
+								newSearchOptions.promotionStatus += ',';
+							}
+							newSearchOptions.promotionStatus += '0';
+						}
+						if(this.section4.section4_2.section4_2_1.typeArchived.getValue()){
+							if(newSearchOptions.promotionStatus != ''){
+								newSearchOptions.promotionStatus += ',';
+							}
+							newSearchOptions.promotionStatus += '6';
+						}	
+						if(this.section4.section4_2.section4_2_1.typeActivating.getValue()){
+							if(newSearchOptions.promotionStatus != ''){
+								newSearchOptions.promotionStatus += ',';
+							}
+							newSearchOptions.promotionStatus += '5';
+						}
+						if(this.section4.section4_2.section4_2_1.typeSuspended.getValue()){
+							if(newSearchOptions.promotionStatus != ''){
+								newSearchOptions.promotionStatus += ',';
+							}
+							newSearchOptions.promotionStatus += '3';
+						}
+					} else {
+						newSearchOptions.promotionStatus = '*';
+					}																						
+
+					newSearchOptions.promotionType = this.section5.section5_1.section5_1_2.promotionSelection.getValue();
+					newSearchOptions.promotionRedemptionMethod = this.section6.section6_1.section6_1_2.selectorRM.getValue();
+					newSearchOptions.advancedSearch = true;
+															
+					this.searchOptions = newSearchOptions;
+				]]>
+			</method>
+		</class>		
+</library>

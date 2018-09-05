@@ -1,0 +1,48 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2003, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+
+<%--
+  *****
+  * This JSP segment displays the user name section of the registration forms
+  * for the following countries/regions:
+  *  - Japan
+  *  - Korea
+  * The display order is as follows (* means mandatory):
+  *  - last name*
+  *  - first name*
+  *****
+--%>
+
+<tr>
+	<td class="logonheading" id="<c:out value="WC_${pageName}_NameEntryForm_TableCell_1"/>">
+		<span class="reqd">*</span><fmt:message key="Reg_Buyer2" bundle="${storeText}"/>
+	</td>
+	<td class="logonheading" id="<c:out value="WC_${pageName}_NameEntryForm_TableCell_2"/>">
+		<span class="reqd">*</span><fmt:message key="Reg_Buyer1" bundle="${storeText}"/>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_NameEntryForm_TableCell_3"/>">
+		<input class="logon" type="text" maxlength="40" size="25" name="<c:out value="${paramPrefix}lastName"/>" value="<c:out value="${paramSource.lastName}"/>" id="<c:out value="WC_${pageName}_NameEntryForm_FormInput_${paramPrefix}lastName_1"/>"/>
+	</td>
+	<td id="<c:out value="WC_${pageName}_NameEntryForm_TableCell_4"/>">
+		<input class="logon" type="text" maxlength="40" size="25" name="<c:out value="${paramPrefix}firstName"/>" value="<c:out value="${paramSource.firstName}"/>" id="<c:out value="WC_${pageName}_NameEntryForm_FormInput_${paramPrefix}firstName_1"/>"/>
+	</td>
+</tr>
+
+<tr></tr>
+<tr></tr>

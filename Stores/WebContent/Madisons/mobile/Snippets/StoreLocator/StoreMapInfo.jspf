@@ -1,0 +1,287 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%--
+  *****
+  * This JSP displays the store map.
+  *****
+--%>
+
+<!-- BEGIN StoreMapInfo.jspf -->
+
+
+
+<div id="store_map" class="content_box">
+	<div class="heading_container_with_underline">
+		<h2><c:out value="${physicalStores[i].description[0].name}" /></h2>
+		
+		<div class="clear_float"></div>
+	</div>
+	
+	<%@ include file="./ShowMap.jspf" %>
+
+	<div class="paging_control_with_underline">
+		<c:choose>
+			<c:when test="${empty storeListIndex && empty physicalStoreId}">
+				<c:choose>
+					<c:when test="${!empty geoNodeId}">
+						<c:set var="totalPage" value="${showVerb.recordSetTotal}" />
+					</c:when>
+					<c:otherwise>
+						<c:set var="totalPage" value="${resultStoreNum}" />
+					</c:otherwise>
+				</c:choose>
+				<c:if test="${totalPage > 1}">
+					<c:if test="${page > 1}">
+						<span class="bullet">&#171; </span>
+						<c:url var="mStoreMapURL" value="mStoreMapView">
+							<c:param name="storeId" value="${WCParam.storeId}" />
+							<c:param name="geoNodeId" value="${geoNodeId}" />
+							<c:param name="geoCodeLatitude" value="${geoCodeLatitude}" />
+							<c:param name="geoCodeLongitude" value="${geoCodeLongitude}" />
+							<c:param name="recordSetReferenceId" value="${showVerb.recordSetReferenceId}" />
+							<c:param name="page" value="${page - 1}" />
+							<c:param name="productId" value="${WCParam.productId}" />
+							<c:param name="pgGrp" value="${WCParam.pgGrp}" />
+							<c:param name="catalogId" value="${WCParam.catalogId}" />
+							<c:param name="physicalStoreIndex" value="${WCParam.physicalStoreIndex-1}" />
+							<c:param name="storeAvailPage" value="${storeAvailPage}" />
+							<c:param name="prevPage" value="${WCParam.prevPage}" />
+							<c:choose>
+								<c:when test="${WCParam.pgGrp == 'search'}">
+									<c:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+									<c:param name="pageSize" value="${WCParam.pageSize}"/>
+									<c:param name="searchTerm" value="${WCParam.searchTerm}"/>
+									<c:param name="beginIndex" value="${WCParam.beginIndex}"/>		  
+									<c:param name="sType" value="${WCParam.sType}"/>								
+								</c:when>
+								<c:otherwise>
+									<c:param name="sequence" value="${WCParam.sequence}" />
+									<c:param name="top_category" value="${WCParam.top_category}" />
+									<c:param name="parent_category_rn" value="${WCParam.parent_category_rn}" />
+									<c:param name="categoryId" value="${WCParam.categoryId}" />
+								</c:otherwise>
+							</c:choose>
+							<c:if test="${!empty WCParam.storeList}">
+								<c:param name="storeList" value="${WCParam.storeList}" />
+							</c:if>
+							<c:if test="${!empty WCParam.fromPage}">								
+								<c:param name="fromPage" value="${WCParam.fromPage}" />
+							</c:if>
+						</c:url>
+						<a href="${fn:escapeXml(mStoreMapURL)}" title="<fmt:message key='MSTDT_PREV_TITLE' bundle='${storeText}' />"><fmt:message key="MSTDT_PREV" bundle="${storeText}" /></a>
+					</c:if>
+					<c:if test="${(page > 1) && (page < totalPage)}">
+						&#160;&#160;
+					</c:if>
+					<c:if test="${page < totalPage}">
+						<c:url var="mStoreMapURL" value="mStoreMapView">
+							<c:param name="storeId" value="${WCParam.storeId}" />
+							<c:param name="geoNodeId" value="${geoNodeId}" />
+							<c:param name="geoCodeLatitude" value="${geoCodeLatitude}" />
+							<c:param name="geoCodeLongitude" value="${geoCodeLongitude}" />
+							<c:param name="recordSetReferenceId" value="${showVerb.recordSetReferenceId}" />
+							<c:param name="page" value="${page + 1}" />
+							<c:param name="productId" value="${WCParam.productId}" />
+							<c:param name="pgGrp" value="${WCParam.pgGrp}" />
+							<c:param name="catalogId" value="${WCParam.catalogId}" />
+							<c:param name="physicalStoreIndex" value="${WCParam.physicalStoreIndex+1}" />
+							<c:param name="storeAvailPage" value="${storeAvailPage}" />
+							<c:param name="prevPage" value="${WCParam.prevPage}" />
+							<c:choose>
+								<c:when test="${WCParam.pgGrp == 'search'}">
+									<c:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+									<c:param name="pageSize" value="${WCParam.pageSize}"/>
+									<c:param name="searchTerm" value="${WCParam.searchTerm}"/>
+									<c:param name="beginIndex" value="${WCParam.beginIndex}"/>		  
+									<c:param name="sType" value="${WCParam.sType}"/>								
+								</c:when>
+								<c:otherwise>
+									<c:param name="sequence" value="${WCParam.sequence}" />
+									<c:param name="top_category" value="${WCParam.top_category}" />
+									<c:param name="parent_category_rn" value="${WCParam.parent_category_rn}" />
+									<c:param name="categoryId" value="${WCParam.categoryId}" />
+								</c:otherwise>
+							</c:choose>
+							<c:if test="${!empty WCParam.storeList}">
+								<c:param name="storeList" value="${WCParam.storeList}" />
+							</c:if>
+							<c:if test="${!empty WCParam.fromPage}">								
+								<c:param name="fromPage" value="${WCParam.fromPage}" />
+							</c:if>
+						</c:url>
+						<a href="${fn:escapeXml(mStoreMapURL)}" title="<fmt:message key='MSTDT_NEXT_TITLE' bundle='${storeText}' />"><fmt:message key="MSTDT_NEXT" bundle="${storeText}" /></a>
+						<span class="bullet"> &#187;</span>
+					</c:if>
+				</c:if>
+			</c:when>
+			<c:when test="${!empty physicalStoreId}">
+				<c:if test="${physicalStoreSize > 1}">
+					<c:if test="${page > 1}">
+						<span class="bullet">&#171; </span>
+						<c:url var="mStoreMapURL" value="mStoreMapView">
+							<c:param name="storeId" value="${WCParam.storeId}" />
+							<c:param name="physicalStoreId" value="${physicalStoreArray[page-2]}" />
+							<c:param name="productId" value="${WCParam.productId}" />
+							<c:param name="pgGrp" value="${WCParam.pgGrp}" />
+							<c:param name="catalogId" value="${WCParam.catalogId}" />
+							<c:param name="physicalStoreIndex" value="${WCParam.physicalStoreIndex-1}" />
+							<c:param name="storeAvailPage" value="${storeAvailPage}" />
+							<c:param name="prevPage" value="${WCParam.prevPage}" />
+							<c:choose>
+								<c:when test="${WCParam.pgGrp == 'search'}">
+									<c:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+									<c:param name="pageSize" value="${WCParam.pageSize}"/>
+									<c:param name="searchTerm" value="${WCParam.searchTerm}"/>
+									<c:param name="beginIndex" value="${WCParam.beginIndex}"/>		  
+									<c:param name="sType" value="${WCParam.sType}"/>								
+								</c:when>
+								<c:otherwise>
+									<c:param name="sequence" value="${WCParam.sequence}" />
+									<c:param name="top_category" value="${WCParam.top_category}" />
+									<c:param name="parent_category_rn" value="${WCParam.parent_category_rn}" />
+									<c:param name="categoryId" value="${WCParam.categoryId}" />
+								</c:otherwise>
+							</c:choose>
+							<c:if test="${!empty WCParam.storeList}">
+								<c:param name="storeList" value="${WCParam.storeList}" />
+							</c:if>
+							<c:if test="${!empty WCParam.fromPage}">								
+								<c:param name="fromPage" value="${WCParam.fromPage}" />
+							</c:if>
+						</c:url>
+						<a href="${fn:escapeXml(mStoreMapURL)}" title="<fmt:message key='MSTDT_PREV_TITLE' bundle='${storeText}' />"><fmt:message key="MSTDT_PREV" bundle="${storeText}" /></a>
+					</c:if>
+					<c:if test="${(page > 1) && (page < physicalStoreSize)}">
+						&#160;&#160;
+					</c:if>
+					<c:if test="${page < physicalStoreSize}">
+						<c:url var="mStoreMapURL" value="mStoreMapView">
+							<c:param name="storeId" value="${WCParam.storeId}" />
+							<c:param name="physicalStoreId" value="${physicalStoreArray[page]}" />
+							<c:param name="productId" value="${WCParam.productId}" />
+							<c:param name="pgGrp" value="${WCParam.pgGrp}" />
+							<c:param name="catalogId" value="${WCParam.catalogId}" />
+							<c:param name="physicalStoreIndex" value="${WCParam.physicalStoreIndex+1}" />
+							<c:param name="storeAvailPage" value="${storeAvailPage}" />
+							<c:param name="prevPage" value="${WCParam.prevPage}" />
+							<c:choose>
+								<c:when test="${WCParam.pgGrp == 'search'}">
+									<c:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+									<c:param name="pageSize" value="${WCParam.pageSize}"/>
+									<c:param name="searchTerm" value="${WCParam.searchTerm}"/>
+									<c:param name="beginIndex" value="${WCParam.beginIndex}"/>		  
+									<c:param name="sType" value="${WCParam.sType}"/>								
+								</c:when>
+								<c:otherwise>
+									<c:param name="sequence" value="${WCParam.sequence}" />
+									<c:param name="top_category" value="${WCParam.top_category}" />
+									<c:param name="parent_category_rn" value="${WCParam.parent_category_rn}" />
+									<c:param name="categoryId" value="${WCParam.categoryId}" />
+								</c:otherwise>
+							</c:choose>
+							<c:if test="${!empty WCParam.storeList}">
+								<c:param name="storeList" value="${WCParam.storeList}" />
+							</c:if>
+							<c:if test="${!empty WCParam.fromPage}">								
+								<c:param name="fromPage" value="${WCParam.fromPage}" />
+							</c:if>
+						</c:url>
+						<a href="${fn:escapeXml(mStoreMapURL)}" title="<fmt:message key='MSTDT_NEXT_TITLE' bundle='${storeText}' />"><fmt:message key="MSTDT_NEXT" bundle="${storeText}" /></a>
+						<span class="bullet"> &#187;</span>
+					</c:if>
+				</c:if>
+			</c:when>
+			<c:otherwise>
+				<c:if test="${physicalStoreSize > 1}">
+					<c:if test="${page > 1}">
+						<span class="bullet">&#171; </span>
+						<c:url var="mStoreMapURL" value="mStoreMapView">
+							<c:param name="storeId" value="${WCParam.storeId}" />
+							<c:param name="storeListIndex" value="${i-1}" />
+							<c:param name="productId" value="${WCParam.productId}" />
+							<c:param name="pgGrp" value="${WCParam.pgGrp}" />
+							<c:param name="catalogId" value="${WCParam.catalogId}" />
+							<c:param name="physicalStoreIndex" value="${WCParam.physicalStoreIndex-1}" />
+							<c:param name="storeAvailPage" value="${storeAvailPage}" />
+							<c:param name="prevPage" value="${WCParam.prevPage}" />
+							<c:choose>
+								<c:when test="${WCParam.pgGrp == 'search'}">
+									<c:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+									<c:param name="pageSize" value="${WCParam.pageSize}"/>
+									<c:param name="searchTerm" value="${WCParam.searchTerm}"/>
+									<c:param name="beginIndex" value="${WCParam.beginIndex}"/>		  
+									<c:param name="sType" value="${WCParam.sType}"/>								
+								</c:when>
+								<c:otherwise>
+									<c:param name="sequence" value="${WCParam.sequence}" />
+									<c:param name="top_category" value="${WCParam.top_category}" />
+									<c:param name="parent_category_rn" value="${WCParam.parent_category_rn}" />
+									<c:param name="categoryId" value="${WCParam.categoryId}" />
+								</c:otherwise>
+							</c:choose>
+							<c:if test="${!empty WCParam.storeList}">
+								<c:param name="storeList" value="${WCParam.storeList}" />
+							</c:if>
+							<c:if test="${!empty WCParam.fromPage}">								
+								<c:param name="fromPage" value="${WCParam.fromPage}" />
+							</c:if>
+						</c:url>
+						<a href="${fn:escapeXml(mStoreMapURL)}" title="<fmt:message key='MSTDT_PREV_TITLE' bundle='${storeText}' />"><fmt:message key="MSTDT_PREV" bundle="${storeText}" /></a>
+					</c:if>
+					<c:if test="${(page > 1) && (page < physicalStoreSize)}">
+						&#160;&#160;
+					</c:if>
+					<c:if test="${page < physicalStoreSize}">
+						<c:url var="mStoreMapURL" value="mStoreMapView">
+							<c:param name="storeId" value="${WCParam.storeId}" />
+							<c:param name="storeListIndex" value="${i+1}" />
+							<c:param name="productId" value="${WCParam.productId}" />
+							<c:param name="pgGrp" value="${WCParam.pgGrp}" />
+							<c:param name="catalogId" value="${WCParam.catalogId}" />
+							<c:param name="physicalStoreIndex" value="${WCParam.physicalStoreIndex+1}" />
+							<c:param name="storeAvailPage" value="${storeAvailPage}" />
+							<c:param name="prevPage" value="${WCParam.prevPage}" />
+							<c:choose>
+								<c:when test="${WCParam.pgGrp == 'search'}">
+									<c:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+									<c:param name="pageSize" value="${WCParam.pageSize}"/>
+									<c:param name="searchTerm" value="${WCParam.searchTerm}"/>
+									<c:param name="beginIndex" value="${WCParam.beginIndex}"/>		  
+									<c:param name="sType" value="${WCParam.sType}"/>								
+								</c:when>
+								<c:otherwise>
+									<c:param name="sequence" value="${WCParam.sequence}" />
+									<c:param name="top_category" value="${WCParam.top_category}" />
+									<c:param name="parent_category_rn" value="${WCParam.parent_category_rn}" />
+									<c:param name="categoryId" value="${WCParam.categoryId}" />
+								</c:otherwise>
+							</c:choose>
+							<c:if test="${!empty WCParam.storeList}">
+								<c:param name="storeList" value="${WCParam.storeList}" />
+							</c:if>
+							<c:if test="${!empty WCParam.fromPage}">								
+								<c:param name="fromPage" value="${WCParam.fromPage}" />
+							</c:if>
+						</c:url>
+						<a href="${fn:escapeXml(mStoreMapURL)}" title="<fmt:message key='MSTDT_NEXT_TITLE' bundle='${storeText}' />"><fmt:message key="MSTDT_NEXT" bundle="${storeText}" /></a>
+						<span class="bullet"> &#187;</span>
+					</c:if>
+				</c:if>
+			</c:otherwise>
+		</c:choose>
+	</div>
+	
+</div>
+
+<!-- END StoreMapInfo.jspf -->

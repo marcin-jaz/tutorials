@@ -1,0 +1,129 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<library>
+	<!---
+		@keywords private
+		This class is used to create an error indicator view. The error indicator view is associated
+		with a component that has an error. The component view must have a boolean attribute named "hasError".
+	-->
+	<class name="wcfErrorIndicator" extends="drawview" options="ignorelayout">
+		<!--- The view around which the error indicator will be displayed. This is a required attribute. -->
+		<attribute name="indicatorView" value="${null}"/>
+		<!---
+			The number of pixels of offset between the indicator view and the error indicator.
+		-->
+		<attribute name="offset" type="number" value="1" />
+		<!---
+			The color of the error indicator.
+		-->
+		<attribute name="errorBorderColor" type="color" value="0xFF0000"/>
+		<!---
+			The width of the error indicator border.
+		-->
+		<attribute name="errorBorderSize" type="number" value="1"/>
+		
+		<!--- @keywords private -->
+		<method name="init">
+			<![CDATA[			
+			super.init();
+			if (this.indicatorView.hasError) {
+				this.renderLines();
+			}
+			else {
+				this.setAttribute("visible", false);
+			}
+			]]>
+		</method>
+
+		<!---
+			@keywords private
+		-->
+		<method name="destroy">
+			<![CDATA[
+			if (this["renderLinesDel"]) {
+				this.renderLinesDel.unregisterAll();
+				delete this.renderLinesDel;
+			}
+			super.destroy();
+			]]>
+		</method>
+
+		<!---
+			Handle changes to hasError.
+		-->
+		<handler name="onhasError" reference="this.indicatorView">
+			<![CDATA[
+			if (this.indicatorView.hasError) {
+				this.sendBehind(this.indicatorView);
+				this.setAttribute("visible", true);
+				this.renderLines();
+			}
+			else {
+				this.setAttribute("visible", false);
+				if (this["renderLinesDel"]) {
+					this.renderLinesDel.unregisterAll();
+				}
+			}
+			]]>
+		</handler>
+
+		<!--- @keywords private -->	
+		<method name="renderLines" args="e=null"> 
+			<![CDATA[
+			if (this["renderLinesDel"]) {
+				this.renderLinesDel.unregisterAll();
+			}
+			else {
+				this.renderLinesDel = new lz.Delegate(this, "renderLines");
+			}
+			
+			if (this.visible) {
+				this.renderLinesDel.register(this.indicatorView, "onx");
+				this.renderLinesDel.register(this.indicatorView, "ony");
+				this.renderLinesDel.register(this.indicatorView, "onwidth");
+				this.renderLinesDel.register(this.indicatorView, "onheight");
+				
+				this.setAttribute("x", this.indicatorView.x - this.offset);
+				this.setAttribute("y", this.indicatorView.y - this.offset);
+				
+				this.clear();
+			
+				this.beginPath();
+				this.strokeStyle = this.errorBorderColor;
+				this.lineWidth = this.errorBorderSize;
+				
+				var startX = this.indicatorView.getAttributeRelative("x", this) - this.x - 1;
+				var startY = this.indicatorView.getAttributeRelative("y", this) - this.y - 1;
+				this.moveTo(startX, startY);
+				
+				// Draw borders from left to right, top to bottom
+				this.lineTo(startX + this.indicatorView.width + 1, startY);
+				this.stroke();
+				
+				this.lineTo(startX + this.indicatorView.width + 1, startY + this.indicatorView.height + 1);
+				this.stroke();
+				
+				this.lineTo(startX, startY + this.indicatorView.height + 1);
+				this.stroke();
+				
+				this.lineTo(startX, startY);
+				this.stroke();
+			}
+			]]>
+		</method>
+		
+	</class>
+
+</library>

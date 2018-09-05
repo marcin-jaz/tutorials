@@ -1,0 +1,27 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<!-- BEGIN SearchPageNavDisplay.jspf-->
+
+<form name="SearchPageForm" id="SearchPageForm" method="post" action="">
+	<input type="hidden" name="pageView" value="<c:out value="${pageView}"/>" id="pageView"/>
+	<input type="hidden" name="beginIndex" value="0" id="WC_SearchPageLeftSidebarDisplayf_inputs_1"/>
+	<input type="hidden" name="orderBy1" value="OfferPricePrice" id="WC_SearchPageLeftSidebarDisplayf_inputs_2"/>
+	<input type="hidden" name="manufacturerNames" value="" id="WC_SearchPageLeftSidebarDisplayf_inputs_3"/>
+	<input type="hidden" name="attributeValues" value="" id="WC_SearchPageLeftSidebarDisplayf_inputs_4"/>
+	<input type="hidden" name="initialState" value="true" id="WC_SearchPageLeftSidebarDisplayf_inputs_5"/>
+</form>
+<br /> 
+<img alt="<fmt:message key="FOOTER_CUSTOMER_SUPPORT" bundle="${storeText}"/>" src="<c:out value="${jspStoreImgDir}/images/advertisements/${locale}/img_customer_support.png"/>" />
+
+<!-- END SearchPageNavDisplay.jspf-->

@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Class-Path: xml 
+ properties 
+ Enablement-BaseComponentsLogic.jar 
+ Foundation-Core-FEP.jar 
+ Foundation-Core.jar 
+ Foundation-DataImport.jar 
+ Foundation-Extension-FEP.jar 
+ Foundation-Extension.jar 
+ Foundation-Server-FEP.jar 
+ Foundation-Server.jar 
+ Rest-Core.jar 
+ Enablement-BusinessContextEngineAdvancedLogic.jar 
+ Enablement-BusinessContextEngineLogic.jar 
+ Catalog-Server-FEP.jar 
+ Search-Solr-Core.jar
+

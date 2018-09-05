@@ -1,0 +1,227 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%--
+  *****
+  * This JSP will set the sequence for cataog entries.
+  *****
+--%>
+
+<%@ page import="com.ibm.commerce.catalog.objects.CatalogGroupCatalogEntryRelationAccessBean" %> 
+<%@ page import="com.ibm.commerce.catalog.beans.CatalogEntryDataBean" %> 
+
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!-- BEGIN SetCatEntrySequence.jspf -->
+
+<%
+
+String productIdInStr = request.getParameter("productId");
+String storeIdInStr = request.getParameter("storeId");
+String categoryIdInStr = request.getParameter("categoryId");
+String catalogIdInStr = request.getParameter("catalogId");
+
+if ("prodComp".equals(request.getParameter("pgGrp"))) {
+	java.util.ArrayList catEntryIds = (java.util.ArrayList) session.getAttribute(PRODUCT_COMPARE_CATENTRYIDS_KEY);
+	if (catEntryIds != null) {
+		double prevSeq = -1;
+		double nextSeq = -1;
+		for (int i = 0;i < catEntryIds.size(); i++) {
+			String catEntIdStr = (String) catEntryIds.get(i);
+			long catEndId = Long.parseLong(catEntIdStr);
+			long pId = Long.parseLong(productIdInStr);
+			if (catEndId == pId) {
+				prevSeq = (i - 1);
+				if ((i + 1) < catEntryIds.size()) {
+					nextSeq = (i + 1);
+				}
+				break;
+			}
+		}
+		
+		String pSeq = "" + prevSeq;
+		String nSeq = "" + nextSeq;
+		%>
+		<fmt:parseNumber var="prevSeq" value="<%= pSeq %>" integerOnly="true" />
+		<fmt:parseNumber var="nextSeq" value="<%= nSeq %>" integerOnly="true" />
+
+		<c:set var="pgGrp" value="prodComp"/>
+		<%
+	}
+} else if ("wishlist".equals(request.getParameter("pgGrp"))) {
+	String catEntryIds = (String) session.getAttribute(WISHLIST_PRODUCTID_KEY);
+	if (catEntryIds != null) {
+		double prevSeq = -1;
+		double nextSeq = -1;
+		
+		String catEntIdArr[] = catEntryIds.split(",");
+		
+		for (int i = 0;i < catEntIdArr.length; i++) {
+			String catEntIdStr = catEntIdArr[i];
+			long catEndId = Long.parseLong(catEntIdStr);
+			long pId = Long.parseLong(productIdInStr);
+			if (catEndId == pId) {
+				prevSeq = (i - 1);
+				if ((i + 1) < catEntIdArr.length) {
+					nextSeq = (i + 1);
+				}
+				break;
+			}
+		}
+		
+		String pSeq = "" + prevSeq;
+		String nSeq = "" + nextSeq;
+		%>
+		<fmt:parseNumber var="prevSeq" value="<%= pSeq %>" integerOnly="true" />
+		<fmt:parseNumber var="nextSeq" value="<%= nSeq %>" integerOnly="true" />
+
+		<c:set var="pgGrp" value="wishlist"/>
+		<%	
+	}
+} else if ("catNav".equals(request.getParameter("pgGrp"))) {
+	
+	CatalogGroupCatalogEntryRelationAccessBean catGrpCatEntRel = new CatalogGroupCatalogEntryRelationAccessBean();
+
+	if (productIdInStr != null && productIdInStr.trim().length() > 0 && storeIdInStr != null && storeIdInStr.trim().length() > 0 &&
+			categoryIdInStr != null && categoryIdInStr.trim().length() > 0) {
+		long pId = Long.parseLong(productIdInStr);
+		int stId = Integer.parseInt(storeIdInStr);
+		long catId = Long.parseLong(categoryIdInStr);
+		
+		java.util.Enumeration catEntEnum = catGrpCatEntRel.findByCatalogEntryIdAndStore(new Long(pId), new Integer(stId));
+
+		boolean currentProductInCatalog = false;
+		CatalogGroupCatalogEntryRelationAccessBean currProdRel = null;
+		while(catEntEnum.hasMoreElements()) {
+			currProdRel = (CatalogGroupCatalogEntryRelationAccessBean) catEntEnum.nextElement();
+			if(currProdRel.getCatalogId().equals(catalogIdInStr)) {
+				currentProductInCatalog = true;
+				break;
+			}
+		}
+
+		if (currentProductInCatalog) {
+			java.util.Enumeration e = catGrpCatEntRel.findByCatalogGroupId(new Long(catId));	
+			double prevSeq = -1;
+			double nextSeq = Double.MAX_VALUE;
+
+			while (e.hasMoreElements()) {
+				CatalogGroupCatalogEntryRelationAccessBean catGrpEntRel = (CatalogGroupCatalogEntryRelationAccessBean) e.nextElement();
+				CatalogEntryDataBean catEntDataBean = new CatalogEntryDataBean();
+				catEntDataBean.setCatalogEntryID(catGrpEntRel.getCatalogEntryId());
+				com.ibm.commerce.beans.DataBeanManager.activate(catEntDataBean);
+				boolean useSequence = false;				
+				
+				if (currProdRel.getSequenceInEJBType().doubleValue() > catGrpEntRel.getSequenceInEJBType().doubleValue()) {
+					if (prevSeq < catGrpEntRel.getSequenceInEJBType().doubleValue()) {
+						if (catEntDataBean.isItem() && (catEntDataBean.getItemDataBean().getParentProductId() == catEntDataBean.getItemDataBean().getItemID())) {
+							useSequence = true;
+						} else if (!catEntDataBean.isItem() && !catEntDataBean.isDynamicKit()) {
+							useSequence = true;
+						}
+						if (useSequence) {
+							prevSeq = catGrpEntRel.getSequenceInEJBType().doubleValue();
+						}
+					}
+				} else if (currProdRel.getSequenceInEJBType().doubleValue() != catGrpEntRel.getSequenceInEJBType().doubleValue()) {
+					if (nextSeq > catGrpEntRel.getSequenceInEJBType().doubleValue()) {
+						if (catEntDataBean.isItem() && (catEntDataBean.getItemDataBean().getParentProductId() == catEntDataBean.getItemDataBean().getItemID())) {
+							useSequence = true;
+						} else if (!catEntDataBean.isItem() && !catEntDataBean.isDynamicKit()) {
+							useSequence = true;
+						}
+						if (useSequence) {
+							nextSeq = catGrpEntRel.getSequenceInEJBType().doubleValue();				
+						}					
+					}
+				}
+			}
+			if (nextSeq == Double.MAX_VALUE) {
+				nextSeq = -1;
+			}
+			String pSeq = "" + prevSeq;
+			String nSeq = "" + nextSeq;
+			%>
+			<fmt:parseNumber var="prevSeq" value="<%= pSeq %>" integerOnly="true" />
+			<fmt:parseNumber var="nextSeq" value="<%= nSeq %>" integerOnly="true" />
+
+			<c:set var="pgGrp" value ="catNav"/>			
+			<%
+		}
+	}	
+} else if ("search".equals(request.getParameter("pgGrp"))) {
+	String catEntryIds = (String) session.getAttribute(SEARCH_PRODUCTIDS_KEY);
+	if (catEntryIds != null) {
+		String prevSeq = null;
+		String nextSeq = null;
+		String catEntIdArr[] = catEntryIds.split(",");
+		
+		for (int i = 0;i < catEntIdArr.length; i++) {
+			String catEntIdStr = catEntIdArr[i];
+			
+			if (catEntIdStr.equals(productIdInStr)) {	
+				if ((i-1) >= 0) {
+					prevSeq = catEntIdArr[(i-1)];
+				}
+				if ((i+1) < catEntIdArr.length) {
+					nextSeq = catEntIdArr[(i+1)];
+				}	
+				break;
+			}
+		}
+		
+		%>
+		<fmt:parseNumber var="prevSeq" value="<%= prevSeq %>" integerOnly="true" />
+		<fmt:parseNumber var="nextSeq" value="<%= nextSeq %>" integerOnly="true" />
+
+		<c:set var="pgGrp" value="search" />
+		<%	
+	}	
+} else if ("shoppingcart".equals(request.getParameter("pgGrp"))) {
+	String catEntryIds = (String) session.getAttribute(SHOPPINGCART_PRODUCTID_KEY);
+	if (catEntryIds != null) {
+		double prevSeq = -1;
+		double nextSeq = -1;
+		
+		String catEntIdArr[] = catEntryIds.split(",");
+		
+		for (int i = 0;i < catEntIdArr.length; i++) {
+			String catEntIdStr = catEntIdArr[i];
+			long catEndId = Long.parseLong(catEntIdStr);
+			long pId = Long.parseLong(productIdInStr);
+			if (catEndId == pId) {
+				prevSeq = (i - 1);
+				if ((i + 1) < catEntIdArr.length) {
+					nextSeq = (i + 1);
+				}
+				break;
+			}
+		}
+		
+		String pSeq = "" + prevSeq;
+		String nSeq = "" + nextSeq;
+		%>
+		<fmt:parseNumber var="prevSeq" value="<%= pSeq %>" integerOnly="true" />
+		<fmt:parseNumber var="nextSeq" value="<%= nSeq %>" integerOnly="true" />
+
+		<c:set var="pgGrp" value="shoppingcart"/>
+		<%
+	}
+}
+
+%>
+
+<!-- END SetCatEntrySequence.jspf -->

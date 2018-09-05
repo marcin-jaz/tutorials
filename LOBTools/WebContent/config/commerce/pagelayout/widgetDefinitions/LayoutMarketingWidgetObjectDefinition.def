@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<!-- Base child object definition for display title of the widget -->
+	<ChildObjectDefinition
+		definitionName="plmBaseWidgetDisplayTitle"
+		isBaseDefinition="true" 
+		idProperty="languageId"
+		languageSensitive="true"
+		releaseWhenClosed="false"
+		objectGroups="DisplayTitleGroup">
+		
+		<!-- Property Definition for display title of the widget -->
+		<PropertyDefinition displayName="Display title" maximumSize="256" propertyName="xExtData_displayTitle" required="false" trim="true"/>
+		
+        <!--- Create service. -->
+        <CreateService url="/cmc/CreateWidgetExtendedData" sendSiblingRequestsInParallel="false">
+            <ServiceParam name="storeId"/>
+            
+            <ServiceParam name="dataStoreId1" parameterName="dataStoreId" parentProperty="true" resolvePrimaryParent="true" propertyName="objectStoreId">
+            	<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="WidgetDisplayTitle" negate="true" propertyName="objectType"/>
+            </ServiceParam>
+            
+            <ServiceParam name="dataStoreId2" parameterName="dataStoreId" contextName="storeId">
+            	<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="WidgetDisplayTitle" propertyName="objectType"/>
+            </ServiceParam>            
+            
+    		<ServiceParam name="pageLayoutId" propertyName="pageLayoutId" parentProperty="true" />
+			<ServiceParam name="type" value="IBM_DisplayTitle"/>
+			<ServiceParam name="widgetId" propertyName="widgetId" parentProperty="true" resolvePrimaryParent="false"/>
+        	<ServiceParam name="languageId" propertyName="languageId"/>
+        </CreateService>
+
+        <!--- Update service. -->
+        <UpdateService url="/cmc/UpdateWidgetExtendedData" sendSiblingRequestsInParallel="false">
+			<ServiceParam name="storeId"/>            
+			<ServiceParam name="dataStoreId1" parameterName="dataStoreId" parentProperty="true" resolvePrimaryParent="true" propertyName="objectStoreId">
+            	<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="WidgetDisplayTitle" negate="true" propertyName="objectType"/>
+            </ServiceParam>
+            
+          <ServiceParam name="dataStoreId2" parameterName="dataStoreId" contextName="storeId">
+            	<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="WidgetDisplayTitle" propertyName="objectType"/>
+            </ServiceParam>            
+             
+			<ServiceParam name="pageLayoutId" propertyName="pageLayoutId" parentProperty="true" />
+			<ServiceParam name="widgetId" propertyName="widgetId" parentProperty="true" resolvePrimaryParent="false"/>
+			<ServiceParam name="type" value="IBM_DisplayTitle"/>
+        	<ServiceParam name="languageId" propertyName="languageId"/>
+        </UpdateService>
+		
+	</ChildObjectDefinition>
+
+	<!-- 
+		Child object definition for local widget display title.
+		
+	 -->
+	<ChildObjectDefinition
+		baseDefinitionName="plmBaseWidgetDisplayTitle"
+		definitionName="plmWidgetDisplayTitle" 
+		initializeObjectStoreId="true"
+		objectType="WidgetDisplayTitle">
+		<TrueEnablementCondition/>
+	</ChildObjectDefinition>
+	
+	<!-- 
+		Child object definition for inherited widget display title.
+	 -->
+	<ChildObjectDefinition
+		baseDefinitionName="plmBaseWidgetDisplayTitle"
+		definitionName="plmInheritedWidgetDisplayTitle"
+		objectType="InheritedWidgetDisplayTitle"
+		allowedParentTypes="InheritedPageLayout"
+		objectGroups="DisplayTitleGroup,AssetStoreObjectsGroup">
+		<EnablementCondition checkHasAccessRight="true" conditionId="accessRightCondition" enablementValue="true"/>
+	</ChildObjectDefinition>
+	
+	<ReferenceObjectDefinition 
+		definitionName="plmBaseDefaultMarketingContentReference"
+		initializeObjectStoreId="true" 
+		allowDuplicates="false" 
+		displayName="" 
+		idProperty="uniqueId" 
+		isBaseDefinition="true" 
+		languageSensitive="false" 
+		objectType="BaseDefaultMarketingContentReference" 
+		releaseWhenClosed="false"
+		objectGroups="DefaultMarketingContentReferenceGroup">
+
+        <!--- Create service. -->
+        <CreateService url="/cmc/CreateWidgetExtendedData">
+			<ServiceParam name="storeId"/>
+          	<ServiceParam name="dataStoreId1" parameterName="dataStoreId" parentProperty="true" resolvePrimaryParent="true" propertyName="objectStoreId">
+  				<EnablementOrCondition baseDefinitionName="InheritedEMarketingSpotInheritedContent" />
+            </ServiceParam>
+            <ServiceParam name="dataStoreId2" parameterName="dataStoreId" contextName="storeId">
+         		<EnablementOrCondition baseDefinitionName="EMarketingSpotContent" />	
+            </ServiceParam>
+    		<ServiceParam name="pageLayoutId" propertyName="pageLayoutId" parentProperty="true" />
+			<ServiceParam name="type" value="IBM_DefaultMarketingContent"/>
+			<ServiceParam name="widgetId" propertyName="widgetId" parentProperty="true" resolvePrimaryParent="false"/>
+ 			<ServiceParam name="sequence" propertyName="sequence" parameterName="xExtData_sequence"/>	
+			<ServiceParam name="content1" objectPath="MarketingContentGroup" parameterName="xExtData_contentId" propertyName="uniqueId">
+			 	<EnablementOrCondition baseDefinitionName="MarketingContentCondition"/>								
+			</ServiceParam>	
+			<ServiceParam name="content2" objectPath="CatalogGroupAlias" parameterName="xExtData_contentId" propertyName="catgroupId">
+				<EnablementOrCondition baseDefinitionName="CatalogGroupCondition"/>	
+			</ServiceParam>			
+			<ServiceParam name="content3" objectPath="CatalogEntry" parameterName="xExtData_contentId" propertyName="catentryId">
+				<EnablementOrCondition baseDefinitionName="CatentryCondition"/>				
+			</ServiceParam>	
+			<ServiceParam name="content4" parameterName="xExtData_contentType" value="MarketingContent">
+				<EnablementOrCondition baseDefinitionName="MarketingContentCondition"/>				
+			</ServiceParam>	
+			<ServiceParam name="content5" parameterName="xExtData_contentType" value="CatalogGroup">
+				<EnablementOrCondition baseDefinitionName="CatalogGroupCondition"/>				
+			</ServiceParam>			
+			<ServiceParam name="content6" parameterName="xExtData_contentType" value="CatalogEntry">
+				<EnablementOrCondition baseDefinitionName="CatentryCondition"/>				
+			</ServiceParam>	        		
+        </CreateService>
+
+        <!--- Update service. -->
+        <UpdateService url="/cmc/UpdateWidgetExtendedData">
+			<ServiceParam name="storeId"/>
+            <ServiceParam name="dataStoreId1" parameterName="dataStoreId" parentProperty="true" resolvePrimaryParent="true" propertyName="objectStoreId">
+  				<EnablementOrCondition baseDefinitionName="InheritedEMarketingSpotInheritedContent" />
+            </ServiceParam>
+            <ServiceParam name="dataStoreId2" parameterName="dataStoreId" contextName="storeId">
+         		<EnablementOrCondition baseDefinitionName="EMarketingSpotContent" />	
+            </ServiceParam>
+    		<ServiceParam name="pageLayoutId" propertyName="pageLayoutId" parentProperty="true" />
+			<ServiceParam name="type" value="IBM_DefaultMarketingContent"/>
+			<ServiceParam name="widgetId" propertyName="widgetId" parentProperty="true" resolvePrimaryParent="false"/>
+   			<ServiceParam name="sequence" propertyName="sequence" parameterName="xExtData_sequence"/>	
+   			<ServiceParam name="uniqueId" propertyName="uniqueId" parameterName="xExtData_uniqueId" optional="false"/>  
+			<ServiceParam name="content1" objectPath="MarketingContentGroup" parameterName="xExtData_contentId" propertyName="uniqueId">
+				<EnablementOrCondition baseDefinitionName="MarketingContentCondition"/>				
+			</ServiceParam>	
+			<ServiceParam name="content2" objectPath="CatalogGroupAlias" parameterName="xExtData_contentId" propertyName="catgroupId">
+				<EnablementOrCondition baseDefinitionName="CatalogGroupCondition"/>				
+			</ServiceParam>			
+			<ServiceParam name="content3" objectPath="CatalogEntry" parameterName="xExtData_contentId" propertyName="catentryId">
+				<EnablementOrCondition baseDefinitionName="CatentryCondition"/>				
+			</ServiceParam>	
+			<ServiceParam name="content4" parameterName="xExtData_contentType" value="MarketingContent">
+				<EnablementOrCondition baseDefinitionName="MarketingContentCondition"/>				
+			</ServiceParam>	
+			<ServiceParam name="content5" parameterName="xExtData_contentType" value="CatalogGroup">
+				<EnablementOrCondition baseDefinitionName="CatalogGroupCondition"/>				
+			</ServiceParam>			
+			<ServiceParam name="content6" parameterName="xExtData_contentType" value="CatalogEntry">
+				<EnablementOrCondition baseDefinitionName="CatentryCondition"/>				
+        	</ServiceParam>	
+        </UpdateService>
+        
+        <!--- Delete service. -->
+        <DeleteService url="/cmc/DeleteWidgetExtendedData">
+			<ServiceParam name="storeId"/>
+         	<ServiceParam name="dataStoreId1" parameterName="dataStoreId" parentProperty="true" resolvePrimaryParent="true" propertyName="objectStoreId">
+  				<EnablementOrCondition baseDefinitionName="InheritedEMarketingSpotInheritedContent" />
+            </ServiceParam>
+            <ServiceParam name="dataStoreId2" parameterName="dataStoreId" contextName="storeId">
+         		<EnablementOrCondition baseDefinitionName="EMarketingSpotContent" />	
+            </ServiceParam>
+    		<ServiceParam name="pageLayoutId" propertyName="pageLayoutId" parentProperty="true" />
+			<ServiceParam name="type" value="IBM_DefaultMarketingContent"/>
+			<ServiceParam name="widgetId" propertyName="widgetId" parentProperty="true" resolvePrimaryParent="false"/>
+        	<ServiceParam name="uniqueId" propertyName="uniqueId" parameterName="xExtData_uniqueId" optional="false"/>
+			<ServiceParam name="content1" objectPath="MarketingContentGroup" parameterName="xExtData_contentId" propertyName="uniqueId">
+				<EnablementOrCondition baseDefinitionName="MarketingContentCondition"/>				
+			</ServiceParam>	
+			<ServiceParam name="content2" objectPath="CatalogGroupAlias" parameterName="xExtData_contentId" propertyName="catgroupId">
+				<EnablementOrCondition baseDefinitionName="CatalogGroupCondition"/>				
+			</ServiceParam>			
+			<ServiceParam name="content3" objectPath="CatalogEntry" parameterName="xExtData_contentId" propertyName="catentryId">
+				<EnablementOrCondition baseDefinitionName="CatentryCondition"/>				
+			</ServiceParam>	
+			<ServiceParam name="contentType1" parameterName="xExtData_contentType" value="MarketingContent">
+				<EnablementOrCondition baseDefinitionName="MarketingContentCondition"/>				
+			</ServiceParam>	
+			<ServiceParam name="contentType2" parameterName="xExtData_contentType" value="CatalogGroup">
+				<EnablementOrCondition baseDefinitionName="CatalogGroupCondition"/>				
+			</ServiceParam>			
+			<ServiceParam name="contentType3" parameterName="xExtData_contentType" value="CatalogEntry">
+				<EnablementOrCondition baseDefinitionName="CatentryCondition"/>				
+        	</ServiceParam>
+        </DeleteService>        
+		
+		<PropertyDefinition propertyName="sequence" type="integer" maxValue="2147483647" minValue="1" 
+			displayName="${plmPageLayoutResources.productListingWidgetContentPosition}" required="true"
+			forceParentValidation="true"/>
+			
+		<Xml name="template">
+			<sequence>1</sequence>
+		</Xml>
+		
+	</ReferenceObjectDefinition>
+	
+	<ReferenceObjectDefinition
+		definitionName="plmDefaultEMarketingSpotMarketingContentReference"
+		baseDefinitionName="plmBaseDefaultMarketingContentReference" 
+		objectType="DefaultEMarketingSpotMarketingContentReference" 
+		referencedTypes="MarketingContent"
+		isBaseDefinition="true"
+		objectGroups="DefaultMarketingContentReferenceGroup,ESiteStoreObjectsGroup">
+		<TrueEnablementCondition/>		 	
+	</ReferenceObjectDefinition>
+	
+	<ReferenceObjectDefinition
+		definitionName="plmInheritedDefaultEMarketingSpotMarketingContentReference"
+		baseDefinitionName="plmBaseDefaultMarketingContentReference" 
+		objectType="InheritedDefaultEMarketingSpotMarketingContentReference" 
+		referencedTypes="InheritedMarketingContent"
+		isBaseDefinition="true"
+		objectGroups="DefaultMarketingContentReferenceGroup,ESiteStoreObjectsGroup">
+		<TrueEnablementCondition/>		 	
+	</ReferenceObjectDefinition>
+	
+	<ReferenceObjectDefinition
+		definitionName="plmInheritedDefaultEMarketingSpotInheritedMarketingContentReference"
+		baseDefinitionName="plmBaseDefaultMarketingContentReference" 
+		objectType="InheritedDefaultEMarketingSpotInheritedMarketingContentReference" 
+		referencedTypes="InheritedMarketingContent"
+		isBaseDefinition="true"
+		allowedParentTypes="InheritedPageLayout"
+		objectGroups="DefaultMarketingContentReferenceGroup,AssetStoreObjectsGroup">
+		<EnablementCondition checkHasAccessRight="true" conditionId="accessRightCondition" enablementValue="true"/>
+	</ReferenceObjectDefinition>	
+	
+	<ReferenceObjectDefinition 
+		definitionName="plmBaseActivityReference"
+		initializeObjectStoreId="true" 
+		allowDuplicates="false" 
+		displayName="" 
+		idProperty="uniqueId" 
+		isBaseDefinition="true" 
+		languageSensitive="false" 
+		objectType="BaseActivityReference" 
+		releaseWhenClosed="false"
+		objectGroups="ActivityReferenceGroup">
+
+		<CreateService url="/cmc/CreateWidgetExtendedData">
+         	<ServiceParam name="dataStoreId1" parameterName="dataStoreId" parentProperty="true" resolvePrimaryParent="true" propertyName="objectStoreId">
+  				<EnablementCondition baseDefinitionName="InheritedActivityReferenceConditon" />
+            </ServiceParam>
+            <ServiceParam name="dataStoreId2" parameterName="dataStoreId" contextName="storeId">
+         		<EnablementOrCondition baseDefinitionName="LocalActivityReferencesConditon" />	
+            </ServiceParam>   
+            <ServiceParam name="storeId"/>
+    		<ServiceParam name="pageLayoutId" propertyName="pageLayoutId" parentProperty="true" />
+			<ServiceParam name="type" value="IBM_WebActivity"/>
+			<ServiceParam name="widgetId" propertyName="widgetId" parentProperty="true" resolvePrimaryParent="false"/>
+        	<ServiceParam name="activityId" parameterName="xExtData_uniqueId" propertyName="activityId"
+        		objectPath="WebActivityGroup" optional="false"/>
+            <ServiceParam name="useLocalEspot" parameterName="xExtData_useLocalEspot" value="true">
+            	<EnablementOrCondition baseDefinitionName="LocalActivityReferencesConditon"/>
+             </ServiceParam>
+            <ServiceParam name="useInheritedEspot" parameterName="xExtData_useLocalEspot" value="false">
+            	<EnablementCondition baseDefinitionName="InheritedActivityReferenceConditon"/>
+             </ServiceParam>
+             <ServiceParam name="isInheritedLayout" parameterName="xExtData_isInheritedLayout" value="true">
+             	<EnablementCondition baseDefinitionName="inheritedPageLayoutCondition"/>
+             </ServiceParam>  
+             <ServiceParam name="isNotInheritedLayout" parameterName="xExtData_isInheritedLayout" value="false">
+             	<EnablementCondition baseDefinitionName="inheritedPageLayoutCondition" negate="true"/>
+             </ServiceParam>
+        </CreateService>
+        
+        <!--- Delete service. -->
+        <DeleteService url="/cmc/DeleteWidgetExtendedData">
+         	<ServiceParam name="dataStoreId1" parameterName="dataStoreId" parentProperty="true" resolvePrimaryParent="true" propertyName="objectStoreId">
+  				<EnablementCondition baseDefinitionName="InheritedActivityReferenceConditon" />
+            </ServiceParam>
+            <ServiceParam name="dataStoreId2" parameterName="dataStoreId" contextName="storeId">
+         		<EnablementOrCondition baseDefinitionName="LocalActivityReferencesConditon" />	
+            </ServiceParam>       
+            <ServiceParam name="storeId"/>
+    		<ServiceParam name="pageLayoutId" propertyName="pageLayoutId" parentProperty="true" />
+			<ServiceParam name="type" value="IBM_WebActivity"/>
+			<ServiceParam name="widgetId" propertyName="widgetId" parentProperty="true" resolvePrimaryParent="false"/>
+        	<ServiceParam name="activityId" parameterName="xExtData_uniqueId" propertyName="activityId"
+        		objectPath="WebActivityGroup" optional="false"/>
+            <ServiceParam name="useLocalEspot" parameterName="xExtData_useLocalEspot" value="true">
+            	<EnablementOrCondition baseDefinitionName="LocalActivityReferencesConditon"/>
+             </ServiceParam>
+            <ServiceParam name="useInheritedEspot" parameterName="xExtData_useLocalEspot" value="false">
+            	<EnablementCondition baseDefinitionName="InheritedActivityReferenceConditon"/>
+             </ServiceParam>             
+        </DeleteService>
+
+	</ReferenceObjectDefinition>
+
+	<ReferenceObjectDefinition
+		definitionName="plmActivityReference"
+		baseDefinitionName="plmBaseActivityReference"
+	 	objectType="ActivityReference"
+	 	referencedTypes="WebActivity"
+	 	isBaseDefinition="true">
+	 	<TrueEnablementCondition/>
+	</ReferenceObjectDefinition>
+	
+	<ReferenceObjectDefinition
+		definitionName="plmInheritedActivityReference"
+	 	baseDefinitionName="plmBaseActivityReference"
+	 	objectType="InheritedActivityReference"
+	 	referencedTypes="InheritedWebActivity"
+	 	isBaseDefinition="true">
+	 	<TrueEnablementCondition/>
+	</ReferenceObjectDefinition>
+	
+	<ReferenceObjectDefinition
+		definitionName="plmInheritedActivityInheritedReference"
+	 	baseDefinitionName="plmBaseActivityReference"
+	 	objectType="InheritedActivityInheritedReference"
+	 	referencedTypes="InheritedWebActivity"
+	 	isBaseDefinition="true"
+	 	allowedParentTypes="InheritedPageLayout"
+	 	objectGroups="ActivityReferenceGroup,AssetStoreObjectsGroup">
+	 	<EnablementCondition checkHasAccessRight="true" conditionId="accessRightCondition" enablementValue="true"/>
+	</ReferenceObjectDefinition>
+		
+	<EnablementOrCondition definitionName="EMarketingSpotContent" conditionId="EMarketingSpotContent">
+		<EnablementCondition conditionId="objectTypeCondition1" propertyName="objectType"
+			enablementValue="DefaultEMarketingSpotMarketingContentReference" checkObjectDefinition="true"/>
+		<EnablementCondition conditionId="objectTypeCondition2" propertyName="objectType"
+			enablementValue="InheritedDefaultEMarketingSpotMarketingContentReference" checkObjectDefinition="true"/>	            		
+		<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition3"
+			enablementValue="DefaultEMarketingSpotCatalogEntryContentReference" propertyName="objectType" />
+		<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition4"
+			enablementValue="InheritedDefaultEMarketingSpotCatalogEntryContentReference" propertyName="objectType" />
+		<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition5"
+			enablementValue="DefaultEMarketingSpotCatalogGroupContentReference" propertyName="objectType" />
+		<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition6"
+			enablementValue="InheritedDefaultEMarketingSpotCatalogGroupContentReference" propertyName="objectType" />
+	</EnablementOrCondition>
+
+	<EnablementOrCondition definitionName="InheritedEMarketingSpotInheritedContent" conditionId="InheritedeMarketingSpotInheritedContent">		  
+		<EnablementCondition conditionId="objectTypeCondition1" propertyName="objectType"
+			enablementValue="InheritedDefaultEMarketingSpotInheritedMarketingContentReference" checkObjectDefinition="true"/>
+		<EnablementCondition conditionId="objectTypeCondition2" propertyName="objectType"
+			enablementValue="InheritedDefaultEMarketingSpotInheritedCatalogEntryContentReference" checkObjectDefinition="true"/>
+		<EnablementCondition conditionId="objectTypeCondition3" propertyName="objectType"
+			enablementValue="InheritedDefaultEMarketingSpotInheritedCatalogGroupContentReference" checkObjectDefinition="true"/>
+	</EnablementOrCondition>
+
+	<EnablementOrCondition definitionName="CatentryCondition" conditionId="CatentryCondition">
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition1"
+			enablementValue="Product" objectPath="CatalogEntry" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition2"
+			enablementValue="Bundle" objectPath="CatalogEntry" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition3"
+			enablementValue="CatalogGroupSKU" objectPath="CatalogEntry" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition4"
+			enablementValue="ProductSKU" objectPath="CatalogEntry" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition5"
+			enablementValue="Kit" objectPath="CatalogEntry" propertyName="objectType"/>										
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition6"
+			enablementValue="InheritedProduct" objectPath="CatalogEntry" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition7"
+			enablementValue="InheritedBundle" objectPath="CatalogEntry" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition8"
+			enablementValue="InheritedCatalogGroupSKU" objectPath="CatalogEntry" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition9"
+			enablementValue="InheritedProductSKU" objectPath="CatalogEntry" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition10"
+			enablementValue="InheritedKit" objectPath="CatalogEntry" propertyName="objectType"/>							
+	</EnablementOrCondition>
+	
+	<EnablementOrCondition definitionName="MarketingContentCondition" conditionId="MarketingContentCondition">
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition1"
+			enablementValue="MarketingContent" objectPath="MarketingContentGroup" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition2"
+			enablementValue="InheritedMarketingContent" objectPath="MarketingContentGroup" propertyName="objectType"/>
+	</EnablementOrCondition>
+	
+	<EnablementOrCondition definitionName="CatalogGroupCondition" conditionId="CatalogGroupCondition">
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition1"
+			enablementValue="CatalogGroup" objectPath="CatalogGroupAlias" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition2"
+			enablementValue="InheritedCatalogGroup" objectPath="CatalogGroupAlias" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition3"
+			enablementValue="SalesCatalogGroup" objectPath="CatalogGroupAlias" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition4"
+			enablementValue="InheritedSalesCatalogGroup" objectPath="CatalogGroupAlias" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition5"
+			enablementValue="DynamicSalesCatalogGroup" objectPath="CatalogGroupAlias" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="emarketingSpotCondition6"
+			enablementValue="InheritedDynamicSalesCatalogGroup" objectPath="CatalogGroupAlias" propertyName="objectType"/>
+	</EnablementOrCondition>
+	
+	<EnablementCondition definitionName="inheritedPageLayoutCondition" conditionId="inheritedPageLayoutCondition"
+		propertyName="objectType" 
+		enablementValue="InheritedPageLayout"
+	    checkObjectDefinition="true"
+	    parentProperty="true"
+	    resolvePrimaryParent="true"
+	    parentType="InheritedPageLayout"/>
+	
+	<EnablementCondition definitionName="InheritedActivityReferenceConditon"
+		conditionId="InheritedActivityReferenceConditon" 
+		propertyName="objectType"  
+		enablementValue="InheritedActivityInheritedReference" 
+		checkObjectDefinition="true"/>
+						
+	<EnablementOrCondition definitionName="LocalActivityReferencesConditon" conditionId="LocalActivityReferencesConditon">
+		<EnablementCondition
+			conditionId="objectTypeCondition1" 
+			propertyName="objectType" 
+			enablementValue="ActivityReference" 
+			checkObjectDefinition="true"/>
+		<EnablementCondition 
+			conditionId="objectTypeCondition2" 
+			propertyName="objectType" 
+			enablementValue="InheritedActivityReference" 
+			checkObjectDefinition="true"/>
+	</EnablementOrCondition>
+					
+	<EnablementOrCondition definitionName="AllActivityReferencesConditon" conditionId="AllActivityReferencesConditon"> 
+		<EnablementCondition
+			conditionId="objectTypeCondition1"
+			propertyName="objectType" 
+			enablementValue="ActivityReference" 
+			checkObjectDefinition="true"/>
+		<EnablementCondition
+			conditionId="objectTypeCondition2" 
+			propertyName="objectType" 
+			enablementValue="InheritedActivityReference" 
+			checkObjectDefinition="true"/>
+		<EnablementCondition 
+			conditionId="objectTypeCondition3" 
+			propertyName="objectType" 
+			enablementValue="InheritedActivityInheritedReference"
+			checkObjectDefinition="true"/>
+	</EnablementOrCondition>	
+
+</Definitions>

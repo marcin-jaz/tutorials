@@ -1,0 +1,52 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%-- 
+  *****
+  *	This JSPF page shows the header of the e-mail send to the customer with the store logo.
+  *****
+--%>
+<!-- BEGIN EmailHeader.jspf -->
+<div id="header">
+	<%-- 
+	***
+	*  Start: Logo
+	***
+	--%>     
+	<tr>
+		<td colspan="3" valign="top" style="border-top: 1px solid #c9d3de; border-left: 1px solid #c9d3de; border-right: 1px solid #c9d3de;">
+			<img src="<c:out value='${jspStoreImgDir}images/madisons_header.gif' />" alt="<c:out value="${storeName}" />" width="792" height="65"/>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3" style="border-left: 1px solid #c9d3de; border-right: 1px solid #c9d3de; font-size: 11px;">&nbsp;</td>
+	</tr>
+	<%-- 
+	***
+	*  End:  Logo
+	***
+	--%>
+</div>
+<!-- END EmailHeader.jspf -->
+
+
+
+
+
+
+
+
+
+
+
+

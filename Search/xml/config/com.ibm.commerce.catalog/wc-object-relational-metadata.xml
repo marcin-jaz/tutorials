@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009, 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<_config:ObjectRelationalMetadata xmlns:_config="http://www.ibm.com/xmlns/prod/commerce/foundation/config" componentId="Catalog" extensionId="false" featurePackId="false" namespacePrefix="_cat" namespaceURI="http://www.ibm.com/xmlns/prod/commerce/9/Catalog/entity" package="com.ibm.commerce.catalog.facade.server.entity.datatypes">
+	<_config:table />
+</_config:ObjectRelationalMetadata>

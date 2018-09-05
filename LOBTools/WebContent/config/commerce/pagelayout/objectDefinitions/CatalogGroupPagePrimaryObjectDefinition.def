@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>    
+	
+	<!--- This definition defines the base object from which CatalogGroupBrowsingPage and Inherited CatalogGroupBrowsingPage are derived.
+	-->
+	<PrimaryObjectDefinition definitionName="plmBaseCatalogGroupBrowsingPagePrimaryObjectDefinition"
+		detailsViewHeaderText="${catalogResources.UtilityPaneHeaderText}"
+		displayName="${plmPageLayoutResources.categoryPage_DisplayName}"
+		displayNameProperty="identifier"
+  		helpLink="concepts/cpzpagecomptool.htm" 
+  		idProperty="pageId"
+  		isBaseDefinition="true"
+  		propertiesDefinitionName="plmCategoryBrowsingPageProperties"
+  		objectGroups="CatalogGroupBrowsingPageAlias, PageAlias"
+  		searchType="FindCategoryBrowsingPages"
+  		utilitiesListDefinitionName="plmUtilitiesBrowseGrid"
+  		writeUsage="IBM_ManagePageComposerTool">
+
+    	<!---  
+			Retrieves the {@link catBaseCatalogGroupSeoAttributes}, and
+			{@link catBaseCatalogGroupSeoURL} child objects for a catalog group browsing page.
+		-->
+		<GetChildrenService objectTypes="CatalogGroupBaseSeoAttributes,InheritedCatalogGroupBaseSeoAttributes,CatalogGroupBaseSeoURL,InheritedCatalogGroupBaseSeoURL" 
+			url="/cmc/GetCatalogGroupSeoProperties">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="catalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="catgroupId" propertyName="catgroupId"/>
+			<ServiceParam name="defaultLanguageId"/>
+		</GetChildrenService>
+  		
+  		<!--- Refresh Service to refresh this category browsing page. Calling this will fetch the category browsing pages' details again from the server. 
+		-->
+		<RefreshService url="/cmc/GetCatalogGroupBrowsingPage">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="assetStoreId"/>
+			<ServiceParam name="masterCatalogStoreId"/>
+			<ServiceParam name="catalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="catalogStoreId" propertyName="owningCatalogStoreId" optional="true"/>  
+			<ServiceParam name="catgroupId" propertyName="catgroupId"/>
+		</RefreshService>
+		<!---  
+			Retrieves the SEO URL for the catalog group browsing page.
+		-->				
+		<GetPreviewURLService url="/cmc/GetCatalogGroupBrowsingPagePreviewUrl"> 
+			<ServiceParam name="catalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="catgroupId" propertyName="catgroupId"/>
+		</GetPreviewURLService>
+		<!--- Retrieves the {@link plmChildCatalogGroupBrowsingPage} child objects.
+		-->
+		<GetChildrenService objectTypes="ChildCatalogGroupBrowsingPage,SharedCatalogGroupBrowsingPage,SharedInheritedCatalogGroupBrowsingPage" 
+			url="/cmc/GetChildCatalogGroupBrowsingPageForCatalogGroupBrowsingPage">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="assetStoreId"/>
+			<ServiceParam name="masterCatalogId"/>
+			<ServiceParam name="defaultLanguageId"/>
+			<ServiceParam name="catalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="catalogStoreId" propertyName="owningCatalogStoreId" optional="true"/>
+		</GetChildrenService>
+		
+		<!--- Retrieves 
+			{@link plmChildCatalogEntryBrowsingPage} child objects.
+		-->
+		<GetChildrenService objectTypes="ChildCatalogEntryBrowsingPage"
+			url="/cmc/GetChildCatalogEntryBrowsingPageForCatalogGroupBrowsingPage">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="assetStoreId"/>
+			<ServiceParam name="defaultLanguageId"/>
+			<ServiceParam name="catalogId" propertyName="owningCatalog"/>
+		</GetChildrenService>
+			
+  		<!--- Retrieves the {@link PageLayout page layouts} assigned to this catalog group browsing page. -->
+  		
+		<GetReferencesService primaryObjectTypes="PageLayout,InheritedPageLayout" referenceObjectTypes="LayoutLocationPageReferenceAlias" 
+			url="/cmc/GetPageLayoutByPage">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="assetStoreId"/>
+			<ServiceParam name="objectStoreId" propertyName="objectStoreId"/>
+			<ServiceParam name="pageId" propertyName="pageId"/>
+			<ServiceParam name="pageGroup" propertyName="pageGroup"/>
+		</GetReferencesService>
+		
+		<!--- This navigation list definition is used to display the layout assignments for the catalog group browsing page. -->
+		 	
+		<NavigationListDefinition name="CategoryBrowsingPageAssignmentChildList"
+			displayName="${plmPageLayoutResources.navigation_layoutAssignmentListPrompt}"
+		 	isDefault="true"
+		 	listDefinitionName="plmPageLayoutReferenceList" 
+		 	toolbarIcon="listToolbarIcon" 
+		 	listTitle="${plmPageLayoutResources.navigation_layoutAssignmentPrompt}" />	
+		 
+		<!--- This navigation list definition is used to display the layout assignments for the catalog group browsing page as a calendar view. -->
+		<NavigationListDefinition name="CategoryBrowsingPageAssignmentGanttChildList"
+			displayName="${plmPageLayoutResources.pageLayoutsGanttChartMenuTitle}"
+		 	listDefinitionName="plmPageLayoutGanttReferenceList" 
+		 	listTitle="${plmPageLayoutResources.pageLayoutsGanttChartTitle}"
+		 	toolbarIcon="ganttChartToolbarIcon" />	
+		
+	    <!--- This navigation list definition is used to display {@link plmChildCatalogEntryBrowsingPage}. -->	
+		<NavigationListDefinition name="CatalogEntryBrowsingPageChildList"
+			displayName="${plmPageLayoutResources.catalogEntryPageList}"
+		 	listDefinitionName="plmCatalogEntryBrowsingPageChildList" 
+		 	listTitle="${plmPageLayoutResources.catalogEntryPageList}"
+		 	toolbarIcon="catalogEntriesListToolbarIcon" 
+		 	helpLink="concepts/cpzpagecomptool.htm"/>
+				
+        <!--- This navigation list definition is used to display {@link plmChildCatalogGroupBrowsingPage}. -->
+		<NavigationListDefinition name="CategoryBrowsingPageChildList" 
+			displayName="${plmPageLayoutResources.categoryPagesList}" 
+			listDefinitionName="plmCategoryBrowsingPageChildList" 
+			listTitle="${plmPageLayoutResources.categoryPagesList}" 
+			toolbarIcon="categoryListToolbarIcon"
+			helpLink="concepts/cpzpagecomptool.htm"/>
+		
+		<!---  
+		    Collection Parent Reference object definition between the category browsing page and another child catalog group browsing page.
+		    This indicates that a category browsing page can be a parent of another category browsing page.
+		-->
+		<CollectionReferenceObjectDefinition baseDefinitionName="plmChildCatalogGroupBrowsingPage"/>
+		
+		<!---
+			Object filter used to select the object types that will be displayed in the utilities view details view when
+			an object of this object type is selected in the utilities view browse view.
+		-->
+		<ObjectTypeFilter filterType="utilitiesViewFilter" 
+			objectTypes="ChildCatalogGroupBrowsingPage, ChildCatalogEntryBrowsingPage"/>
+				
+		<!---  
+		    Reference object definition between the category browsing page and a child catalog entry browsing page.
+		    This indicates that a catalog group browsing page can be a parent of a product page.
+		-->
+		<CollectionReferenceObjectDefinition baseDefinitionName="plmChildCatalogEntryBrowsingPage"/>
+		
+		<!--- 
+			An instantiation of the child object {@link catCatalogGroupBaseSeoAttributes} representing the Search Engine Optimization properties for this catalog group browsing page.
+		 -->
+		<ChildObjectDefinition baseDefinitionName="catCatalogGroupBaseSeoAttributes"/>
+
+		<!--- 
+			An instantiation of the child object {@link catInheritedCatalogGroupBaseSeoAttributes} representing the Search Engine Optimization properties for this catalog group browsing page which is inherited.
+		 -->
+		<ChildObjectDefinition baseDefinitionName="catInheritedCatalogGroupBaseSeoAttributes"/>
+
+		<!--- 
+			An instantiation of the child object {@link catCatalogGroupBaseSeoURL} representing the Search Engine Optimization URL properties for this catalog group browsing page.
+		 -->
+		<ChildObjectDefinition baseDefinitionName="catCatalogGroupBaseSeoURL"/>		
+
+		<!--- 
+			An instantiation of the child object {@link catInheritedCatalogGroupBaseSeoURL} representing the Search Engine Optimization URL properties for this catalog group browsing page which is inherited.
+		 -->
+		<ChildObjectDefinition baseDefinitionName="catInheritedCatalogGroupBaseSeoURL"/>
+			
+		<!---  
+		    Reference definition for a shared child catalog group browsing page
+		-->		
+		<ReferenceObjectDefinition baseDefinitionName="plmSharedCatalogGroupBrowsingPage"/>
+		
+		<!---  
+		    Reference definition for a shared child inherited catalog group browsing page
+		-->			
+		<ReferenceObjectDefinition baseDefinitionName="plmSharedInheritedCatalogGroupBrowsingPage"/>		
+
+		<CreateNewLayoutClientAction displayName="${plmPageLayoutResources.action_new_page_layout}" package="plm" />
+		
+    </PrimaryObjectDefinition>
+		
+	<PrimaryObjectDefinition definitionName="CatalogGroupBrowsingPage"
+		baseDefinitionName="plmBaseCatalogGroupBrowsingPagePrimaryObjectDefinition"
+		objectType="CatalogGroupBrowsingPage"
+		headerIcon="catalogGroupPageHeaderIcon"
+		icon="catalogGroupPageIcon">
+	</PrimaryObjectDefinition>
+	
+	<PrimaryObjectDefinition definitionName="InheritedCatalogGroupBrowsingPage"
+		baseDefinitionName="plmBaseCatalogGroupBrowsingPagePrimaryObjectDefinition"
+		objectType="InheritedCatalogGroupBrowsingPage"
+		displayName="${plmPageLayoutResources.inheritedCategoryPage_DisplayName}"
+		headerIcon="inheritedCatalogGroupPageHeaderIcon" 
+		icon="inheritedCatalogGroupPageIcon">
+	</PrimaryObjectDefinition>
+
+</Definitions>

@@ -1,0 +1,91 @@
+/**
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright IBM Corp. 2006
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+
+<STYLE>
+
+/* general */
+
+LI { font-family : Verdana,  Arial, Helvetica; font-size : 10pt; color : #32404F;}
+BODY { font-family : Verdana,  Arial, Helvetica; font-size : 10pt; color : Black; margin : 0 0 0 0; padding : 0 0 0 0; background-color : White;}
+H1 { font-family : Verdana,  Arial, Helvetica; font-size : 12pt; color : #4C6178; font-weight : bold;}
+H2 { font-family : Verdana,  Arial, Helvetica; font-size : 10pt; color : #4C6178; font-weight : bold;}
+TD { font-family : Verdana,  Arial, Helvetica; font-size : 10pt; color : #32404F; }
+TH { font-family : Verdana,  Arial, Helvetica; font-size : 10pt; color : #FFFFFF; }
+DIV { font-family : Verdana,  Arial, Helvetica; font-size : 10pt; color : #32404F;}
+A { font-family : Verdana,  Arial, Helvetica; font-size : 10pt;}
+A.nav { font-family : Verdana,  Arial, Helvetica; font-size : 10pt; text-decoration : none; color: white;}
+A:HOVER.nav { font-family : Verdana,  Arial, Helvetica; font-size : 10pt; text-decoration : none; color: #BCCBDB;}
+B { font-family : Verdana,  Arial, Helvetica; font-size : 10pt; color : #32404F; font-weight : bold;}
+I { font-family : Verdana,  Arial, Helvetica; font-size : 10pt; color : #32404F; font-style : italic;}
+P { font-family : Verdana,  Arial, Helvetica; font-size : 10pt; color : #32404F;}
+SELECT {font-family : Verdana,  Arial, Helvetica; font-size : 8pt; color : #32404F;}
+INPUT {font-family : Verdana,  Arial, Helvetica; font-size : 8pt; color : #32404F;}
+OPTION {font-family : Verdana,  Arial, Helvetica; font-size : 8pt; color : #32404F;}
+HEADER {font-family : Verdana,  Arial, Helvetica; font-size : 8pt; color : #FFFFFF;  text-decoration : none;}
+FONT.PRICE { font-family : Arial, Helvetica, Verdana; font-size : 9pt; color : #32404F;}
+
+
+/* general content area */
+/* button text */
+
+TD.buttontext {font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;color : white;font-size : 9pt; font-weight : bold; background-color : #EA2B2B; text-decoration : none;}
+TD.pixel {line-height: 0px; font-size: 1px;}
+/* button text */
+/* content spacer */
+
+TD.content { margin-left : 10pt; margin-top : 10pt; font-family : Verdana; font-size : 10pt; color : Black;}
+
+/* content spacer */
+
+
+/* A class Styles */
+A 			{	FONT-SIZE: 10pt; FONT-FAMILY: Verdana,  Arial, Helvetica}
+A.nav 		{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none}
+A.nav:hover {	FONT-SIZE: 10pt; COLOR: #bccbdb; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none}
+A.search	{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: underline}
+A.button	{	FONT-SIZE:  9pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none; 
+				FONT-WEIGHT: bold; BACKGROUND-COLOR: #ea2b2b; PADDING: 2px 4px 4px 2px;
+				BORDER-LEFT: thin solid #ff2d2d; BORDER-RIGHT:  thin solid #7a1616 ;
+				BORDER-TOP:  thin solid #ff2d2d; BORDER-BOTTOM: thin solid #7a1616; }
+/* A class Styles */
+
+/* Span class Styles */
+SPAN.reqd{	FONT-FAMILY: Verdana; COLOR: #ea2b2b; FONT_SIZE: 2pt;	}
+
+/* TABLE class Styles */
+TABLE.noBorder		{	BORDER-STYLE: none; BORDER-COLLAPSE: collapse; }
+TABLE.noBorderWide	{	BORDER-STYLE: none; BORDER-COLLAPSE: collapse; WIDTH: 100%; }
+
+/* TD class Styles */
+TD 			{	FONT-SIZE: 10pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica }
+TD.header 	{	FONT-SIZE: 10pt; COLOR: #4c6178; FONT-FAMILY: Verdana; PADDING-LEFT: 3px; FONT-WEIGHT: bold;   }
+TD.buttontext{	FONT-SIZE:  9pt; COLOR: white  ; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif; FONT-WEIGHT: bold;    BACKGROUND-COLOR: #ea2b2b; TEXT-DECORATION: none}
+TD.pixel 	{	FONT-SIZE:  1px; LINE-HEIGHT: 0px;}
+TD.content 	{	FONT-SIZE: 10pt; COLOR: black  ; FONT-FAMILY: Verdana; MARGIN-TOP: 10pt;  MARGIN-LEFT: 10pt;}
+TD.subtitle{	COLOR: #b7d9ff;	BACKGROUND-COLOR: #394959; FONT-WEIGHT: bold;	}
+TD.colHeader{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana; FONT-WEIGHT: bold; }
+TD.price 	{	FONT-SIZE:  9pt; COLOR: #32404f; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: right;}
+
+/* General Class Styles */
+.title		{	FONT-SIZE: 17pt; COLOR: #32404f ;FONT-FAMLY: Verdana	}
+.smallText	{	FONT-SIZE: -1pt; COLOR: #ffffff ;FONT-FAMILY: Verdana;  }
+.smallerText{font: 11px Verdana; color:white;}
+.amount		{ 	FONT-SIZE: 8pt; FONT-FAMILY: Arial, Helvetica, Verdana;  TEXT-ALIGN: right;	}
+.summary	{	FONT-SIZE: 8pt;	}
+.bgColor 	{	BACKGROUND-COLOR: #4c6178	}
+.cellBG_1	{	BACKGROUND-COLOR: #ffffff; }
+.cellBG_2	{	BACKGROUND-COLOR: #bccbdb; }
+.warning	{	COLOR: red;	}
+
+</STYLE>

@@ -1,0 +1,25 @@
+<!DOCTYPE repository-entries SYSTEM "../../../../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<page-components>
+	<virtual-page id="BillingAddressPage"/>
+
+	<virtual-page-interface id="BillingAddressPage.i1" virtual-page-id="BillingAddressPage">
+		<entry-port id="BillingAddressPage.i1.e1" type="EntryPortType1"/>
+		<exit-port id="BillingAddressPage.i1.xNext" type="ExitPortType1"/>
+	</virtual-page-interface>
+
+	<simple-implementation id="BillingAddressPage.i1.impl1" url="URLForBillingAddressPage.i1.impl1" virtual-page-interface-id="BillingAddressPage.i1">
+		<component-interface id="BillingAddressPage.i1.impl1.ci1" interface="ActualBillingAddressPage.i1"/>
+		<exit-port-map id="BillingAddressPage.i1.impl1.xpm1" interface-exit-port="BillingAddressPage.i1.xNext" component-exit-ports="ActualBillingAddressPage.i1.xNext"/>
+	</simple-implementation>
+
+	<actual-page id="ActualBillingAddressPage" file="BillingAddressDisplay.jsp"/>
+
+	<actual-page-interface id="ActualBillingAddressPage.i1" actual-page-id="ActualBillingAddressPage">
+		<exit-port id="ActualBillingAddressPage.i1.xNext" type="ExitPortType1"/>
+	</actual-page-interface>
+
+</page-components>
+</components>
+</repository-entries>

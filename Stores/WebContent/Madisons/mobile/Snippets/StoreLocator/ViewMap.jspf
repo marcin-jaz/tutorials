@@ -1,0 +1,47 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%--
+  *****
+  * This jspf contains code that goes to a static map page.
+  *****
+--%>
+
+<!-- BEGIN ViewMap.jspf -->
+
+<c:url var="mStoreMapURL" value="mStoreMapView">
+	<c:param name="storeListIndex" value="${storeListIndex}" />
+	<c:param name="geoNodeId" value="${geoNodeId}" />
+	<c:param name="geoCodeLatitude" value="${geoCodeLatitude}" />
+	<c:param name="geoCodeLongitude" value="${geoCodeLongitude}" />
+	<c:param name="physicalStoreId" value="${WCParam.physicalStoreId}" />
+	<c:param name="storeAvailPage" value="${storeAvailPage}" />
+	<c:param name="prevPage" value="${prevPage}" />
+	<c:if test"${!empty detailInfoPage}">
+		<c:param name="page" value="${detailInfoPage}" />
+	</c:if>
+	<c:if test="${!empty WCParam.fromPage}">								
+		<c:param name="fromPage" value="${WCParam.fromPage}" />
+	</c:if>
+	<c:forEach var="thisParameter" items="${WCParamValues}">
+		<c:if test="${thisParameter.key != 'geoNodeId' and thisParameter.key != 'geoNodeShortDesc' and thisParameter.key != 'fromPage' and thisParameter.key != 'zipOrCity' and thisParameter.key != 'add'}">
+			<c:forEach var="value" items="${thisParameter.value}">
+				<c:param name="${thisParameter.key}" value="${value}" />
+			</c:forEach>
+		</c:if>
+	</c:forEach>
+</c:url>
+
+<li><span class="bullet">&#187; </span><a href="${fn:escapeXml(mStoreMapURL)}"><fmt:message key='MST_VIEW_MAP' bundle='${storeText}' /></a></li>
+
+<!-- END ViewMap.jspf -->

@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("pastefromword","pl",{confirmCleanup:"Wklejany tekst prawdopodobnie został skopiowany z programu Word. Czy wyczyścić go przed wklejeniem?",error:"Nie można wyczyścić wklejanych danych z powodu błędu wewnętrznego.",title:"Wklej specjalnie",toolbar:"Wklej specjalnie"});

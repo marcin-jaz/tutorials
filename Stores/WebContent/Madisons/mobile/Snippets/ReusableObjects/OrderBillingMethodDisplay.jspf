@@ -1,0 +1,68 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%-- 
+  *****
+  * This JSP snippet displays the billing details for a particular order. This snippet is 
+  * used by the OrderDetailDisplay jsp page
+  *****
+--%>
+
+<!-- BEGIN OrderBillingMethodDisplay.jspf -->
+<c:set var="knownProtocolData" value="account,expire_month,expire_year,check_routing_number" />
+<c:forEach var="paymentInstance" items="${order.orderPaymentInfo.paymentInstruction}" varStatus="paymentCount">
+	<li><fmt:message key="MO_PAYMENT" bundle="${storeText}"/>: <c:out value="${paymentInstance.paymentMethod.description.value}"/></li>
+	<c:set var="expireMonthValue" value =""/>
+	<c:set var="expireYearValue" value =""/>
+	<c:forEach var="protocolData" items="${paymentInstance.protocolData}">
+		<c:if test="${fn:contains(knownProtocolData,protocolData.name) && !empty protocolData.value}">
+			<c:if test="${paymentInstance.paymentMethod.paymentMethodName !='LineOfCredit'}">
+				<c:choose>
+					<c:when test="${protocolData.name == 'account'}">
+						<p><fmt:message key="${protocolData.name}" bundle="${storeText}"/> <c:out value="${protocolData.value}"/></p>
+					</c:when>
+					<c:when test="${protocolData.name == 'expire_month'}">
+						<c:set var="expireMonthValue" value ="${protocolData.value}"/>
+					</c:when>
+					<c:when test="${protocolData.name == 'expire_year'}">
+						<c:set var="expireYearValue" value ="${protocolData.value}"/>
+					</c:when>
+					<c:when test="${protocolData.name == 'check_routing_number'}">
+						<c:set var="checkRoutingNumberValue" value ="${protocolData.value}"/>
+					</c:when>
+				</c:choose>
+			</c:if>
+		</c:if>
+	</c:forEach>
+	<c:if test="${!empty checkRoutingNumberValue}">
+		<p><fmt:message key="check_routing_number" bundle="${storeText}"/> <c:out value="${checkRoutingNumberValue}"/></p>
+	</c:if>
+	<c:if test="${!empty expireMonthValue && !empty expireMonthValue}">
+		<p><fmt:message key="expire_month" bundle="${storeText}"/> <c:out value="${expireMonthValue}"/> <fmt:message key="expire_year" bundle="${storeText}"/> <c:out value="${expireYearValue}"/></p>
+		<c:set var="expireMonthValue" value =""/>
+		<c:set var="expireYearValue" value =""/>
+	</c:if>				
+	<c:if test="${isPayInStore &&  !hidePayInStoreEmailAddress && userType == 'G'}">
+		<div class="billing_method" id="WC_CheckoutPaymentAndBillingAddressSummaryf_td_3_<c:out value='${paymentCount.count}'/>_email_1">								
+			<label for="PayInStoreEmailAddress">
+				<span class="required-field">*</span>
+				<fmt:message key="EMAIL_ADDRESS2" bundle="${storeText}"/>
+			</label>
+			<input name="payInStoreEmailAddress" id="PayInStoreEmailAddress" type="text" />
+		</div>
+	</c:if>
+	<li><fmt:message key="MO_AMOUNT" bundle="${storeText}"/>: <fmt:formatNumber value="${paymentInstance.amount.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></li>
+</c:forEach>
+
+<!-- END OrderBillingMethodDisplay.jspf -->

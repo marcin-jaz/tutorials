@@ -1,0 +1,39 @@
+<%--
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2004
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+--%>
+<%-- 
+  *****
+  *	This JSPF shows the following address information: First Name, Last Name, Address Information (i.e. Street address, City, State/Province, etc).
+  * The layouts are different depending on the locale.
+  *****
+--%>
+
+<!-- Start - JSP File Name:  Address.jspf -->
+<c:if test="${!empty address.lastName || !empty address.firstName}">
+	<c:out value="${address.firstName}"/> <c:out value="${address.lastName}"/><br />
+</c:if>
+<c:if test="${!empty address.address1 || !empty address.address2}">
+	<c:out value="${address.address1}"/>&nbsp;<c:out value="${address.address2}"/><br />
+</c:if>
+<c:if test="${!empty address.stateProvDisplayName || !empty address.city}">
+	<c:out value="${address.city}"/>&nbsp;<c:out value="${address.stateProvDisplayName}"/>&nbsp;<br />
+</c:if>
+<c:if test="${!empty address.countryDisplayName || !empty address.zipCode}">
+	<c:out value="${address.countryDisplayName}"/>&nbsp;<c:out value="${address.zipCode}"/>&nbsp;<br/>
+</c:if>
+<c:if test="${!empty address.phone1}">
+	<c:out value="${address.phone1}"/><br/>
+</c:if>
+<!-- End - JSP File Name:  Address.jspf -->

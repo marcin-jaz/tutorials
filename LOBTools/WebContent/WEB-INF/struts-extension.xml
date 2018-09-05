@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+
+	<action-mappings>
+		<!--
+			To enable Single Sign On, uncomment the following Logon, Logout and ResolveIdentity actions.
+		-->
+		<!--
+		<action path="/Logon" parameter="Person"
+			type="com.ibm.commerce.foundation.client.lobtools.actions.AuthenticationClientLibraryAction"
+			className="com.ibm.commerce.foundation.client.lobtools.actions.AuthenticationActionMapping">
+			<set-property property="contextParameters"
+				value="channelId" />
+			<set-property property="clientLibrary"
+				value="com.ibm.commerce.member.facade.client.MemberFacadeClient" />
+			<set-property property="clientLibraryMethod"
+				value="authenticatePassword" />
+			<set-property property="aliasParameters"
+				value="password:logonPassword" />
+			<set-property property="generateLTPAToken"
+				value="true" />
+
+			<forward name="success" path="/jsp/commerce/shell/restricted/AuthenticationSuccess.jsp">
+			</forward>
+			<forward name="failed" path="/jsp/commerce/shell/restricted/AuthenticationFailed.jsp">
+			</forward>
+		</action>
+		<action path="/Logout" parameter="Person"
+			type="com.ibm.commerce.foundation.client.lobtools.actions.AuthenticationClientLibraryAction"
+			className="com.ibm.commerce.foundation.client.lobtools.actions.AuthenticationActionMapping">
+			<set-property property="clientLibrary"
+				value="com.ibm.commerce.member.facade.client.MemberFacadeClient" />
+			<set-property property="clientLibraryMethod"
+				value="logout" />
+			<set-property property="removeLTPAToken"
+				value="true" />
+
+			<forward name="success" path="/jsp/commerce/foundation/restricted/Values.jsp">
+			</forward>
+			<forward name="failed" path="/jsp/commerce/shell/restricted/AuthenticationFailed.jsp">
+			</forward>
+		</action>
+		<action path="/ResolveIdentity" parameter="Person"
+			type="com.ibm.commerce.foundation.client.lobtools.actions.AuthenticationClientLibraryAction"
+			className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters"
+				value="channelId" />
+			<set-property property="clientLibrary"
+				value="com.ibm.commerce.member.facade.client.MemberFacadeClient" />
+			<set-property property="clientLibraryMethod"
+				value="authenticateLTPA" />
+
+			<forward name="success" path="/jsp/commerce/shell/restricted/ResolveIdentitySuccess.jsp">
+			</forward>
+			<forward name="failed" path="/jsp/commerce/shell/restricted/ResolveIdentityFailed.jsp">
+			</forward>
+		</action>
+		-->
+	</action-mappings>
+
+</struts-config>

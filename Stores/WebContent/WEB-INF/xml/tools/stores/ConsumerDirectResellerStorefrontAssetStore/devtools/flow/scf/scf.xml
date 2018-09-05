@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scf SYSTEM "scf.dtd">
+<scf version="1.0">
+  <exit-ports>
+    <exit-port id="ActualBillingAddressPage.i1.xNext" destinationURL="MultipleShippingAddressView"/>
+    <exit-port id="ActualMultipleShippingMethodPage.i1.xPrevious" destinationURL="MultipleShippingAddressView"/>
+    <exit-port id="ActualMultipleShippingAddressPage.i1.xNext" destinationURL="MultipleShippingMethodView"/>
+    <exit-port id="ActualAddressformPage.i1.xBackToCheckout" destinationURL="MultipleShippingAddressView"/>
+    <exit-port id="ActualAddressBookFormPage.i1.xBackToCheckout" destinationURL="MultipleShippingAddressView"/>
+    <exit-port id="ActualOrderDisplayPendingPage.i1.xPrevious" destinationURL="MultipleShippingMethodView"/>
+  </exit-ports>
+  <features>
+    
+    <feature id="MultipleShippingMethodPage.i1.impl.f"/>
+    <feature id="MultipleShippingAddressPage.i1.impl.f"/>
+    <feature id="FutureOrders"/>
+    <feature id="ShippingInstructions"/>
+    <feature id="Style.f.1"/>
+    <feature id="Banner.f.1"/>
+    <feature id="Color.f.1"/>
+    <feature id="preferredLanguage"/>
+    <feature id="quickCheckout"/>
+    <feature id="wishList"/>
+    <feature id="CatalogList"/>
+    <feature id="ShoppingTotal"/>
+    <feature id="ProductQuantity"/>
+    <feature id="preferredCurrency"/>
+    <feature id="TrackingStatus"/>
+    <feature id="search"/>
+    <feature id="Age"/>
+    <feature id="Gender"/>
+    <feature id="TrackingURL"/>
+    <feature id="EmailOption"/>    
+    <feature id="vfile.logo.gif.f"/>
+    <feature id="CommercePaymentsSupport"/>
+  </features>
+  <file-refs>
+    <file-ref id="vfile.color" url="images/colors/color1/"/>
+    <file-ref id="StyleDir" url="include/styles/style1/"/>
+    <file-ref id="vfile.stylesheet" url="css/Master1_1$locale$.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+    <file-ref id="vfile.logo" url="images/logo.gif"/>
+    <file-ref id="vfile.banner" url="images/banner.gif"/>
+    <file-ref id="vfile.selectedBanner" url="images/banners/banner1_1.gif"/>    
+  </file-refs>  
+</scf>

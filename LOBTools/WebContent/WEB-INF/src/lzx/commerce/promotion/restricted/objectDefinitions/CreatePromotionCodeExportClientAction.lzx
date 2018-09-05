@@ -1,0 +1,73 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2012, 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<library>
+	<!-- Custom client action to create a promotion code export for a particular promotion -->
+	<class name="proCreatePromotionCodeExportClientAction" extends="wcfClientAction" 
+			allowMultipleSelection="false">
+		
+		<!---
+			Create the PromotionCodeExport client objects using the select promotion details
+			
+			@param wcfModelObject[] objects The array of selected model objects.
+		-->		
+		<method name="performAction" args="objects">
+			<![CDATA[
+				var targetObjDef = objects[0].model.getObjectDefinition(null, "PromotionCodeExport");
+				var newObject = objects[0].model.createNewObject(targetObjDef, null);
+				var promotionId = objects[0].getPropertyValue("promotionId");
+				var promotionName = objects[0].getPropertyValue("adminName"); 
+				var campaignName = promotionName;
+				var startDate = objects[0].getPropertyValue("startDate"); 
+				var endDate = objects[0].getPropertyValue("endDate"); 
+				newObject.setPropertyValue("promotionId", null, promotionId);
+				newObject.setPropertyValue("promotionName", null, promotionName);
+				newObject.setPropertyValue("campaignName", null, campaignName);
+				newObject.setPropertyValue("startDate", null, startDate);
+				newObject.setPropertyValue("endDate", null, endDate);
+
+				var storeConfig = wcfContextUtil.findStoreConfig(objects[0]);
+				var mcEnabled = ((storeConfig != null) && (storeConfig.analytics != null));
+				if (mcEnabled) {
+					mcEnabled = storeConfig.analytics.isMarketingCenterEnabled == "true";
+					if (mcEnabled) {
+						newObject.setPropertyValue("includeMCMetadata", null, "true");
+					}
+				}
+				
+				newObject.model.oEditor.selectOpenObject(newObject);
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			Returns true if the context is not read only.
+			
+			@param wcfModelObject o: the object on which you want to perform this client action
+			@return boolean: true if the client action is enabled
+		-->
+		<method name="isEnabled" args="o">
+			<![CDATA[
+			var enabled = super.isEnabled(o);
+			if (enabled && o.model.oEditor.respectWorkspaceContext) {
+				var readOnlyModeContextValue = wcfContextUtil.findContextValue(null, "readOnlyMode");				
+				enabled = (readOnlyModeContextValue.value != "true");
+			}
+			if (enabled && o.isContextReadOnly()) {
+				enabled = false;
+			}
+			return enabled;
+			]]>
+		</method>
+	</class>
+</library>

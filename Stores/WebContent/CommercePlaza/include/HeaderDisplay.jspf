@@ -1,0 +1,133 @@
+<%
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM 
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright International Business Machines Corporation. 2003
+//*     All rights reserved.
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+%>
+
+<%
+String currentOption = (String)request.getAttribute("pageName");
+String displayClass = "";
+
+String tableWidth = "600";
+if (jhelper.getParameter("actionName") != null) {
+	tableWidth = "100%";
+}
+%>
+
+<!--START HEADER-->
+
+<%
+if (jhelper.getParameter("actionName") != null) 
+	{	// Stretch the header if a tool is open in the main content area
+		%><table cellspacing="0" cellpadding="0" width="100%" border="0" background="<%=fileDir%>images/logo_back.gif"><%
+	}else {
+		%><table cellspacing="0" cellpadding="0" width="750" border="0" background="<%=fileDir%>images/logo_back.gif"><%
+	}
+%>
+    <tr>
+	<td width="150"><img height="73" alt="<%=storeText.getString("Breadcrumb_CommercePlaza")%>" src="<%=fileDir%>images/nav_logo.gif" width="150" border="0" class="imgHeightFix" /></a></td>
+    	<td width="<%= tableWidth%>">
+		<table cellspacing="0" cellpadding="0" width="<%= tableWidth%>" border="0" background="<%=fileDir%>images/option_back.gif">
+		<tr>
+		<%
+		if (jhelper.getParameter("actionName") != null) 
+		{	// Stretch the header if a tool is open in the main content area
+		%>
+			<td width="432"><img src="<%=fileDir%>images/banner_left.jpg" alt="" width="432" height="55" border="0" class="imgHeightFix"></td><%
+		}else {
+		%>
+			<td width="121"><img src="<%=fileDir%>images/banner_left.jpg" alt="" width="121" height="55" border="0" class="imgHeightFix"></td><%
+		}
+		%>
+			<td class="banner_tile"><img src="<%=fileDir%>images/banner_tile.gif" alt="" width="4" height="55" border="0" class="imgHeightFix"></td>
+			<td width="475" align="right" class="searchBar">
+				<%
+				// If the user is a guest, don't show the search dialog
+				if (!userState.equalsIgnoreCase("G"))
+	 			{  
+				%><form name="QuickCatalogSearchForm" action="CatalogSearchResultDisplayView" method="post" target="_top" class="inlineform">
+				<input type="hidden" name="storeId" value="<%= storeId %>" />
+	                        <input type="hidden" name="langId" value="<%= languageId %>" />
+	                        <input type="hidden" name="catalogId" value="<%= catalogId %>" />
+	                        <input type="hidden" name="pageSize" value="10" />
+	                        <input type="hidden" name="beginIndex" value="0" />
+	                        <input type="hidden" name="sType" value="SimpleSearch" />
+	                        <input type="hidden" name="resultType" value="1" />
+	                        <input type="hidden" name="searchTermScope" value="3" />
+	                        <input type="hidden" name="searchType" value="ANY" />
+	                        <input type="hidden" name="skuCaseSensitive" value="no" />
+	                        <input type="hidden" name="skuOperator" value="EQUAL" />
+	                        <input type="hidden" name="coSearchSkuEnabled" value="true" />
+	                        <input type="hidden" name="searchTermCaseSensitive" value="no" />
+	                        <input type="hidden" name="searchTermOperator" value="LIKE" />
+	                        <label for="searchformq"><img src="<%=fileDir%>images/trans.gif" height="1" width="1" border="0" alt="<%=storeText.getString("Alt_Search")%>"/></label>
+	                        <font face="Verdana, sans-serif" size="-1">
+	               		<input type="text" value="" name="searchTerm" size="15" class="input" maxlength="100" id="searchformq" />&nbsp;&nbsp;<input type="button" width="30" value="<%=storeText.getString("Alt_Search")%>" onClick="javascript:document.QuickCatalogSearchForm.submit();" />&nbsp;&nbsp;
+	           		</form>
+	           		<% } %>
+			</td>
+        	</tr>
+		<tr>
+			<%
+			// If the user is a guest, don't show the links on the header
+			if (userState.equalsIgnoreCase("G"))
+			 {  
+			%>      
+			    <td valign="top" colspan="3" height="18" width="<%= tableWidth%>">&nbsp;&nbsp;&nbsp;</td>
+			<%
+			 }
+			 else {
+			%>      
+    			<td valign="top" colspan="3" height="18" width="<%= tableWidth%>">&nbsp;&nbsp;&nbsp;
+				<%
+				if (currentOption == "StoreCatalogDisplay") {
+					displayClass = "highlight";
+				}
+				else {
+					displayClass = "mainlink";
+				}
+				%>
+					<a class="<%=displayClass%>" href="StoreCatalogDisplay?langId=<%=languageId%>&storeId=<%=storeId%>&catalogId=<%=catalogId%>" target="_top"><%=storeText.getString("NavHeader_Link1")%></a>
+					<span class="divider">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+				<%
+				if (currentOption == "CommercePlazaCatalog") {
+					displayClass = "highlight";
+				}
+				else {
+					displayClass = "mainlink";
+				}
+				%>
+					<a class="<%=displayClass%>" href="TopCategoriesDisplay?langId=<%=languageId%>&storeId=<%=storeId%>&catalogId=<%=catalogId%>" target="_top"><%=storeText.getString("NavHeader_Link2")%></a>
+					<span class="divider">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+				<%
+				if (currentOption == "MyProfile") {
+					displayClass = "highlight";
+				}
+				else {
+					displayClass = "mainlink";
+				}
+				%>
+					<a class="<%=displayClass%>" href="UserRegistrationModifyFormView?storeId=<%=storeId%>&catalogId=<%=catalogId%>&langId=<%=languageId%>" target="_top"><%=storeText.getString("NavHeader_Link4")%></a>                  
+					<span class="divider">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+				</td>
+			<%
+			 } // not a guest
+			%>      
+		</tr>
+	</table>
+    </td>
+</tr>
+</table>
+
+<!--END HEADER-->

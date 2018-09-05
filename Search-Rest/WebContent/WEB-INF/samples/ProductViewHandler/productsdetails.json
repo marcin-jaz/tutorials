@@ -1,0 +1,77 @@
+{
+	"catalogEntryView": [
+		{
+			"ad_attribute": [
+				{
+					"ad_attribute": "7000000000000000129\/_\/TablewareColor\/_\/Color\/_\/0.00000\/_\/7000000000000002300\/_\/White\/_\/White\/_\/3.00000\/_\/1\/_\/0\/_\/1\/_\/0\/_\/0\/_\/1",
+					"description": "I",
+					"usage": "Offer"
+				}
+			],
+			"buyable": "true",
+			"catalogEntryTypeCode": "ItemBean",
+			"disallowRecurringOrder": "1",
+			"fullImage": "\/wcsstore\/Aurora\/images\/catalog\/homefurnishings\/hta029_tableware\/1000x1000\/hta029_2920.jpg",
+			"longDescription": "High grade porcelain mug. Specifically designed in this shape to give a better grip to the mug. Great for use in office, or to give as a gift to a friend with a personal note. Dishwasher and microwave safe.",
+			"manufacturer": "KitchenComfort",
+			"name": "KitchenComfort Mugs",
+			"parentCatalogGroupID": "10046",
+			"partNumber": "HTA029_292001",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "20.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/13005",
+			"shortDescription": "Plain porcelain mug.",
+			"storeID": "10001",
+			"subscriptionTypeCode": "NONE",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/homefurnishings\/hta029_tableware\/160x160\/hta029_2920.jpg",
+			"uniqueID": "13005"
+		},
+		{
+			"ad_attribute": [
+				{
+					"ad_attribute": "7000000000000000129\/_\/TablewareColor\/_\/Color\/_\/0.00000\/_\/7000000000000002300\/_\/White\/_\/White\/_\/3.00000\/_\/1\/_\/0\/_\/1\/_\/0\/_\/0\/_\/1",
+					"description": "I",
+					"usage": "Offer"
+				}
+			],
+			"buyable": "true",
+			"catalogEntryTypeCode": "ItemBean",
+			"disallowRecurringOrder": "1",
+			"fullImage": "\/wcsstore\/Aurora\/images\/catalog\/homefurnishings\/hta029_tableware\/1000x1000\/hta029_2921.jpg",
+			"longDescription": "Wide mouth teacup made out of porcelain. The cups are designed to give a more filling experience, while you enjoy your daily cup of tea. Great for everyday use. Dishwasher safe and microwave safe.",
+			"manufacturer": "KitchenComfort",
+			"name": "KitchenComfort Paula Teacup Set",
+			"parentCatalogGroupID": "10046",
+			"partNumber": "HTA029_292101",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "89.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/13007",
+			"shortDescription": "12 piece wide mouth teacup set.",
+			"storeID": "10001",
+			"subscriptionTypeCode": "NONE",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/homefurnishings\/hta029_tableware\/160x160\/hta029_2921.jpg",
+			"uniqueID": "13007"
+		}
+	],
+	"metaData": {
+		"price": "1"
+	},
+	"recordSetComplete": "true",
+	"recordSetCount": 2,
+	"recordSetStartNumber": 0,
+	"recordSetTotal": 2,
+	"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byIds",
+	"resourceName": "productview"
+}

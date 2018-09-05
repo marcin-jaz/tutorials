@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+	<panel id="RegistrationPanel" title="RegistrationPanel.title" description="RegistrationPanel.description" display-priority="1"/>
+
+	<option-group id="Preferences.Currency.checkbox" type="checkbox" display-priority="1" panel="RegistrationPanel" >
+		
+		<option id="Preferences.Currency.checkboxEnable"
+			label="Preferences.Currency.checkboxEnable.label"
+			enables-features="preferredCurrency" />
+			
+	</option-group>
+
+	<option-group id="Preferences.Language.checkbox" type="checkbox" display-priority="2" panel="RegistrationPanel" >
+		
+		<option id="Preferences.Language.checkboxEnable"
+			label="Preferences.Language.checkboxEnable.label"
+			enables-features="preferredLanguage" />
+			
+	</option-group>
+
+	<option-group id="Demographics.Gender.checkbox" type="checkbox" display-priority="3" panel="RegistrationPanel" >
+		
+		<option id="Demographics.Gender.checkboxEnable"
+			label="Demographics.Gender.checkboxEnable.label"
+			enables-features="Gender" />
+			
+	</option-group>
+	
+	<option-group id="EmailOption.checkbox" type="checkbox" display-priority="4" panel="RegistrationPanel" >
+		
+		<option id="EmailOption.checkboxEnable"
+			label="EmailOption.checkboxEnable.label"
+			enables-features="EmailOption" />
+			
+	</option-group>
+	
+	<option-group id="MobilePhoneOption.checkbox" type="checkbox" display-priority="5" panel="RegistrationPanel" >
+		
+		<option id="MobilePhoneOption.checkboxEnable"
+			label="MobilePhoneOption.checkboxEnable.label"
+			enables-features="MobilePhone" />
+			
+	</option-group>
+	
+		<option-group id="Demographics.AgeOptions.checkbox" type="checkbox" display-priority="6" panel="RegistrationPanel" >
+	
+		<option id="Demographics.AgeOptions.checkboxEnable"
+			label="Demographics.AgeOptions.checkboxEnable.label"
+			enables-option-groups="Demographics.AgeOptions.radios"
+			enables-features="AgeOptions" />
+			
+	</option-group>
+	
+	<option-group id="Demographics.AgeOptions.radios" type="radio" display-priority="7" panel="RegistrationPanel">
+		
+		<option id="Demographics.DateOfBirth.radio"
+			label="Demographics.DateOfBirth.radio.label"
+			enables-features="DateOfBirth"
+			selected-by-default="true" />
+			
+		<option id="Demographics.Age.radio"
+			label="Demographics.Age.radio.label"
+			enables-features="Age" />
+					
+	</option-group>
+	
+</display>

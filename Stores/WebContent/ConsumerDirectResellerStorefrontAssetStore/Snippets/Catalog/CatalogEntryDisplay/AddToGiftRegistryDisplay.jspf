@@ -1,0 +1,34 @@
+<%
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2005
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+%>
+ 
+<%-- 
+  *****
+  * The page is included by the product and item jsps to enable adding an item to a gift registry.
+  * This snippet has 2 drop downs and 1 'Add to registry' button.
+  *
+  * The first drop down is a list of registries. The user can select from this list and click 'add to shopping cart' which
+  *  in turn will add the externalId and the orderitems_id to the ORDERITEMGIFT table 
+  *
+  * The second drop down allows a user to select from the drop down and click 'add to registry'.  This allows a 
+  *  registrant to build their registry list
+  *****
+--%>
+
+<!-- Start - JSP File Name:  AddToGiftRegistryDisplay.jspf -->
+
+<!-- This is a dummy file which will be available after installing the gift registry. -->
+
+<!-- End - JSP File Name:  AddToGiftRegistryDisplay.jspf -->

@@ -1,0 +1,38 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%--
+  *****
+  * This JSP page constructs the month drop-down
+  * selection box for RFQ JSP pages. 
+  *  
+  * Required parameters:
+  * - select_name - name of select control
+  * - default_option - default value
+  * - selected_val - month selected
+  *
+  *****
+--%>
+
+<!--SELECT MONTH-->
+<SELECT name="<c:out value="${select_name}"/>" class="select" id="WC_SelectMonth_Select_1">
+	<option value=""><c:out value="${default_option}" /></option>
+	<c:forTokens var="month" items="1,2,3,4,5,6,7,8,9,10,11,12"
+		delims=",">
+		<OPTION value="<c:out value="${month}"/>"<c:if test="${selected_val eq month}"> <c:out value="selected='selected'" /></c:if>><c:out value="${month}" /></OPTION>
+	</c:forTokens>
+</SELECT>
+<!--END SELECT MONTH-->

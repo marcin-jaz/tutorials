@@ -1,0 +1,5 @@
+"Brewmaster","Brewmaster"
+"User Manual","Manual do Usußrio"
+"Page 1 of 1","Pßgina 1 de 1"
+"Congratulations on your purchase of Brewmaster \nDeluxe Coffeemaker ù the latest and greatest in \ncoffeemaking!!! ","ParabÚns por sua aquisiþÒo da Cafeteira\nBrewmaster Deluxe ù a maior e melhor novidade\nno preparo de cafÚ!!!"
+"Brewmaster Deluxe Coffeemaker","Luxuosa Cafeteira Brewmaster"

@@ -1,0 +1,38 @@
+<%--
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2001, 2002
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+--%>
+
+<!-- BEGIN SidebarDisplay.jspf -->
+
+<%--
+//  This JSP is used to make CachedSidebarDisplay.jsp cachable.  The parameters passed into
+//  CachedSidebarDisplay.jsp are defined as a key in the cachespec.xml file.
+--%>
+
+<c:import url="${jspStoreDir}${StyleDir}CachedSidebarDisplay.jsp">
+	<c:param name="storeId" value="${storeId}" />
+	<c:param name="catalogId" value="${catalogId}" />
+	<c:param name="langId" value="${langId}" />
+	<c:param name="userType" value="${userType}" />
+	<c:param name="userState" value="${userState}" />
+	<c:param name="liveHelp" value="${liveHelp}" />
+	<c:param name="rfqLinkDisplayed" value="${rfqLinkDisplayed}" />
+    <c:param name="siteAdmin" value="${bSiteAdmin}"/>
+    <c:param name="sellAdmin" value="${bSellerAdmin}"/>
+    <c:param name="buyAdmin" value="${bBuyerAdmin}"/>
+    <c:param name="seller" value="${bSeller}"/>
+</c:import>
+
+<!-- END SidebarDisplay.jspf -->

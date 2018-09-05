@@ -1,0 +1,27 @@
+<!-- 
+Resolve IDs from the database.
+
+This file is used in conjunction with ForeignKeys.dtd.
+All values resolved in this file begin with a @ sign and are associated with a static variable in ForeignKeys.dtd.
+
+For example, @storeent_id is resolved to a numeric value and stored in &STOREENT_ID;
+  <!ENTITY STOREENT_ID "@storeent_id">
+
+This way values in ForeignKeys.dtd can be hard coded if need be:
+  <!ENTITY STOREENT_ID "10001">
+-->
+
+<orgentity orgentity_id="@catalog_orgentity_id" dn="&CAT_ORGANIZATION_DN;">
+	<isa>
+		<member member_id="@catalog_mbr_id" type="O"/>
+	</isa>
+</orgentity>
+
+<orgentity orgentity_id="@hosting_orgentity_id" dn="&ORGANIZATION_DN;">
+	<isa>
+		<member member_id="@target_mbr_id" type="O"/>
+	</isa>
+</orgentity>
+
+<storeent storeent_id="@targetStore" member_id="&TARGET_MEMBER_ID;" identifier="&STORE_IDENTIFIER;" type="S" />
+<store store_id="@targetStore" storegrp_id="-1" storelevel="MOBILE" />

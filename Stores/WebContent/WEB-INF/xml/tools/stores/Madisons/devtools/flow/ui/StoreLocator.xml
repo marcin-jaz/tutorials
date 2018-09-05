@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+	<panel id="StoreLocatorPanel" title="StoreLocatorPanel.title" description="StoreLocatorPanel.description" display-priority="9"/>
+
+	<option-group id="StoreLocator.checkbox" type="checkbox" display-priority="1" panel="StoreLocatorPanel" >
+		
+		<option id="StoreLocator.checkboxEnable"
+			label="StoreLocator.checkbox.label"
+			enables-features="StoreLocator" />
+	</option-group>
+
+</display>

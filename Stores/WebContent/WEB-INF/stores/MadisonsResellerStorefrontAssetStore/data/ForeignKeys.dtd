@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ENTITY ORG_DN_PROFILE_PART "ou=asset store organization,">
+<!ENTITY el_GR "-11">
+<!ENTITY ORG_DN_RESELLER "o=reseller organization,o=root organization">
+<!ENTITY ja_JP "-10">
+<!ENTITY INV_CHOICE "ATP/">
+<!ENTITY iw_IL "-11">
+<!ENTITY ORGANIZATION_DN "o=demand chain management organization,o=root organization">
+<!ENTITY zh_CN "-7">
+<!ENTITY pl_PL "-22">
+<!ENTITY fr_FR "-2">
+<!ENTITY es_ES "-5">
+<!ENTITY ORGANIZATION_DN_PROFILE "ou=asset store organization,o=demand chain management organization,o=root organization">
+<!ENTITY STORE_ID_CPS "10102">
+<!ENTITY ko_KR "-9">
+<!ENTITY BASE_ORGANIZATION_DN "o=base contracts account organization,o=root organization">
+<!ENTITY pt_BR "-6">
+<!ENTITY STORE_IDENTIFIER_CPS "Commerce Plaza Catalog">
+<!ENTITY ATTR_CHOICE "Classic">
+<!ENTITY STORE_DIR "MadisonsResellerStorefrontAssetStore">
+<!ENTITY ar_EG "-23">
+<!ENTITY en_US "-1">
+<!ENTITY zh_TW "-8">
+<!ENTITY STORE_DIR_CPS "CommercePlazaCatalog">
+<!ENTITY STORE_IDENTIFIER_RPS "MadisonsResellerStorefrontAssetStore">
+<!ENTITY de_DE "-3">
+<!ENTITY it_IT "-4">
+<!ENTITY ru_RU "-20">
+<!ENTITY ro_RO "-21">
+

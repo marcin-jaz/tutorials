@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE data-deploy SYSTEM "ibm-wc-load.dtd">
+<data-deploy base-dir="." default-target="all">
+    <asset id="foreignKeys" location="ForeignKeys.dtd" type="dtd"/>
+    <asset id="strutsConfigUpdate.template" location="struts-config-update.tpl.xml"/>
+    <asset id="strutsConfigUpdate" location="struts-config-update.xml"/>
+    <asset id="master" location="store-data-assets.xml"/>
+    <asset id="resolved.master" location="store-data-assets.resolved.xml"/>
+    <deploy-task-cmd name="commandInvoker" class="com.ibm.commerce.tools.devtools.publish.tasks.CommandInvokerTaskCmd"/>
+    <deploy-task-cmd name="UpdateDMTable" class="com.ibm.commerce.tools.devtools.publish.tasks.UpdateDMTaskCmd"/>
+    <deploy-task-cmd name="findStore" class="com.ibm.commerce.tools.devtools.publish.tasks.StoreIdBaseDeployTaskCmd"/>
+    <deploy-task-cmd name="fileFilter" class="com.ibm.commerce.tools.devtools.publish.tasks.unpack.FileFilterTaskCmd"/>
+    <deploy-task-cmd name="setupContentDirectory" class="com.ibm.commerce.tools.devtools.publish.tasks.catalog.SetupContentManagedDirectoryTaskCmd"/>
+    <deploy-task-cmd name="generateParams" class="com.ibm.commerce.tools.devtools.publish.tasks.GenerateParametersTaskCmd"/>
+    <target id="all">
+    	<task name="idresolve">
+            <param name="infile" value="${asset:master}" />
+            <param name="outfile" value="${asset:resolved.master}" />
+    	</task>
+    	<task name="massload">
+            <param name="infile" value="${asset:resolved.master}" />
+            <param name="maxerror" value="1" />
+            <param name="noprimary" value="error" />
+    	</task>  	
+    	
+    	<task name="findStore">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORGANIZATION_DN}" />
+            <export name="storeEntityId" value="storeEntityId"/>
+    	</task>
+    	<task name="UpdateDMTable">
+            <param name="type" value="catalogEntryIdList" />
+            <param name="storeId" value="${asset:foreignKeys#CATALOG_TARGET_STORE_ID}" />
+            <param name="valuesParam" value="FULO-02,FULO-04,FULOV-01,FULOV-02,FUOF-01,FUDE-02,FUCO-02,FUDEL-02,TASI-01,TASI-02,TATA-05,TAWI-03,KIFR-02,KIPO-01,KIES-01,AS-03,MW-0055,MW-0065,MW-0050,MW-0019" />
+            <param name="elementIdsParam" value="@dmelement_id2_p1_prod1,@dmelement_id2_p1_prod2,@dmelement_id2_p1_prod3,@dmelement_id2_p1_prod4,@dmelement_id2_p2_prod1,@dmelement_id2_p2_prod2,@dmelement_id2_p2_prod3,@dmelement_id2_p2_prod4,@dmelement_id2_p3_prod1,@dmelement_id2_p3_prod2,@dmelement_id2_p3_prod3,@dmelement_id2_p3_prod4,@dmelement_id2_p4_prod1,@dmelement_id2_p4_prod2,@dmelement_id2_p4_prod3,@dmelement_id2_p4_prod4,@dmelement_id2_p5_prod1,@dmelement_id2_p5_prod2,@dmelement_id2_p5_prod3,@dmelement_id2_p5_prod4" />
+    	</task>
+    	<task name="UpdateDMTable">
+            <param name="type" value="categoryIdList" />
+            <param name="storeId" value="${asset:foreignKeys#CATALOG_TARGET_STORE_ID}" />
+            <param name="valuesParam" value="Furniture" />
+            <param name="elementIdsParam" value="@dmelement_id2_c1_cat1" />
+    	</task>
+    	<task name="UpdateDMTable">
+            <param name="type" value="emsId" />
+            <param name="storeId" value="${context:storeEntityId}" />
+            <param name="valuesParam" value="${asset:foreignKeys#NEW_ESPOT_01},${asset:foreignKeys#NEW_ESPOT_02},${asset:foreignKeys#NEW_ESPOT_03},${asset:foreignKeys#NEW_ESPOT_04},${asset:foreignKeys#NEW_ESPOT_05},${asset:foreignKeys#NEW_ESPOT_06}" />
+            <param name="elementIdsParam" value="@dmelement_id1_p1,@dmelement_id1_p2,@dmelement_id1_p3,@dmelement_id1_p4,@dmelement_id1_p5,@dmelement_id1_c1" />
+    	</task>
+    	<task name="fileFilter">
+            <param name="input-filename" value="${asset:strutsConfigUpdate.template}"/>
+            <param name="output-filename" value="${asset:strutsConfigUpdate}"/>
+            <param name="storeId" value="${context:storeEntityId}"/>
+    	</task>
+    	<task name="commandInvoker">
+            <param name="invoked_commandClassName" value="com.ibm.commerce.struts.commands.UpdateStrutsConfigFileCmd"/>
+            <param name="webAppName" value="Stores" />
+            <param name="updateFileName" value="${asset:strutsConfigUpdate}"/>
+    	</task>
+
+        <task name="setupContentDirectory">
+            <param name="storeDir" value="${asset:foreignKeys#STORE_DIR}" />
+        </task>
+        <task name="commandInvoker">
+            <param name="invoked_commandClassName" value="com.ibm.commerce.scheduler.commands.RefreshRegistryCmd" />
+            <param name="URL" value="/ignore" />
+    	</task>
+    	<task name="generateParams">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORGANIZATION_DN}" />
+            <param name="targetFilename" value="parameters.jspf" />
+    	</task>
+   </target>
+</data-deploy>

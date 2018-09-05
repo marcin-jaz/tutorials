@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","hu",{redo:"Újra",undo:"Visszavonás"});

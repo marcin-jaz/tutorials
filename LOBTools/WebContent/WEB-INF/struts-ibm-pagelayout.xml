@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+	
+	<action-mappings>
+	
+		<!-- Page Layouts -->
+				
+		<action path="/FindPageLayoutTemplates" forward="/jsp/commerce/pagelayout/restricted/FindPageLayoutTemplates.jsp" />
+		<action path="/FindStorePageLayouts" forward="/jsp/commerce/pagelayout/restricted/FindStorePageLayouts.jsp" />
+		<action path="/GetPageLayoutByPage" forward="/jsp/commerce/pagelayout/restricted/GetPageLayoutByPage.jsp" />
+		<action path="/GetPageLayouts" forward="/jsp/commerce/pagelayout/restricted/GetPageLayouts.jsp" />
+		<action path="/GetPageLayoutWidgetDefinitions" forward="/jsp/commerce/pagelayout/restricted/GetPageLayoutWidgetDefinitions.jsp" />
+		<action path="/GetPageLayoutById" forward="/jsp/commerce/pagelayout/restricted/GetPageLayoutById.jsp" />
+		<action path="/GetPageLayoutTemplates" forward="/jsp/commerce/pagelayout/restricted/GetPageLayoutTemplates.jsp" />
+		<action path="/GetPageLayoutLocations" forward="/jsp/commerce/pagelayout/restricted/GetPageLayoutLocations.jsp" />
+		<action path="/GetPageLayoutPreviewUrl" forward="/jsp/commerce/pagelayout/restricted/GetPageLayoutPreviewUrl.jsp" />
+		<action path="/PopulateNewLayout" forward="/jsp/commerce/pagelayout/restricted/PopulateNewLayout.jsp" />
+		<action path="/SerializeLayoutWidget-EMarketingSpotWidget" include="/jsp/commerce/pagelayout/restricted/serialize/SerializeLayoutWidget-EMarketingSpot.jsp" />
+		<action path="/SerializeLayoutWidget-URLLinkWidget" include="/jsp/commerce/pagelayout/restricted/serialize/SerializeLayoutWidgetURLLinks.jsp" />
+		<action path="/SerializeLayoutWidget-ContentRecommendationWidget" include="/jsp/commerce/pagelayout/restricted/serialize/SerializeLayoutWidget-ContentRecommendation.jsp" />
+		<action path="/SerializeLayoutWidget-RotatingContentWidget" include="/jsp/commerce/pagelayout/restricted/serialize/SerializeLayoutWidget-RotatingContent.jsp" />
+		<action path="/SerializeLayoutWidget-ProductListingWidget" include="/jsp/commerce/pagelayout/restricted/serialize/SerializeLayoutWidget-ProductListing.jsp" />
+		<action path="/SerializeLayoutWidget-ProductRecommendationWidget" include="/jsp/commerce/pagelayout/restricted/serialize/SerializeLayoutWidget-ProductRecommendation.jsp" />
+		<action path="/SerializeLayoutWidget-IBMProductRecommendationsWidget" include="/jsp/commerce/pagelayout/restricted/serialize/SerializeLayoutWidget-IBMProductRecommendations.jsp" />
+		<action path="/SerializeLayoutWidget-CategoryRecommendationWidget" include="/jsp/commerce/pagelayout/restricted/serialize/SerializeLayoutWidget-CategoryRecommendation.jsp" />
+		<action path="/SerializeLayoutWidget-RichTextWidget" include="/jsp/commerce/pagelayout/restricted/serialize/SerializeLayoutWidget-RichText.jsp" />
+		
+		<action path="/CreateLayout" parameter="Layout"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Process" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="processLayout" />
+			<set-property property="actionCode" value="Create"/>
+		</action>
+
+		<action path="/UpdateLayout" parameter="Layout"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changeLayout" />
+			<set-property property="actionCode" value="Update"/>
+		</action>
+		
+		<action path="/DeleteLayout" parameter="Layout"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Process" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="processLayout" />
+			<set-property property="actionCode" value="Delete"/>
+		</action>
+				
+		<action path="/CreateLayoutLocation" parameter="PageLocation"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changeLayout" />
+			<set-property property="actionCode" value="Add"/>
+			<set-property property="var" value="layout" />
+			<forward name="success" path="/jsp/commerce/pagelayout/restricted/RespondCreateLayoutLocation.jsp"/>
+		</action>
+		
+		<action path="/UpdateLayoutLocation" parameter="PageLocation"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changeLayout" />
+			<set-property property="actionCode" value="Update"/>
+		</action>
+
+		<action path="/DeleteLayoutLocation" parameter="PageLocation"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changeLayout" />
+			<set-property property="actionCode" value="Delete"/>
+		</action>
+			
+		<action path="/CreateLayoutSlot" parameter="Slot"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changeLayout" />
+			<set-property property="actionCode" value="Add"/>
+		</action>
+			
+		<!-- Layouts widgets -->
+		<action path="/GetChildLayoutWidgets" forward="/jsp/commerce/pagelayout/restricted/GetChildLayoutWidgets.jsp"/>
+		<action path="/GetWidgetDefDisplayNames" forward="/jsp/commerce/pagelayout/restricted/GetWidgetDefDisplayNames.jsp"/>
+		
+		<action path="/CreateLayoutWidget" parameter="Widget"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changeLayout" />
+			<set-property property="actionCode" value="Add"/>
+			<set-property property="var" value="layout" />
+			<forward name="success" path="/jsp/commerce/pagelayout/restricted/RespondCreateLayoutWidget.jsp"/>			
+		</action>
+		
+		<action path="/UpdateLayoutWidget" parameter="Widget"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changeLayout" />
+			<set-property property="actionCode" value="Update"/>
+			<set-property property="var" value="layout" />
+			<forward name="success" path="/jsp/commerce/pagelayout/restricted/RespondUpdateLayoutWidget.jsp"/>			
+		</action>
+		
+		<action path="/DeleteLayoutWidget" parameter="Widget"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changeLayout" />
+			<set-property property="actionCode" value="Remove"/>
+		</action>
+		<!-- Widget: Extended Data-->
+		<action path="/CreateWidgetExtendedData" parameter="ExtendedData"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changeLayout" />
+			<set-property property="actionCode" value="Add"/>
+			<set-property property="var" value="layout" />
+			<forward name="success" path="/jsp/commerce/pagelayout/restricted/RespondCreateWidgetExtendedData.jsp"/>
+		</action>
+		
+		<action path="/UpdateWidgetExtendedData" parameter="ExtendedData"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changeLayout" />
+			<set-property property="actionCode" value="Change"/>
+		</action>
+		<action path="/DeleteWidgetExtendedData" parameter="ExtendedData"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changeLayout" />
+			<set-property property="actionCode" value="Remove"/>
+		</action>
+		
+		<!-- Content Page: ContentPage -->
+		<action path="/FindContentPages" forward="/jsp/commerce/pagelayout/restricted/FindContentPages.jsp" />
+		<action path="/GetContentPageById" forward="/jsp/commerce/pagelayout/restricted/GetContentPageById.jsp" />
+		<action path="/GetContentPages" forward="/jsp/commerce/pagelayout/restricted/GetContentPages.jsp" />
+		<action path="/GetContentPageSeoProperties" forward="/jsp/commerce/pagelayout/restricted/GetContentPageSeoProperties.jsp" />		
+		<action path="/GetContentPagePreviewUrl" forward="/jsp/commerce/pagelayout/restricted/GetContentPagePreviewUrl.jsp" />
+
+		<action path="/DeleteContentPage" parameter="Page"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Process" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="processPage" />
+			<set-property property="actionCode" value="Delete"/>
+		</action>
+				
+		<action path="/CreateContentPageSeoAttributes" parameter="ContentPageSEOProperties"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changePage" />
+			<set-property property="actionCode" value="Add"/>
+		</action>
+		
+		<action path="/CreateContentPageSeoURL" parameter="ContentPageSEOURL"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changePage" />
+			<set-property property="actionCode" value="Add"/>
+		</action>
+		
+		<action path="/UpdateContentPageSeoAttributes" parameter="ContentPageSEOProperties"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changePage" />
+			<set-property property="actionCode" value="Change"/>
+		</action>
+		
+		<action path="/UpdateContentPageSeoURL" parameter="ContentPageSEOURL"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changePage" />
+			<set-property property="actionCode" value="Change"/>
+		</action>
+
+		<action path="/CreateContentPage" parameter="Page"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Process" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="processPage" />
+			<set-property property="actionCode" value="Create"/>
+		</action>
+		
+		<action path="/UpdateContentPage" parameter="Page"
+				type="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentAction"
+				className="com.ibm.commerce.foundation.client.facade.bod.servlet.struts.BusinessObjectDocumentActionMapping">
+			<set-property property="contextParameters" value="storeId" />
+			<set-property property="verb" value="Change" />
+			<set-property property="documentRootFactory" value="com.ibm.commerce.pagelayout.facade.datatypes.PageLayoutFactory" />
+			<set-property property="clientLibrary" value="com.ibm.commerce.pagelayout.facade.client.PageLayoutFacadeClient" />
+			<set-property property="clientLibraryMethod" value="changePage" />
+			<set-property property="actionCode" value="Change"/>
+		</action>
+		
+		<!-- Catalog : Catalog, CatalogGroup -->
+
+		<action path="/FindLayoutCatalogs" forward="/jsp/commerce/pagelayout/restricted/FindLayoutCatalogs.jsp" />
+		<action path="/FindCatalogEntryBrowsingPages" forward="/jsp/commerce/pagelayout/restricted/FindCatalogEntryPages.jsp" />
+		<action path="/FindCategoryBrowsingPages" forward="/jsp/commerce/pagelayout/restricted/FindCategoryPages.jsp" />
+		
+		<action path="/GetPageLayoutMasterCatalog" forward="/jsp/commerce/pagelayout/restricted/GetLayoutMasterCatalog.jsp" />
+		<action path="/GetPageLayoutCatalogChildren" forward="/jsp/commerce/pagelayout/restricted/GetLayoutCatalogChildren.jsp" />
+		<action path="/GetChildCatalogGroupBrowsingPageForCatalogGroupBrowsingPage" forward="/jsp/commerce/pagelayout/restricted/GetChildCatalogGroupPageForCatalogGroupPage.jsp" />
+		<action path="/GetChildCatalogEntryBrowsingPageForCatalogGroupBrowsingPage" forward="/jsp/commerce/pagelayout/restricted/GetChildCatalogEntryPageForCatalogGroupPage.jsp" />
+		<action path="/GetCatalogGroupBrowsingPage" forward="/jsp/commerce/pagelayout/restricted/GetCatalogGroupPage.jsp" />
+		<action path="/GetCatalogEntryBrowsingPage"  forward="/jsp/commerce/pagelayout/restricted/GetCatalogEntryPage.jsp" />
+		<action path="/GetProductSKUBrowsingPages" forward="/jsp/commerce/pagelayout/restricted/GetProductSKUPages.jsp" />
+		<action path="/GetCatalogEntryBrowsingPagePreviewUrl" forward="/jsp/commerce/pagelayout/restricted/GetCatalogEntryPagePreviewUrl.jsp" />		
+		<action path="/GetCatalogGroupBrowsingPagePreviewUrl" forward="/jsp/commerce/pagelayout/restricted/GetCatalogGroupPagePreviewUrl.jsp" />
+
+		<action path="/GetPageLayoutSalesCatalogs" forward="/jsp/commerce/pagelayout/restricted/GetLayoutSalesCatalogs.jsp" />
+		<action path="/GetPageLayoutSalesCatalogChildren" forward="/jsp/commerce/pagelayout/restricted/GetLayoutSalesCatalogChildren.jsp" />
+
+		<!-- Page layout Folders-->
+		<action path="/GetPageComposerFolderItems" forward="/jsp/commerce/pagelayout/restricted/GetPageComposerFolderItems.jsp" />
+		
+		<action path="/PopulateNewRotatingContentWidget" forward="/jsp/commerce/pagelayout/restricted/PopulateNewRotatingContentWidget.jsp" />
+		
+	</action-mappings>
+</struts-config>

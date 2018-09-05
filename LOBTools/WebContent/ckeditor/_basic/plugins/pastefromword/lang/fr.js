@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("pastefromword","fr",{confirmCleanup:"Le texte que vous voulez coller semble avoir été copié à partir de Word. Voulez-vous le nettoyer avant de le coller ?",error:"Le nettoyage des données collées n'a pas pu être effectué en raison d'une erreur interne",title:"Collage spécial",toolbar:"Collage spécial"});

@@ -1,0 +1,146 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%--
+	*****
+	* This JSP file is a fragment that prepares the user interface elements to show the contract information for the product
+	* display pages. Its contents are refreshed by data retrieved via AJAX and JSON.
+	* 
+	* Parameters
+	*
+	* -fromPage (required)
+	* The page that calls this snippet (valid values are "productDisplay", "itemDisplay", "packageDisplay", "bundleDisplayItem",
+	* or "bundleDisplayProduct")
+	*
+	* This is an example of how this file could be included into a page - to display inventory status of an item:
+	* <c:set var="fromPage" value="productDisplay"/>
+	* <%@ include file="B2BCatentryContractSelectExt.jspf"%>
+--%>
+
+	<script type="text/javascript" src="<c:out value="${jsAssetsDir}javascript/CatalogArea/B2BCatentryContractSelect.js"/>"></script>
+	<script type="text/javascript">
+		<!-- setting variables needed for B2BCatentryContractSelect.js -->
+		<fmt:message key="INV_SELECT_PRODUCT" bundle="${storeText}" var="INV_SELECT_PRODUCT"/>
+		<fmt:message key="FF_PRICERANGE_TITLE" bundle="${storeText}" var="FF_PRICERANGE_TITLE"/>
+		<fmt:message key="QuickInfo_Qty" bundle="${storeText}" var="QuickInfo_Qty"/>
+		<fmt:message key="SHIPPING_PRICE" bundle="${storeText}" var="SHIPPING_PRICE"/>
+		var linkText=<wcf:json object="${FF_PRICERANGE_TITLE}"/>;
+		var imgPath='<c:out value="${jspStoreImgDir}${vfileColor}"/>';
+		var quantity = <wcf:json object="${QuickInfo_Qty}"/>;
+		var price = <wcf:json object="${SHIPPING_PRICE}"/>;
+		var message_no_item = <wcf:json object="${INV_SELECT_PRODUCT}"/>;
+	</script>
+	<%-- handle catentryId setting from different pages --%>
+	<c:set var="htmlIdentifier" value=""/>
+	<c:set var="isBundle" value="false"/>
+	<c:choose>
+		<c:when test="${fromPage == 'productDisplay'}">
+			<c:choose>
+				<c:when test="${numberOfSKUs == 1}">
+					<c:set var="catentryId" value="${product.entitledItems[0].itemID}"/>
+					<c:set var="htmlIdentifier" value="${catentryId}"/>
+				</c:when>
+				<c:otherwise>
+					<c:set var="htmlIdentifier" value="${catalogEntryID}"/>
+				</c:otherwise>
+			</c:choose>
+		</c:when>
+		<c:when test="${fromPage == 'itemDisplay'}">
+			<c:set var="catentryId" value="${item.itemID}"/>
+			<c:set var="htmlIdentifier" value="${catentryId}"/>
+		</c:when>
+		<c:when test="${fromPage == 'packageDisplay'}">
+			<c:set var="catentryId" value="${packageDataBean.packageID}"/>
+			<c:set var="htmlIdentifier" value="${catentryId}"/>
+		</c:when>
+		<c:when test="${fromPage == 'bundleDisplayItem'}">
+			<c:set var="catentryId" value="${compositeItem.item.itemID}"/>
+			<c:set var="htmlIdentifier" value="${catentryId}"/>
+			<c:set var="isBundle" value="true"/>
+		</c:when>
+		<c:when test="${fromPage == 'bundleDisplayProduct'}">
+			<c:set var="catalogEntryID" value="${compositeProduct.product.productID}"/>
+			<c:set var="htmlIdentifier" value="${catalogEntryID}"/>
+			<c:set var="catentryId" value=""/>
+			<c:set var="isBundle" value="true"/>
+		</c:when>
+	</c:choose>
+	
+	<c:if test="${catentryId != null && catentryId != ''}">
+		<wcbase:useBean id="catEntryDB" classname="com.ibm.commerce.catalog.beans.CatalogEntryDataBean" scope="request">
+			<c:set property="catalogEntryID" value="${catentryId}" target="${catEntryDB}" />
+		</wcbase:useBean>
+	</c:if>
+	
+	<div id="show_catentry_contract" class="rounded_content_box">
+		<div class="contentgrad_header">
+			<div class="left_corner"></div>
+				<div class="heading">
+					<span class="contentgrad_text">
+						<fmt:message key="PDP_CONTRACT_SELECT_TITLE" bundle="${storeText}"/>
+					</span>
+				</div>
+			<div class="right_corner"></div>
+		</div>
+		<div class="body588">
+			<p class="avail_contracts" id="avail_contract_message_${htmlIdentifier}" style="display:none"><fmt:message key="PDP_CONTRACT_AVAIL_CONTRACT" bundle="${storeText}"/></p>
+			<c:choose>
+				<%-- if catentryId is not populated, it is a product with multiple items, determine selected catentryId before calling function to get available contracts --%>
+				<c:when test="${catentryId == '' || catentryId == null}">
+					<c:set var="catentryId" value="${catalogEntryID}"/>
+					<c:choose>
+						<c:when test="${isBundle == 'true'}">
+							<div id="storeShowContract_${htmlIdentifier}">
+								<a class="bopis_link" href="#" onclick="javaScript:var ID=getItemIdForBundle(${catalogEntryID}); if (ID == null) MessageHelper.displayErrorMessage(message_no_item); else getContractsForCatentry('${catentryId}',ID,'${WCParam.storeId}','${WCParam.langId}','${WCParam.catalogId}','${isBundle}');">
+									<fmt:message key="PDP_CONTRACT_SHOW_LINK" bundle="${storeText}"/>
+								</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div id="storeShowContract_${htmlIdentifier}">
+								<a class="bopis_link" href="#" onclick="javaScript:var ID=getItemId('entitledItem_${catalogEntryID}'); if (ID == null) MessageHelper.displayErrorMessage(message_no_item); else getContractsForCatentry('${catentryId}',ID,'${WCParam.storeId}','${WCParam.langId}','${WCParam.catalogId}','${isBundle}');">
+									<fmt:message key="PDP_CONTRACT_SHOW_LINK" bundle="${storeText}"/>
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+				<c:when test="${fromPage == 'bundleDisplayItem'}">
+					<div id="storeShowContract_${htmlIdentifier}">
+						<a class="bopis_link" href="#" onclick="javaScript:getContractsForCatentry('${catentryId}','${catentryId}','${WCParam.storeId}','${WCParam.langId}','${WCParam.catalogId}','${isBundle}');">
+							<fmt:message key="PDP_CONTRACT_SHOW_LINK" bundle="${storeText}"/>
+						</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div id="storeShowContract_${htmlIdentifier}">
+					</div>
+					<script type="text/javascript">
+					dojo.addOnLoad(function() {
+						getContractsForCatentry('${catentryId}','${catentryId}','${WCParam.storeId}','${WCParam.langId}','${WCParam.catalogId}','${isBundle}');
+					});
+					</script>
+				</c:otherwise>
+			</c:choose>			
+			
+		</div>
+		<div class="footer">
+			<div class="left_corner"></div>
+			<div class="left"></div>
+			<div class="right_corner"></div>
+		</div>						 
+		<div class="br2"></div>
+	</div>
+	
+	
+	

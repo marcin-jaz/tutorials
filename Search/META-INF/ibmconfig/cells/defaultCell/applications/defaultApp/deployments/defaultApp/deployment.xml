@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><appdeployment:Deployment id="Deployment_1371574097936" version="2.0" xmlns:appdeployment="http://www.ibm.com/websphere/appserver/schemas/5.0/appdeployment.xmi" xmlns:xmi="http://www.omg.org/XMI">
+  <deployedObject startingWeight="100" warClassLoaderPolicy="SINGLE" xmi:id="ApplicationDeployment_1371574097936" xmi:type="appdeployment:ApplicationDeployment">
+    <modules startingWeight="10000" uri="Search-Preview.war" xmi:id="WebModuleDeployment_1385583446103" xmi:type="appdeployment:WebModuleDeployment"/>
+    <modules startingWeight="10000" uri="Search-Rest.war" xmi:id="WebModuleDeployment_1385583446104" xmi:type="appdeployment:WebModuleDeployment"/>
+    <modules startingWeight="10000" uri="Search-Solr.war" xmi:id="WebModuleDeployment_1385583446105" xmi:type="appdeployment:WebModuleDeployment"/>
+    <modules startingWeight="10000" uri="Search-IndexLoad.war" xmi:id="WebModuleDeployment_1385583446106" xmi:type="appdeployment:WebModuleDeployment"/>
+    <classloader mode="PARENT_FIRST" xmi:id="Classloader_1371574097936"/>
+  </deployedObject>
+</appdeployment:Deployment>

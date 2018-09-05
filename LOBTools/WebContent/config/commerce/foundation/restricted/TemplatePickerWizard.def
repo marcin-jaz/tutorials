@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<Definitions>
+	<!---
+		Template picker grid view. This base template wizard grid view only displays the object icon and display name.
+	-->
+	<BaseTemplateWizardGrid definitionName="wcfTemplateWizardGrid">
+		<GridIconTypeImage name="typeIcon" text="${foundationResources.utilitiesGrid_type}" width="75" />
+		<GridDisplayName name="template" text="${foundationResources.utilitiesGrid_name}" width="275" />
+	</BaseTemplateWizardGrid>
+</Definitions>

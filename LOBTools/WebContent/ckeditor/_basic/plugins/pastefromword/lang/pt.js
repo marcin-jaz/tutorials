@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("pastefromword","pt",{confirmCleanup:"Aparentemente, o texto que pretende colar foi copiado do Word. Pretende limpar o mesmo antes de o colar?",error:"Não foi possível limpar os dados colados devido a um erro interno",title:"Colar especial",toolbar:"Colar especial"});

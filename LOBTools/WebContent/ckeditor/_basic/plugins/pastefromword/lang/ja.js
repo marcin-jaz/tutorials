@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("pastefromword","ja",{confirmCleanup:"貼り付けようとしているのは、Word からコピーしたテキストのようです。貼り付ける前にテキストをクリーンアップしますか?",error:"内部エラーが発生したので、貼り付けるデータをクリーンアップできませんでした。",title:"形式を選択して貼り付け",toolbar:"形式を選択して貼り付け"});

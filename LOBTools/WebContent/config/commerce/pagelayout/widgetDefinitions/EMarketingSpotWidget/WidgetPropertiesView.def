@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<GridObjectProperties definitionName="plmWidgetProperties_EMarketingSpotWidget">
+		<PropertyPane>
+			<PropertyGroup name="widgetProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetPropertiesPrompt}">
+				<PropertyInputText propertyName="widgetName" 
+					promptText="${plmPageLayoutResources.widgetNamePrompt}"  
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_eMarketingSpotWidgetWidgetName}" />
+				<PropertyRadioGroup propertyName="xWidgetProp_widgetOrientation" 
+					promptText="${plmPageLayoutResources.eMarketingSpotWidgetWidgetOrientationPrompt}"
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_eMarketingSpotWidgetWidgetOrientation}" />						
+
+				<PropertyGroup name="pageSizeGroup" collapsable="false">
+					<EnablementCondition conditionId="eMarketingSpotWidgetOrientationConditionPageSize" propertyName="xWidgetProp_widgetOrientation" enablementValue="vertical" />
+					<PropertyStepper propertyName="xWidgetProp_pageSize" minimumValue="1"
+						promptText="${plmPageLayoutResources.eMarketingSpotWidgetMaxItemsToDisplay}"
+						extendedHelpText="${plmPageLayoutResources.extendedHelpText_eMarketingSpotWidgetMaxItemsToDisplay}"/>			
+				</PropertyGroup>
+				<PropertyGroup name="pageDisplayReferenceGroup" collapsable="false">
+					<EnablementCondition conditionId="eMarketingSpotWidgetOrientationConditionDisplayPref" propertyName="xWidgetProp_widgetOrientation" enablementValue="horizontal"/>				
+					<PropertyCombobox propertyName="xWidgetProp_displayPreference" promptText="${plmPageLayoutResources.eMarketingSpotWidgetDisplayPreferencesPrompt}" />
+				</PropertyGroup>
+
+				<PropertyCheckbox propertyName="xWidgetProp_showFeed" 
+					text="${plmPageLayoutResources.eMarketingSpotWidgetShowFeed}" 
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_eMarketingSpotWidgetShowFeed}" />				
+			</PropertyGroup>
+
+			<PropertyGroup name="contentProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetContentPrompt}">
+				<PropertyCombobox propertyName="xWidgetProp_emsType"
+					promptText="${plmPageLayoutResources.eMarketingSpotWidgetEmsTypePrompt}" 
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_eMarketingSpotWidgetEmsTypePrompt}" />
+				<PropertyGroup name="emsTypeGlobalContentProperties" collapsable="false">
+					<EnablementCondition conditionId="emsTypeCondition" propertyName="xWidgetProp_emsType" enablementValue="global" />
+					<PropertyChildListEditor singleChild="true" listDefinitionName="mktChildEMarketingSpotGrid" name="espot" objectTypes="ChildEMarketingSpot,ChildInheritedEMarketingSpot"
+						promptText="${plmPageLayoutResources.eMarketingSpotWidgetEmsType_Global_Prompt}" required="true" validatorTypes="noEMarketingSpotSelected" 
+						extendedHelpText="${plmPageLayoutResources.extendedHelpText_eMarketingSpotWidgetEmsType_Global_Prompt}"
+						helpLinkText="${plmPageLayoutResources.eMarketingSpotWidgetEmsType_Global_Prompt_HelpLink}" helpLinkURL="tasks/tsbctespot.htm" />
+				</PropertyGroup>
+				
+				<PropertyGroup name="emsTypeLocalContentProperties" collapsable="false">
+					<EnablementCondition conditionId="emsTypeCondition" propertyName="xWidgetProp_emsType" enablementValue="local" />
+					<PropertyStaticText x="15" text="${plmPageLayoutResources.eMarketingSpotWidgetEmsType_Local_Instructions}"/>
+					<PropertyInputText propertyName="xWidgetProp_emsName" promptText="${plmPageLayoutResources.eMarketingSpotWidgetEmsType_Local_Suffix}" 
+						extendedHelpText="${plmPageLayoutResources.extendedHelpText_eMarketingSpotWidgetEmsType_Local_Suffix}" required="true"/>
+					<PropertyStaticText x="15" text="${plmPageLayoutResources.eMarketingSpotWidgetEmsType_Local_Suffix_Details}"/>
+					<HelpLinkText x="15" yoffset="15" text="${plmPageLayoutResources.eMarketingSpotWidgetEmsType_Local_HelpLink}" helpLink="tasks/tpzpagespecific.htm"/>
+				</PropertyGroup>					
+			</PropertyGroup>
+		</PropertyPane>
+	</GridObjectProperties>
+
+</Definitions>

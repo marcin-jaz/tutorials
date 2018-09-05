@@ -1,0 +1,217 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%--
+*****
+This object snippet displays the left side bar option for my account pages.
+Required parameters:
+
+*****
+--%>
+<!-- BEGIN MyAccountNavDisplay.jspf-->
+
+<flow:ifEnabled feature="Analytics">
+	<script type="text/javascript">
+		dojo.addOnLoad(function() {
+		analyticsJS.loadMyAccountPageHandlers();
+					  });
+	</script>
+</flow:ifEnabled>
+<flow:ifEnabled feature="AjaxMyAccountPage">
+<wcf:url var="userRegistrationFormURL" value="UserRegistrationForm" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="editRegistration" value="Y" />
+	<wcf:param name="currentSelection" value="personalInformationSlct"/>
+</wcf:url>
+<wcf:url var="interestItemDisplayURL" value="AjaxAccountWishListDisplayView" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="listId" value="." />
+	<wcf:param name="currentSelection" value="wishListSlct"/>
+</wcf:url>
+<wcf:url var="profileFormViewURL" value="AjaxProfileFormView" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="currentSelection" value="checkoutProfileSlct"/>
+</wcf:url>	
+<wcf:url var="addressBookFormURL" value="AjaxAddressBookForm" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="currentSelection" value="addressBookSlct"/>
+</wcf:url>
+
+<wcf:url var="trackOrderStatusURL" value="AjaxTrackOrderStatus" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="currentSelection" value="trackOrderStatusSlct"/>
+</wcf:url>
+
+<flow:ifEnabled feature="EnableQuotes">
+	<wcf:url var="trackQuoteStatusURL" value="AjaxTrackOrderStatus" type="Ajax">
+		<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+		<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+		<wcf:param name="langId" value="${langId}" />
+		<wcf:param name="currentSelection" value="trackQuoteStatusSlct"/>
+		<wcf:param name="isQuote" value="true" />
+	</wcf:url>
+</flow:ifEnabled>
+
+<wcf:url var="couponWalletURL" value="AjaxCouponWallet" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="currentSelection" value="couponWalletSlct"/>
+</wcf:url>
+<wcf:url var="requisitionListURL" value="AjaxRequisitionListDisplayView" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="currentSelection" value="requisitionListSlct"/>	
+</wcf:url>
+	
+</flow:ifEnabled>
+
+
+<flow:ifDisabled feature="AjaxMyAccountPage">
+<wcf:url var="userRegistrationFormURL" value="UserRegistrationForm" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="editRegistration" value="Y" />
+	<wcf:param name="userRegistrationStyle" value="strong"/>
+</wcf:url>
+<wcf:url var="interestItemDisplayURL" value="NonAjaxAccountWishListDisplayView" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="listId" value="." />
+	<wcf:param name="wishListStyle" value="strong"/>
+</wcf:url>
+<wcf:url var="profileFormViewURL" value="NonAjaxProfileFormView" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="profileFormStyle" value="strong"/>
+</wcf:url>	
+<wcf:url var="addressBookFormURL" value="NonAjaxAddressBookForm" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="addressBookStyle" value="strong"/>
+</wcf:url>
+
+<wcf:url var="trackOrderStatusURL" value="NonAjaxTrackOrderStatus" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="orderStatusStyle" value="strong"/>
+</wcf:url>
+
+<flow:ifEnabled feature="EnableQuotes">
+	<wcf:url var="trackQuoteStatusURL" value="NonAjaxTrackOrderStatus" type="Ajax">
+		<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+		<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+		<wcf:param name="langId" value="${langId}" />
+		<wcf:param name="quoteStatusStyle" value="strong"/>
+		<wcf:param name="isQuote" value="true" />
+	</wcf:url>
+</flow:ifEnabled>
+
+<wcf:url var="couponWalletURL" value="NonAjaxCouponWallet" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="couponWalletStyle" value="strong"/>
+</wcf:url>
+<wcf:url var="requisitionListURL" value="RequisitionListDisplayView" type="Ajax">
+	<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+	<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+	<wcf:param name="langId" value="${langId}" />
+	<wcf:param name="requisitionListStyle" value="strong"/>	
+</wcf:url>
+</flow:ifDisabled>
+
+          <flow:ifDisabled feature="AjaxMyAccountPage">
+	          <h2 class="sidebar_header leftnav_myaccount_solid"><fmt:message key="MA_SETTINGS" bundle="${storeText}"/></h2>
+						<p class="<c:out value='${WCParam.userRegistrationStyle}'/> leftnav_myaccount_dotted"><a href="<c:out value='${userRegistrationFormURL}' />" id="WC_MyAccountSidebarDisplayf_links_1"><fmt:message key="MA_PERSONAL_INFO" bundle="${storeText}"/></a></p>
+						<p class="<c:out value='${WCParam.addressBookStyle}'/> leftnav_myaccount_dotted"><a href="<c:out value='${addressBookFormURL}' />" id="WC_MyAccountSidebarDisplayf_links_2"><fmt:message key="MA_ADDRESS_BOOK" bundle="${storeText}"/></a></p>
+						<flow:ifEnabled feature="quickCheckout">
+							<p class="<c:out value='${WCParam.profileFormStyle}'/> leftnav_myaccount_dotted"><a href="<c:out value='${profileFormViewURL}'/>" id="WC_MyAccountSidebarDisplayf_links_3"><fmt:message key="MA_QUICK_CHECKOUT" bundle="${storeText}"/></a></p>
+						</flow:ifEnabled>
+						<flow:ifEnabled feature="wishList">
+							<br />
+							<h2 class="sidebar_header leftnav_myaccount_solid"><fmt:message key="MA_WISHLISTS" bundle="${storeText}"/></h2>
+							<p class="<c:out value='${WCParam.wishListStyle}'/> leftnav_myaccount_dotted"><a href="<c:out value='${interestItemDisplayURL}'/>" id="WC_MyAccountSidebarDisplayf_links_4"><fmt:message key="MA_PERSONAL_WL" bundle="${storeText}"/></a></p>
+						</flow:ifEnabled>
+						<flow:ifEnabled feature="TrackingStatus">
+							<br />
+							<h2 class="sidebar_header leftnav_myaccount_solid"><fmt:message key="MO_MYORDERS" bundle="${storeText}"/></h2>
+							<p class="<c:out value='${WCParam.orderStatusStyle}'/> leftnav_myaccount_dotted"><a href="<c:out value='${trackOrderStatusURL}'/>" id="WC_MyAccountSidebarDisplayf_links_5"><fmt:message key="MA_MYORDERS" bundle="${storeText}"/></a></p>
+							<flow:ifEnabled feature="EnableQuotes">
+								<br />
+								<h2 class="sidebar_header leftnav_myaccount_solid"><fmt:message key="MO_MYQUOTES" bundle="${storeText}"/></h2>
+								<p class="<c:out value='${WCParam.quoteStatusStyle}'/> leftnav_myaccount_dotted"><a href="<c:out value='${trackQuoteStatusURL}'/>" id="WC_MyAccountSidebarDisplayf_links_6"><fmt:message key="MA_MYQUOTES" bundle="${storeText}"/></a></p>
+							</flow:ifEnabled>
+						</flow:ifEnabled>    
+						<br />
+						<h2 class="sidebar_header leftnav_myaccount_solid"><fmt:message key="MYACCOUNT_MY_COUPONS" bundle="${storeText}"/></h2>
+							<p class="<c:out value='${WCParam.couponWalletStyle}'/> leftnav_myaccount_dotted"><a href="<c:out value='${couponWalletURL}' />" id="WC_MyAccountSidebarDisplayf_links_10"><fmt:message key="MYACCOUNT_MY_COUPONS" bundle="${storeText}"/></a></p>
+						<flow:ifEnabled feature="RequisitionList">
+							<br />
+							<h2 class="sidebar_header leftnav_myaccount_solid"><fmt:message key="MYACCOUNT_REQUISITION_LISTS" bundle="${storeText}"/></h2>
+								<p class="<c:out value='${WCParam.requisitionListStyle}'/> leftnav_myaccount_dotted"><a href="<c:out value='${requisitionListURL}' />" id="requisitionList"><fmt:message key="MYACCOUNT_REQUISITION_LISTS" bundle="${storeText}"/></a></p>
+						</flow:ifEnabled>							
+					</flow:ifDisabled>
+					<flow:ifEnabled  feature="AjaxMyAccountPage"> 
+						<br />
+						<h2 class="sidebar_header leftnav_myaccount_solid"><fmt:message key="MA_SETTINGS" bundle="${storeText}"/></h2>
+						<p class="leftnav_myaccount_dotted"><a href="javaScript:setCurrentId('personalInformation'); MyAccountDisplay.loadContentFromURL('personalInformation', '<c:out value='${userRegistrationFormURL}' />');MyAccountDisplay.changeSelection('<c:out value='${userRegistrationFormURL}' />');" id="personalInformation"><fmt:message key="MA_PERSONAL_INFO" bundle="${storeText}"/></a></p>
+						<p class="leftnav_myaccount_dotted"><a href="javaScript:setCurrentId('addressBook'); MyAccountDisplay.loadContentFromURL('addressBook', '<c:out value='${addressBookFormURL}' />');MyAccountDisplay.changeSelection('<c:out value='${addressBookFormURL}' />');" id="addressBook"><fmt:message key="MA_ADDRESS_BOOK" bundle="${storeText}"/></a></p>
+						<flow:ifEnabled feature="quickCheckout">
+							<p  class="leftnav_myaccount_dotted"><a href="javaScript:setCurrentId('checkoutProfile'); MyAccountDisplay.loadContentFromURL('checkoutProfile', '<c:out value='${profileFormViewURL}' />');MyAccountDisplay.changeSelection('<c:out value='${profileFormViewURL}' />');" id="checkoutProfile"><fmt:message key="MA_QUICK_CHECKOUT" bundle="${storeText}"/></a></p>
+						</flow:ifEnabled>
+						<flow:ifEnabled feature="wishList">
+							 <br />
+							 <h2 class="sidebar_header leftnav_myaccount_solid"><fmt:message key="MA_WISHLISTS" bundle="${storeText}"/></h2>
+							 <p class="leftnav_myaccount_dotted"><a href="javaScript:setCurrentId('wishList'); MyAccountDisplay.loadContentFromURL('wishList', '<c:out value='${interestItemDisplayURL}' />');MyAccountDisplay.changeSelection('<c:out value='${interestItemDisplayURL}' />');" id="wishList"><fmt:message key="MA_PERSONAL_WL" bundle="${storeText}"/></a></p>
+						</flow:ifEnabled>
+						<flow:ifEnabled feature="TrackingStatus">
+							<br />
+							<h2 class="sidebar_header leftnav_myaccount_solid"><fmt:message key="MO_MYORDERS" bundle="${storeText}"/></h2>
+							<p class="leftnav_myaccount_dotted"><a href="javaScript:setCurrentId('trackOrderStatus'); MyAccountDisplay.loadContentFromURL('trackOrderStatus', '<c:out value='${trackOrderStatusURL}' />');MyAccountDisplay.changeSelection('<c:out value='${trackOrderStatusURL}' />');" id="trackOrderStatus"><fmt:message key="MA_MYORDERS" bundle="${storeText}"/></a></p>
+							<flow:ifEnabled feature="EnableQuotes">
+								<br/>
+								<h2 class="sidebar_header leftnav_myaccount_solid"><fmt:message key="MO_MYQUOTES" bundle="${storeText}"/></h2>
+								<p class="leftnav_myaccount_dotted"><a href="javaScript:setCurrentId('trackQuoteStatus'); MyAccountDisplay.loadContentFromURL('trackQuoteStatus', '<c:out value='${trackQuoteStatusURL}' />');MyAccountDisplay.changeSelection('<c:out value='${trackQuoteStatusURL}' />');" id="trackQuoteStatus"><fmt:message key="MA_MYQUOTES" bundle="${storeText}"/></a></p>
+							</flow:ifEnabled>
+						</flow:ifEnabled>
+						<br/>
+						<h2 class="sidebar_header leftnav_myaccount_solid"><fmt:message key="MYACCOUNT_MY_COUPONS" bundle="${storeText}"/></h2>
+							<p class="leftnav_myaccount_dotted"><a href="javaScript:setCurrentId('couponWallet'); MyAccountDisplay.loadContentFromURL('couponWallet', '<c:out value='${couponWalletURL}' />');MyAccountDisplay.changeSelection('<c:out value='${couponWalletURL}' />');" id="couponWallet"><fmt:message key="MYACCOUNT_MY_COUPONS" bundle="${storeText}"/></a></p>
+						<flow:ifEnabled feature="RequisitionList">
+							<br />
+							<h2 class="sidebar_header leftnav_myaccount_solid"><fmt:message key="MYACCOUNT_REQUISITION_LISTS" bundle="${storeText}"/></h2>
+								<p class="leftnav_myaccount_dotted"><a href="javaScript:setCurrentId('requisitionList'); MyAccountDisplay.loadContentFromURL('requisitionList', '<c:out value='${requisitionListURL}' />');MyAccountDisplay.changeSelection('<c:out value='${requisitionListURL}' />');" id="requisitionList"><fmt:message key="MYACCOUNT_REQUISITION_LISTS" bundle="${storeText}"/></a></p>
+							<br />
+						</flow:ifEnabled>				
+					</flow:ifEnabled>
+						<%@ include file="MyAccountNavExt.jspf"%>
+						<%@ include file="MyAccountNavEIExt.jspf"%>
+<!-- END MyAccountNavDisplay.jspf-->

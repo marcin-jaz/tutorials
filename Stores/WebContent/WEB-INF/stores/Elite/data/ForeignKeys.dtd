@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ENTITY el_GR "-11">
+<!ENTITY REGCUST_MBRGRPNAME "RegisteredCustomers">
+<!ENTITY ja_JP "-10">
+<!ENTITY INV_CHOICE "ATP/">
+<!ENTITY iw_IL "-11">
+<!ENTITY SAMPLE_CHOICE "AdvancedB2BDirect/samplecatalogs/EliteAutomotiveCatalog.sar">
+<!ENTITY ORGANIZATION_DN "o=seller organization,o=root organization">
+<!ENTITY ORGANIZATION_NAME "Seller Organization">
+<!ENTITY ORG_DN_B2B_PART "ou=elite,">
+<!ENTITY zh_CN "-7">
+<!ENTITY pl_PL "-22">
+<!ENTITY fr_FR "-2">
+<!ENTITY es_ES "-5">
+<!ENTITY MEMBER_ID "@seller_b2b_mbr_id">
+<!ENTITY ko_KR "-9">
+<!ENTITY STORE_IDENTIFIER "Elite">
+<!ENTITY pt_BR "-6">
+<!ENTITY ATTR_CHOICE "Classic">
+<!ENTITY STORE_DIR "Elite">
+<!ENTITY ar_EG "-23">
+<!ENTITY ORGENTITYNAME "elite">
+<!ENTITY zh_TW "-8">
+<!ENTITY en_US "-1">
+<!ENTITY STORE_IDENTIFIER_LOWERCASE "elite">
+<!ENTITY ro_RO "-21">
+<!ENTITY ru_RU "-20">
+<!ENTITY de_DE "-3">
+<!ENTITY it_IT "-4">
+

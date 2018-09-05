@@ -1,0 +1,125 @@
+<%--
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2000, 2002, 2004
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. 
+//*
+//*-------------------------------------------------------------------
+//*---------------------------------------------------------------------
+//* The sample contained herein is provided to you "AS IS".
+//*
+//* It is furnished by IBM as a simple example and has not been  
+//* thoroughly tested
+//* under all conditions.  IBM, therefore, cannot guarantee its 
+//* reliability, serviceability or functionality.  
+//*
+//* This sample may include the names of individuals, companies, brands 
+//* and products in order to illustrate concepts as completely as 
+//* possible.  All of these names
+//* are fictitious and any similarity to the names and addresses used by 
+//* actual persons 
+//* or business enterprises is entirely coincidental.
+//*---------------------------------------------------------------------
+//*
+--%>
+
+<%--
+  *****
+  *  
+  * This JSP snippet for displaying the product attachment assets
+
+  *
+  * Parameters
+  *
+  *	-maxNumDisp
+  *	This value is used to set the maximum number of product attachments to display in a Page.
+  *
+  *	-maxItemsInRow
+  *	This value is used to set the maximum number of product attachments to display in a row.
+  *	If this parameter is not passed in or is <0, then the default value of 1 will be used
+  *
+  *	-showName
+  *	This value is used to determine whether the product attachment's name should be displayed.
+  *	If this parameter is not passed , then the default value of true will be used
+  *
+  *	-showShortDecsription
+  *	This value is used to determine whether the product attachment's short description should be 
+  * displayed.If this parameter is not passed , then the default value of true will be used
+  *
+  * This is an example of how this file could be included into a page:
+  *		<c:set var="maxNumDisp" value ="4"/>
+  *		<c:set var="maxItemsInRow" value ="2"/>
+  *		<c:set var="showName" value="true" /> 
+  *		<c:set var="showShortDescription" value="true" />
+  *		<c:set var="AttachmentDataBeans" value="${attachBean1}" />
+  *		<%@ include file="CatalogAttachmentAssetsDisplay.jspf" %>
+  *
+  *
+  *****
+--%>
+
+<%-- Start- JSP File Name: CatalogAttachmentAssetsDiplay.jspf --%>
+
+<%--
+	***
+	*	Set the maximum number of return object to be displayed in one row.
+	* 	If the number of objects are exceeded, the remainder will wrap to the next line.
+	*	If a parameter was passed in from the calling JSP, use that value. If not, set the default
+	*	to 1. 
+	*	
+	***
+	--%>
+	
+	<c:set var="catalog_ItemsInRow" value="0"/>
+	<c:choose>
+		<c:when test="${maxItemsInRow>0}">
+	  		<c:set var="catalog_MaxInRow" value="${maxItemsInRow}" />
+		</c:when>
+		<c:otherwise>
+			<c:set var="catalog_MaxInRow" value="1" />
+		</c:otherwise>
+	</c:choose>	
+
+	<%--
+	*
+	* The following block is used to display the product attachments	 
+    *
+ 	--%>
+
+	<table id="Catalog_Attachment_Table_1" cellspacing="5" cellpadding="15">  
+		
+	<c:forEach items="${AttachmentDataBeans}" var="catalog_AttachBean"  varStatus="status" end ="${maxNumDisp-1}" > 		
+ 			 				
+		<c:if test="${catalog_ItemsInRow % catalog_MaxInRow ==0 }">
+			<tr>
+		</c:if>
+		<%--
+		*
+		* The following block is used to generate the image tag / application specific tags for the 
+		* attachment assests. The image specific attributes like height,width etc .. can be passed from  
+		* here to the taglib. If the parameter is not passed, the default attributes of the image will 
+		* be used.
+		*
+	 	--%> 
+
+		<c:set var="id" value="${status.count}" />		
+		<c:set var="AttachmentDataBean" value="${catalog_AttachBean}" />
+		<%@ include file="../../ReusableObjects/AttachmentDisplay.jspf" %> 
+
+		<c:set var="catalog_ItemsInRow" value="${catalog_ItemsInRow + 1}"/>
+			
+		<c:if test="${catalog_ItemsInRow % catalog_MaxInRow == 0 }">
+			</tr>
+		</c:if> 
+			
+	</c:forEach>
+
+	</table>
+
+<%-- End of JSP File Name: CatalogAttachmentAssetsDiplay.jspf --%>

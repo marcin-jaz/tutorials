@@ -1,0 +1,48 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2003, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+
+<%--
+  *****
+  * This JSP segment displays the user name section of the registration forms
+  * for the following countries/regions:
+  *  - Japan
+  *  - Korea
+  * The display order is as follows (* means mandatory):
+  *  - last name*
+  *  - first name*
+  *****
+--%>
+<tr>
+	<td class="logonheading t_td2" id="<c:out value="WC_${pageName}_NameEntryForm_TableCell_1"/>">
+		<span class="required">*</span><label for="<c:out value="WC_${pageName}_NameEntryForm_FormInput_${paramPrefix}lastName_1"/>"><fmt:message key="AddAdd_Last" bundle="${storeText}"/></label>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_NameEntryForm_TableCell_2"/>">
+		<input class="logon input" type="text" maxlength="40" size="35" id="<c:out value="WC_${pageName}_NameEntryForm_FormInput_${paramPrefix}lastName_1"/>" name="<c:out value="${paramPrefix}lastName"/>" value="<c:out value="${paramSource.lastName}"/>"/>
+	</td>
+</tr>
+<tr>
+	<td class="logonheading t_td2" id="<c:out value="WC_${pageName}_NameEntryForm_TableCell_3"/>">
+		<span class="required">*</span><label for="<c:out value="WC_${pageName}_NameEntryForm_FormInput_${paramPrefix}firstName_1"/>"><fmt:message key="AddAdd_First" bundle="${storeText}"/></label>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_NameEntryForm_TableCell_4"/>">
+		<input class="logon input" type="text" maxlength="40" size="35" id="<c:out value="WC_${pageName}_NameEntryForm_FormInput_${paramPrefix}firstName_1"/>" name="<c:out value="${paramPrefix}firstName"/>" value="<c:out value="${paramSource.firstName}"/>"/>
+	</td>
+</tr>

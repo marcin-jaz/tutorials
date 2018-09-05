@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2007, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<_config:DeploymentConfiguration 
+  xmlns:_config="http://www.ibm.com/xmlns/prod/commerce/foundation/config"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.ibm.com/xmlns/prod/commerce/foundation/config ../xsd/wc-admin-component.xsd">
+
+  <_config:extendedconfiguration>
+    <_config:configgrouping name="MarketingRuntime">
+
+	  <!-- for the first implemenation of the search filter tool, if you wanted to specify: property1 OR property2           -->
+	  <!-- then you could put  property1, property2  as the value. The comma would specify to treat the values as an OR      -->
+	  <!-- operation.  A limitation of this implementation is that a propery or attribute value could not contain a comma    -->
+	  <!-- character. In a subsequent feature pack, support was added in the user interface to click on the pencil tool      -->
+	  <!-- which opens up a dialog that allows the business user to enter multiple values, and these values are treated      -->
+	  <!-- as an OR operation.  The search filter templates were originally under the templatesThatAllowCommaSeparatedValues -->
+	  <!-- property to allow the property1, property2 syntax.  Now that the UI has a dialog to support multiple value, then  -->
+	  <!-- the search filter templates are no longer under the templatesThatAllowCommaSeparatedValues propery. The search    -->
+	  <!-- filter templates are now under the templatesThatAllowMultipleValues property.                                     -->
+		
+	  <!-- the template identifiers of templates that allow a comma separated list to be entered as a name value pair value. -->
+	  <!-- 216 = searchResult target (grid only), 217 = searchCriteria target (replaced by 417), 336 = displayProductStandardSearch action (replaced by 343) -->
+	  <!-- 338 = orderSearchResult action (replaced by 438), 341 = replaceOrAddSearchCriteria action (replaced by 441)       -->
+	  <!-- if you have a template for which you want the comma character to treat the value separated by the comma as an OR  -->
+	  <!-- operation, then add the template identifier to this list.                                                         -->
+    <_config:property name="templatesThatAllowCommaSeparatedValues" value="216,217,336,338,341"/>
+  	  	  
+	  <!-- the template identifiers of templates that allow a multiple values to be entered for one name value pair. -->
+	  <!-- Search activity related elements need this feature to implement search filter: -->
+	  <!-- 218 = currentPage target (product attribute), 343  = displayProductStandardSearchCombined action -->
+	  <!-- 417 = searchCriteriaV7FEP6 target, 438 = orderSearchResultV7FEP6 action, 441 = replaceOrAddSearchCriteriaV7FEP6 action -->
+	  <!-- if you have a template which uses the dialog to allow multiple values for one name-value pair, and the values     -->
+	  <!-- are treated as an OR operation, then add the template identifier to this list.                                    -->	  
+	  <_config:property name="templatesThatAllowMultipleValues" value="218,343,417,438,441"/>
+	    	  	  
+    </_config:configgrouping>
+
+    <_config:configgrouping name="CustomerSegmentExport">
+
+	  <!-- Property to indicate the scheduler instance that should execute the customer segment export scheduled job.  -->
+	  <_config:property name="HostForCustomerSegmentExportScheduledJob" value=""/>
+
+	  <!-- Property to indicate whether the customer segment export file need to be compressed before uploading it to WebSphere Commerce database. -->
+	  <_config:property name="CompressCustomerSegmentExportFile" value="false"/>
+
+	  <!-- Property to indicate what fetch size to use in the SQL that extract the customer segment -->
+	  <_config:property name="CustomerSegmentExtractFetchSize" value="64"/>
+
+	  <!-- Property to indicate in developer environment whether to use the WebSphere Commerce production datatabase connection for extracting customer segment customers information. -->
+	  <_config:property name="CustomerSegmentExtractUseProductionConnectionInDeveloperEnv" value="false"/>
+
+    </_config:configgrouping>
+  </_config:extendedconfiguration>
+  
+</_config:DeploymentConfiguration>

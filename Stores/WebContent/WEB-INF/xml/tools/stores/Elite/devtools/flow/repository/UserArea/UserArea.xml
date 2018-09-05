@@ -1,0 +1,21 @@
+<!DOCTYPE repository-entries SYSTEM "../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<area-components>
+
+	<area id="UserArea"/>
+	
+	<interface id="UserArea.i1" component-id="UserArea">
+		<entry-port id="UserArea.i1.e1" type="EntryPortType1"/>
+		<exit-port id="UserArea.i1.x1" type="ExitPortType1"/>
+	</interface>
+
+	<implementation id="UserArea.i1.impl1" interface-id="UserArea.i1">
+		<component-interface id="UserArea.i1.impl1.ci1" interface="AccountSection.i1" always-enabled="yes"/>
+		<entry-port-map id="UserArea.i1.impl1.epm1" interface-entry-ports="UserArea.i1.e1" component-entry-port="AccountSection.i1.e1"/>
+		<exit-port-map id="UserArea.i1.impl1.xpm1" interface-exit-port="UserArea.i1.x1" component-exit-ports="AccountSection.i1.x1"/>
+	</implementation>
+
+</area-components>
+</components>
+</repository-entries>

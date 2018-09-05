@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+	
+	<GridObjectProperties definitionName="plmWidgetProperties_RotatingContentWidget">
+		<PropertyPane>
+		
+			<PropertyGroup name="widgetProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetPropertiesPrompt}">
+				<PropertyInputText name="${plmPageLayoutResources.widgetNamePrompt}" propertyName="widgetName"
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_rotatingContentWidgetWidgetName}" 
+					promptText="${plmPageLayoutResources.widgetNamePrompt}" />
+				<MultiValueSelector useRadioButtons="true"
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_rotatingContentWidgetImageCount}" 
+					promptText="${plmPageLayoutResources.rotatingContentWidgetImageCountPrompt}">
+					<MultiValueSelection displayName="${plmPageLayoutResources.rotatingContentWidgetRibbonImageType_None}" name="none">
+						<Xml name="values">
+							<xWidgetProp_ribbonImageType>none</xWidgetProp_ribbonImageType>
+							<xWidgetProp_ribbonArrows significant="false">true</xWidgetProp_ribbonArrows>
+						</Xml>
+					</MultiValueSelection>
+					<MultiValueSelection displayName="${plmPageLayoutResources.rotatingContentWidgetRibbonImageType_ThumbnailImages}" name="thumbnail">
+						<Xml name="values">
+							<xWidgetProp_ribbonImageType>thumbnail</xWidgetProp_ribbonImageType>
+						</Xml>
+					</MultiValueSelection>
+					<MultiValueSelection displayName="${plmPageLayoutResources.rotatingContentWidgetRibbonImageType_DotImages}" name="dot">
+						<Xml name="values">
+							<xWidgetProp_ribbonImageType>dot</xWidgetProp_ribbonImageType>
+						</Xml>
+					</MultiValueSelection>
+					<MultiValueSelection displayName="${plmPageLayoutResources.rotatingContentWidgetRibbonImageType_Numbered}" name="number">
+						<Xml name="values">
+							<xWidgetProp_ribbonImageType>number</xWidgetProp_ribbonImageType>
+						</Xml>
+					</MultiValueSelection>
+				</MultiValueSelector>
+				<PropertyCheckbox propertyName="xWidgetProp_ribbonArrows" text="${plmPageLayoutResources.rotatingContentWidgetNavigationOptionPrompt}">
+					<EnablementCondition propertyName="xWidgetProp_ribbonImageType" conditionId="notNoneCondition" negate="true" enablementValue="none"/>
+				</PropertyCheckbox>
+			</PropertyGroup>
+			
+			<PropertyGroup name="contentProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetContentPrompt}">
+			
+				<!-- Radio button to select how to populate the widget -->
+				<PropertyRadioGroup propertyName="xWidgetProp_populationChoice" 
+					promptText="${plmPageLayoutResources.selectMethod}" />
+			
+				<!-- Use default content to populate the widget -->
+				<PropertyGroup collapsable="false" name="widgetUseDefaultContent">
+				
+					<EnablementCondition conditionId="widgetUseDefaultContentCondition" 
+						propertyName="xWidgetProp_populationChoice" 
+						enablementValue="useDefaultContent" />			
+				
+					<!--  Property group for widget default content of local page layout-->
+					<PropertyGroup collapsable="false" name="widgetDefaultContent">
+						<EnablementCondition checkObjectDefinition="true" conditionId="layoutCondition" 
+							enablementValue="PageLayout" propertyName="objectType" parentProperty="true"/>
+						<PropertyChildListEditor 
+							listDefinitionName="plmMarketingDefaultContentGrid" 
+							name="DefaultMarketingContentListEditor" 
+							objectTypes="DefaultEMarketingSpotMarketingContentReference,InheritedDefaultEMarketingSpotMarketingContentReference" 
+							promptText="${plmPageLayoutResources.widgetContent}" 
+							required="false"
+							sequencePropertyName="sequence"
+							allowCreateReferencedPrimary="true"
+							extendedHelpText="${plmPageLayoutResources.rotatingContentWidgetDefaultContentToolTip}"/>
+					</PropertyGroup>
+					
+					<!--  Property group for widget default content of inherited page layout-->
+					<PropertyGroup collapsable="false" name="widgetDefaultContentInherited">
+						<EnablementCondition checkObjectDefinition="true" conditionId="inheritedLayoutCondition" 
+							enablementValue="InheritedPageLayout" propertyName="objectType" parentProperty="true"/>
+						<PropertyChildListEditor 
+							listDefinitionName="plmMarketingDefaultContentGrid" 
+							name="InheritedDefaultMarketingContentListEditor" 
+							objectTypes="InheritedDefaultEMarketingSpotInheritedMarketingContentReference" 
+							promptText="${plmPageLayoutResources.widgetContent}" 
+							required="false"
+							sequencePropertyName="sequence"
+							displayObjectStoreName="true"
+							extendedHelpText="${plmPageLayoutResources.rotatingContentWidgetDefaultContentInheritedToolTip}"/>
+						<PropertyChildListEditor 
+							listDefinitionName="plmMarketingDefaultContentGrid" 
+							name="LocalDefaultMarketingContentListEditor" 
+							objectTypes="DefaultEMarketingSpotMarketingContentReference,InheritedDefaultEMarketingSpotMarketingContentReference" 
+							promptText="${plmPageLayoutResources.widgetContent}" 
+							required="false"
+							sequencePropertyName="sequence"
+							allowCreateReferencedPrimary="true"
+							displayStoreName="true"
+							extendedHelpText="${plmPageLayoutResources.rotatingContentWidgetDefaultContentToolTip}"/>						
+					</PropertyGroup>
+				</PropertyGroup>
+
+				<!-- Use a web activity to populate the widget -->			
+				<PropertyGroup collapsable="false" name="widgetUseWebactivity">					
+
+					<EnablementCondition conditionId="widgetUseWebActivityCondition" 
+						propertyName="xWidgetProp_populationChoice" 
+						enablementValue="useWebactivity" />
+					
+					<!--  Property group for widget default content of local page layout-->
+					<PropertyGroup collapsable="false" name="widgetLocalWebActivity">
+						<EnablementCondition checkObjectDefinition="true" conditionId="layoutCondition" 
+							enablementValue="PageLayout" propertyName="objectType" parentProperty="true"/>
+						<PropertyChildListEditor 
+							listDefinitionName="plmActivityGrid" 
+							name="plmActivityGrid" 
+							objectTypes="ActivityReference,InheritedActivityReference" 
+							promptText="${plmPageLayoutResources.webActivitySelection}" 
+							allowCreateReferencedPrimary="true"
+							extendedHelpText="${plmPageLayoutResources.rotatingContentWidgetWebActivityToolTip}"
+							validatorTypes="noWebActivitySelected">
+							<NewMarketingObjectHandler package="mkt" objectType="RecommendContent" focusComponentPath="path/displayContent"/>
+						</PropertyChildListEditor>
+					</PropertyGroup>
+					
+					<!--  Property group for widget default content of inherited page layout-->
+					<PropertyGroup collapsable="false" name="widgetWebActivityInherited">
+						<EnablementCondition checkObjectDefinition="true" conditionId="inheritedLayoutCondition" 
+							enablementValue="InheritedPageLayout" propertyName="objectType" parentProperty="true"/>
+						<PropertyChildListEditor 
+							listDefinitionName="plmActivityGrid"
+							name="plmInheritedActivityGrid"
+							objectTypes="InheritedActivityInheritedReference" 
+							promptText="${plmPageLayoutResources.webActivitySelection}" 
+							allowCreateReferencedPrimary="true"
+							displayObjectStoreName="true"
+							extendedHelpText="${plmPageLayoutResources.rotatingContentWidgetWebActivityInheritedToolTip}"
+							validatorTypes="noWebActivitySelected">
+						</PropertyChildListEditor>
+						<PropertyChildListEditor 
+							listDefinitionName="plmActivityGrid" 
+							name="plmLocalActivityGrid" 
+							objectTypes="ActivityReference,InheritedActivityReference" 
+							promptText="${plmPageLayoutResources.webActivitySelection}" 
+							allowCreateReferencedPrimary="true"
+							displayStoreName="true"
+							extendedHelpText="${plmPageLayoutResources.rotatingContentWidgetWebActivityToolTip}"
+							validatorTypes="noWebActivitySelected">
+							<NewMarketingObjectHandler package="mkt" objectType="RecommendContent"  focusComponentPath="path/displayContent"/>
+						</PropertyChildListEditor>
+
+					</PropertyGroup>
+				</PropertyGroup>
+			</PropertyGroup>
+		</PropertyPane>
+	</GridObjectProperties>
+	
+</Definitions>

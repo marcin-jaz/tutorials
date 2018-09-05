@@ -1,0 +1,33 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2011, 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<library>
+	
+	<include href="PageLayoutGettingStartedPage.lzx"/>
+	<include href="PageLayoutLinkedCategoryHelpPage.lzx"/>
+	<include href="PageLayoutResourceBundle.lzx"/>
+	<include href="PageLayoutResources.lzx"/>
+	<include href="BasePageLayoutTemplatePicker.lzx"/>
+	<include href="CreatePageLayoutClientAction.lzx"/>
+	<include href="PageLayoutViewer.lzx"/>
+	<include href="PageLayoutWidgetAssignmentPropertyGroup.lzx"/>
+	<include href="NewPageLayoutWidgetDialog.lzx"/>
+	<include href="PageLayoutLocationSummary.lzx"/>
+	<include href="searchDefinitions/PageLayoutAdvancedSearchContent.lzx"/>
+	<include href="PageLayoutWidget.lzx"/>
+	<include href="URLWidget.lzx"/>
+	<include href="MarketingWidgetValidator.lzx"/>
+	<include href="../PageLayoutExtensionsLibrary.lzx"/>
+	
+</library>

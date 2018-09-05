@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+	<panel id="OrdersPanel" title="OrdersPanel.title" description="OrdersPanel.description" display-priority="3"/>
+
+	<option-group id="Orders.QuickOrder.checkbox" title="Orders.QuickOrder.checkboxEnable.title" type="checkbox" display-priority="1" panel="OrdersPanel" >
+		
+		<option id="Orders.QuickOrder.checkboxEnable"
+			label="Orders.QuickOrder.checkboxEnable.label"
+			enables-features="QuickOrder" />
+	</option-group>
+		
+	<option-group id="WishList.checkbox" title="WishList.checkboxEnable.title" type="checkbox" display-priority="2" panel="OrdersPanel" >
+		
+		<option id="WishList.checkboxEnable"
+			label="WishList.checkbox.label"
+			enables-features="wishList" />
+	</option-group>
+
+
+	<option-group id="MiniShopCart.checkbox" title="MiniShopCart.checkboxEnable.title" type="checkbox" display-priority="3" panel="OrdersPanel" >
+		
+		<option id="MiniShopCart.checkboxEnable"
+			label="MiniShopCart.checkbox.label"
+			enables-features="miniShopCart" />
+	</option-group>
+
+	<option-group id="OrderStatus.checkbox" title="OrderStatus.checkboxEnable.title" type="checkbox" display-priority="4" panel="OrdersPanel" >
+		
+		<option id="OrderStatus.checkboxEnable"
+			label="OrderStatus.checkboxEnable.label"
+			enables-features="TrackingStatus" />
+	</option-group>
+
+</display>

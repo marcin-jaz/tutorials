@@ -1,0 +1,668 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<library>
+	<!---
+		<p/>
+		This class is used to load the keys from the property file used by the Page Layout component
+		to define the different labels, messages used in the Page Layout editor.
+		<p/>
+	-->
+	<class name="plmPageLayoutResourceBundle" extends="wcfResourceBundle" baseName="com.ibm.commerce.pagelayout.client.lobtools.properties.PageLayoutLOB">
+		<!-- Getting Started Page -->	
+		<wcfResourceBundleKey name="gettingStartedPageTitle"/>
+		<wcfResourceBundleKey name="gettingStartedPageContent_01"/>
+		<wcfResourceBundleKey name="gettingStartedPageContent_02"/>
+		<wcfResourceBundleKey name="linkedCategoryContent" />
+		
+		<!-- Filters -->	
+		<wcfResourceBundleKey name="filter_layouts"/>
+		<wcfResourceBundleKey name="filter_storePages"/>
+		<wcfResourceBundleKey name="filter_storePages_Layouts"/>
+		
+		<!-- Explorer view -->	
+		<wcfResourceBundleKey name="organizationalPageLayouts"/>
+		<wcfResourceBundleKey name="organizationalContentPages"/>
+		
+		<!-- Search definitions -->	
+		<wcfResourceBundleKey name="findPageLayouts"/>
+		<wcfResourceBundleKey name="pageLayoutObjects"/>
+		<wcfResourceBundleKey name="pageLayoutSearchResult"/>
+		
+		<wcfResourceBundleKey name="findCatalogEntryPagesSearchDefinition_DisplayName"/>
+		<wcfResourceBundleKey name="findCategoryPagesSearchDefinition_DisplayName"/>
+		<wcfResourceBundleKey name="findLayoutCatalogsSearchDefinition_DisplayName"/>
+		<wcfResourceBundleKey name="findContentPagesSearchDefinition_DisplayName"/>
+		<wcfResourceBundleKey name="contentPagesSearchTitle"/>
+		
+		<wcfResourceBundleKey name="searchAllLayoutsTooltip"/>
+		<wcfResourceBundleKey name="searchAllContentPagesTooltip"/>
+		<wcfResourceBundleKey name="searchAllCatalogEntryPagesTooltip"/>
+		<wcfResourceBundleKey name="searchCategoryPagesTooltip"/>
+				
+		<!-- Layout advanced search -->
+		<wcfResourceBundleKey name="searchInstructionalText"/>
+		<wcfResourceBundleKey name="searchInstructionalText_findLayout"/>
+		<wcfResourceBundleKey name="searchInstructionalText_narrowBy"/>
+		<wcfResourceBundleKey name="searchInstructionalText_dateRange"/>
+		<wcfResourceBundleKey name="layoutTypeText"/>
+		<wcfResourceBundleKey name="layoutTypeText_allPages"/>
+		<wcfResourceBundleKey name="layoutTypeText_responsiveLayout"/>
+		<wcfResourceBundleKey name="layoutTypeText_desktopLayout"/>
+		<wcfResourceBundleKey name="layoutTypeText_mobileLayout"/>
+		<wcfResourceBundleKey name="layoutTypeText_specifyType"/>		
+		
+		<!-- Miscellaneous -->
+		<wcfResourceBundleKey name="store"/>
+		
+		<!-- Page -->
+		<wcfResourceBundleKey name="pageNamePrompt"/>
+		<wcfResourceBundleKey name="action_new_content_page"/>
+		<wcfResourceBundleKey name="contentPage_DisplayName"/>
+		
+		<wcfResourceBundleKey name="contentPage_NewDisplayName"/>
+		
+		<wcfResourceBundleKey name="storePagesFor"/>
+		<wcfResourceBundleKey name="categoryPagesList"/>
+		<wcfResourceBundleKey name="salesCategoryPagesList"/>
+		<wcfResourceBundleKey name="catalogEntryPageList"/>
+		<wcfResourceBundleKey name="skuPagesList"/>
+		<wcfResourceBundleKey name="contentPageList"/>
+		
+		<wcfResourceBundleKey name="action_new_page_layout"/>
+		<wcfResourceBundleKey name="navigation_layoutAssignmentListPrompt"/>
+
+		<wcfResourceBundleKey name="categoryPage_DisplayName"/>
+		<wcfResourceBundleKey name="catalogEntryPage_DisplayName"/>
+		
+		<wcfResourceBundleKey name="inheritedCategoryPage_DisplayName" />
+
+		<wcfResourceBundleKey name="sharedCategoryPage_DisplayName"/>
+		<wcfResourceBundleKey name="sharedInheritedCategoryPage_DisplayName"/>
+
+		<wcfResourceBundleKey name="productPage_DisplayName"/>
+		<wcfResourceBundleKey name="inheritedProductPage_DisplayName"/>
+
+		<wcfResourceBundleKey name="productLevelSKUPage_DisplayName"/>
+		<wcfResourceBundleKey name="inheritedProductLevelSKUPage_DisplayName"/>
+
+		<wcfResourceBundleKey name="categoryLevelSKUPage_DisplayName"/>
+		<wcfResourceBundleKey name="inheritedCategoryLevelSKUPage_DisplayName"/>
+
+		<wcfResourceBundleKey name="bundlePage_DisplayName"/>
+		<wcfResourceBundleKey name="inheritedBundlePage_DisplayName"/>
+
+		<wcfResourceBundleKey name="dynamickitPage_DisplayName"/>
+		<wcfResourceBundleKey name="inheritedDynamicKitPage_DisplayName"/>
+
+		<wcfResourceBundleKey name="kitPage_DisplayName"/>
+		<wcfResourceBundleKey name="inheritedKitPage_DisplayName"/>
+		
+		<wcfResourceBundleKey name="predDynaKitPage_DisplayName"/>
+		<wcfResourceBundleKey name="inheritedPredDynaKitPage_DisplayName"/>
+		
+		<!-- Page grid view -->
+		<wcfResourceBundleKey name="navigation_contentPagePrompt"/>
+		<wcfResourceBundleKey name="contentPageType_ColumnHeader"/>
+		<wcfResourceBundleKey name="contentPageName_ColumnHeader"/>
+		<wcfResourceBundleKey name="contentPageUniqueID_ColumnHeader"/>
+		
+		<wcfResourceBundleKey name="pageType_ColumnHeader"/>
+		<wcfResourceBundleKey name="pageName_ColumnHeader"/>
+		<wcfResourceBundleKey name="name_ColumnHeader"/>
+		<wcfResourceBundleKey name="categoryName_ColumnHeader"/>
+		<wcfResourceBundleKey name="catalogEntryName_ColumnHeader"/>
+		
+		<!-- Page properties view -->
+		<wcfResourceBundleKey name="pageProperties"/>	
+		
+		<!-- Catalog Entry page Property view -->
+		<wcfResourceBundleKey name="bundleNamePrompt"/>
+		<wcfResourceBundleKey name="CatalogGroupSKUNamePrompt"/>
+		<wcfResourceBundleKey name="DynamicKitNamePrompt"/>
+		<wcfResourceBundleKey name="KitNamePrompt"/>
+		<wcfResourceBundleKey name="ProductNamePrompt"/>
+		<wcfResourceBundleKey name="ProductSKUNamePrompt"/>
+		<wcfResourceBundleKey name="extendedHelpText_BundleCode"/>
+		<wcfResourceBundleKey name="extendedHelpText_BundleName"/>
+		<wcfResourceBundleKey name="extendedHelpText_CatalogGroupSKUCode"/>
+		<wcfResourceBundleKey name="extendedHelpText_CatalogGroupSKUName"/>
+		<wcfResourceBundleKey name="extendedHelpText_DynamicKitCode"/>
+		<wcfResourceBundleKey name="extendedHelpText_DynamicKitName"/>
+		<wcfResourceBundleKey name="extendedHelpText_KitCode"/>
+		<wcfResourceBundleKey name="extendedHelpText_KitName"/>
+		<wcfResourceBundleKey name="extendedHelpText_ProductCode"/>
+		<wcfResourceBundleKey name="extendedHelpText_ProductName"/>
+		<wcfResourceBundleKey name="extendedHelpText_ProductSKUCode"/>
+		<wcfResourceBundleKey name="extendedHelpText_ProductSKUName"/>
+		
+		<wcfResourceBundleKey name="PredDynaKitNamePrompt"/>
+		<wcfResourceBundleKey name="extendedHelpText_PredDynaKitCode"/>
+		<wcfResourceBundleKey name="extendedHelpText_PredDynaKitName"/>
+		
+		<!-- Catalog Group page Property view -->
+		<wcfResourceBundleKey name="categoryNamePrompt"/>
+		<wcfResourceBundleKey name="extendedHelpText_CategoryCode"/>
+		<wcfResourceBundleKey name="extendedHelpText_CategoryName"/>	
+
+		<!-- Layout -->
+		<wcfResourceBundleKey name="pageLayout_DisplayName"/>
+		<wcfResourceBundleKey name="inheritedPageLayout_DisplayName"/>
+		<wcfResourceBundleKey name="pageLayout_NewDisplayName"/>
+		
+		<!-- Layout list view -->
+		<wcfResourceBundleKey name="navigation_layoutAssignmentPrompt"/>
+		<wcfResourceBundleKey name="page_location_rule"/>
+		<wcfResourceBundleKey name="pageLayoutType_ColumnHeader"/>
+		<wcfResourceBundleKey name="pageLayoutName_ColumnHeader"/>
+		<wcfResourceBundleKey name="pageLayoutUniqueID_ColumnHeader"/>
+		<wcfResourceBundleKey name="pageLayoutThumbnail_ColumnHeader"/>
+		<wcfResourceBundleKey name="pageLayoutDesc_ColumnHeade"/>
+		<wcfResourceBundleKey name="priority_ColumnHeader"/>
+		<wcfResourceBundleKey name="pageLayoutAssociationStartDate_ColumnHeader"/>
+		<wcfResourceBundleKey name="pageLayoutAssociationEndDate_ColumnHeader"/>
+		<wcfResourceBundleKey name="deviceType_ColumnHeader"/>
+		<wcfResourceBundleKey name="pageLayoutsListTitle"/>
+		
+		<!-- Layout browse view -->
+		<wcfResourceBundleKey name="pageLayoutName_BrowseView_ColumnHeader"/>
+		
+		<!-- Layout calendar view -->
+		<wcfResourceBundleKey name="pageLayoutsGanttChartTitle"/>
+		<wcfResourceBundleKey name="pageLayoutsGanttChartMenuTitle"/>
+
+		<!-- Layout properties view -->
+		<wcfResourceBundleKey name="page_location"/>
+		<wcfResourceBundleKey name="group_title_manage_layout"/>
+		<wcfResourceBundleKey name="nameAndLocation"/>
+		<wcfResourceBundleKey name="namePrompt"/>
+		
+		<wcfResourceBundleKey name="group_title_when"/>
+		<wcfResourceBundleKey name="priorityPrompt"/>
+		<wcfResourceBundleKey name="pageLayoutAssociationEndDatePrompt"/>
+		<wcfResourceBundleKey name="pageLayoutAssociationStartDatePrompt"/>
+		<wcfResourceBundleKey name="extendedHelpText_pageLayoutPriority"/>
+		<wcfResourceBundleKey name="extendedHelpText_pageLayoutStartDate"/>
+		<wcfResourceBundleKey name="extendedHelpText_pageLayoutEndDate"/>
+		<wcfResourceBundleKey name="newSearchTerm"/>
+		
+		<wcfResourceBundleKey name="group_title_where"/>
+		<wcfResourceBundleKey name="instruction_pageLayoutAssignments"/>
+		<wcfResourceBundleKey name="group_title_layout_design"/>
+		<wcfResourceBundleKey name="templateTypePrompt" />
+		<wcfResourceBundleKey name="templatePrompt"/>
+		<wcfResourceBundleKey name="thumbnail_layout_Prompt"/>
+		
+		<wcfResourceBundleKey name="group_title_layout_properties"/>
+		<wcfResourceBundleKey name="group_title_layout_content"/>
+		<wcfResourceBundleKey name="slotsAndWidgetsEditorPrompt"/>
+		<wcfResourceBundleKey name="slotPrompt"/>
+		<wcfResourceBundleKey name="sequencePrompt"/>
+		
+		<wcfResourceBundleKey name="layoutWidgetAssignmentInstruction"/>
+		<wcfResourceBundleKey name="layoutWidgetAssignmentLearnMore"/>
+		<wcfResourceBundleKey name="layoutSlotTooltip" />
+		<wcfResourceBundleKey name="extendedHelpText_slotsAndWidgetsEditor"/>
+		<wcfResourceBundleKey name="helpText_slotsAndWidgetsEditor_newButton"/>
+		<wcfResourceBundleKey name="extendedHelpText_pageLayoutLocationList"/>
+		<wcfResourceBundleKey name="extendedHelpText_pageLayoutSearchTermList"/>
+		
+		
+		<wcfResourceBundleKey name="layoutPageLocationDisplayName"/>
+		<wcfResourceBundleKey name="noPageSelected"/>
+		
+		<wcfResourceBundleKey name="layoutPageLocationList_uniqueID"/>
+		<wcfResourceBundleKey name="layoutPageLocationList_applyThisTo"/>
+		<wcfResourceBundleKey name="applyThisTo_thisPageOnly"/>
+		<wcfResourceBundleKey name="applyThisTo_thisPageAndItsSubCategoryPages"/>
+		
+		<wcfResourceBundleKey name="applyThisTo_subProductPages"/>
+		<wcfResourceBundleKey name="applyThisTo_subBunldePages"/>
+		<wcfResourceBundleKey name="applyThisTo_subKitPages"/>
+		<wcfResourceBundleKey name="applyThisTo_subDynamicKitPages"/>
+		<wcfResourceBundleKey name="applyThisTo_subPredDynaKitPages"/>
+		<wcfResourceBundleKey name="applyThisTo_subItemPages"/>
+
+		<wcfResourceBundleKey name="searchTerm"/>
+		<wcfResourceBundleKey name="searchTerm_location"/>
+		<wcfResourceBundleKey name="searchTerm_ColumnHeader"/>
+		
+		<!-- Template -->
+		<wcfResourceBundleKey name="objectName"/>
+		<wcfResourceBundleKey name="descriptionPrompt"/>
+		
+		<!-- Layout template selection dialog -->			
+		<wcfResourceBundleKey name="template_selection_title"/>
+		<wcfResourceBundleKey name="search_pagelayout_template"/>
+		<wcfResourceBundleKey name="all_template"/>
+		<wcfResourceBundleKey name="desktop_template"/>
+		<wcfResourceBundleKey name="mobile_template"/>
+		<wcfResourceBundleKey name="responsive_template"/>
+		
+		<!-- Strings relating to the "SEO" tab -->
+		<wcfResourceBundleKey name="searchEngineOptimizationTab"/>
+		<wcfResourceBundleKey name="seoDesktopUrlPrompt"/> 
+		<wcfResourceBundleKey name="seoDesktopUrlPreviewPrompt"/> 
+		<wcfResourceBundleKey name="seoTitlePrompt"/> 
+		<wcfResourceBundleKey name="seoMetaDescPrompt"/>
+		<wcfResourceBundleKey name="seoImageDescPrompt"/>
+		<wcfResourceBundleKey name="seoMetaKeywordPrompt"/>
+		<wcfResourceBundleKey name="seoDefaultOptionPrompt"/> 
+		<wcfResourceBundleKey name="seoOverrideOptionPrompt"/> 
+		<wcfResourceBundleKey name="seoDefaultOptionEsiteStorePrompt"/> 
+		<wcfResourceBundleKey name="seoOverrideOptionEsiteStorePrompt"/> 
+		<wcfResourceBundleKey name="seoDefaultTitleOptionEsiteStorePrompt"/>
+		<wcfResourceBundleKey name="seoOverrideTitleOptionEsiteStorePrompt"/>
+		<wcfResourceBundleKey name="seoDefaultDescOptionEsiteStorePrompt"/>
+		<wcfResourceBundleKey name="seoOverrideDescOptionEsiteStorePrompt"/>
+		<wcfResourceBundleKey name="seoDefaultImageOptionEsiteStorePrompt"/>
+		<wcfResourceBundleKey name="seoOverrideImageOptionEsiteStorePrompt"/>
+		<wcfResourceBundleKey name="seoDefaultKeywordOptionEsiteStorePrompt"/>
+		<wcfResourceBundleKey name="seoOverrideKeywordOptionEsiteStorePrompt"/>
+		
+		<!-- SEO information tab helptext -->
+        <wcfResourceBundleKey name="extendedHelpText_seoTitle"/>
+        <wcfResourceBundleKey name="extendedHelpText_seoMetaDesc"/>
+        <wcfResourceBundleKey name="extendedHelpText_seoImageAltDesc"/>
+        <wcfResourceBundleKey name="extendedHelpText_seoTitleEsite"/>
+        <wcfResourceBundleKey name="extendedHelpText_seoMetaDescEsite"/>
+        <wcfResourceBundleKey name="extendedHelpText_seoImageAltDescEsite"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoDesktopUrl"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoDesktopUrlEsite"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoMetaDesc_Category"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoMetaDescEsite_Category"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoDesktopUrl_Category"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoDesktopUrlEsite_Category"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoMetaDesc_ContentPage"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoMetaDescEsite_ContentPage"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoDesktopUrl_ContentPage"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoDesktopUrlEsite_ContentPage"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoTitle_ContentPage"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoTitleEsite_ContentPage"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoMetaKeyword_ContentPage"/>
+		<wcfResourceBundleKey name="extendedHelpText_seoMetaKeywordEsite_ContentPage"/>
+				
+        
+		<!-- Widget Selection Dialog -->	
+		<wcfResourceBundleKey name="widgetDialogTitle"/>
+		<wcfResourceBundleKey name="widgetDialogStepOne"/>
+		<wcfResourceBundleKey name="widgetDialogStepTwo"/>
+		<wcfResourceBundleKey name="widgetDialogSingleStep"/>
+		<wcfResourceBundleKey name="widgetDialogFilterText"/>
+		<wcfResourceBundleKey name="widgetDialogFilterByNameLabel"/>
+		<wcfResourceBundleKey name="widgetDialogShowDescriptionsLink"/>
+		<wcfResourceBundleKey name="widgetDialogDescriptionLearnMore"/>
+		<wcfResourceBundleKey name="widgetGroupDisplayName_All"/>
+		<wcfResourceBundleKey name="widgetGroupDisplayName_Category"/>
+		<wcfResourceBundleKey name="widgetGroupDisplayName_CatalogEntry"/>
+		<wcfResourceBundleKey name="widgetGroupDisplayName_Search"/>
+		<wcfResourceBundleKey name="widgetGroupDisplayName_AnyPage"/>
+		<wcfResourceBundleKey name="widgetDialogNoWidgetsMessage"/>
+		
+		<!-- Widget properties view -->	
+		<wcfResourceBundleKey name="widgetPrompt"/>
+		<wcfResourceBundleKey name="widgetNamePrompt" />
+		<wcfResourceBundleKey name="widgetNameColumnPrompt" />
+		<wcfResourceBundleKey name="widgetPropertiesPrompt"/>
+		<wcfResourceBundleKey name="widgetContentPrompt"/>
+		<wcfResourceBundleKey name="widgetDisplayTitle"/>
+		<wcfResourceBundleKey name="widgetDisplayTitleToolTip"/>
+		<wcfResourceBundleKey name="newWidgetNameTemplate"/>
+		
+		<!-- URL Link Widget -->
+		<wcfResourceBundleKey name="extendedHelpText_urlLinkWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_urlLinkWidgetDisplayTitle"/>
+		<wcfResourceBundleKey name="extendedHelpText_urlLinkWidgetLinks"/>
+		<wcfResourceBundleKey name="addLink"/>
+
+		<wcfResourceBundleKey name="contentPageURL"/>
+		<wcfResourceBundleKey name="InheritedcontentPageURL"/>
+		<wcfResourceBundleKey name="catalogEntryPageURL"/>
+		<wcfResourceBundleKey name="InheritedCatalogEntryPageURL"/>
+		<wcfResourceBundleKey name="catalogGroupPageURL"/>
+		<wcfResourceBundleKey name="InheritedCatalogGroupPageURL"/>
+		<wcfResourceBundleKey name="customURL"/>
+		<wcfResourceBundleKey name="urlType"/>
+		<wcfResourceBundleKey name="customURLType"/>
+		<wcfResourceBundleKey name="pageURLType"/>
+		<wcfResourceBundleKey name="page_ColumnHeader"/>
+		
+		<wcfResourceBundleKey name="uniqueID"/>
+		<wcfResourceBundleKey name="links"/>
+		<wcfResourceBundleKey name="url"/>
+		<wcfResourceBundleKey name="urlText"/>
+		<wcfResourceBundleKey name="target"/>
+		<wcfResourceBundleKey name="openInSameWindow"/>
+		<wcfResourceBundleKey name="openInNewWindow"/>
+		<wcfResourceBundleKey name="alternateText"/>		
+		<wcfResourceBundleKey name="field1"/>
+		<wcfResourceBundleKey name="field2"/>	
+		<wcfResourceBundleKey name="field3"/>
+		<wcfResourceBundleKey name="field4"/>
+		<wcfResourceBundleKey name="field5"/>			
+		
+		<!-- Rotating Content Widget -->
+		<wcfResourceBundleKey name="widgetContent" />
+		<wcfResourceBundleKey name="rotatingContentWidgetRibbonImageType_None" />
+		<wcfResourceBundleKey name="rotatingContentWidgetRibbonImageType_ThumbnailImages"/>
+		<wcfResourceBundleKey name="rotatingContentWidgetRibbonImageType_DotImages"/>
+		<wcfResourceBundleKey name="rotatingContentWidgetRibbonImageType_Numbered"/>
+		<wcfResourceBundleKey name="rotatingContentWidgetImageCountPrompt" />
+		<wcfResourceBundleKey name="rotatingContentWidgetNavigationOptionPrompt" />
+		<wcfResourceBundleKey name="rotatingContentWidgetDefaultContentToolTip" />
+		<wcfResourceBundleKey name="rotatingContentWidgetDefaultContentInheritedToolTip" />
+		<wcfResourceBundleKey name="rotatingContentWidgetWebActivityToolTip" />
+		<wcfResourceBundleKey name="rotatingContentWidgetWebActivityInheritedToolTip" />
+		
+		<!-- Content Recommendation Widget -->	
+		<wcfResourceBundleKey name="contentRecommendationWidgetWidgetOrientation_Horizontal"/>
+		<wcfResourceBundleKey name="contentRecommendationWidgetWidgetOrientation_Vertical" />
+		<wcfResourceBundleKey name="contentRecommendationWidgetWidgetOrientationPrompt"/>
+		<wcfResourceBundleKey name="contentRecommendationWidgetMaxContentToDisplay" />
+		<wcfResourceBundleKey name="contentRecommendationWidgetShowFeed" />
+		<wcfResourceBundleKey name="contentRecommendationWidgetShowFeedToolTip" />
+		<wcfResourceBundleKey name="selectMethod" />
+		<wcfResourceBundleKey name="webActivitySelection" />
+		<wcfResourceBundleKey name="noWebActivitiesSelected" />
+		<wcfResourceBundleKey name="chooseDefaultContent" />
+		<wcfResourceBundleKey name="chooseWebActivity" />
+		<wcfResourceBundleKey name="emarketingSpot" />
+		<wcfResourceBundleKey name="contentRecommendationWidgetDefaultContentToolTip" />
+		<wcfResourceBundleKey name="contentRecommendationWidgetDefaultContentInheritedToolTip" />		
+		<wcfResourceBundleKey name="contentRecommendationWidgetWebActivityToolTip" />
+		<wcfResourceBundleKey name="contentRecommendationWidgetWebActivityInheritedToolTip" />
+		<wcfResourceBundleKey name="contentRecommendationWidgetDisplayPreference_Style1" />
+		<wcfResourceBundleKey name="contentRecommendationWidgetDisplayPreference_Style2" />
+		<wcfResourceBundleKey name="contentRecommendationWidgetDisplayPreference_Style3" />
+		<wcfResourceBundleKey name="contentRecommendationWidgetDisplayPreferencesPrompt" />
+		
+		<!-- Product Recommendation Widget -->	
+		<wcfResourceBundleKey name="productRecommendationWidgetWidgetOrientation_Horizontal" />
+		<wcfResourceBundleKey name="productRecommendationWidgetWidgetOrientation_Vertical"/>
+		<wcfResourceBundleKey name="productRecommendationWidgetWidgetOrientationPrompt" />
+		<wcfResourceBundleKey name="productRecommendationWidgetMaxProductsToDisplay"/>
+		<wcfResourceBundleKey name="productRecommendationWidgetShowFeed" />
+		<wcfResourceBundleKey name="productRecommendationWidgetDisplayPreference_Style1" />
+		<wcfResourceBundleKey name="productRecommendationWidgetDisplayPreference_Style2" />
+		<wcfResourceBundleKey name="productRecommendationWidgetDisplayPreference_Style3" />
+		<wcfResourceBundleKey name="productRecommendationWidgetDisplayPreferencesPrompt" />
+		<wcfResourceBundleKey name="productRecommendationWidgetShowFeedToolTip" />
+		<wcfResourceBundleKey name="productRecommendationWidgetDisplayTitleToolTip" />
+		<wcfResourceBundleKey name="productRecommendationWidgetDefaultCatalogEntryContentToolTip" />
+		<wcfResourceBundleKey name="productRecommendationWidgetWebActivityToolTip" />
+		<wcfResourceBundleKey name="productRecommendationWidgetWebActivityInheritedToolTip" />
+		
+		<!-- Category Recommendation Widget -->	
+		<wcfResourceBundleKey name="categoryRecommendationWidgetMaxCategoriesToDisplay" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetWidgetOrientation_Horizontal" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetWidgetOrientation_Vertical" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetShowFeed" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetWidgetOrientationPrompt" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetDisplayPreference_Style1" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetDisplayPreference_Style2" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetDisplayPreference_Style3" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetDisplayPreferencesPrompt" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetShowFeedToolTip" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetDisplayTitleToolTip" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetDefaultCategoryContentToolTip" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetWebActivityToolTip" />
+		<wcfResourceBundleKey name="categoryRecommendationWidgetWebActivityInheritedToolTip" />
+		
+		<!-- Facet Navigation Widget -->	
+		<wcfResourceBundleKey name="facetNavigationWidgetWidgetOrientation_Horizontal" />
+		<wcfResourceBundleKey name="facetNavigationWidgetWidgetOrientation_Vertical" />	
+		<wcfResourceBundleKey name="facetNavigationWidgetWidgetOrientationPrompt" />
+		<wcfResourceBundleKey name="facetNavigationWidgetContent" />
+		
+		<!-- FaceBook Activity Widget -->
+		<wcfResourceBundleKey name="faceBookActivityWidgetContent"/>
+		
+		<!-- Category Navigation Widget -->	
+		<wcfResourceBundleKey name="categoryNavigationWidgetContent" />
+		<wcfResourceBundleKey name="categoryNavigationWidgetShowTopCategory" />
+		
+		<!-- Product Listing Widget -->	
+		<wcfResourceBundleKey name="productListingWidgetInitialView_Grid" />
+		<wcfResourceBundleKey name="productListingWidgetInitialView_List" />	
+		<wcfResourceBundleKey name="productListingWidgetInitialViewPrompt" />
+		<wcfResourceBundleKey name="productListingWidgetEnableSKUListView" />
+		<wcfResourceBundleKey name="productListingWidgetShowCompareBoxPrompt" />
+		<wcfResourceBundleKey name="productListingWidgetContentDescription" />
+		<wcfResourceBundleKey name="productListingWidgetContentPosition" />
+		<wcfResourceBundleKey name="productListingWidgetAddContent" />
+		<wcfResourceBundleKey name="productListingWidgetAddContentToolTip" />
+		<wcfResourceBundleKey name="productListingWidgetOrderBy_Relevance" />
+		<wcfResourceBundleKey name="productListingWidgetOrderBy_Brands" />
+		<wcfResourceBundleKey name="productListingWidgetOrderBy_Name" />
+		<wcfResourceBundleKey name="productListingWidgetOrderBy_LowToHigh" />
+		<wcfResourceBundleKey name="productListingWidgetOrderBy_HighToLow" />
+		<wcfResourceBundleKey name="productListingWidgetOrderByPrompt" />
+		<wcfResourceBundleKey name="productListingWidgetDefaultContentToolTip" />
+		<wcfResourceBundleKey name="productListingWidgetDefaultContentInheritedToolTip" />
+		
+		<!-- E-Marketing Spot Widget -->	
+		<wcfResourceBundleKey name="eMarketingSpotWidgetMaxItemsToDisplay" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetWidgetOrientationPrompt" />	
+		<wcfResourceBundleKey name="eMarketingSpotWidgetWidgetOrientation_Horizontal" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetWidgetOrientation_Vertical" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetShowFeed" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetEmsTypePrompt" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetEmsType_Global" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetEmsType_Global_Prompt" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetEmsType_Global_Prompt_HelpLink" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetEmsType_Local" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetEmsType_Local_Instructions" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetEmsType_Local_Suffix" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetEmsType_Local_Suffix_Details" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetEmsType_Local_HelpLink" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetDisplayPreference_Style1" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetDisplayPreference_Style2" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetDisplayPreference_Style3" />
+		<wcfResourceBundleKey name="eMarketingSpotWidgetDisplayPreferencesPrompt" />			
+		
+		<!-- Page Heading Widget -->
+		<wcfResourceBundleKey name="pageHeadingWidgetContentHeading_SameName" />
+		
+		<!-- Site Map Widget -->
+		<wcfResourceBundleKey name="SiteMapWidgetContent" />
+		
+		<!-- IntelligentOffer Widget -->
+		<wcfResourceBundleKey name="intelligentOfferWidgetWidgetOrientation_Horizontal"/>
+		<wcfResourceBundleKey name="intelligentOfferWidgetWidgetOrientation_Vertical"/>
+		<wcfResourceBundleKey name="intelligentOfferWidgetWidgetOrientationPrompt"/>
+		<wcfResourceBundleKey name="intelligentOfferWidgetMaxProductsToDisplay"/>
+		<wcfResourceBundleKey name="intelligentOfferWidgetShowFeed"/>
+		<wcfResourceBundleKey name="intelligentOfferWidgetDisplayPreference_Style1"/>
+		<wcfResourceBundleKey name="intelligentOfferWidgetDisplayPreference_Style2"/>
+		<wcfResourceBundleKey name="intelligentOfferWidgetDisplayPreference_Style3" />
+		<wcfResourceBundleKey name="intelligentOfferWidgetDisplayPreferencesPrompt"/>
+		<wcfResourceBundleKey name="intelligentOfferWidgetWebActivityToolTip"/>
+		<wcfResourceBundleKey name="intelligentOfferWidgetWebActivityInheritedToolTip" />
+		
+		<!-- AssociatedAssets Widget -->
+		<wcfResourceBundleKey name="AssociatedAssetsWidgetContent"/>
+
+		<!-- DefiningAttributes Widget -->
+		<wcfResourceBundleKey name="DefiningAttributesWidgetContent"/>
+		
+		<!-- DescriptiveAttributes Widget -->
+		<wcfResourceBundleKey name="DescriptiveAttributesWidgetContent"/>
+		
+		<!-- Discounts Widget -->
+		<wcfResourceBundleKey name="DiscountsWidgetContent"/>
+
+		<!-- FacebookLike Widget -->
+		<wcfResourceBundleKey name="FacebookLikeWidgetContent"/>
+		
+		<!-- FullImage Widget -->
+		<wcfResourceBundleKey name="FullImageWidgetContent"/>
+		
+		<!-- InventoryAvailability Widget -->
+		<wcfResourceBundleKey name="InventoryAvailabilityWidgetContent"/>
+
+		<!-- LongDescription Widget -->
+		<wcfResourceBundleKey name="LongDescriptionWidgetContent"/>
+		
+		<!-- MerchandisingAssociations Widget -->
+		<wcfResourceBundleKey name="MerchandisingAssociationsWidgetContent"/>
+		
+		<!-- NamePartNumberAndPrice Widget -->
+		<wcfResourceBundleKey name="NamePartNumberAndPriceWidgetContent"/>
+
+		<!-- ShopperActions Widget -->
+		<wcfResourceBundleKey name="ShopperActionsWidgetContent"/>
+
+		<!-- ShortDescription Widget -->
+		<wcfResourceBundleKey name="ShortDescriptionWidgetContent"/>
+		
+		<!-- Rich Text Widget -->
+		<wcfResourceBundleKey name="richTextWidgetContentsPrompt"/>
+		
+		<!-- Breadcrumb Trail Widget -->
+		<wcfResourceBundleKey name="BreadcrumbTrailWidgetContent" />
+		
+		<!-- Search Summary Widget -->
+		<wcfResourceBundleKey name="SearchSummaryWidgetContent"/>
+		
+		<!-- Components Widget -->
+		<wcfResourceBundleKey name="ComponentsWidgetContent"/>
+		
+		<!-- Site Content List Widget -->
+		<wcfResourceBundleKey name="SiteContentListWidgetContent"/>
+		
+		<!-- Add To Requisition Lists Widget -->
+		<wcfResourceBundleKey name="AddToRequisitionListsWidgetContent"/>
+		
+		<!-- SKU List Widget -->
+		<wcfResourceBundleKey name="SKUListWidgetContent"/>
+		<wcfResourceBundleKey name="SKUListWidgetShowCompareBoxPrompt"/>
+		
+		<!-- Predefined Dynamic Kit List Widget -->
+		<wcfResourceBundleKey name="PDKListWidgetContent"/>
+		
+		<!-- Help text for Widgets -->
+		<wcfResourceBundleKey name="extendedHelpText_WidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_contentRecommendationWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_contentRecommendationWidgetWidgetOrientation"/>
+		<wcfResourceBundleKey name="extendedHelpText_contentRecommendationWidgetMaxContentToDisplay"/>
+		<wcfResourceBundleKey name="extendedHelpText_categoryRecommendationWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_categoryRecommendationWidgetMaxCategoriesToDisplay"/>
+		<wcfResourceBundleKey name="extendedHelpText_categoryRecommendationWidgetWidgetOrientation"/>
+		<wcfResourceBundleKey name="extendedHelpText_productListingWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_productListingWidgetInitialView"/>
+		<wcfResourceBundleKey name="extendedHelpText_productListingWidgetEnableSKUListView"/>
+		<wcfResourceBundleKey name="extendedHelpText_productListingWidgetOrderBy"/>
+		<wcfResourceBundleKey name="extendedHelpText_productListingWidgetShowCompareBox"/>
+		<wcfResourceBundleKey name="extendedHelpText_productRecommendationWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_productRecommendationWidgetWidgetOrientation"/>
+		<wcfResourceBundleKey name="extendedHelpText_productRecommendationWidgetMaxProductsToDisplay"/>
+		<wcfResourceBundleKey name="extendedHelpText_rotatingContentWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_rotatingContentWidgetImageCount"/>
+		<wcfResourceBundleKey name="extendedHelpText_pageHeadingWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_richTextWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_richTextWidgetDisplayText"/>
+		<wcfResourceBundleKey name="extendedHelpText_eMarketingSpotWidgetWidgetName" />
+		<wcfResourceBundleKey name="extendedHelpText_eMarketingSpotWidgetWidgetOrientation" />
+		<wcfResourceBundleKey name="extendedHelpText_eMarketingSpotWidgetMaxItemsToDisplay" />
+		<wcfResourceBundleKey name="extendedHelpText_eMarketingSpotWidgetShowFeed" />
+		<wcfResourceBundleKey name="extendedHelpText_eMarketingSpotWidgetEmsTypePrompt" />
+		<wcfResourceBundleKey name="extendedHelpText_eMarketingSpotWidgetEmsType_Local_Suffix" />
+		<wcfResourceBundleKey name="extendedHelpText_eMarketingSpotWidgetEmsType_Global_Prompt" />
+		<wcfResourceBundleKey name="extendedHelpText_facetNavigationWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_facetNavigationWidgetWidgetOrientation"/>
+		<wcfResourceBundleKey name="extendedHelpText_siteContentWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_breadcrumbTrailWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_siteMapWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_searchSummaryWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_facebookActivityWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_categoryNavigationWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_categoryNavigationWidgetShowTopCategory"/>
+		<wcfResourceBundleKey name="extendedHelpText_intelligentOfferWidgetWidgetName"/>
+		<wcfResourceBundleKey name="extendedHelpText_intelligentOfferWidgetWidgetOrientation"/>
+		<wcfResourceBundleKey name="extendedHelpText_intelligentOfferWidgetMaxProductsToDisplay"/>
+		<wcfResourceBundleKey name="extendedHelpText_intelligentOfferWidgetShowFeed"/>
+		<wcfResourceBundleKey name="extendedHelpText_SKUListWidgetShowCompareBox"/>
+		
+		<!--  Page Layout Folders -->
+		<wcfResourceBundleKey name="folderPrompt"/>
+		<wcfResourceBundleKey name="pageGroup"/>
+		
+		<!--  Layout -->
+		<wcfResourceBundleKey name="LayoutFolder_parentFolder_helpText"/>
+		<wcfResourceBundleKey name="LayoutFolderObjectName"/>
+		<wcfResourceBundleKey name="LayoutFolderType"/>
+		<wcfResourceBundleKey name="LayoutFolderStore"/>
+		<wcfResourceBundleKey name="LayoutFolder_newLayoutFolderDisplayName"/>
+		<wcfResourceBundleKey name="LayoutFolder_newLayoutFolderProperties"/>
+		<wcfResourceBundleKey name="LayoutFolder_name"/>
+		<wcfResourceBundleKey name="LayoutFolder_description"/>
+		<wcfResourceBundleKey name="LayoutFolder_parentFolder"/>
+		<wcfResourceBundleKey name="LayoutFolderList_uniqueID"/>
+		<wcfResourceBundleKey name="LayoutFolderList_identifier"/>
+		<wcfResourceBundleKey name="LayoutFolderList_description"/>
+		<wcfResourceBundleKey name="LayoutFolderList_path"/>
+		<wcfResourceBundleKey name="contextMenuNewLayoutFolder"/>
+		<wcfResourceBundleKey name="allLayoutFolders_headerText"/>
+		<wcfResourceBundleKey name="allLayoutFolders_displayText"/>
+		<wcfResourceBundleKey name="LayoutFolderListMenuTitle"/>
+		<wcfResourceBundleKey name="LayoutFolderListTitle"/>
+		<wcfResourceBundleKey name="LayoutFolderItemListMenuTitle"/>
+		<wcfResourceBundleKey name="LayoutFolderItemListTitle"/>
+		<wcfResourceBundleKey name="pageLayoutsFolderGanttChartMenuTitle"/>
+		<wcfResourceBundleKey name="pageLayoutsFolderGanttChartTitle"/>
+		<wcfResourceBundleKey name="extendedHelpText_layoutFolder"/>
+		
+		<!--  Content Page -->
+		<wcfResourceBundleKey name="ContentPageFolder_parentFolder_helpText"/>
+		<wcfResourceBundleKey name="ContentPageFolderObjectName"/>
+		<wcfResourceBundleKey name="ContentPageFolderType"/>
+		<wcfResourceBundleKey name="ContentPageFolderStore"/>
+		<wcfResourceBundleKey name="ContentPageFolder_newContentPageFolderDisplayName"/>
+		<wcfResourceBundleKey name="ContentPageFolder_newContentPageFolderProperties"/>
+		<wcfResourceBundleKey name="ContentPageFolder_name"/>
+		<wcfResourceBundleKey name="ContentPageFolder_description"/>
+		<wcfResourceBundleKey name="ContentPageFolder_parentFolder"/>
+		<wcfResourceBundleKey name="ContentPageFolderList_uniqueID"/>
+		<wcfResourceBundleKey name="ContentPageFolderList_identifier"/>
+		<wcfResourceBundleKey name="ContentPageFolderList_description"/>
+		<wcfResourceBundleKey name="ContentPageFolderList_path"/>
+		<wcfResourceBundleKey name="contextMenuNewContentPageFolder"/>
+		<wcfResourceBundleKey name="allContentPageFolders_headerText"/>
+		<wcfResourceBundleKey name="allContentPageFolders_displayText"/>
+		<wcfResourceBundleKey name="ContentPageFolderListMenuTitle"/>
+		<wcfResourceBundleKey name="ContentPageFolderListTitle"/>
+		<wcfResourceBundleKey name="ContentPageFolderItemListMenuTitle"/>
+		<wcfResourceBundleKey name="ContentPageFolderItemListTitle"/>
+		<wcfResourceBundleKey name="extendedHelpText_contentPageFolder"/>
+		
+		<!--  Summary column titles -->
+		<wcfResourceBundleKey name="contentPage"/>
+		<wcfResourceBundleKey name="categoryPage"/>
+		<wcfResourceBundleKey name="catentryPage"/>
+		<wcfResourceBundleKey name="searchtermRule"/>
+		<wcfResourceBundleKey name="summaryColumnTitle"/>
+		<wcfResourceBundleKey name="summaryItem"/>
+		<wcfResourceBundleKey name="summaryItemAndSubcategories"/>
+		<wcfResourceBundleKey name="summaryItemAllProductSubPages"/>
+		<wcfResourceBundleKey name="summaryItemAllBundleSubPages"/>
+		<wcfResourceBundleKey name="summaryItemAllKitSubPages"/>
+		<wcfResourceBundleKey name="summaryItemAllDynamicKitSubPages"/>
+		<wcfResourceBundleKey name="summaryItemAllItemSubPages"/>
+		<wcfResourceBundleKey name="summaryItemAllPredDynaKitSubPages"/>
+
+	</class>
+	
+	<plmPageLayoutResourceBundle id="plmPageLayoutResources"/>
+	
+</library>

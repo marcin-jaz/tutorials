@@ -1,0 +1,21 @@
+<!DOCTYPE repository-entries SYSTEM "../../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<section-components>
+
+	<section id="CheckoutSection"/>		
+			
+	<interface id="CheckoutSection.i1" component-id="CheckoutSection">
+		<entry-port id="CheckoutSection.i1.e1" type="EntryPortType1"/>
+		<entry-port id="CheckoutSection.i1.e2" type="EntryPortType1"/>
+	</interface>
+	
+	<implementation id="CheckoutSection.i1.impl1" interface-id="CheckoutSection.i1">
+		<component-interface id="CheckoutSection.i1.impl1.ci1" interface="StandardCheckoutSubsection.i1" always-enabled="yes"/>
+		<entry-port-map id="CheckoutSection.i1.impl1.epm1" interface-entry-ports="CheckoutSection.i1.e1" component-entry-port="StandardCheckoutSubsection.i1.e1"/>
+		<entry-port-map id="CheckoutSection.i1.impl1.epm2" interface-entry-ports="CheckoutSection.i1.e2" component-entry-port="StandardCheckoutSubsection.i1.e2"/>
+	</implementation>
+
+</section-components>
+</components>
+</repository-entries>

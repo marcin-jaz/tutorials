@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("pastefromword","cs",{confirmCleanup:"Text, který chcete vložit, je pravděpodobně zkopírován z aplikace Word. Chcete text před vložením vyčistit?",error:"Vložená data nebylo možné vyčistit v důsledku interní chyby.",title:"Vložit jinak",toolbar:"Vložit jinak"});

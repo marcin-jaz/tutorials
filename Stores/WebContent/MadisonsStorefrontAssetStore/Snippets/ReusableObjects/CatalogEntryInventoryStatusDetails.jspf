@@ -1,0 +1,84 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%--
+	*****
+	* This file defines the user interface to show a pop up showing the physical store 
+	* details including store hours. It also display the inventory availability of the
+	* product in the physical store plus its remaining quantity count.
+	* 
+	* Parameters required: none
+	*
+	* This is an example of how this file could be included into a page:
+	* <%@ include file="../../../Snippets/ReusableObjects/CatalogEntryInventoryStatusDetails.jspf" %>
+	****
+--%>
+
+<!-- Start CatalogEntryInventoryStatusDetails.jspf -->
+
+	<script type="text/javascript" src="<c:out value="${jsAssetsDir}javascript/StoreLocatorArea/PhysicalStoreCookie.js"/>"></script>
+	<script type="text/javascript" src="<c:out value="${jsAssetsDir}javascript/CatalogArea/CatalogEntryInventoryStatus.js"/>"></script>
+
+	<div id="store_availability_popup_main_div">
+		<div id="store_availability_popup" dojoType="dijit.Dialog" >
+			<div class="top_left" id="WC_CatalogEntryStoreDetailsf_div_1"><img alt="" src="<c:out value="${jspStoreImgDir}" />images/trasparent.gif" /></div>
+		  <div class="top_right" id="WC_CatalogEntryStoreDetailsf_div_2"><img alt="" src="<c:out value="${jspStoreImgDir}" />images/trasparent.gif" /></div>
+		  <div class="header" id="invPopupHeader"> 
+				<div class="close" id="WC_CatalogEntryStoreDetailsf_div_3">
+					<a id="closeInvLink" href="javascript:hidePhysicalStoreDetailsPopup('store_availability_popup');" onkeydown="javaScript:invSetbackFocus(event);" onmousedown="javaScript:invSetbackFocus(event);">
+						<span onclick="javascript:hidePhysicalStoreDetailsPopup('store_availability_popup');" class="icon" id="WC_CatalogEntryStoreDetailsf_div_4">
+							<img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />popup_close.png" />
+						</span>
+						<fmt:message key="STORE_AVAIL_POPUP_CLOSE" bundle="${storeText}"/>
+					</a>
+				</div>
+			</div>
+			
+			<div class="bodyarea">
+			    <div class="bodycontent">
+						<h2 class="bopis_title"><fmt:message key="STORE_AVAIL_POPUP_TITLE" bundle="${storeText}"/></h2>
+						<div id="your_store_list" class="body">
+							<table id="bopis_table" cellpadding="0" cellspacing="0" border="0" width="98%">
+								<tr class="nested">
+									<th class="align_left"><fmt:message key="STORE_AVAIL_POPUP_TABLE_COL1" bundle="${storeText}"/></th>
+									<th class="align_left"><fmt:message key="STORE_AVAIL_POPUP_TABLE_COL2" bundle="${storeText}"/></th>
+									<th class="align_left"><fmt:message key="STORE_AVAIL_POPUP_TABLE_COL3" bundle="${storeText}"/></th>
+								</tr>
+								<tr>
+									<td width="250">
+										<p id="storeDetailsStoreName"></p>
+										<p id="storeDetailsStreetAddress"></p>
+										<p id="storeDetailsCityStateZip"></p>
+										<p id="storeDetailsCountry"></p>
+										<p id="storeDetailsPhoneNumber"></p>
+									</td>
+									<td width="160"><p id="storeDetailsHours"></p>
+									</td>
+									<td class="avail" width="168"><img alt ="" id="storeDetailsInvStatusImg" />&nbsp;<span id="storeDetailsInvStatus"></span></td>
+								</tr>       
+							</table>
+							<div class="clear_float"></div>
+							<span tabindex="0" id="invFocusConveyer" onfocus="javaScript:invGobackFocus();"></span>
+						</div>
+			    </div>
+			</div>
+			
+			<div class="footer">
+		    <div class="bot_left"></div>
+		    <div class="bot_right"></div>
+		  </div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">dojo.addOnLoad(function() { parseWidget("store_availability_popup"); } );</script>
+<!-- End CatalogEntryInventoryStatusDetails.jspf -->

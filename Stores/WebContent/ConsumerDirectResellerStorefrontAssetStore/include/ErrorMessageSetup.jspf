@@ -1,0 +1,52 @@
+<%--
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2003, 2004
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+--%>
+
+<%-- 
+  *****
+  * This page is called by the JSP that requires error handling
+  * It retrieves the store error message corresponding to the ECMessage key and the error code.
+  *****
+--%>
+
+<!-- Start - JSP File Name:  ErrorMessageSetup.jspf -->
+<flow:ifEnabled feature="GiftRegistry">
+	<c:if test="${RequestProperties.excMsg.messageKey == '_ERR_GIFT_REGISTRY_RULE_VIOLATED'}">
+		<%
+			String eventTypeName = (String)((Object[])((com.ibm.commerce.datatype.TypedProperty)request.getAttribute("RequestProperties")).get("excMsgParm"))[2];
+			eventTypeName = eventTypeName.replace(' ', '_');
+			request.setAttribute("eventTypeName", eventTypeName);
+		%>
+
+			<c:set target="${RequestProperties}" property="ErrorCode" value="${RequestProperties.excMsgParm[0]}.${eventTypeName}"/>
+			<c:set target="${RequestProperties.excData}" property="ErrorCode" value="${RequestProperties.excMsgParm[0]}"/>
+	</c:if>
+</flow:ifEnabled>
+<wcbase:useBean id="storeError" classname="com.ibm.commerce.common.beans.StoreErrorDataBean" scope="page">
+       <c:set target="${storeError}" property="resourceBundleName" value="${sdb.jspStoreDir}/storeErrorMessages"/>
+</wcbase:useBean>
+
+<c:if test="${!empty storeError.key}">
+       <c:set var="errorMessage" value="${storeError.message}"/>
+       <%--
+       Special case: if key not found, fall back to ErrorDataBean.getMessage()
+       --%>
+       <c:if test="${empty errorMessage}">
+              <wcbase:useBean id="error" classname="com.ibm.commerce.beans.ErrorDataBean" scope="page"/>
+              <c:set var="errorMessage" value="${error.message}"/>
+       </c:if>
+       <fmt:setBundle basename="${jspStoreDir}storeErrorMessages" var="storeErrorMessageBundle"/>
+</c:if>
+<!-- End - JSP File Name:  ErrorMessageSetup.jspf -->

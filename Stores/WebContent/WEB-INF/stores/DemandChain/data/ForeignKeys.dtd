@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ENTITY ORG_DN_DIST1_PART "ou=distributor1 organization,ou=distributor proxy organization,">
+<!ENTITY ORG_DN_PROFILE_PART "ou=asset store organization,">
+<!ENTITY el_GR "-11">
+<!ENTITY ORGANIZATION_DN_HOS "ou=reseller organizationmadisonsreseller,o=reseller organization,o=root organization">
+<!ENTITY STORE_DIR_MAIN "DemandChain">
+<!ENTITY SAR_PATH_BMP2 "/DemandChain/EliteResellerStorefrontAssetStore.sar">
+<!ENTITY ORG_DN_RESELLER "o=reseller organization,o=root organization">
+<!ENTITY STORE_IDENTIFIER_BMP "B2BDirectResellerStorefrontAssetStore">
+<!ENTITY ORG_DN_DIST_PART "ou=distributor proxy organization,">
+<!ENTITY STORE_DIR_BMP "B2BDirectResellerStorefrontAssetStore">
+<!ENTITY ORGANIZATION_DN "o=demand chain management organization,o=root organization">
+<!ENTITY zh_CN "-7">
+<!ENTITY SAR_PATH_RPS2 "/DemandChain/MadisonsResellerStorefrontAssetStore.sar">
+<!ENTITY ORG_DN_CHS_PART "ou=reseller hub organization,">
+<!ENTITY fr_FR "-2">
+<!ENTITY pl_PL "-22">
+<!ENTITY STORE_ID_CPS "@catalogStore">
+<!ENTITY ORG_DN_DIST2_PART "ou=distributor2 organization,ou=distributor proxy organization,">
+<!ENTITY ko_KR "-9">
+<!ENTITY BASE_ORGANIZATION_DN "o=base contracts account organization,o=root organization">
+<!ENTITY STORE_IDENTIFIER_CPS "Commerce Plaza Catalog">
+<!ENTITY zh_TW "-8">
+<!ENTITY STORE_DIR_CPS "CommercePlazaCatalog">
+<!ENTITY STORE_IDENTIFIER_CHS "Commerce Plaza">
+<!ENTITY FREE_SHIPPING_CARRIER "Express">
+<!ENTITY STORE_DIR_BMP2 "EliteResellerStorefrontAssetStore">
+<!ENTITY STORE_DIR_CHS "CommercePlaza">
+<!ENTITY ORG_DN_DIST3_PART "ou=distributor3 organization,ou=distributor proxy organization,">
+<!ENTITY it_IT "-4">
+<!ENTITY ru_RU "-20">
+<!ENTITY USER_DN_CHANNEL_ADMIN_PART "uid=channeladmin,">
+<!ENTITY STORE_IDENTIFIER_BMP2 "EliteResellerStorefrontAssetStore">
+<!ENTITY FREE_SHIPPING_CODE "Express">
+<!ENTITY STORE_DIR_RPS2 "MadisonsResellerStorefrontAssetStore">
+<!ENTITY ja_JP "-10">
+<!ENTITY INV_CHOICE "ATP/">
+<!ENTITY iw_IL "-11">
+<!ENTITY STORE_IDENTIFIER_HOS "MadisonsReseller">
+<!ENTITY STORE_IDENTIFIER_RPS2 "MadisonsResellerStorefrontAssetStore">
+<!ENTITY SAMPLE_CHOICE "common/samplecatalogs/ElectronicsCatalogData.sar">
+<!ENTITY STORE_DIR_HOS "MadisonsReseller">
+<!ENTITY es_ES "-5">
+<!ENTITY ORGANIZATION_DN_PROFILE "ou=asset store organization,o=demand chain management organization,o=root organization">
+<!ENTITY ROOT_ORG_DN "o=root organization">
+<!ENTITY pt_BR "-6">
+<!ENTITY STORE_DIR "ConsumerDirectResellerStorefrontAssetStore">
+<!ENTITY ar_EG "-23">
+<!ENTITY en_US "-1">
+<!ENTITY STORE_IDENTIFIER_RPS "ConsumerDirectResellerStorefrontAssetStore">
+<!ENTITY de_DE "-3">
+<!ENTITY ro_RO "-21">
+

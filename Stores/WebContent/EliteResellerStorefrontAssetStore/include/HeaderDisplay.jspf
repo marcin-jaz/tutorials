@@ -1,0 +1,62 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2001, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%-- 
+  *****
+  * This JSP fragment is used to make CachedHeaderDisplay.jsp cachable.  The parameters passed into
+  * CachedHeaderDisplay.jsp are defined as a key in the cachespec.xml file.
+  *****
+--%>
+
+<!-- BEGIN HeaderDisplay.jspf -->
+
+<% out.flush(); %>
+<c:choose>
+	<c:when test="${b2bStore eq 'true' && hideHeader eq 'true'}">
+		<c:import url="${jspStoreDir}${StyleDir}B2BCachedHeaderDisplay.jsp"/>
+	</c:when>
+	<c:otherwise>
+		<%-- on the generic error page, the storeId can't be retrieved from WCParam. 
+		Try to use the storeId stored in session first --%>
+		<c:if test="${empty storeId }">
+			<c:set var="storeId" value="${WCParam.storeId}"/>
+		</c:if>
+		<c:import url="${jspStoreDir}${StyleDir}CachedHeaderDisplay.jsp">
+			<c:param name="storeId" value="${storeId}" />
+			<c:param name="catalogId" value="${catalogId}" />
+			<c:param name="langId" value="${langId}" />
+			<c:param name="userType" value="${userType}" />
+			<c:param name="userState" value="${userState}" />
+			<c:param name="liveHelp" value="${liveHelp}" />
+			<c:param name="rfqLinkDisplayed" value="${rfqLinkDisplayed}" />					
+		</c:import>
+	</c:otherwise>
+</c:choose>
+<% out.flush(); %>
+<%out.flush();%>
+		<c:import url="${jspStoreDir}include/BreadCrumbTrailDisplay.jsp">
+			<c:param name="topCategoryPage" value="${requestScope.topCategoryPage}" />
+			<c:param name="categoryPage" value="${requestScope.categoryPage}" />
+			<c:param name="productPage" value="${requestScope.productPage}" />
+		  <c:param name="shoppingCartPage" value="${requestScope.shoppingCartPage}" />
+		  <c:param name="compareProductPage" value="${requestScope.compareProductPage}" />
+		 <c:param name="finalBreadcrumb" value="${requestScope.finalBreadcrumb}" />
+		 <c:param name="extensionPageWithBCF" value="${requestScope.extensionPageWithBCF}" />
+		 <c:param name="hasBreadCrumbTrail" value="${requestScope.hasBreadCrumbTrail}" />
+		 <c:param name="requestURIPath" value="${requestScope.requestURIPath}" />
+		 <c:param name="SavedOrderListPage" value="${requestScope.SavedOrderListPage}" />
+		 <c:param name="pendingOrderDetailsPage" value="${requestScope.pendingOrderDetailsPage}" />
+		 <c:param name="sharedWishList" value="${requestScope.sharedWishList}" />
+		</c:import>
+<%out.flush();%>
+<!-- END HeaderDisplay.jspf -->

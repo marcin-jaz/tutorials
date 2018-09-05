@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","kk",{redo:"Қайтару",undo:"Болдырмау"});

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE import SYSTEM "store-data-assets.dtd">
+
+<import>
+        &accesscontrol.xml;
+        &store-references.xml;
+        &MadisonsMobileWebActivities.xml;
+        &attachments.xml;
+        &de_DE_attachments.xml;
+        &en_US_attachments.xml;
+        &es_ES_attachments.xml;
+        &fr_FR_attachments.xml;
+        &it_IT_attachments.xml;
+        &ja_JP_attachments.xml;
+        &ko_KR_attachments.xml;
+        &pl_PL_attachments.xml;
+        &pt_BR_attachments.xml;
+        &ro_RO_attachments.xml;
+        &ru_RU_attachments.xml;
+        &zh_CN_attachments.xml;
+        &zh_TW_attachments.xml;
+</import>

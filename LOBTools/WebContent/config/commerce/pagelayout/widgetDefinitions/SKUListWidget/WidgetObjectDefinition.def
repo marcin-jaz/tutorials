@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<WidgetObjectDefinition package="plm"
+		definitionName="plmLayoutWidget_SKUListWidget" 
+		baseDefinitionName="plmBaseLayoutWidget"
+		parentDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		objectType="SKUListWidget"
+		gridPropertiesDefinitionName="plmWidgetProperties_SKUListWidget"
+		iconPath="/images/pagelayouts/widgetIcons/sku_widget.png"
+		widgetDisplayGroups="CatalogEntryPage"
+		helpLink="concepts/cpzwidinavail.htm">
+
+		<CreateService baseDefinitionName="plmBaseCreateLayoutWidget" />
+		<UpdateService baseDefinitionName="plmBaseUpdateLayoutWidget" />
+
+		<Xml name="template">
+			<xWidgetProp_disableProductCompare>false</xWidgetProp_disableProductCompare>
+			<sequence>0</sequence>
+		</Xml>		
+	</WidgetObjectDefinition>
+	
+</Definitions>

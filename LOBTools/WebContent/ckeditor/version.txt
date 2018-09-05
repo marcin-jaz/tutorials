@@ -1,0 +1,2 @@
+cke_version=4.3.2
+cke_revision=20140501-1656

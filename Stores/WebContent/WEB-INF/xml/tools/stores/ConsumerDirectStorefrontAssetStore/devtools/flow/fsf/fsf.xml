@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE fsf SYSTEM "fsf.dtd">
+<fsf version="1.0">
+  <selected-features>
+    
+    <feature id="search"/>
+    <feature id="ProductQuantity"/>
+    <feature id="wishList"/>
+    <feature id="CatalogList"/>
+    <feature id="ShoppingTotal"/>
+    <feature id="TrackingStatus"/>
+    <feature id="TrackingURL"/>
+    <feature id="preferredCurrency"/>
+    <feature id="preferredLanguage"/>
+    <feature id="Age"/>
+    <feature id="Gender"/>
+    <feature id="MultipleShippingAddressPage.i1.impl.f"/>
+    <feature id="MultipleShippingMethodPage.i1.impl.f"/>
+    <feature id="StandardCheckoutSubsection.i1.impl1.f"/>
+    <feature id="quickCheckout"/>
+    <feature id="FutureOrders"/>
+    <feature id="ShippingInstructions"/>
+    <feature id="EmailOption"/>
+    <feature id="vfile.logo.gif.f"/>
+    <feature id="Banner.upload.jpg.f"/>
+    <feature id="vfile.banner.gif.f"/>
+    <feature id="SelectBanner"/>
+    <feature id="Style.f.1"/>
+    <feature id="Banner.f.1"/>
+    <feature id="Color.f.1"/>
+    <feature id="CommercePaymentsSupport"/>
+  </selected-features>
+</fsf>

@@ -1,0 +1,25 @@
+<!DOCTYPE repository-entries SYSTEM "../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<site-components>
+
+	<site id="Madisons" directory="unknown" />
+		
+	<interface id="Site.i1" component-id="Madisons">
+		<entry-port id="Site.i1.e1" type="EntryPortType1"/>
+	</interface>
+
+	<implementation id="Site.i1.impl1" interface-id="Site.i1" virtual-file-ids="vfile.logo vfile.stylesheet vfile.stylesheetprint vfile.stylesheetie vfile.stylesheetie7 vfile.color">
+		<component-interface id="Site.i1.impl1.ci1" interface="ShoppingArea.i1" always-enabled="yes"/>
+		<component-interface id="Site.i1.impl1.ci2" interface="UserArea.i1" always-enabled="yes"/>
+		<component-interface id="Site.i1.impl1.ci3" interface="StyleDir.i1" included-in-pages="some" always-enabled="yes"/>
+		<entry-port-map id="Site.i1.impl1.epm1" interface-entry-ports="Site.i1.e1" component-entry-port="ShoppingArea.i1.e1"/>
+		
+		<!-- Links leaving UserArea -->
+		<link id="Site.i1.impl1.l1" exit-port="UserArea.i1.x1" entry-port="ShoppingArea.i1.e2"/>
+
+	</implementation>
+
+</site-components>
+</components>
+</repository-entries>

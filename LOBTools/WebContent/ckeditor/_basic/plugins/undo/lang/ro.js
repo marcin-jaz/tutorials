@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","ro",{redo:"Repetare acţiune",undo:"Anulare acţiune"});

@@ -1,0 +1,31 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%-- 
+  *****
+  * This JSP fragment is used to make CachedFooterDisplay.jsp cachable.
+  *****
+--%>
+
+<!-- BEGIN FooterDisplay.jspf -->
+
+<% out.flush(); %>
+<c:import url="${jspStoreDir}${StyleDir}CachedFooterDisplay.jsp">
+	<c:param name="storeId" value="${WCParam.storeId}" />
+	<c:param name="catalogId" value="${WCParam.catalogId}" />
+	<c:param name="langId" value="${WCParam.langId}" />
+	<c:param name="mobileIndex" value="${mobileIndex}" />
+</c:import>
+<% out.flush(); %>
+<!-- END FooterDisplay.jspf -->

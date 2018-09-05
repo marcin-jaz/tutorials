@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ENTITY USER_DN_CHANNEL_ADMIN_PART "uid=channeladmin,">
+<!ENTITY el_GR "-11">
+<!ENTITY STORE_DIR_SPS "SupplierProfileStore">
+<!ENTITY STORE_IDENTIFIER_BMP "Supplier Profile">
+<!ENTITY ja_JP "-10">
+<!ENTITY iw_IL "-11">
+<!ENTITY ORG_DN_PS_PART "ou=asset store organization,">
+<!ENTITY ORGANIZATION_DN "o=supply chain management organization,o=root organization">
+<!ENTITY zh_CN "-7">
+<!ENTITY es_ES "-5">
+<!ENTITY fr_FR "-2">
+<!ENTITY pl_PL "-22">
+<!ENTITY ko_KR "-9">
+<!ENTITY ROOT_ORG_DN "o=root organization">
+<!ENTITY ORG_DN_SUPPLIER "o=supplier organization,o=root organization">
+<!ENTITY STORE_IDENTIFIER_SCP "SupplierMarketplace">
+<!ENTITY pt_BR "-6">
+<!ENTITY ORG_DN_SCP_PART "ou=supplier hub organization,">
+<!ENTITY STORE_IDENTIFIER_CPS "SupplierMarketplaceCatalog">
+<!ENTITY STORE_DIR "SupplierChannel">
+<!ENTITY STORE_DIR_SCP "SupplierMarketplace">
+<!ENTITY ar_EG "-23">
+<!ENTITY zh_TW "-8">
+<!ENTITY en_US "-1">
+<!ENTITY STORE_DIR_CPS "SupplierMarketplaceCatalog">
+<!ENTITY STORE_IDENTIFIER_SPS "Supplier Profile">
+<!ENTITY it_IT "-4">
+<!ENTITY de_DE "-3">
+<!ENTITY ru_RU "-20">
+<!ENTITY ro_RO "-21">
+

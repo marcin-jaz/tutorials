@@ -1,0 +1,40 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%-- 
+  *****
+  * This snippet will displays the store options present in the mobile store home page
+  *****
+--%>
+
+<!-- BEGIN storeOptions.jspf -->
+
+<wcf:url var="mStoreLocatorURL" value="mStoreLocatorView">
+	<wcf:param name="langId" value="${langId}" />	
+	<wcf:param name="storeId" value="${storeId}" />
+	<wcf:param name="catalogId" value="${catalogId}" />
+	<wcf:param name="fromPage" value="StoreLocator" />
+</wcf:url>
+
+<div id="store_options" class="content_box">
+	<div class="heading_container">
+		<h2><fmt:message key="STORE_OPTIONS" bundle="${storeText}"/></h2>
+		<div class="clear_float"></div>
+	</div>			
+	<ul>
+		<li><span class="bullet">&#187; </span><a href="${fn:escapeXml(mStoreLocatorURL)}" title="<fmt:message key="STORE_OPT_LOCATE_STORE" bundle="${storeText}"/>"><fmt:message key="STORE_OPT_LOCATE_STORE" bundle="${storeText}"/></a></li>
+	</ul>
+</div>
+
+<!-- END storeOptions.jspf -->

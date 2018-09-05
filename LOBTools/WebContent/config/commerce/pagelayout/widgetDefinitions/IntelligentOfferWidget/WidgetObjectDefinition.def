@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+		
+	<WidgetObjectDefinition package="plm"
+		definitionName="plmLayoutWidget_IntelligentOfferWidget" 
+		baseDefinitionName="plmBaseLayoutWidget"
+		parentDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		objectType="IntelligentOfferWidget"
+		gridPropertiesDefinitionName="plmWidgetProperties_IntelligentOfferWidget"
+		iconPath="/images/pagelayouts/widgetIcons/intelligent_offer.png"
+		widgetDisplayGroups="AnyPage,CatalogEntryPage,CategoryPage,SearchPage"
+		helpLink="concepts/cpzwidipr.htm">
+		
+		<PropertyDefinition propertyName="xWidgetProp_widgetOrientation">
+			<PropertyValue displayName="${plmPageLayoutResources.intelligentOfferWidgetWidgetOrientation_Horizontal}" value="horizontal" />
+			<PropertyValue displayName="${plmPageLayoutResources.intelligentOfferWidgetWidgetOrientation_Vertical}" value="vertical" />
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_displayPreference">
+			<PropertyValue displayName="${plmPageLayoutResources.intelligentOfferWidgetDisplayPreference_Style1}" value="1" />
+			<PropertyValue displayName="${plmPageLayoutResources.intelligentOfferWidgetDisplayPreference_Style2}" value="2" />
+			<PropertyValue displayName="${plmPageLayoutResources.intelligentOfferWidgetDisplayPreference_Style3}" value="3" />
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsName" copyProtected="true">
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsId" copyProtected="true">
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsIdOverride" copyProtected="true">
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_populationChoice">
+			<PropertyValue displayName="${plmPageLayoutResources.categoryRecommendationWidgetRecommendCategories}" value="useWebactivity" isDefault="true"/>
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_pageSize" 
+			displayName="${plmPageLayoutResources.intelligentOfferWidgetMaxProductsToDisplay}" 
+			maxValue="2147483647" 
+			minValue="1"
+			type="integer">
+		</PropertyDefinition>
+		
+		<CreateService baseDefinitionName="plmBaseCreateLayoutWidget" />
+		<UpdateService baseDefinitionName="plmBaseUpdateLayoutWidget" />		
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmActivityReference"/>
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedActivityReference"/>
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedActivityInheritedReference"/>
+		
+		<Xml name="template">
+			<xWidgetProp_widgetOrientation>horizontal</xWidgetProp_widgetOrientation>
+			<xWidgetProp_pageSize>4</xWidgetProp_pageSize>
+			<xWidgetProp_showFeed>false</xWidgetProp_showFeed>
+			<xWidgetProp_displayPreference>1</xWidgetProp_displayPreference>
+			<xWidgetProp_populationChoice>useWebactivity</xWidgetProp_populationChoice>
+			<sequence>0</sequence>
+		</Xml>
+		
+		<MarketingWidgetInheritedObjectValidator package="plm" />
+		
+	</WidgetObjectDefinition>
+	
+</Definitions>

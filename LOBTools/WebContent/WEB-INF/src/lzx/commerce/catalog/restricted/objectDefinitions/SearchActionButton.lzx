@@ -1,0 +1,488 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+ 
+<library>
+	<!---
+		This class represents a properties button that initiates a search
+		and send the results to the utilities pane or search results grid.
+		You must extend this class and implement setSearchOptions() method to
+		return the search options for the search.
+	-->
+	<class name="catSearchActionButton" extends="wcfPropertiesComponent">
+	
+		<!---
+			The text for the search button.
+		-->
+		<attribute name="buttonText" type="string" value="${foundationResources.advancedSearchDialogSearch.string}"/>
+		
+		<!---
+			The search definition type that will be used by the search button.
+			This is a required attribute.
+		-->
+		<attribute name="searchType" type="string"/>
+		
+		<!---
+			This attribute determines where to send the results.
+			If true, send results to utilities pane.
+			If false, send results to search results grid.
+			Default is true.
+		-->
+		<attribute name="returnResultsInUtilitiesPane" type="boolean" value="true"/>
+		
+		<!---
+			The search options map for this search action that holds all the parameters that will be passed to the
+			{@link wcfSearchService} URL defined in the associated {@link wcfSearchDefinition}.
+			@type Map
+		-->
+		<attribute name="searchOptions" value="{}"/>
+		
+		<!---
+			@keyword private
+			The search definition for this search button.
+			@type wcfSearchDefinition
+		-->
+		<attribute name="searchDefinition" value="null"/>
+		
+		<!---
+			@keyword private
+			Search results object.
+		-->
+		<attribute name="searchResults" value="null"/>
+		
+		<!---
+			@keyword private 
+			The request identifier for the search results. 
+		-->
+		<attribute name="serviceRequestId" type="string" value=""/>
+		
+		<!--- @keywords private -->
+		<method name="init">
+			<![CDATA[
+			super.init();
+			this.searchCompleteDel = new lz.Delegate(this, "searchComplete");
+			
+			if (this.o && this.searchType) {
+				this.searchDefinition = this.o.model.getSearchDefinition(this.searchType);
+			}
+			]]>
+		</method>
+		
+		<!---
+			Construct the search options map for the search request. The implementing class has full control of the contents
+			of this map. The contents of the map will determine the name/value pairs that are placed in the service request URL.
+			
+			<p>This method is called when the button is clicked. Its job is to collect the
+			input from the object being edit in the properties view and placed them into the local
+			searchOptions map attribute. The map should be build in such a way that it contains
+			the parameters that are expected by the search service request. Once this method
+			returns the search service request will be called.
+			
+			<p>The default implementation does nothing.
+		-->
+		<method name="setSearchOptions"/>
+		
+		<!---
+			Return the search options map that is used for creating the URL parameters for the search request.
+			@return object: map of search request parameters
+		-->
+		<method name="getSearchOptions">
+			<![CDATA[
+			this.setSearchOptions();
+			return this.searchOptions;
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			This method executes the search request. 
+		-->
+		<method name="doSearch">
+			<![CDATA[
+			if (this.o) {
+											
+				if (this.searchDefinition) {
+				
+					var parameterGenerator = new lz.catRuleBasedSalesCategoryFilterParameterGenerator(this, {o: this.o});
+					this.searchOptions.ruleBasedSalesCategoryFilters = parameterGenerator.getFilterParameter();
+				
+					if (this.returnResultsInUtilitiesPane) {
+						var s = this.o.model.findSearchResults(this.searchType);
+						if (s) {
+							this.searchResults = s;
+							this.searchCompleteDel.unregisterAll();
+							this.searchCompleteDel.register(s, "onsearchComplete");
+							s.doSearch(this.getSearchOptions());
+							this.serviceRequestId = s.searchDefinition.searchService.requestIdentifier;
+						}
+					} else {
+						this.o.model.oEditor.searchWidget.doSearch(this.searchDefinition, this.getSearchOptions());
+					}
+				}
+			}
+			]]>
+		</method>
+		
+		<!--- @keywords private -->
+		<method name="destroy">
+			<![CDATA[
+			this.searchCompleteDel.unregisterAll();
+			delete this.searchCompleteDel;
+			super.destroy();
+			]]>
+		</method>
+		
+		<!---
+			Handle search complete to set search status and open utilities view if results
+			were returned.
+			@param object args: the arguments containing the search service requestIdentifier
+			and the search result objects.
+		-->
+		<method name="searchComplete" args="args">
+			<![CDATA[
+			if (args && args.requestIdentifier == this.serviceRequestId) {
+				this.searchCompleteDel.unregisterAll();
+				var errorMessage = null;
+				if (args && args.searchResultObjects) {
+					var objects = args.searchResultObjects;
+					// No results					
+					if (objects.length == 0 ) {
+						errorMessage = args.statusMessage;
+					} else {
+						var utilities = this.o.model.oEditor.utilities;
+						utilities.setContext(this.searchDefinition);
+						utilities.open();
+					}
+				} else if (args && args.statusMessage) {
+					errorMessage = args.statusMessage;
+				}
+				
+				if (errorMessage != null) {
+					messageLogger.logException(null, errorMessage);	
+				}
+			}
+			]]>
+		</method>
+		
+		<wcfButton text="${classroot.buttonText}"
+			x="${parent.promptWidth + parent.xspacing}"
+			onclick="classroot.doSearch()"
+			enabled="${classroot.searchDefinition != null}"/>
+	</class>
+	
+	<!---
+		Sample implementation class. 
+	-->
+	<class name="catSearchCatentriesActionButton" extends="catSearchActionButton">
+		<method name="setSearchOptions">
+		<![CDATA[
+			super.setSearchOptions();
+			var catalogGroupId = this.o.getPropertyValue("catgroupId");
+			var owningCatalogId = this.o.getPropertyValue("owningCatalog");
+			this.searchOptions.searchInfo = catalogGroupId;
+			this.searchOptions.salesCatalogId = owningCatalogId;
+			this.searchOptions.searchSource = "button";
+			]]>
+		</method>
+	</class>
+	
+	<!---
+		This class reads the Filters and Order by tables from the Rule tab in a
+		Sales Category or a Rule Based Sales Category and creates an XML string representing
+		the data in these tables. 
+	-->	
+	<class name="catRuleBasedSalesCategoryFilterParameterGenerator">
+		<!---
+			The current model object.
+		-->		
+		<attribute name="o" value="null"/>	
+			
+		<!---
+			@keywords private
+			Create the XML representation of the data in the Filters and Order by grids.
+			Return a XML fragment.
+		-->
+		<method name="getFilterParameter">
+			<![CDATA[
+			var filterXmlString = "<filters ";
+				
+			filterXmlString += getAndAddXmlAttribute(o, "excludeCurrentCategory", "ruleNVP_excludeCurrentCategory");
+			filterXmlString += getAndAddXmlAttribute(o, "specifyMaximum", "ruleNVP_specifyMaximum");
+			filterXmlString += getAndAddXmlAttribute(o, "displayMax", "ruleNVP_displayMax");
+				
+			filterXmlString += ">";			
+				
+			filterXmlString += handleCategory(o.getObjects("ChildCatalogGroupFilter"));
+			filterXmlString += handleCategory(o.getObjects("ChildInheritedCatalogGroupFilter"));
+
+			filterXmlString += handleAttribute(o.getObjects("ChildAttributeWithAllowedValues"));
+			filterXmlString += handleAttribute(o.getObjects("ChildInheritedAttributeWithAllowedValues"));
+
+			filterXmlString += handleProperty(o.getObjects("catalogEntryPropertySearchFilter"));
+			filterXmlString += handleOrderBy(o.getObjects("searchActionOrderBy"));
+
+			filterXmlString += "</filters>";
+				
+			//Debug.write("filterXmlString " + filterXmlString);
+			return filterXmlString;
+			]]>
+		</method>
+				
+		<!---
+			@keywords private
+			Create the <attrName value="[[value of propertyName from object]]"/> XML element fragment.
+			Look up the property value in the object. If propertyName is not specified, the use the attrName as the propertyName.
+			Return a XML fragment.
+		-->
+		<method name="getAndAddXmlElement" args="obj,attrName,propertyName">
+			<![CDATA[
+			if (propertyName == null) {
+			  propertyName = attrName;
+			}			
+			var objValue = obj.getPropertyValue(propertyName);
+			var xmlFragment = "<" + attrName + " value=\"" + escapeXML(objValue) + "\"/>";
+			return xmlFragment;
+			]]>
+		</method>
+			
+		<!---
+			@keywords private
+			Create the attrName="attrValue" XML attribute fragment.
+			Return a XML fragment.
+		-->
+		<method name="addXmlAttribute" args="attrName,attrValue">
+			<![CDATA[
+			var xmlFragment = attrName + "=\"" + escapeXML(attrValue) + "\" ";
+			return xmlFragment;
+			]]>
+		</method>
+			
+		<!---
+			@keywords private
+			Create the attrName="[[value of propertyName from object]]" XML attribute fragment.
+			Look up the property value in the object. If propertyName is not specified, the use the attrName as the propertyName.
+			Return a XML fragment.
+		-->
+		<method name="getAndAddXmlAttribute" args="obj,attrName,propertyName">
+			<![CDATA[
+			if (propertyName == null) {
+			  propertyName = attrName;
+			}
+			var xmlFragment = "";
+			var objValue = obj.getPropertyValue(propertyName);
+			if (objValue != null) {
+				xmlFragment = attrName + "=\"" + escapeXML(objValue) + "\" ";
+			}
+			return xmlFragment;
+			]]>
+		</method>
+			
+		<!---
+			@keywords private
+			Create the XML fragment associated with categories in the Filters grid.
+			Return a XML fragment.
+		-->
+		<method name="handleCategory" args="catalogGroupFilterObjects">
+			<![CDATA[
+			var xmlFragment = "";
+
+			if (catalogGroupFilterObjects != null) {
+
+				for(var i = 0; i < catalogGroupFilterObjects.length; i++) {
+				
+					xmlFragment += "<filter ";
+					xmlFragment += addXmlAttribute("filterName", "parentCatgroup_id_search");
+					
+					var obj = catalogGroupFilterObjects[i];
+					xmlFragment += getAndAddXmlAttribute(obj, "filterOperator", null);
+					
+					xmlFragment += addXmlAttribute("filterValue2", " ");
+					xmlFragment += addXmlAttribute("filterCode", " ");
+					xmlFragment += addXmlAttribute("filterType", "catgroupType");
+					xmlFragment += ">";
+					
+					var catalogGroupObjects = obj.getObjects("CatalogGroupAlias");
+					for(var j = 0; j < catalogGroupObjects.length; j++) {
+						xmlFragment += getAndAddXmlElement(catalogGroupObjects[j], "filterValue", "qualifiedCatgroupId");
+					}
+					
+					xmlFragment += "</filter>";
+				}
+			}
+
+			return xmlFragment;
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			Create the XML fragment associated with attribute dictionary attributes in the Filters grid.
+			Return a XML fragment.
+		-->
+		<method name="handleAttribute" args="attributeWithAllowedValuesObjects">
+			<![CDATA[
+			var xmlFragment = "";
+
+			if (attributeWithAllowedValuesObjects != null) {
+			
+				for(var i = 0; i < attributeWithAllowedValuesObjects.length; i++) {
+				
+					xmlFragment += "<filter ";
+					
+					var obj = attributeWithAllowedValuesObjects[i];
+					var attributeDictionaryAttributesObjects = obj.getObjects("AttributeDictionaryAttributes");
+					for(var j = 0; j < attributeDictionaryAttributesObjects.length; j++) {
+					    var adaObj = attributeDictionaryAttributesObjects[j];
+					    xmlFragment += getAndAddXmlAttribute(adaObj, "filterName", "attrId");
+						xmlFragment += getAndAddXmlAttribute(adaObj, "filterCode", "attributeCode");
+					}
+															
+					xmlFragment += getAndAddXmlAttribute(obj, "filterOperator", null);
+					
+					xmlFragment += addXmlAttribute("filterValue2", " ");
+					xmlFragment += addXmlAttribute("filterType", "attributeType");
+
+					xmlFragment += ">";
+					
+					var childAttributeAllowedValuesObjects = obj.getObjects("ChildAttributeAllowedValues");
+					for(var k = 0; k < childAttributeAllowedValuesObjects.length; k++) {
+						xmlFragment += getAndAddXmlElement(childAttributeAllowedValuesObjects[k], "filterValue", "attrValId");
+					}	
+					
+					xmlFragment += "</filter>";				
+				}
+			}
+
+			return xmlFragment;
+			]]>
+		</method>		
+			
+		<!---
+			@keywords private
+			Create the XML fragment associated with properties in the Filters grid.
+			Return a XML fragment.
+		-->
+		<method name="handleProperty" args="catalogEntryPropertySearchFilterObjects">
+			<![CDATA[
+			var xmlFragment = "";
+
+			if (catalogEntryPropertySearchFilterObjects != null) {
+				
+				for(var i = 0; i < catalogEntryPropertySearchFilterObjects.length; i++) {
+				
+					xmlFragment += "<filter ";					
+					
+					var obj = catalogEntryPropertySearchFilterObjects[i];
+					xmlFragment += getAndAddXmlAttribute(obj, "filterName", null);
+										
+					var filterDataType = obj.getPropertyValue("filterDataType");
+					if (filterDataType == "EXACTSTRING") {
+						xmlFragment += getAndAddXmlAttribute(obj, "filterOperator", "filterOperatorExactString");
+					} else if (filterDataType == "NUMERIC") {
+						xmlFragment += getAndAddXmlAttribute(obj, "filterOperator", "filterOperatorNumeric");
+					} else if (filterDataType == "ANYSTRING") {
+						xmlFragment += getAndAddXmlAttribute(obj, "filterOperator", "filterOperatorAnyString");
+					} else {
+						xmlFragment += getAndAddXmlAttribute(obj, "filterOperator", null);												
+					}
+					
+					xmlFragment += addXmlAttribute("filterValue2", " ");
+					xmlFragment += addXmlAttribute("filterCode", " ");
+					xmlFragment += addXmlAttribute("filterType", "catalogEntryProperty");
+					//xmlFragment += getAndAddXmlAttribute(obj, "filterDataType", null);
+					xmlFragment += ">";
+					
+					if (filterDataType == "NUMERIC") {
+						xmlFragment += getAndAddXmlElement(obj, "filterValue", null);
+					} else {
+						var filterValueObjects = obj.getObjects("filterValue");
+						for(var j = 0; j < filterValueObjects.length; j++) {
+						    xmlFragment += getAndAddXmlElement(filterValueObjects[j], "filterValue", null);
+						}
+					}
+										
+					xmlFragment += "</filter>";
+				}
+			}
+
+			return xmlFragment;
+			]]>
+		</method>	
+		
+		<!---
+			@keywords private
+			Create the XML fragment associated with ordering in the Order by grid.
+			Return a XML fragment.
+		-->
+		<method name="handleOrderBy" args="searchActionOrderByObjects">
+			<![CDATA[
+			var xmlFragment = "";
+
+			if (searchActionOrderByObjects != null) {
+
+				for(var i = 0; i < searchActionOrderByObjects.length; i++) {
+				
+					xmlFragment += "<filter ";
+				
+					var obj = searchActionOrderByObjects[i];
+					xmlFragment += getAndAddXmlAttribute(obj, "orderByField", null);
+					xmlFragment += getAndAddXmlAttribute(obj, "orderBySequence", null);
+					//xmlFragment += getAndAddXmlAttribute(obj, "sequence", null);
+					
+					xmlFragment += addXmlAttribute("orderByFieldCode", " ");
+					xmlFragment += addXmlAttribute("orderByFieldType", "catalogEntryProperty");
+					
+					xmlFragment += ">";
+					xmlFragment += "</filter>";
+				}
+			}	
+
+			return xmlFragment;
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+		-->
+		<method name="escapeXML" args="str">
+			<![CDATA[
+				var text = "";
+				for (var i = 0; i < str.length; i++) {
+					text = text + escapeChar(str.charAt(i))
+				}
+				return text;
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+		-->
+		<method name="escapeChar" args="char">
+			<![CDATA[
+			if(char == "<"){
+				char = "&lt;";
+			}else if(char == ">"){
+				char = "&gt;";
+			}else if(char == "'"){
+				char = "&#39;";
+			}else if(char == "\""){
+				char = "&quot;";
+			}else if(char == "&"){
+				char = "&amp;";
+			}
+			return char;
+			]]>
+		</method>
+		
+	</class>	
+</library>

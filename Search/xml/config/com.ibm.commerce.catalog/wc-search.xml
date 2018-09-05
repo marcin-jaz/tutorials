@@ -1,0 +1,2137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<_config:search-config
+	xmlns:_config="http://www.ibm.com/xmlns/prod/commerce/foundation/config"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ibm.com/xmlns/prod/commerce/foundation/config ../xsd/wc-search.xsd ">
+	
+	<!--
+		This setting provides the same interface to Solr without requiring an
+		HTTP connection.
+	-->
+	<_config:server name="BasicConfiguration">
+		<_config:embedded />
+	</_config:server>
+	
+	<_config:index name="CatalogEntry"
+		object="com.ibm.commerce.foundation.server.services.rest.search.processor.solr.SolrRESTSearchResponse">
+	</_config:index>
+	
+	<_config:index name="CatalogGroup"
+		object="com.ibm.commerce.foundation.server.services.rest.search.processor.solr.SolrRESTSearchResponse">
+	</_config:index>
+	
+	<_config:index name="UnstructuredContent"
+		object="com.ibm.commerce.foundation.server.services.rest.search.processor.solr.SolrRESTSearchResponse">
+	</_config:index>
+	
+	<_config:cores>
+	</_config:cores>
+	
+	<!-- 
+		============================
+		IBM Internal Search Profiles
+		============================
+		
+		Do not modify any of the following search profiles provided by IBM.
+		Doing this may cause unpredictable results from the starter storefront.
+	 -->
+
+	<!-- 
+		WebSphere Commerce search uses search profiles to control the storefront
+		search experience at a page-level. Search profiles group sets of search
+		runtime parameters such as search index name, search index fields,
+		expression providers, paging and sorting, and search feature configurations
+		such as text highlighting, facets, and spelling correction.
+		
+		The following documentation describes all common settings and properties
+		of a search profile that can be used for most search scenarios.
+		
+		A typical search profile consists of the following structures:
+
+		<_config:profile name="..." indexName="CatalogEntry">
+			<_config:query>
+				<_config:param name="..." value="..." />
+				<_config:provider classname="com...ExpressionProvider" />
+            	<_config:field name="..." />
+            	<_config:preprocessor classname="com...QueryPreprocessor" />
+            	<_config:postprocessor classname="com...QueryPostprocessor" />
+			</_config:query>
+			<_config:result>
+				<_config:field name="..."/>
+			</_config:result>
+		</_config:profile>
+		
+			
+		The query section declares properties that influence how the query
+		expression gets executed against the Solr server at runtime.
+
+		<_config:query>
+
+			<_config:param name="..." value="..." />
+			
+				This "param" configuration can be used to declares properties that influence
+				how the query expression gets executed against the Solr server at runtime.
+				The given name value pair parameters will be added directly into the final 
+				SolrQuery object using the setParam(name, value) method.		
+				
+				For example,
+				
+				<_config:param name="debug" value="results" />
+				<_config:param name="spellcheck.collate" value="false" />
+				
+				In addition, there is a list of reserved parameter names that can also be used
+				with this "param" configuration:
+
+				<_config:param name="maxRows" value="50" />
+					This parameter restricts the maximum number of the search results
+					per page.  Defaults to 50.
+			
+				<_config:param name="maxTimeAllowed" value="15000" />
+					This parameter restricts the maximum amount of time allowed for any
+					query to execute. If the query takes more time than the specified
+					milliseconds, a timeout occurs and partial (or no) results may be
+					returned.  Defaults to 15000.	
+				
+				The following 2 params can be added at the profile level to overwrite the 
+				values defined in wc-component.xml	
+				<_config:param name="MaximumSlop" value="5" />
+				    This parameter limits the max distance between the location of words 
+				    appearing in the documents to be 5 words in order for the document 
+				    to be counted as relevant
+				    
+				<_config:param name="MinimumMatch" value="1"/>
+					This parameter describes the search relevancy rules: at least 1 word match 
+					You can also change it to 2&lt;80% 6&lt;50% That means if there are less than
+					3 query keywords -> both have to be found in the document; if it's between 3
+					and 6 query keywords (inclusive) -> 80% needs to match, for example user searches
+					for 3 keywords, 80% of 3 is 2.4 and rounding down it down to 2, so results matching
+					at least 2 of the 3 entered words will be returned, if more than 6 keywords, 50% of the 
+					keywords need ot match in the document
+				
+				
+			<_config:provider classname="com...ExpressionProvider" />
+			    
+			    An expression provider implements custom business logic for modifying
+			    the main search expression before it is sent to the search engine.
+			    Each expression provider can be separately registered to any search
+			    profile query section so that it can be reused for other search operations.
+			    That is, a search profile defines a list of search providers that are used
+			    for assembling the main expression for a search request.
+			      
+			  	List of mandatory expression providers that will be called upon each search request.
+			  	See SolrSearchExpressionProvider for details.
+			  	
+			  	Note: These providers cannot be customized nor reconfigured.
+			  	
+			  	A) SolrSearchProfileNameValidator
+			  	
+				  	This is a Solr specific implementation of the search expression validator for
+	 				the search profile name. This provider ensures that the control parameter
+	 				_wcf.search.profile is passed in and its definition is defined in the search
+	 				configuration file.
+			  	
+			  	B) SolrSearchIndexNameValidator
+				
+					This expression provider is for validating the index core name.  It can also
+					determine the name if not specified by:
+	 				
+	 				1) checking if _wcf.search.index is passed in as part of the expression,
+	 				2) if not, then look up the core name from the given search profile,
+	 				3) otherwise, try to derive the core name by making use of the store ID to
+	 				   determine the master catalog ID and the locale name.
+					
+					The resulting Solr index name will be added back into the SelectionCriteria
+					object (_wcf.search.index) for other downstream processing.	
+				
+				C) SolrSearchDecodeMetaTokenExpressionProvider
+				
+					This is a Solr specific implementation of the search expression provider for
+					decoding the meta string by calling	SolrSearchMetaTokenDecoder. The meta string
+					is used for representing the search context, such as the bread crumb trail.
+ 				
+ 				D) SolrSearchEncodeMetaTokenExpressionProvider
+ 				
+	 				This is a Solr specific implementation of the search expression provider for
+	 				encoding the meta string. This provider encodes the meta string stored in
+	 				_wcf.search.meta so that it can be reused later to represent the current facet state.
+ 				
+ 				E) SolrSearchExpressionValidator
+				
+					This search expression provider is to:
+					
+	 				1) ensure the query expression is not empty;
+	 				2) if so, generate a default all inclusive condition (*:*) and added back to the
+	 				   SelectionCriteria object (_wcf.search.internal.optional.query);
+	 				3) ensure all special characters are escaped properly before passing down to the
+	 				   search engine.
+
+			  	List of additional expression providers that can be used optionally in a search profile:
+
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchBasedMerchandisingExpressionProvider" />
+				
+	            	SolrRESTSearchBasedMerchandisingExpressionProvider
+	            	
+	            	This is a Solr-specific implementation of the search-based merchandising expression
+	            	provider. This provider calls the marketing	component to run search activities. Search
+	            	activities can apply to all searches or target specific search keywords. They may add
+	            	additional constraints to the  search request to influence the order of the results as
+	            	well as add new conditions to the search query with the intention of adding new products
+	            	to search results.
+	 				  
+					For example, search activities may scope search results to contain only products that are
+					in stock; they can also elevate products that meet a specific criteria (such as brand,
+					profit margin or  customer ranking) to the top of the search result.
+	 				
+	 				The query fragments produced by search activities will be added back into the
+	 				SelectionCriteria object for other downstream processing:
+	 				
+	 				_wcf.search.internal.filterquery
+	 				_wcf.search.internal.optional.query
+	 				_wcf.search.internal.mandatory.query
+	 				_wcf.search.internal.boostquery
+	 				_wcf.search.internal.sort
+	 				_wcf.search.term
+	 
+	 				Note: This provider should run before SolrSearchByKeywordExpressionProvider to ensure that
+	 				search term can be replaced successfully by the 'Add or Replace Search Criteria' marketing
+	 				action.
+
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTermAssociationExpressionProvider"/>
+			
+					SolrRESTSearchTermAssociationExpressionProvider
+					
+					This search expression provider is for handling the search term association(STA) expansion.
+					This provider helps getting synonyms and replace the search term to fetch the final result.
+					
+					The synonyms fetched by STA service will be added back into the SelectionCriteria object
+					for other downstream processing:
+	 					_wcf.search.internal.synonyms
+		
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByKeywordRelevancyExpressionProvider"/>
+				
+					SolrRESTSearchByKeywordRelevancyExpressionProvider
+				
+					This search expression provider is for handling the search by keyword request. The following
+					is the description of its behavior:
+					
+					if EXACT match type is specified
+						Expression is considered to include keyword using the EXACT match pattern => +(f1:"t1 t2" f2:"t1 t2")
+					if NONE match type is specified
+						Expression is considered to include keyword using the NONE match pattern => -(f1:(t1 t2) f2:(t1 t2))
+					if ALL match type is specified
+						Expression is considered to include keyword using the ALL match pattern => +(f1:(+t1 +t2) f2:(+t1 +t2))
+					otherwise (default behavior for storefront Quick Search)
+						Expression is considered to include keyword using the ANY match pattern => +(f1:(t1 t2) f2:(t1 t2))
+						
+					if exclude term and EXACT match type is specified
+						Expression is considered to exclude keyword using the EXACT match pattern => -f1:"t1 t2" -f2:"t1 t2"
+					otherwise
+						Expression is considered to exclude keyword using the ANY or ALL match pattern => -f1:(t1 t2) -f2:(t1 t2)
+					
+					The resulting Solr expression will be added back into the SelectionCriteria object
+					(_wcf.search.internal.optional.query) for other downstream processing.
+
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCategoryExpressionProvider" />
+				
+					SolrRESTSearchByCategoryExpressionProvider
+					
+					This search expression provider for handling the search by category, as well as taking into
+					account of the sales catalog in the	current business context.
+					
+					The resulting Solr expression will be added back into the SelectionCriteria object (category
+					into _wcf.search.internal.mandatory.query and catalog into _wcf.search.internal.filterquery)
+					for other downstream processing.
+
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByManufacturerExpressionProvider" />
+			
+					SolrRESTSearchByManufacturerExpressionProvider
+					
+					This search expression provider for handling the search by brand name requests.
+					
+					The resulting Solr expression will be added back into the SelectionCriteria object
+					(_wcf.search.internal.meta)	and to be encoded into the meta string later on.
+
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPriceExpressionProvider" />
+
+					SolrRESTSearchByPriceExpressionProvider
+					
+					This search expression provider for handling the search by price range request generated
+					from the Advanced Search page.
+					
+					The resulting Solr expression will be added back into the SelectionCriteria object
+					(_wcf.search.internal.meta)	and to be encoded into the meta string later on.
+
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByFacetExpressionProvider" />
+				
+					SolrRESTSearchByFacetExpressionProvider
+				
+					This search expression provider is for handling the search by facet request.  It adds
+					additional facets when provided through	_wcf.search.facet and skips those facets defined
+					in this exclude list, _wcf.search.exclude.facet. The resulting Solr expression will be added
+					back into the SelectionCriteria	object (_wcf.search.internal.meta) and to be encoded into 
+					the meta string (_wcf.search.meta) later on.
+
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider" />
+				
+					SolrRESTSearchByStorePathExpressionProvider
+					
+					This search expression provider is for generating condition to handle store path.
+					
+	 				The resulting Solr expression will be added back into the SelectionCriteria object
+	 				(_wcf.search.internal.filterquery) for other downstream processing.		
+
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider" />
+				
+					SolrRESTSearchByPublishedEntryOnlyExpressionProvider
+					
+					This search expression provider is for restricting search results to only published entries.
+					
+					The resulting Solr expression will be added back into the SelectionCriteria object
+					(_wcf.search.internal.filterquery) for other downstream processing.
+
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCustomExpressionProvider" />
+				
+					SolrRESTSearchByCustomExpressionProvider
+					
+					This search expression provider is for handling the search by custom expression stored in
+					_wcf.search.expr. This custom expression will be added to the SelectionCriteria object
+					(_wcf.search.internal.optional.query) for other downstream processing.
+
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchFacetConditionExpressionProvider"/>
+				
+					SolrRESTSearchFacetConditionExpressionProvider
+					
+					This search expression provider is used to generate a list of attribute related facets and
+					currency specific price range facets for the current search request. The resulting Solr
+					expression will be added back into the SelectionCriteria object (_wcf.search.facet.field)
+					for other downstream processing.
+
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTypeExpressionProvider" />
+				
+					SolrRESTSearchTypeExpressionProvider
+					
+					This search expression provider is for handling the match type for keyword search requests.
+					The following is the pseudo logic of how the match type (_wcf.search.type) can be converted
+					into a search criteria:
+					
+	 				- Match type is defaulted: ANY, exclude SKU
+					- Exclude SKU expression is represented as => -catenttype_id_ntk_cs:ItemBean
+	 				- Only SKU expression is represented as => - +catenttype_id_ntk_cs:ItemBean
+	 				- Include SKU expression does not need to be qualified
+	 				
+					The resulting Solr expression will be added back into the SelectionCriteria object
+					(_wcf.search.internal.filterquery) for other downstream processing.
+			
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductSequencingExpressionProvider"/>
+
+					SolrRESTSearchProductSequencingExpressionProvider
+					
+					This search expression provider is for use with sorting product entries in the search result by ranking.
+
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchCategorySequencingExpressionProvider"/>
+
+					SolrRESTSearchCategorySequencingExpressionProvider
+					
+					This search expression provider is for use with sorting categories by ranking.
+					
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider" />
+				
+					SolrRESTSearchProductEntitlementExpressionProvider
+					
+					This search expression provider is for performing product entitlement. It is done by calling
+					ProductEntitlementExpressionHelper in order to build search engine specific query expression
+					for contracts that contains CatalogFilter Term Conditions and ProductSet Term Conditions
+					
+					- if contract list is passed in, ProductEntitlementExpressionHelper will build the search
+					  expression against those contracts instead of fetch contract from context;
+					- otherwise if there is no contract passed as parameter, this helper class will then fetch
+					  the current eligible contracts and build search expression against them.
+					
+					The resulting Solr expression will be added back into the SelectionCriteria object
+					(_wcf.search.internal.filterquery) for other downstream processing.
+					
+					<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchCategoryEntitlementExpressionProvider" />
+				
+					SolrRESTSearchCategoryEntitlementExpressionProvider
+					
+					This search expression provider is for performing catgroup level entitlement. It is done by trigger a search on Catalog Entry core,
+					it just parse the facet count which returned from catalog entry core, then construct a internal fitler query on catalog group core. 
+					
+					
+					The resulting Solr expression will be added back into the SelectionCriteria object
+					(_wcf.search.internal.filterquery) for other downstream processing.
+					
+			
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchInventoryExpressionProvider"/>
+			
+					SolrRESTSearchInventoryExpressionProvider
+					
+					This search expression provider is for handling searching the Inventory index by updating the
+					inv_sttffmqty_* generic field name with a specific field name i.e. inv_strffmqty_10152_10001
+					for store Id 10152, and fulfillment cetner Id 10001 into the expression. The resulting Solr
+					expression will be added back into the SelectionCriteria object.
+			
+				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider" />
+				
+					SolrRESTSearchByIdentifierExpressionProvider
+					
+					This search expression provider is for looking up by identifier(s) using dismax query parser.
+					The resulting Solr expression will be added back into the SelectionCriteria object for other
+ 					downstream processing using the _wcf.search.internal.optional.query control parameter.
+ 					
+ 				<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByJoinQueryExpressionProvider"/>
+ 				
+ 					SolrRESTSearchByJoinQueryExpressionProvider
+ 					
+ 					This is a Solr specific implementation of the search expression provider to join two indexes and 
+ 					restrict the result to a specific conditions. The resulting Solr expression will be added back 
+ 					into the SelectionCriteria object for other downstream processing using the
+ 					_wcf.search.internal.filterquery control parameter.
+ 				
+ 				<_config:preprocessor classname="com...QueryPreprocessor" />
+ 			
+ 					A query preprocessor modifies the native SolrQuery object right before it is sent to the Solr server
+ 					for processing.
+				  	
+			  		All query pre-processor must extend from AbstractSolrSearchQueryPreprocessor class and implements
+				  	SearchQueryPreprocessor interface in order to allow initialization of the iSelectionCriteria
+				  	and iSolrQuery object reference.
+			  	
+				  	For example:
+			  	
+  					<_config:preprocessor classname="com.ibm.commerce.catalog.facade.server.services.search.query.solr.SolrSearchSampleQueryPreprocessor" />
+
+				<_config:postprocessor classname="com...QueryPostprocessor" />
+			  				  	
+			  		A query post-processor can be used to modify the physical data object right after the
+			  		QueryResponse is returned from the Solr server.
+			  	
+			  		All query post-processor must extend from AbstractSolrSearchQueryPostprocessor class and implements
+				  	SearchQueryPostprocessor interface in order to allow initialization of the iSelectionCriteria,
+ 					iQueryResponse, and iResponseObject object reference.
+ 				 
+					The following is a list of optional post-processors that can be used in a search profile.
+				
+				<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />			
+
+					SolrRESTMainCatalogEntryViewResultQueryPostprocessor
+					
+					This search query post-processor can be used to re-format the native Solr response into a 
+					structured object.  The mapping	configuration is defined in wc-component.xml file under the
+					"XPathToCatalogEntryFieldNameMapping" section.
+	
+				<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+				
+					SolrRESTSearchPreviewQueryPostprocessor
+					
+					This is a Solr specific implementation of the search query post-processor for
+ 					handling preview context.
+					
+            	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+					
+					SolrRESTSearchExperimentQueryPostprocessor
+					
+					This is a Solr specific implementation of the search query post-processor for
+ 					handling search rule expermient meta data.
+					
+				<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchFacetQueryPostprocessor" />
+				
+					SolrRESTSearchFacetQueryPostprocessor
+					
+					This search query post-processor can be used to attach facet related response into a more user
+					friendly data.
+					
+				<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchChildCategoryEntitlementQueryPostprocessor" />
+				
+					SolrRESTSearchChildCategoryEntitlementQueryPostprocessor
+					
+					This search query post-processor is specially used to remove un-entitled child catgroupId from solrDocumentList  which in the response.
+			
+				<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCategoryEntitlementQueryPostprocessor" />
+        	
+        	SolrRESTSearchCategoryEntitlementQueryPostprocessor
+					
+					This search query post-processor is specially used to remove un-entitled sub category SolrDocument from solrDocumentList which in the response.
+				<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchEntitlementQueryPostprocessor" />
+				
+					SolrRESTSearchEntitlementQueryPostprocessor
+					
+					This search query post-processor is specially used to put catgroup_id_search facet information into SearchResponse
+					
+				<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchBreadCrumbTrailQueryPostprocessor" />
+
+					SolrRESTSearchBreadCrumbTrailQueryPostprocessor
+					
+					This search query post-processor can be used to generate the breadcrumb trail.
+				
+				<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchSpellCheckSuggestionQueryPostprocessor" />
+
+					SolrRESTSearchSpellCheckSuggestionQueryPostprocessor
+					
+					This search query post-processor can be used to re-format the native Solr spell correction 
+					feedback into a more user friendly list of keywords.
+					
+				<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewUserDataQueryPostprocessor" />
+
+					SolrRESTSearchCatalogEntryViewUserDataQueryPostprocessor
+					
+					This search query post-processor can be used to add custom index fields to the search response
+					for productview resource.
+					
+				<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogGroupViewUserDataQueryPostprocessor" />
+
+					SolrRESTSearchCatalogGroupViewUserDataQueryPostprocessor
+					
+					This search query post-processor can be used to add custom index fields to the search response
+					for categoryview resource.
+					
+				<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchResultGroupingQueryPostprocessor" />
+				
+					SolrRESTSearchResultGroupingQueryPostprocessor
+					
+					This is a Solr specific implementation of the search query post-processor for handling result grouping and hero-product config.				 
+				
+		</_config:query>
+		
+		
+		The sort section is for defining sorting options and their corresponding
+		values that can be used directly from the storefront.
+		
+		For example,
+		
+		<_config:sort>
+			<_config:field name="1" value="mfName_ntk_cs asc" />
+			<_config:field name="2" value="name_ntk asc,price_* asc" />
+		</_config:sort>
+		
+		In the example above, when a value of "2" is passed in through a control
+		parameter _wcf.search.sort, the following two parameters will be added
+		to the final Solr expression:
+		
+			sort=name_ntk+asc,price_USD+asc
+		
+		Note that "price_*" contains a special operator "*" that will be substituted
+		with the shopper's currency at runtime.  In the example, the shopper's
+		currency is USD. 
+		
+		<_config:sort />
+
+		
+		The group section declares the result grouping field and parameter options. This
+		feature requires the Solr Clustering component to be enabled and along with all
+		the required Carrot2 clustering runtime executables to be added to the lib directory
+		of the Solr.war.
+		
+		<_config:group
+		A group parameter needs to be set to true in order to enable result grouping.
+		<_config:param name="group" value="true"/>
+		
+           Optional parameters, can be specified using the Solr nameing convention used for result 
+           grouping parameters. i.e. "group.limit, to control the maximum number of results per group.
+           Default value is 1. 
+           <_config:param name="group.limit" value="100"/>
+                     	
+          	For a complete list of supported result grouping parameters, check out the solr wiki page.
+          	http://wiki.apache.org/solr/FieldCollapsing
+
+           Then following is the field names by which to group results. This field must
+           be single-valued, and either be indexed or a field type that has a value source and
+           works in a function query.
+           	
+           For example,
+		<_config:field name="mfName_ntk_cs" />
+					
+		Using this result grouping configuration, each of the search results will be tagged
+		with a "groupname" and "groupvalue" in its MetaData property.  These two properties
+		can be used at the storefront for grouping similar results together for display.
+		Using the above example when grouping by brand name, a product of brand ABC will be
+		tagged with "groupname=mfName_ntk_cs" and "groupvalue=ABC".  To retrieve this value
+		using JSP expression language: ${catalogEntryView.metaData.groupname} or
+		${catalogEntryView.metaData.groupvalue}
+
+        <_config:group />
+        
+  		
+  		The hero-product config section declares the hero-product parameters. This config depends
+  		on enabling the result grouping feature and being handled by SolrRESTSearchResultGroupingQueryPostprocessor.       
+        
+        <_config:heroproduct>   
+         	A comma seperated list of solr field names. When specified, some of the properties of the 
+         	most relevant item in the group override the returned productBean properties. I.e. thumbnail,name
+        	<_config:param name="overrideFieldName" value="thumbnail"/>
+        	
+        	When set to true, the returned productBean price will display a price range based on the underlying SKUs 
+        	which generated a search hit. Default false.
+        	<_config:param name="showGroupPriceRange" value="true"/>
+        </_config:heroproduct>
+        
+		
+		The result section is for declaring a list of search index fields to be
+		returned in the search result set.  Additional data filtering can applied.
+
+		<_config:result />
+
+
+		The highlighting section is for declaring a list of search index fields to
+		be used for highlighting and their associated highlighting behavior at runtime.
+
+		<_config:highlight />
+
+		
+		The spell checking section is for defining the spell checking 
+		behavior at runtime.
+
+		<_config:spellcheck />
+		
+	-->
+
+    <!-- 
+		============================
+		CategoryView search profiles
+		============================
+	 -->
+    
+    <!-- 
+		Profile: IBM_findCategoryByUniqueIds
+		Referenced by:
+			/store/{storeId}/categoryview/byIds/
+		
+		This search profile will be used to retrieve the categories based on multiple unique IDs.
+		It is reserved for IBM internal use.
+     -->
+    <_config:profile indexName="CatalogGroup" name="IBM_findCategoryByUniqueIds">
+        <_config:query>
+            <_config:param name="maxRows" value="500"/>            
+            
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchCategoryEntitlementExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCatalogExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByJoinQueryExpressionProvider"/>
+            <_config:field name="catgroup_id"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchChildCategoryEntitlementQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogGroupViewResultQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+            <_config:field name="catgroup_id"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="identifier_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="longDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="fullImage"/>
+            <_config:field name="childCatgroup_id"/>
+        </_config:result>
+    </_config:profile>
+
+    <!-- 
+		Profile: IBM_findCategoryByIdentifier
+		Referenced by:
+			/store/{storeId}/categoryview/byId/{categoryId}
+		
+		This search profile will be used to retrieve the category based on identifier.
+		It is reserved for IBM internal use.
+     -->
+    <_config:profile indexName="CatalogGroup" name="IBM_findCategoryByIdentifier">
+        <_config:query>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchCategoryEntitlementExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCatalogExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:field name="identifier_ntk"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchChildCategoryEntitlementQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogGroupViewResultQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+            <_config:field name="catgroup_id"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="identifier_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="longDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="fullImage"/>
+            <_config:field name="childCatgroup_id"/>
+        </_config:result>
+    </_config:profile>
+
+	<!-- 
+		Profile: IBM_findSubCategories
+		Referenced by:
+			/store/{storeId}/categoryview/@top
+			/store/{storeId}/categoryview/byParentCategory/{parentCategoryId}
+		
+		This search profile will be used to retrieve the top and sub-categories.
+		It is reserved for IBM internal use.
+     -->
+    <_config:profile indexName="CatalogGroup" name="IBM_findSubCategories">           
+        <_config:query>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchCategoryEntitlementExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchShallowCategoryExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchCategorySequencingExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByJoinQueryExpressionProvider"/>
+        	<_config:field name="parentCatgroup_id_facet"/>
+        	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCategoryEntitlementQueryPostprocessor" />
+        	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchChildCategoryEntitlementQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogGroupViewResultQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+            <_config:field name="identifier_ntk"/>
+            <_config:field name="catgroup_id"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail" />
+            <_config:field name="sequence"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatgroup_id"/>
+        </_config:result>
+    </_config:profile>
+    
+       <!-- IBM_findCatalogGroupByFacet-->
+    <_config:profile indexName="CatalogEntry" name="IBM_findCatalogGroupByFacet">
+    	<_config:query>
+            <_config:param name="maxRows" value="1"/>
+            <_config:param name="checkEntitlement" value="1"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchBasedMerchandisingExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCategoryExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchFacetConditionExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTypeExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCustomExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchInventoryExpressionProvider"/>
+            <_config:field name="defaultSearch"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchEntitlementQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+            <_config:field name="catentry_id"/>
+        </_config:result>
+		<_config:facets>
+            <_config:param name="sort" value="count" />
+            <_config:param name="minCount" value="1" />
+            <_config:param name="limit" value="-1" />
+		</_config:facets>
+    </_config:profile>	
+
+	<!-- 
+		===========================
+		ProductView search profiles
+		===========================
+	 -->
+   <!-- 
+		Profile: IBM_BreadCrumbByCategoryUniqueId
+		Referenced by:
+			store/{storeId}/productview/byCategory/{categoryId}
+		
+		This search profile will be used to retrieve the category hierarchy based on category unique Id
+		It is reserved for IBM internal use.
+     -->
+    <_config:profile indexName="CatalogEntry" name="IBM_BreadCrumbByCategoryUniqueId">
+        <_config:query>
+        	<!--  Just need BreadCrumb. So setting maxRows == 0 -->
+            <_config:param name="maxRows" value="0"/>
+            
+             <!-- Default providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchProfileNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchIndexNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchWorkSpaceValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchExpressionValidator" enabled="false"/>
+            
+            <!-- Default preprocessor -->
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchDebugQueryPreprocessor" enabled="true"/>
+           	<_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResultFieldQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPreviewQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSpellCorrectionQueryPreprocessor" enabled="false"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchHighlighterQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPaginationQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSortingQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchFacetQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchEDismaxQueryPreProcessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResponseFormatQueryPreprocessor" enabled="false"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchMainQueryPreprocessor" enabled="true"/>
+            
+            <!--   Added by profile -->
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchBreadCrumbTrailQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+            <_config:field name="name"/>
+        </_config:result>
+    </_config:profile>   
+	
+	<!-- 
+		Profile: IBM_ComposeFacetListByCategoryId
+		Referenced by:
+			store/{storeId}/productview/byCategory/{categoryId}
+		
+		This search profile will be used to retrieve the Facets based on category unique Id
+		It is reserved for IBM internal use.
+	-->
+   <_config:profile name="IBM_ComposeFacetListByCategoryId" indexName="CatalogEntry">
+        <_config:query>
+        	<_config:param name="maxRows" value="0"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCategoryExpressionProvider"/>
+			<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByFacetExpressionProvider"/>            
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCustomExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchFacetConditionExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTypeExpressionProvider"/> 
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>            
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchFacetQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+        	<_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/> 
+        </_config:result>
+    </_config:profile>
+
+
+    <_config:profile name="IBM_findProductsByCategory_Summary" indexName="CatalogEntry">
+        <_config:query>
+        	<!--  The search profile used to Dynamic Kit pre-configuartion Data but with no price. -->
+        	<_config:param name="DynamicKitReturnPrice" value="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCategoryExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByManufacturerExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPriceExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByFacetExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCustomExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchFacetConditionExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTypeExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductSequencingExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:field name="name"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchFacetQueryPostprocessor" />
+            <!-- SolrRESTSearchCatalogEntryViewSKUQueryPostprocessor is not needed for index price. -->		
+            <!-- _config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewSKUQueryPostprocessor"/ -->
+            <!--  Uncomment this to get calculated price for bundle-->
+            <!-- _config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewComponentsQueryPostprocessor"/ -->
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+            
+        </_config:query>
+        <_config:sort>
+            <_config:field name="1" value="mfName_ntk_cs asc"/>
+            <_config:field name="2" value="name_ntk asc"/>
+            <_config:field name="3" value="price_* asc"/>
+            <_config:field name="4" value="price_* desc"/>
+        </_config:sort>
+        <_config:result>
+        	<_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/> 
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+            <!--  Uncomment this to get calculated price for bundle-->
+            <!-- <_config:field name="components"/ -->
+        </_config:result>
+    </_config:profile>
+
+	<!-- 
+		Profile: IBM_findProductsByCategory
+		Referenced by:
+			/store/{storeId}/productview/byCategory/{categoryId}
+		
+		This search profile will be used to retrieve the products' summary for the category display page.
+     -->
+	<!-- This profile returns attributes data in addition to the data returned by IBM_findProductsByCategory_Summary  -->
+    <_config:profile name="IBM_findProductsByCategory" indexName="CatalogEntry">
+        <_config:query>
+        	<!--  The search profile used to Dynamic Kit pre-configuartion Data but with no price. -->
+        	<_config:param name="DynamicKitReturnPrice" value="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCategoryExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByManufacturerExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPriceExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByFacetExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCustomExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchFacetConditionExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTypeExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductSequencingExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:field name="name"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchFacetQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchBreadCrumbTrailQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttributesQueryPostprocessor" />
+            <!-- SolrRESTSearchCatalogEntryViewSKUQueryPostprocessor is not needed for index price. -->		
+            <!-- _config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewSKUQueryPostprocessor"/ -->
+            <!--  Uncomment this to get calculated price for bundle-->
+            <!-- _config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewComponentsQueryPostprocessor"/ -->
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+            
+        </_config:query>
+        <_config:sort>
+            <_config:field name="1" value="mfName_ntk_cs asc"/>
+            <_config:field name="2" value="name_ntk asc"/>
+            <_config:field name="3" value="price_* asc"/>
+            <_config:field name="4" value="price_* desc"/>
+        </_config:sort>
+        <_config:result>
+        	<_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/> 
+            <_config:field name="ad_attribute"/>
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+            <_config:field name="startdate"/>
+            <_config:field name="enddate"/>
+            <!--  Uncomment this to get calculated price for bundle-->
+            <!-- <_config:field name="components"/ -->
+        </_config:result>
+    </_config:profile>
+    
+   	<!-- 
+		Profile: IBM_findProductsBySearchTerm
+		Referenced by:
+			/store/{storeId}/productview/bySearchTerm/{searchTerm}
+		
+		This search profile will be used to retrieve the products' summary for search result page giving a search term.
+		Use IBM_findProductsBySearchTerm to get attributes data.
+    -->
+    <_config:profile name="IBM_findProductsBySearchTerm_Summary" indexName="CatalogEntry">
+    	<_config:query>    		
+    		<!--  The search profile used to Dynamic Kit pre-configuartion Data but with no price. -->
+        	<_config:param name="DynamicKitReturnPrice" value="true"/>        	
+            
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchBasedMerchandisingExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTermAssociationExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByKeywordRelevancyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCategoryExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByManufacturerExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPriceExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByFacetExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCustomExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchFacetConditionExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTypeExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchInventoryExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            
+            <_config:field name="name"/>
+            <_config:field name="defaultSearch"/>
+            <_config:field name="categoryname"/>
+            <_config:field name="shortDescription"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchSpellCheckSuggestionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchFacetQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchStatisticsPostprocessor" />
+			<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+        </_config:query>         
+        <_config:sort>
+            <_config:field name="1" value="mfName_ntk_cs asc"/>
+            <_config:field name="2" value="name_ntk asc"/>
+            <_config:field name="3" value="price_* asc"/>
+            <_config:field name="4" value="price_* desc"/>
+        </_config:sort>
+		<_config:result>
+            <_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/>   
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+        </_config:result>
+        
+        <_config:highlight simplePost="&lt;/span&gt;&lt;/strong&gt;" simplePre="&lt;strong&gt;&lt;span class=font2&gt;">
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+        </_config:highlight>
+        
+        <_config:spellcheck>
+            <_config:param name="limit" value="5" />
+        </_config:spellcheck>
+    </_config:profile>
+    
+   	<!-- 
+		Profile: IBM_findProductsBySearchTerm
+		Referenced by:
+			/store/{storeId}/productview/bySearchTerm/{searchTerm}
+		
+		This search profile will be used to retrieve the products' summary for search result page giving a search term.
+		This profile returns attributes data in addition to the data returned by IBM_findProductsBySearchTerm_Summary
+    -->
+    <_config:profile name="IBM_findProductsBySearchTerm" indexName="CatalogEntry">
+    	<_config:query>    		
+    		<!--  The search profile used to Dynamic Kit pre-configuartion Data but with no price. -->
+        	<_config:param name="DynamicKitReturnPrice" value="true"/>       
+            
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchBasedMerchandisingExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTermAssociationExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByKeywordRelevancyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCategoryExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByManufacturerExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPriceExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByFacetExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCustomExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchFacetConditionExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTypeExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchInventoryExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            
+            <_config:field name="name"/>
+            <_config:field name="defaultSearch"/>
+            <_config:field name="categoryname"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchSpellCheckSuggestionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchFacetQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchBreadCrumbTrailQueryPostprocessor" />
+			<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchStatisticsPostprocessor" />
+			<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttributesQueryPostprocessor" />	
+			<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+        </_config:query>         
+        <_config:sort>
+            <_config:field name="1" value="mfName_ntk_cs asc"/>
+            <_config:field name="2" value="name_ntk asc"/>
+            <_config:field name="3" value="price_* asc"/>
+            <_config:field name="4" value="price_* desc"/>
+        </_config:sort>
+		<_config:result>
+            <_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/>   
+            <_config:field name="ad_attribute"/>
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+            <_config:field name="startdate"/>
+            <_config:field name="enddate"/>
+        </_config:result>
+        
+        <_config:highlight simplePost="&lt;/span&gt;&lt;/strong&gt;" simplePre="&lt;strong&gt;&lt;span class=font2&gt;">
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+        </_config:highlight>
+        
+        <_config:spellcheck>
+            <_config:param name="limit" value="5" />
+        </_config:spellcheck>
+    </_config:profile>
+
+    <!-- 
+		Profile: IBM_findProductByIds_Basic_Summary
+		Referenced by:
+			/store/{storeId}/productview/byId/{uniqueId}
+		
+		This search profile will be used to retrieve the products basic summary (name, partNumber, catentryId) giving a catalog entry id.
+	 -->	
+     <_config:profile name="IBM_findProductByIds_Basic_Summary" indexName="CatalogEntry">
+       <_config:query>
+            <_config:param name="maxRows" value="50"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCatalogExpressionProvider"/>
+       		<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+         	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+            <_config:field name="catentry_id"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+       </_config:query>
+       <_config:result>
+            <_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+       </_config:result>
+   </_config:profile> 
+
+    
+	<!-- 
+		Profile: IBM_findProductByIds_Summary
+		Referenced by:
+			/store/{storeId}/productview/byId/{uniqueId}
+		
+		This search profile will be used to retrieve the products' summary giving a catalog entry id.
+	-->						
+    <_config:profile name="IBM_findProductByIds_Summary" indexName="CatalogEntry" extends="IBM_findProductByIds_Basic_Summary">
+        <_config:query inherits="true">
+            <_config:param name="DynamicKitReturnPrice" value="true"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttributesQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+        </_config:query>
+        <_config:result inherits="true">
+            <_config:field name="buyable"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/>
+            <_config:field name="parentCatentry_id"/>
+            <_config:field name="ad_attribute"/>
+            <_config:field name="disallowRecOrder"/>                       
+            <_config:field name="subscripType"/>  
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+        </_config:result>
+    </_config:profile>
+    
+    <!-- 
+		Profile: IBM_findProductByIdsWithAttributesAndAttachments
+		Referenced by:
+			/store/{storeId}/productview/byId/{uniqueId}
+		
+		This search profile will be used to retrieve the products' details giving a catalog entry id.
+	-->
+    <_config:profile name="IBM_findProductByIdsWithAttributesAndAttachments" indexName="CatalogEntry">
+        <_config:query>
+        	<!--  The search profile used to Dynamic Kit pre-configuartion Data but with no price. -->
+        	<_config:param name="DynamicKitReturnPrice" value="true"/>
+        	<_config:param name="maxRows" value="50"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCatalogExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:field name="catentry_id"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />            
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewSKUQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttributesQueryPostprocessor" />	
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttachmentsQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+        	<_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/>
+            <_config:field name="parentCatentry_id"/>    
+        	<_config:field name="disallowRecOrder"/>  	
+            <_config:field name="fullImage"/>
+            <_config:field name="longDescription"/>              
+            <_config:field name="subscripType"/>
+            <_config:field name="ad_attribute"/>
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+        </_config:result>
+    </_config:profile>
+    
+    <!-- 
+		Profile: IBM_findProductByIds_Details
+		Referenced by:
+			/store/{storeId}/productview/byId/{uniqueId}
+		
+		This search profile will be used to retrieve the products' details giving a catalog entry id.
+	-->
+    <_config:profile name="IBM_findProductByIds_Details" indexName="CatalogEntry">
+        <_config:query>
+        	<!--  The search profile used to Dynamic Kit pre-configuartion Data but with no price. -->
+        	<_config:param name="DynamicKitReturnPrice" value="true"/>
+        	<_config:param name="maxRows" value="50"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCatalogExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:field name="catentry_id"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />            
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewSKUQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttributesQueryPostprocessor" />	
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttachmentsQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewComponentsQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewMerchandisingAssocQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+        	<_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/>
+            <_config:field name="parentCatentry_id"/>    
+        	<_config:field name="disallowRecOrder"/>  	
+            <_config:field name="fullImage"/>
+            <_config:field name="longDescription"/>              
+            <_config:field name="subscripType"/>
+            <_config:field name="ad_attribute"/>
+            <_config:field name="components"/>
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="pdks"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+            <_config:field name="startdate"/>
+            <_config:field name="enddate"/>
+        </_config:result>
+    </_config:profile>
+    
+    	<!-- 
+		Profile: IBM_findProductByIds_Summary_WithNoEntitlementCheck
+		Referenced by:
+			/store/{storeId}/productview/byId/{uniqueId}
+		
+		This search profile will be used to retrieve the products' summary giving a catalog entry id with out doing an entitlement Check.
+	-->						
+    <_config:profile name="IBM_findProductByIds_Summary_WithNoEntitlementCheck" indexName="CatalogEntry">
+        <_config:query>
+            <_config:param name="maxRows" value="50"/>
+            <_config:param name="DynamicKitReturnPrice" value="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCatalogExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+            <_config:field name="catentry_id"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttributesQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+            <_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/>
+            <_config:field name="parentCatentry_id"/>
+            <_config:field name="ad_attribute"/>
+            <_config:field name="disallowRecOrder"/>                       
+            <_config:field name="subscripType"/>  
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+        </_config:result>
+    </_config:profile>
+		
+  	<!-- 
+		Profile: IBM_findProductByPartNumber_Summary
+		Referenced by:
+			/store/{storeId}/productview/{partNumber}
+		
+		This search profile will be used to retrieve the products' summary for the search result page giving a catalog entry part number.
+    -->
+    <_config:profile name="IBM_findProductByPartNumber_Summary" indexName="CatalogEntry">
+        <_config:query>
+        	<!--  The search profile used to Dynamic Kit pre-configuartion Data but with no price. -->
+        	<_config:param name="DynamicKitReturnPrice" value="true"/>
+            <_config:param name="maxRows" value="50"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCatalogExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+			<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+			<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:field name="partNumber_ntk"/> 
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttributesQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+            <_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/>
+            <_config:field name="parentCatentry_id"/>
+            <_config:field name="ad_attribute"/>
+            <_config:field name="disallowRecOrder"/>                       
+            <_config:field name="subscripType"/> 
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+        </_config:result>
+    </_config:profile>
+
+    <!-- 
+        Profile: IBM_findProductByPartNumber_Details
+        Referenced by:
+        	/store/{storeId}/productview/{partNumber}
+
+		This search profile will be used to retrieve the products' details for search result page giving a part number.
+    -->
+    <_config:profile name="IBM_findProductByPartNumber_Details" indexName="CatalogEntry">
+        <_config:query>	
+        	<!--  The search profile used to Dynamic Kit pre-configuartion Data but with no price. -->
+        	<_config:param name="DynamicKitReturnPrice" value="true"/>
+        	<_config:param name="maxRows" value="50"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCatalogExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+			<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+			<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:field name="partNumber_ntk"/> 
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewSKUQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttributesQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttachmentsQueryPostprocessor" />	
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewComponentsQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewMerchandisingAssocQueryPostprocessor" />
+        </_config:query>
+        <_config:result>  
+        	<_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/>
+            <_config:field name="parentCatentry_id"/>    
+            <_config:field name="disallowRecOrder"/>  	
+            <_config:field name="fullImage"/>
+            <_config:field name="longDescription"/>              
+            <_config:field name="subscripType"/>
+            <_config:field name="ad_attribute"/>
+            <_config:field name="components"/>
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="pdks"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+        </_config:result>		        
+    </_config:profile>
+	
+	<!--
+		This profile inherits all the elements defined in the IBM_findProductsBySearchTerm profile. It limits the search to Product's name only.
+	-->
+	<_config:profile name="IBM_findProductsByNameOnly" extends="IBM_findProductsBySearchTerm">
+		<_config:query inherits="true" override="field">
+			<_config:field name="name"/>
+        </_config:query>
+	</_config:profile>
+	
+	<!--
+		This profile inherits all the elements defined in the IBM_findProductsBySearchTerm profile. It limits the search to Product's name and short description only.
+	-->
+	<_config:profile name="IBM_findProductsByNameAndShortDescriptionOnly" extends="IBM_findProductsBySearchTerm">
+		<_config:query inherits="true" override="field">
+			<_config:field name="name"/>
+			<_config:field name="shortDescription"/>
+        </_config:query>
+	</_config:profile>
+		
+	<!--
+		This profile inherits all the elements defined in the IBM_findProductsBySearchTerm profile. It limits the search to Product's associated assets only. 
+	-->
+	<_config:profile name="IBM_findProductsByUnstructureOnly" extends="IBM_findProductsBySearchTerm">
+		<_config:query inherits="true" override="field">
+			<_config:field name="unstructure" />
+		</_config:query>
+	</_config:profile>
+	
+	<!--
+		This profile inherits all the elements defined in the IBM_findProductsBySearchTerm profile. In addition, it inserts result grouping preprocessor and post processor.  
+	-->
+	<_config:profile name="IBM_findProductsBySearchTerm_grouping" extends="IBM_findProductsBySearchTerm">
+		<_config:query inherits="true" override="postprocessor">
+		<!-- When QueryMissingGroupOwner is set, and the productBean is not among the group members, issue another search query to find it. Default is true. -->
+			<_config:param name="QueryMissingGroupOwner" value="true"/>
+			<_config:preprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.preprocessor.solr.SolrRESTSearchResultGroupingQueryPreprocessor" />
+			<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchResultGroupingQueryPostprocessor" />
+			
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchSpellCheckSuggestionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchFacetQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchBreadCrumbTrailQueryPostprocessor" />
+			<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchStatisticsPostprocessor" />
+			<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttributesQueryPostprocessor" />	
+			<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+        </_config:query>
+        <_config:group inherits="false">
+        	<_config:param name="group" value="true"/>
+        	<_config:param name="group.limit" value="100"/>
+        	<_config:param name="group.facet" value="true"/>    
+        	<_config:param name="group.sort" value="score desc"/>       	
+        	<_config:field name="grouping_parentCatentry_id"/>          	
+        </_config:group>
+        <_config:heroproduct inherits="false">        		
+        	<_config:param name="overrideFieldName" value="thumbnail"/>
+        </_config:heroproduct>
+	</_config:profile>
+	
+	<!--
+		This profile inherits all the elements defined in the IBM_findProductsByCategory profile. In addition, it inserts result grouping preprocessor and post processor.  
+	-->
+	<_config:profile name="IBM_findProductsByCategory_grouping" extends="IBM_findProductsByCategory">
+		<_config:query inherits="true" override="postprocessor">
+		<!-- When QueryMissingGroupOwner is set, and the productBean is not among the group members, issue another search query to find it. Default is true. -->
+			<_config:param name="QueryMissingGroupOwner" value="true"/>
+			<_config:preprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.preprocessor.solr.SolrRESTSearchResultGroupingQueryPreprocessor" />
+			<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchResultGroupingQueryPostprocessor" />
+			
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchFacetQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchBreadCrumbTrailQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttributesQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+        </_config:query>
+        <_config:group inherits="false">
+        	<_config:param name="group" value="true"/>
+        	<_config:param name="group.limit" value="100"/>
+        	<_config:param name="group.facet" value="true"/>          	
+        	<_config:field name="grouping_parentCatentry_id"/>          	
+        </_config:group>
+        <_config:heroproduct inherits="false">        		
+        	<_config:param name="overrideFieldName" value="thumbnail"/>
+        </_config:heroproduct> 
+	</_config:profile>
+	
+	<!-- 
+		===========================
+		Content search profiles
+		===========================
+	 -->
+   		<!-- 
+		Profile: IBM_findWebContentsBySearchTerm
+		Referenced by:
+			/store/{storeId}/sitecontent/webContentsBySearchTerm/{searchTerm}
+		
+		This search profile will be used to retrieve the site contents' summary for search result page giving a search term.
+    -->
+    <_config:profile name="IBM_findWebContentsBySearchTerm" indexName="UnstructuredContent">
+		<_config:query>
+            <_config:param name="maxRows" value="100"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTermAssociationExpressionProvider"/>            
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByKeywordRelevancyExpressionProvider"/>            
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCustomExpressionProvider"/>            
+         	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchWebContentStoreInfoExpressionProvider"/>        	
+            <_config:field name="tika_content"/>
+            <_config:field name="name"/>
+            <_config:field name="shortdesc"/>
+            <_config:field name="longdesc"/>            
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainWebContentViewResultQueryPostprocessor" />
+		</_config:query>
+        <_config:sort inherits="false">
+            <_config:field name="1" value="name_ntk_cs asc"/>
+            <_config:field name="2" value="mimetype asc"/>
+        </_config:sort>
+        <_config:result>
+            <_config:field name="attachmentrel_id"/>
+            <_config:field name="path"/>
+            <_config:field name="identifier"/>
+            <_config:field name="name"/>
+            <_config:field name="mimetype"/>
+            <_config:field name="shortdesc"/>
+            <_config:field name="longdesc"/>
+        </_config:result>
+        <_config:highlight simplePost="&lt;/span>&lt;/strong>" simplePre="&lt;strong>&lt;span class=font2>">
+            <_config:field name="name"/>
+            <_config:field name="shortdesc"/>
+            <_config:field name="longdesc"/>
+        </_config:highlight>
+        <_config:facets/>
+        <_config:spellcheck>
+            <_config:param name="limit" value="5"/>
+        </_config:spellcheck>
+        <_config:mapping/>
+    </_config:profile>  
+    
+	 <!-- 
+		Profile: IBM_ComposeShallowSubCategoriesByCategoryId
+		Referenced by:
+			- HierarchyHelper
+		
+		This search profile will be used to retrieve the immediate sub-categories by HierarchyHelper.
+		It is reserved for IBM internal use.
+     -->
+    <_config:profile indexName="CatalogGroup" name="IBM_ComposeShallowSubCategoriesByCategoryId">
+        <_config:query>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchCategoryEntitlementExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCatalogExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchShallowCategoryExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCategoryEntitlementQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+            <_config:field name="catgroup_id"/>
+            <_config:field name="name"/>
+            <_config:field name="sequence"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+        </_config:result>
+    </_config:profile>
+    
+    
+    <_config:profile name="IBM_findNavigationSuggestion_Products" indexName="CatalogEntry" >
+        <_config:query>
+            <_config:param name="maxRows" value="12"/>
+            <_config:param name="searchType" value="1000"/>            
+        	 
+            <!-- Default providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchProfileNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchIndexNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchWorkSpaceValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchExpressionValidator" enabled="false"/>
+            
+             <!-- profile added providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTermAssociationExpressionProvider"/>   
+			<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByKeywordRelevancyExpressionProvider"/>
+			<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCategoryExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+			<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCustomExpressionProvider" />
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTypeExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:field name="name"/>
+            <_config:field name="defaultSearch"/>
+            <_config:field name="categoryname"/>
+            <_config:field name="shortDescription"/>            
+            <_config:field name="name_suggest"/>            
+            <_config:field name="shortDesc_suggest"/>                    
+            
+            <!-- Default preprocessor -->
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchDebugQueryPreprocessor" enabled="false"/>
+           	<_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResultFieldQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPreviewQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSpellCorrectionQueryPreprocessor" enabled="false"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchHighlighterQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPaginationQueryPreprocessor" enabled="true"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSortingQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchFacetQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchEDismaxQueryPreProcessor" enabled="true"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResponseFormatQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchMainQueryPreprocessor" enabled="true"/>
+            
+            <!-- profile added postprocessor -->
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntrySuggestionQueryPostprocessor" />
+        </_config:query>
+        <_config:result>  
+        	<_config:field name="catentry_id"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+        </_config:result>		        
+    </_config:profile>
+    
+    <_config:profile name="IBM_findNavigationSuggestion_PartNumber" extends="IBM_findNavigationSuggestion_Products" >
+		<_config:query inherits="true" override="field,param">
+			<_config:param name="maxRows" value="12"/>
+            <_config:param name="searchType" value="10"/>
+            <_config:field name="name"/>
+            <_config:field name="name_suggest"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="partNumber_suggest"/>
+        </_config:query>
+        <_config:result inherits="false">  
+        	<_config:field name="catentry_id"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+        </_config:result>		        
+    </_config:profile>
+    
+    <_config:profile name="IBM_findNavigationSuggestion_Brands" indexName="CatalogEntry" >
+        <_config:query>
+            <_config:param name="maxRows" value="0"/>
+            <_config:param name="searchType" value="12"/>
+			<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCategoryExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+			<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCustomExpressionProvider" />
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchTypeExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchBrandSuggestionQueryPostprocessor" />
+        </_config:query>
+        <_config:facets>
+            <_config:param name="sort" value="index"/>
+            <_config:param name="minCount" value="1"/>
+            <_config:param name="limit" value="100"/>
+        </_config:facets>        
+    </_config:profile>
+
+    <_config:profile name="IBM_findNavigationSuggestion_Categories" indexName="CatalogGroup">
+        <_config:query>
+            <_config:param name="maxRows" value="500"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCatalogExpressionProvider"/>  
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByCustomExpressionProvider" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCategorySuggestionQueryPostprocessor" />
+        </_config:query>
+        <_config:sort>
+            <_config:field name="1" value="name_ntk_cs asc"/>
+        </_config:sort>
+        <_config:result>
+            <_config:field name="catgroup_id"/>
+            <_config:field name="name_ntk_cs"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+        </_config:result>
+    </_config:profile>
+	 
+	 <!-- 
+		===========================
+		Internal Search profiles which being called programmatically and not intended to be called directly from a REST API
+		===========================
+	 -->
+	<!-- Search profile to look up Catalog Entry child SKUs; this profile is for IBM internal use only -->
+    <_config:profile name="IBM_findCatalogEntrySKUs" indexName="CatalogEntry">
+        <_config:query>     
+        	<_config:param name="maxRows" value="1200"/>
+            <!-- Default providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchProfileNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchIndexNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchWorkSpaceValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchExpressionValidator" enabled="false"/>
+            
+            <!-- profile added providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+            <_config:field name="parentCatentry_id"/>
+   
+            <!-- Default preprocessor -->
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchDebugQueryPreprocessor" enabled="true"/>
+           	<_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResultFieldQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPreviewQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSpellCorrectionQueryPreprocessor" enabled="false"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchHighlighterQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPaginationQueryPreprocessor" enabled="true"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSortingQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchFacetQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchEDismaxQueryPreProcessor" enabled="true"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResponseFormatQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchMainQueryPreprocessor" enabled="true"/>
+            
+            <!-- profile added preprocessor -->
+            <_config:preprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.preprocessor.solr.SolrRESTSearchResultGroupingQueryPreprocessor" /> 
+            
+            <!-- profile added postprocessor -->
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" />           
+        </_config:query>
+        <_config:group>
+        	<_config:param name="group" value="true"/>
+        	<_config:param name="group.limit" value="100"/>      	
+        	<_config:field name="grouping_parentCatentry_id"/>          	
+        </_config:group>
+        <_config:result>
+           	<_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/>
+            <_config:field name="ad_attribute"/>
+        </_config:result>        		            
+    </_config:profile>
+    
+    <!-- Search profile to look up Catalog Entry associated assets; this profile is for IBM internal use only -->
+     <_config:profile name="IBM_findCatalogEntryAssociatedAssets" indexName="UnstructuredContent">
+     	  <_config:query>
+     	  	<_config:param name="maxRows" value="1200"/>   
+            <!-- Default providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchProfileNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchIndexNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchWorkSpaceValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchExpressionValidator" enabled="false"/>
+            
+            <!-- profile added providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+            <_config:field name="catentry_id"/>
+            
+            <!-- Default preprocessor -->
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchDebugQueryPreprocessor" enabled="true"/>
+           	<_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResultFieldQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPreviewQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSpellCorrectionQueryPreprocessor" enabled="false"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchHighlighterQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPaginationQueryPreprocessor" enabled="true"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSortingQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchFacetQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchEDismaxQueryPreProcessor" enabled="true"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResponseFormatQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchMainQueryPreprocessor" enabled="true"/>
+            
+            <!-- profile added preprocessor -->
+            <_config:preprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.preprocessor.solr.SolrRESTSearchResultGroupingQueryPreprocessor" />
+        </_config:query>
+		<_config:sort inherits="false">
+			<_config:field name="1" value="rulename asc"/>
+            <_config:field name="2" value="mimetype asc"/>
+        </_config:sort>
+          <_config:group>
+        	<_config:param name="group" value="true"/>
+        	<_config:param name="group.limit" value="100"/>      	
+        	<_config:field name="catentry_id"/>          	
+        </_config:group>
+        <_config:result>
+        	<_config:field name="catentry_id" />
+           	<_config:field name="attachment_id" />
+			<_config:field name="path" />			
+			<_config:field name="mimetype" />
+			<_config:field name="rulename" />
+			<_config:field name="identifier" />
+			<_config:field name="shortdesc" />
+			<_config:field name="longdesc" />
+			<_config:field name="name" />
+			<_config:field name="image" />
+        </_config:result>
+	</_config:profile>
+    
+   	<!-- Search profile to look up Catalog Entry Components; this profile is for IBM internal use only -->
+	<_config:profile name="IBM_findCatalogEntryComponents" indexName="CatalogEntry">
+		<_config:query>
+			<_config:param name="maxRows" value="100"/>   
+			<!-- Default providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchProfileNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchIndexNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchWorkSpaceValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchExpressionValidator" enabled="false"/>
+            
+            <!-- profile added providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+            <_config:field name="catentry_id"/>
+            
+            <!-- Default preprocessor -->
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchDebugQueryPreprocessor" enabled="true"/>
+           	<_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResultFieldQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPreviewQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSpellCorrectionQueryPreprocessor" enabled="false"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchHighlighterQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPaginationQueryPreprocessor" enabled="true"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSortingQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchFacetQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchEDismaxQueryPreProcessor" enabled="true"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResponseFormatQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchMainQueryPreprocessor" enabled="true"/>
+            
+            <!-- profile added postprocessor -->
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" /> 
+			<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewSKUQueryPostprocessor" />		 
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttributesQueryPostprocessor" />	
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttachmentsQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+		</_config:query>
+		<_config:result>			
+			<_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/> 
+            <_config:field name="ad_attribute"/>
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+            <_config:field name="startdate"/>
+            <_config:field name="enddate"/>
+		</_config:result>
+	</_config:profile>	
+	
+	<!-- Search profile to look up Catalog Entry Associated Merchandising; this profile is for IBM internal use only -->
+	<_config:profile name="IBM_findCatalogEntryAssociatedMerchandising" indexName="CatalogEntry">
+		<_config:query>
+			<_config:param name="maxRows" value="100"/>   
+			<!--  The search profile used to Dynamic Kit pre-configuartion Data but with no price. -->
+        	<_config:param name="DynamicKitReturnPrice" value="true"/>
+        	
+			<!-- Default providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchProfileNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchIndexNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchWorkSpaceValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchExpressionValidator" enabled="false"/>
+            
+            <!-- profile added providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+            <_config:field name="catentry_id"/>
+            
+            <!-- Default preprocessor -->
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchDebugQueryPreprocessor" enabled="true"/>
+           	<_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResultFieldQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPreviewQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSpellCorrectionQueryPreprocessor" enabled="false"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchHighlighterQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPaginationQueryPreprocessor" enabled="true"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSortingQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchFacetQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchEDismaxQueryPreProcessor" enabled="true"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResponseFormatQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchMainQueryPreprocessor" enabled="true"/>
+            
+            <!-- profile added postprocessor -->
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchPreviewQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchExperimentQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewPriceQueryPostprocessor" />
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDescriptionQueryPostprocessor" /> 
+			<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewSKUQueryPostprocessor" />		 
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttributesQueryPostprocessor" />	
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewAttachmentsQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewComponentsQueryPostprocessor" />
+		 	<_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTSearchCatalogEntryViewDynamicKitQueryPostprocessor" />
+		</_config:query>
+		<_config:result>			
+			<_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/> 
+            <_config:field name="ad_attribute"/> 
+			<_config:field name="components"/>
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="pdks"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+		</_config:result>
+	</_config:profile>
+    
+     <!-- Search profile to look up Catalog Entry by id; this profile is for IBM internal use only is being called by the grouping post processor to fetch a missing group owner -->
+    <_config:profile name="IBM_findCatalogEntryById" indexName="CatalogEntry">
+        <_config:query>     
+            <!-- Default providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchProfileNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchIndexNameValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchWorkSpaceValidator" enabled="true"/>
+            <_config:provider classname="com.ibm.commerce.foundation.internal.server.services.search.expression.solr.SolrSearchExpressionValidator" enabled="false"/>
+            
+            <!-- profile added providers -->
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchProductEntitlementExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByPublishedEntryOnlyExpressionProvider"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+            <_config:field name="catentry_id"/>
+   
+            <!-- Default preprocessor -->
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchDebugQueryPreprocessor" enabled="false"/>
+           	<_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResultFieldQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPreviewQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSpellCorrectionQueryPreprocessor" enabled="false"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchHighlighterQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchPaginationQueryPreprocessor" enabled="true"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchSortingQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchFacetQueryPreprocessor" enabled="false"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchEDismaxQueryPreProcessor" enabled="true"/>            
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchResponseFormatQueryPreprocessor" enabled="true"/>
+            <_config:preprocessor classname="com.ibm.commerce.foundation.internal.server.services.search.query.solr.SolrSearchMainQueryPreprocessor" enabled="true"/>        
+        </_config:query>
+      	<_config:result>
+            <_config:field name="catentry_id"/>
+            <_config:field name="storeent_id"/>
+            <_config:field name="buyable"/>
+            <_config:field name="partNumber_ntk"/>
+            <_config:field name="name"/>
+            <_config:field name="shortDescription"/>
+            <_config:field name="thumbnail"/>
+            <_config:field name="keyword"/>
+            <_config:field name="mfName_ntk"/>
+            <_config:field name="catenttype_id_ntk_cs"/>
+            <_config:field name="price_*"/>
+            <_config:field name="listprice_*"/>
+            <_config:field name="parentCatgroup_id_facet"/>
+            <_config:field name="childCatentry_id"/>
+            <_config:field name="mfPartNumber_ntk"/>   
+            <_config:field name="ad_attribute"/>
+            <_config:field name="isDKPreConfigured"/>
+            <_config:field name="dkModelReference"/>  
+            <_config:field name="dkURL"/>
+            <_config:field name="dkDefaultConfiguration"/>
+            <_config:field name="parentDKModelRef"/>
+            <_config:field name="dkConfigurable"/>
+            <_config:field name="parentDKConfigurable"/>
+            <_config:field name="startdate"/>
+            <_config:field name="enddate"/>
+        </_config:result>
+    </_config:profile>
+    <!-- 
+		===========================
+		Admin Search profiles which being called by Admin tooling using REST API
+		===========================
+	 -->
+    <!-- 
+		Profile: IBM_Admin_findCategoryByIds
+		Referenced by:
+			/store/{storeId}/categoryview/byIds/
+		
+		This search profile will be used to retrieve the categories based on multiple unique IDs.
+		It is reserved for IBM internal use.
+     -->
+    <_config:profile name="IBM_Admin_findCategoryByIds" indexName="CatalogGroup">
+        <_config:query>
+            <_config:param name="maxRows" value="50"/>
+            <_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+            <_config:field name="catgroup_id"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogGroupViewResultQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+            <_config:field name="catgroup_id"/>
+            <_config:field name="name"/>
+        </_config:result>
+    </_config:profile>
+
+    <!-- 
+		Profile: IBM_Admin_findProductsByIds
+		Referenced by:
+			/store/{storeId}/productview/byIds/
+		
+		This search profile will be used to retrieve the products' summary giving a list of catalog entry ids.
+	-->
+    <_config:profile name="IBM_Admin_findProductByIds" indexName="CatalogEntry">
+        <_config:query>
+            <_config:param name="maxRows" value="50"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByStorePathExpressionProvider"/>
+        	<_config:provider classname="com.ibm.commerce.foundation.server.services.rest.search.expression.solr.SolrRESTSearchByIdentifierExpressionProvider"/>
+            <_config:field name="catentry_id"/>
+            <_config:postprocessor classname="com.ibm.commerce.foundation.server.services.rest.search.postprocessor.solr.SolrRESTMainCatalogEntryViewResultQueryPostprocessor" />
+        </_config:query>
+        <_config:result>
+            <_config:field name="catentry_id"/>
+          	<_config:field name="name"/>
+            <_config:field name="partNumber_ntk"/>            
+        </_config:result>
+    </_config:profile>
+    
+</_config:search-config>

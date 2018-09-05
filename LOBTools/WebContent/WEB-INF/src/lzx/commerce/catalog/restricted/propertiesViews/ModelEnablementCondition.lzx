@@ -1,0 +1,92 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+
+
+<library>
+	<!---
+		<p>
+		This class is an enablement condition that will return true if Config Model in parent object exists, otherwise will return false.
+		</p>
+	    
+		<p>
+		If the attribute "negate" is set to "true", the result will be negated.
+		</p>	
+	-->
+	<class name="catModelEnablementCondition" extends="wcfEnablementCondition">
+		<!--- 
+			<P>
+			This method returns <code>true</code> if the Config Model in parent object
+			exists.
+			</P>
+			@param wcfModelObject o the model object that is to be enabled/disabled.
+			@return boolean <code>true</code> if Config Model in parent object exists.
+		-->
+		<method name="isEnabled" args="o">
+			<![CDATA[
+			
+			var po = o;
+			if (o) {
+				for (var i = 0; i < o.references.length; i++) {
+					var ro = o.references[i];
+					wcfLogger.log("com.ibm.commerce.lobtools.foundation.view", "INFO", "wcfModelEnablementCondition", "ro", ro.logString());
+					if (ro.objectType == "DynamicKitChildPDK" || ro.objectType == "DynamicKitChildInheritedPDK") {
+						po = ro.parentObject;
+						break;
+					}
+				}
+				if(po) {
+					wcfLogger.log("com.ibm.commerce.lobtools.foundation.view", "INFO", "wcfModelEnablementCondition", "po", po.logString());
+				}
+			
+			    wcfLogger.log("com.ibm.commerce.lobtools.foundation.view", "INFO", "wcfModelEnablementCondition", "po", po.logString());
+			}
+			var mo = null;
+			if(po) {
+				mo = po.getObject("CatalogEntryConfigModel/KitConfigModelAssociationGroup/ConfigModelGroup");
+			}
+			
+			var modelPath = null;
+			if (mo) {
+				wcfLogger.log("com.ibm.commerce.lobtools.foundation.view", "INFO", "wcfModelEnablementCondition", "mo", mo.logString());
+				modelPath = mo.getPropertyValue("path");
+				wcfLogger.log("com.ibm.commerce.lobtools.foundation.view", "INFO", "wcfModelEnablementCondition", "modelPath", modelPath);
+			} else {
+				wcfLogger.log("com.ibm.commerce.lobtools.foundation.view", "INFO", "wcfModelEnablementCondition", "mo", "null");
+			}
+			
+			var result = (modelPath != null);		
+			if (this.negate) {
+				result = !result;
+			}
+			wcfLogger.log("com.ibm.commerce.lobtools.foundation.view", "INFO", "wcfModelEnablementCondition", "return", result);
+			return result;
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			Register a delegate to be executed when the parent changes.
+			@param wcfModelObject o: the model object
+			@param lz.Delegate del: the delegate
+		-->
+		<method name="registerDelegate" args="o, del">
+			<![CDATA[
+			if (o) {
+				del.register(o, "onreferences");
+			}
+			]]>
+		</method>
+	</class>
+</library>

@@ -1,0 +1,69 @@
+<%
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+%>
+<%--
+  *****
+  * This JSP page contains constants values used by JSP pages
+  * in the RFQCreationSection.
+  *
+  *****
+--%>
+
+<c:set var="EC_OFFERING_ID" value="offering_id" scope="request" />
+<c:set var="EC_UTF_ENDRESULT_ORDER" value="1" scope="request" />
+<c:set var="EC_RFQ_RESPONSE_ID" value="response_id" scope="request" />
+<c:set var="EC_RFQ_PRODUCT_ID" value="rfqprod_id" scope="request" />
+<c:set var="EC_POLICY_ID" value="policyId" scope="request" />
+<c:set var="EC_RFQRSPPRODEVAL_ACCEPT" value="1" scope="request" />
+<c:set var="EC_PAYMENT_TC_ID" value="paymentTCId" scope="request" />
+<c:set var="EC_RFQ_RESPONSE_PRODUCT_EVAL_ID" value="responseProductEvalId" scope="request" />
+
+<c:set var="EC_OFFERING_ITEMBEAN" value="ItemBean" scope="request" />
+<c:set var="EC_OFFERING_PRODUCTBEAN" value="ProductBean" scope="request" />
+<c:set var="EC_OFFERING_PACKAGEBEAN" value="PackageBean" scope="request" />
+<c:set var="EC_OFFERING_DYNAMICKITBEAN" value="DynamicKitBean" scope="request" />
+
+<c:set var="RFQ_EC_OFFERING_CATENTRYID" value="catentryid" scope="request" />
+<c:set var="EC_OFFERING_NAME" value="name" scope="request" />
+<c:set var="EC_OFFERING_LONGDESC" value="longdesc" scope="request" />
+<c:set var="EC_OFFERING_SHORTDESC" value="shortdesc" scope="request" />
+<c:set var="EC_OFFERING_ENDRESULT" value="endresult" scope="request" />
+<c:set var="EC_OFFERING_STARTDATE" value="startdate" scope="request" />
+<c:set var="EC_OFFERING_ENDDATE" value="enddate" scope="request" />
+<c:set var="EC_RFQ_ACCOUNT_ID" value="account_id" scope="request" />
+<c:set var="EC_OFFERING_RULETYPE" value="ruletype" scope="request" />
+
+<c:set var="EC_CLOSE_RULE1" value="1" scope="request" />
+<c:set var="EC_CLOSE_RULE2" value="2" scope="request" />
+<c:set var="EC_CLOSE_RULE3" value="3" scope="request" />
+<c:set var="EC_CLOSE_RULE4" value="4" scope="request" />
+<c:set var="EC_OFFERING_NUMRESPONSES" value="numResponses" scope="request" />
+<c:set var="EC_OFFERING_ACCESSTYPE" value="accessType" scope="request" />
+<c:set var="EC_OFFERING_CATENTRYID" value="catentryid" scope="request" />
+<c:set var="EC_OFFERING_PERCENTAGEPRICE" value="percentagePrice" scope="request" />
+<c:set var="EC_OFFERING_NEGOTIATIONTYPE" value="negotiationType" scope="request" />
+<c:set var="EC_OFFERING_ORDERITEMID" value="orderItemId" scope="request" />
+
+<c:set var="EC_OFFERING_PRICE" value="price" scope="request" />
+<c:set var="EC_OFFERING_RULETYPE" value="ruletype" scope="request" />
+<c:set var="EC_OFFERING_QTYUNIT" value="quantityunit" scope="request" />
+<c:set var="EC_OFFERING_QUANTITY" value="quantity" scope="request" />
+<c:set var="EC_OFFERING_CURRENCY" value="currency" scope="request" />
+<c:set var="EC_NEW_RFQ_NAME" value="newRfqName" scope="request" />
+<c:set var="EC_ORIG_RFQ_ID" value="origRfqId" scope="request" />
+<c:set var="EC_COPY_ATTACHMENT"  value="copyAttachment" scope="request" />
+<c:set var="EC_COPY_ATTACHMENT_YES" value="1" scope="request" />
+<c:set var="EC_COPY_ATTACHMENT_NO"value="0" scope="request" />

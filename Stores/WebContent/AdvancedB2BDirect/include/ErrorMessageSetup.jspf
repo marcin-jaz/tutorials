@@ -1,0 +1,42 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2003, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%-- 
+  *****
+  * This JSP fragment sets up the error message variable used in JSP pages that use JSTL.
+  *****
+--%>
+
+<%--
+Retrieves the store error message corresponding to the ECMessage key and the error code.
+Requires StoreDataBean "sdb" to be activated.
+--%>
+
+<wcbase:useBean id="storeError" classname="com.ibm.commerce.common.beans.StoreErrorDataBean" scope="page">
+	<c:set target="${storeError}" property="resourceBundleName" value="${jspStoreDir}/storeErrorMessages"/>
+</wcbase:useBean>
+
+<c:if test="${!empty storeError.key}">
+	<c:set var="errorMessage" value="${storeError.message}"/>
+	<%--
+	Special case: if key not found, fall back to ErrorDataBean.getMessage()
+	--%>
+	<c:if test="${empty errorMessage}">
+		<wcbase:useBean id="error" classname="com.ibm.commerce.beans.ErrorDataBean" scope="page"/>
+		<c:set var="errorMessage" value="${error.message}"/>
+	</c:if>
+	<fmt:setBundle basename="${jspStoreDir}storeErrorMessages" var="storeErrorMessageBundle"/>
+</c:if>

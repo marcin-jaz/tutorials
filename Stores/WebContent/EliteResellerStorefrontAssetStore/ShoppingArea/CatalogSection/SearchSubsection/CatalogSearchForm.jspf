@@ -1,0 +1,327 @@
+<%
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2008
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+%>
+<%-- 
+  *****
+  * This JSP file renders the advanced search form of the catalog search page. The page gives shoppers the ability
+  * to search for products by other means other than search terms (for example, shopper can search by price, brand,
+  * category, etc).
+  *****
+--%>
+<!-- BEGIN CatalogSearchForm.jspf-->
+
+<c:choose>
+	<c:when test="${!empty WCParam.pageView}">
+		<c:set var="searchPageView" value="${WCParam.pageView}"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="searchPageView" value="image"/>
+	</c:otherwise>
+</c:choose>
+<c:choose>
+	<c:when test="${!empty WCParam.beginIndex}">
+		<c:set var="searchPageBeginIndex" value="${WCParam.beginIndex}"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="searchPageBeginIndex" value="0"/>
+	</c:otherwise>
+</c:choose>
+
+<div id="Advanced_Search_Form_div" style="display:none" parseWidgets="false">
+		<form name="AdvancedCatalogSearchForm" id="AdvancedCatalogSearchForm" action="">
+			<input type="hidden" name="storeId" value='<c:out value="${WCParam.storeId}" />' id="WC_CatalogSearchForm_FormInput_storeId_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="catalogId" value='<c:out value="${WCParam.catalogId}"/>' id="WC_CatalogSearchForm_FormInput_catalogId_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="langId" value='<c:out value="${langId}"/>' id="WC_CatalogSearchForm_FormInput_langId_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="resultCatEntryType" value="2" id="WC_CatalogSearchForm_FormInput_resultType_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="beginIndex" value='<c:out value="${searchPageBeginIndex}"/>' id="WC_CatalogSearchForm_FormInput_beginIndex_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="catgrpSchemaType" value="1" id="WC_CatalogSearchForm_FormInput_catgrpSchemaType_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="RASchemaType" value="1" id="WC_CatalogSearchForm_FormInput_RASchemaType_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="sType" value="AdvancedSearch" id="WC_CatalogSearchForm_FormInput_sType_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="searchTermCaseSensitive" value="no" id="WC_CatalogSearchForm_FormInput_searchTermCaseSensitive_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="searchTermOperator" value="LIKE" id="WC_CatalogSearchForm_FormInput_searchTermOperator_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="filterTermCaseSensitive" value="no" id="WC_CatalogSearchForm_FormInput_filterTermCaseSensitive_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="filterTermOperator" value="LIKE" id="WC_CatalogSearchForm_FormInput_filterTermOperator_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="qtyAvailable" value="" id="WC_CatalogSearchForm_FormInput_qtyAvailable_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="qtyAvailableOperator" value="EQUAL" id="WC_CatalogSearchForm_FormInput_qtyAvailableOperator_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="qtyMeasure" value="" id="WC_CatalogSearchForm_FormInput_qtyMeasure_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="qtyMeasureCaseSensitive" value="" id="WC_CatalogSearchForm_FormInput_qtyMeasureCaseSensitive_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="qtyMeasureOperator" value="EQUAL" id="WC_CatalogSearchForm_FormInput_qtyMeasureOperator_In_AdvancedCatalogSearchForm_1"/>	
+			<input type="hidden" name="categoryType" value="ANY" id="WC_CatalogSearchForm_FormInput_categoryType_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="manufacturerCaseSensitive" value="no" id="WC_CatalogSearchForm_FormInput_manufacturerCaseSensitive_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="manufacturerOperator" value="LIKE" id="WC_CatalogSearchForm_FormInput_manufacturerOperator_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="currency" value="<c:out value="${CommandContext.currency}" escapeXml="false"/>" id="WC_CatalogSearchForm_FormInput_currency_In_AdvancedCatalogSearchForm_1"/>
+			<input type="hidden" name="pageView" value='<c:out value="${searchPageView}"/>' id="WC_CatalogSearchForm_inputs_1"/>
+				<div id="WC_CatalogSearchForm_div_1"><fmt:message key="SEARCH_TERM_USAGE_MESSAGE" bundle="${storeText}"/></div>
+				<br clear="all" />
+				<div class="advanced_search" id="WC_CatalogSearchForm_div_2">
+                    <div id="WC_CatalogSearchForm_div_3"><label for="WC_CatalogSearchForm_searchTerm"><fmt:message key="SEARCH_FOR" bundle="${storeText}"/></label></div>
+                    <div class="column" id="WC_CatalogSearchForm_div_4"><input type="text" name="searchTerm" id="WC_CatalogSearchForm_searchTerm" value="<c:out value='${WCParam.searchTerm}' />" size="35" /></div>
+                    <div class="column" id="WC_CatalogSearchForm_div_5">
+                    		<label for="WC_CatalogSearchForm_searchType" class="nodisplay"><fmt:message key="SEARCH_FOR_OPTIONS" bundle="${storeText}"/></label>
+                        <select name="searchType" id="WC_CatalogSearchForm_searchType" class="drop_down_adv_search" size="1">
+							<c:choose>
+								<c:when test="${!empty WCParam.searchType && WCParam.searchType=='ALL'}">
+									<option value="ALL" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="ALL">
+								</c:otherwise>
+							</c:choose>
+								<fmt:message key="ALL_WORDS" bundle="${storeText}"/>
+							</option>
+							
+							<c:choose>
+								<c:when test="${!empty WCParam.searchType && WCParam.searchType=='ANY'}">
+									<option value="ANY" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="ANY">
+								</c:otherwise>
+							</c:choose>
+								<fmt:message key="ANY_WORDS" bundle="${storeText}"/>
+							</option>
+							
+							<c:choose>
+								<c:when test="${!empty WCParam.searchType && WCParam.searchType=='EXACT'}">
+									<option value="EXACT" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="EXACT">
+								</c:otherwise>
+							</c:choose>
+								<fmt:message key="EXACT_PHRASE" bundle="${storeText}"/>
+							</option>
+						</select>
+					</div>
+					<br clear="all" />
+					
+					<div id="WC_CatalogSearchForm_div_6"><label for="WC_CatalogSearchForm_filterTerm"><fmt:message key="EXCLUDE_WORDS" bundle="${storeText}"/></label></div>
+					<div class="column" id="WC_CatalogSearchForm_div_7"><input type="text" name="filterTerm" id="WC_CatalogSearchForm_filterTerm" value="<c:out value='${WCParam.filterTerm}' />" size="35" /></div>
+					<div class="column" id="WC_CatalogSearchForm_div_8">
+						<label for="WC_CatalogSearchForm_filterType" class="nodisplay"><fmt:message key="EXCLUDE_WORDS_OPTIONS" bundle="${storeText}"/></label>
+						<select name="filterType" id="WC_CatalogSearchForm_filterType" class="drop_down_adv_search" size="1">
+							<c:choose>
+								<c:when test="${!empty WCParam.filterType && WCParam.filterType=='ALL'}">
+									<option value="ALL" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="ALL">
+								</c:otherwise>
+							</c:choose>
+								<fmt:message key="ALL_WORDS" bundle="${storeText}"/>
+							</option>
+							<c:choose>
+								<c:when test="${!empty WCParam.filterType && WCParam.filterType=='ANY'}">
+									<option value="ANY" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="ANY">
+								</c:otherwise>
+							</c:choose>
+								<fmt:message key="ANY_WORDS" bundle="${storeText}"/>
+							</option>
+							<c:choose>
+								<c:when test="${!empty WCParam.filterType && WCParam.filterType=='EXACT'}">
+									<option value="EXACT" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="EXACT">
+								</c:otherwise>
+							</c:choose>
+								<fmt:message key="EXACT_PHRASE" bundle="${storeText}"/>
+							</option>
+						</select>
+					</div>
+					<br clear="all" />
+					
+                    <div id="WC_CatalogSearchForm_div_9"><label for="WC_CatalogSearchForm_searchTermScope"><fmt:message key="SEARCH_FOR_WORD_IN" bundle="${storeText}"/></label></div>
+                    <div class="column" id="WC_CatalogSearchForm_div_10">
+                    <select size="1" name="searchTermScope" id="WC_CatalogSearchForm_searchTermScope" class="drop_down_adv_search">
+						<c:choose>
+							<c:when test="${!empty WCParam.searchTermScope && WCParam.searchTermScope=='1'}">
+							<option value="1" selected="selected">
+							</c:when>
+							<c:otherwise>
+							<option value="1">
+							</c:otherwise>
+						</c:choose>
+								<fmt:message key="PRODUCT_NAME_DESC" bundle="${storeText}"/>
+							</option>
+						<c:choose>
+							<c:when test="${!empty WCParam.searchTermScope && WCParam.searchTermScope=='2'}">
+							<option value="2" selected="selected">
+							</c:when>
+							<c:otherwise>
+							<option value="2">
+							</c:otherwise>
+						</c:choose>
+								<fmt:message key="PRODUCT_NAME_ONLY" bundle="${storeText}"/>
+							</option>
+					</select>
+					</div>
+					<br clear="all" />
+                                        
+					<div id="WC_CatalogSearchForm_div_11"><label for="WC_CatalogSearchForm_manufacturer"><fmt:message key="SEARCH_BRANDS" bundle="${storeText}"/></label></div>
+                    <div class="column" id="WC_CatalogSearchForm_div_12"><input type="text" name="manufacturer" id="WC_CatalogSearchForm_manufacturer" value="<c:out value='${WCParam.manufacturer}' />" size="35" /></div>
+                    <br clear="all" />
+
+					<div id="WC_CatalogSearchForm_div_13"></div>
+										<label for="WC_CatalogSearchForm_minPrice" class="nodisplay"><fmt:message key="FROM_LABEL" bundle="${storeText}"/></label>
+										<label for="WC_CatalogSearchForm_maxPrice" class="nodisplay"><fmt:message key="TO_LABEL" bundle="${storeText}"/></label>
+                    <div class="column" id="WC_CatalogSearchForm_div_14"><fmt:message key="SEARCH_FOR_PRICE_RANGE_FROM" bundle="${storeText}"/>&nbsp;<input type="text" name="minPrice" id="WC_CatalogSearchForm_minPrice" value="<c:out value='${WCParam.minPrice}' />" size="10" />&nbsp;<fmt:message key="TO" bundle="${storeText}"/>&nbsp;<input type="text" name="maxPrice" id="WC_CatalogSearchForm_maxPrice" size="10" value="<c:out value='${WCParam.maxPrice}' />"/></div>
+					<br clear="all" />
+                    <div id="WC_CatalogSearchForm_div_15"><label for="WC_CatalogSearchForm_catGroupId"><fmt:message key="SEARCH_IN1" bundle="${storeText}"/></label></div>
+                    <div class="column" id="WC_CatalogSearchForm_div_16">
+                    	<select name="catGroupId" id="WC_CatalogSearchForm_catGroupId" size="1"  class="drop_down_adv_search">
+                         	<option value=""><fmt:message key="ALL_CATEGORIES" bundle="${storeText}"/></option>
+							<wcbase:useBean id="catalogSearch" classname="com.ibm.commerce.catalog.beans.CatalogDataBean" />
+							<c:forEach var="topCategory" items="${catalogSearch.topCategories}" varStatus="counter">
+								<%// Get sub categories for the top category%>
+								<c:forEach var="subTopCategory" items="${topCategory.subCategories}" varStatus="subCounter">
+									<c:choose>
+										<c:when test="${!empty WCParam.categoryId && WCParam.categoryId==subTopCategory.categoryId}">
+											<option selected="selected" value="<c:out value="${subTopCategory.categoryId}"/>"><c:out value="${topCategory.description.name}:${subTopCategory.description.name}"/></option>
+										</c:when>
+										<c:otherwise>
+											<option value="<c:out value="${subTopCategory.categoryId}"/>"><c:out value="${topCategory.description.name}:${subTopCategory.description.name}"/></option>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</c:forEach>
+                         </select>
+                    </div>
+                    <br clear="all" />
+                    
+                    <div id="WC_CatalogSearchForm_div_17"><label for="WC_CatalogSearchForm_pageSize"><fmt:message key="RESULTS_PER_PAGE" bundle="${storeText}"/></label></div>
+                    <div class="column" id="WC_CatalogSearchForm_div_18">
+                    	<select name="pageSize" id="WC_CatalogSearchForm_pageSize" size="1" class="drop_down_adv_search">
+							<c:choose>
+								<c:when test="${!empty WCParam.pageSize && WCParam.pageSize=='12'}">
+									<option value="12" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="12">
+								</c:otherwise>
+							</c:choose>
+								12</option>
+							<c:choose>
+								<c:when test="${!empty WCParam.pageSize && WCParam.pageSize=='20'}">
+									<option value="20" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="20">
+								</c:otherwise>
+							</c:choose>
+								20</option>
+							<c:choose>
+								<c:when test="${!empty WCParam.pageSize && WCParam.pageSize=='40'}">
+									<option value="40" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="40">
+								</c:otherwise>
+							</c:choose>
+								40</option>
+							<c:choose>
+								<c:when test="${!empty WCParam.pageSize && WCParam.pageSize=='60'}">
+									<option value="60" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="60">
+								</c:otherwise>
+							</c:choose>
+								60</option>
+							<c:choose>
+								<c:when test="${!empty WCParam.pageSize && WCParam.pageSize=='80'}">
+									<option value="80" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="80">
+								</c:otherwise>
+							</c:choose>
+								80</option>
+							<c:choose>
+								<c:when test="${!empty WCParam.pageSize && WCParam.pageSize=='100'}">
+									<option value="100" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="100">
+								</c:otherwise>
+							</c:choose>
+								100</option>
+							<c:choose>
+								<c:when test="${!empty WCParam.pageSize && WCParam.pageSize=='200'}">
+									<option value="200" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="200">
+								</c:otherwise>
+							</c:choose>
+								200</option>
+							<c:choose>
+								<c:when test="${!empty WCParam.pageSize && WCParam.pageSize=='500'}">
+									<option value="500" selected="selected">
+								</c:when>
+								<c:otherwise>
+									<option value="500">
+								</c:otherwise>
+							</c:choose>
+								500</option>
+						</select>
+					</div>
+		    		<br clear="all" />
+				<div class="cancel_column" id="WC_CatalogSearchForm_div_19">
+					<span class="primary_button button_fit">
+						<span class="button_container">
+							<span class="button_bg">
+								<span class="button_top">
+									<span class="button_bottom">   
+										<a href="javascript:CatalogSearchDisplayJS.submitAdvancedSearch('AdvancedCatalogSearchForm')" waistate:controls="Search_Result_div" id="WC_CatalogSearchForm_link_1"><fmt:message key="SEARCH" bundle="${storeText}"/></a>
+									</span>
+								</span>	
+							</span>
+						</span>
+					</span>	
+				</div>
+				<div id="cancelSearchButton" style="display:none">
+					<span class="secondary_button button_fit">
+						<span class="button_container">
+							<span class="button_bg">
+								<span class="button_top">
+									<span class="button_bottom">   
+										<a href="javascript:CatalogSearchDisplayJS.showHideSearchMode(false)" id="WC_CatalogSearchForm_link_2"><fmt:message key="CANCEL" bundle="${storeText}"/></a>
+									</span>
+								</span>	
+							</span>
+						</span>
+					</span>	
+				</div>
+				
+				<br clear="all" />
+           </div>
+       </form>
+  </div>
+
+<script type="text/javascript">
+	dojo.addOnLoad(function() { 
+		advancedSearchDiv= dojo.byId("Advanced_Search_Form_div");
+		if(dojo.byId("Advanced_Search_Form_div")!=null && dojo.byId("Advanced_Search_Form_div")!='undefined'){
+			if(${WCParam.advanced=='true' && WCParam.sType!='SimpleSearch'}){
+				dojo.style(advancedSearchDiv,"display","block");
+				dojo.style(dojo.byId("Search_Advanced_Header"),"display","block");
+			}
+		}
+	});
+</script>
+<!-- END CatalogSearchForm.jspf-->

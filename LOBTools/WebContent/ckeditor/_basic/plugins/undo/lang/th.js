@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","th",{redo:"ทำซ้ำ",undo:"เลิกทำ"});

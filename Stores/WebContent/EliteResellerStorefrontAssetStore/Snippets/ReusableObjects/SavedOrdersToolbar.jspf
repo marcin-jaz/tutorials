@@ -1,0 +1,79 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+
+
+<div id="current_order_action" style="display:none;">
+	<ul>
+	<c:if test="${empty hideSavedOrderCreateButton || !hideSavedOrderCreateButton}">
+		<li id="WC_SavedOrdersToolbar_list_create">
+			<a id="WC_SavedOrdersToolbar_link_create" href="#"
+					onkeypress="if(event.keyCode==13) {javascript:setCurrentId('WC_ListOrdersDisplayTable_TableCell_2'); savedOrdersJS.createSavedOrder(); return false;}"
+					onclick="javascript:setCurrentId('WC_ListOrdersDisplayTable_TableCell_2'); savedOrdersJS.createSavedOrder(); return false;">
+				<img id="WC_SavedOrdersToolbar_img_create" src="<c:out value='${jspStoreImgDir}' />images/order_new.gif" alt="<fmt:message key="CREATE_BUTTON" bundle="${storeText}"/>" title="<fmt:message key="SAVED_ORDER_CREATE_BUTTON_TITLE" bundle="${storeText}"/>"/>
+			</a>
+			<label class="nodisplay" for="WC_SavedOrdersToolbar_link_create"><fmt:message key="SAVED_ORDER_CREATE_LABEL" bundle="${storeText}"/></label>
+		</li>
+	</c:if>
+	<flow:ifEnabled feature="RequisitionList">
+	<c:if test="${empty hideSavedOrderAddToReqListButton || !hideSavedOrderAddToReqListButton}">
+		<li id="WC_SavedOrdersToolbar_list_add">
+			<a id="WC_SavedOrdersToolbar_link_add" href="#" onkeypress="if(event.keyCode==13) {javascript: setCurrentId('WC_ListOrdersDisplayTable_TableCell_2'); savedOrdersJS.addToRequisitionList(); return false;}" 
+															onclick="javascript: setCurrentId('WC_ListOrdersDisplayTable_TableCell_2'); savedOrdersJS.addToRequisitionList(); return false;">
+				<img id="WC_SavedOrdersToolbar_img_add" src="<c:out value='${jspStoreImgDir}' />images/add_reqlist_disabled.gif" border="0" alt="<fmt:message key="ADD_BUTTON_DISABLED" bundle="${storeText}"/>" title="<fmt:message key="SAVED_ORDER_ADDTOREQLIST_BUTTON_TITLE" bundle="${storeText}"/>"/>
+			</a>
+			<label class="nodisplay" for="WC_SavedOrdersToolbar_list_add"><fmt:message key="SAVED_ORDER_REQLISTADD_LABEL" bundle="${storeText}"/></label>
+		</li>
+	</c:if>
+	</flow:ifEnabled>
+	<c:if test="${empty hideSavedOrderSaveButton || !hideSavedOrderSaveButton}">
+		<li id="WC_SavedOrdersToolbar_list_save">
+			<a id="WC_SavedOrdersToolbar_link_save" href="#"
+					onkeypress="if(event.keyCode==13){ javaScript:setCurrentId('WC_ListOrdersDisplayTable_TableCell_2'); savedOrdersJS.saveOrder(true); return false;}"
+					onclick="javaScript:setCurrentId('WC_ListOrdersDisplayTable_TableCell_2'); savedOrdersJS.saveOrder(true); return false;">
+				<img id="WC_SavedOrdersToolbar_img_save" src="<c:out value='${jspStoreImgDir}' />images/order_save_disabled.gif" border="0" alt="<fmt:message key="SAVE_BUTTON_DISABLED" bundle="${storeText}"/>" title="<fmt:message key="SAVED_ORDER_SAVE_BUTON_TITLE" bundle="${storeText}"/>"/>
+			</a>
+			<label class="nodisplay" for="WC_SavedOrdersToolbar_list_save"><fmt:message key="SAVED_ORDER_SAVE_LABEL" bundle="${storeText}"/></label>
+		</li>
+	</c:if>
+	<c:if test="${empty hideSavedOrderCopyButton || !hideSavedOrderCopyButton}">
+		<li id="WC_SavedOrdersToolbar_list_copy">
+			<a id="WC_SavedOrdersToolbar_link_copy" href="#"
+					onkeypress="if(event.keyCode==13){ javaScript:setCurrentId('WC_ListOrdersDisplayTable_TableCell_2'); savedOrdersJS.copyOrder(true); return false;}"
+					onclick="javaScript:setCurrentId('WC_ListOrdersDisplayTable_TableCell_2'); savedOrdersJS.copyOrder(true); return false;">
+				<img id="WC_SavedOrdersToolbar_img_copy" src="<c:out value='${jspStoreImgDir}' />images/order_copy_disabled.gif" border="0" alt="<fmt:message key="COPY_BUTTON_DISABLED" bundle="${storeText}"/>" title="<fmt:message key="SAVED_ORDER_COPY_BUTTON_TITLE" bundle="${storeText}"/>"/>
+			</a>
+			<label class="nodisplay" for="WC_SavedOrdersToolbar_list_copy"><fmt:message key="SAVED_ORDER_COPY_LABEL" bundle="${storeText}"/></label>
+		</li>
+	</c:if>
+	<c:if test="${empty hideSavedOrderCancelButton || !hideSavedOrderCancelButton}">
+		<li id="WC_SavedOrdersToolbar_list_cancel">
+			<a id="WC_SavedOrdersToolbar_link_cancel" href="#"
+					onkeypress="if(event.keyCode==13){ javaScript:setCurrentId('WC_ListOrdersDisplayTable_TableCell_2'); savedOrdersJS.cancelSavedOrder(true); return false;}"
+					onclick="javaScript:setCurrentId('WC_ListOrdersDisplayTable_TableCell_2'); savedOrdersJS.cancelSavedOrder(true); return false;">
+				<img id="WC_SavedOrdersToolbar_img_cancel" src="<c:out value='${jspStoreImgDir}' />images/order_clear_disabled.gif" border="0" alt="<fmt:message key="CANCEL_BUTTON_DISABLED" bundle="${storeText}"/>" title="<fmt:message key="SAVED_ORDER_CANCEL_BUTTON_TITLE" bundle="${storeText}"/>"/>
+			</a>
+			<label class="nodisplay" for="WC_SavedOrdersToolbar_list_cancel"><fmt:message key="SAVED_ORDER_CANCEL_LABEL" bundle="${storeText}"/></label>
+		</li>
+	</c:if>
+	</ul>
+</div>
+<script type="text/javascript">
+window.onload=(function(){
+var current_order_action_div = document.getElementById('current_order_action');
+if(current_order_action_div){current_order_action_div.style.display='';}
+});
+</script>
+
+							

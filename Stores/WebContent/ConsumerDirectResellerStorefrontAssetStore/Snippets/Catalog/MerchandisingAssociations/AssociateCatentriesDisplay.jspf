@@ -1,0 +1,481 @@
+<%
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2001, 2002, 2004
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//* The sample contained herein is provided to you "AS IS".
+//*
+//* It is furnished by IBM as a simple example and has not been  
+//* thoroughly tested
+//* under all conditions.  IBM, therefore, cannot guarantee its 
+//* reliability, serviceability or functionality.  
+//*
+//* This sample may include the names of individuals, companies, brands 
+//* and products in order to illustrate concepts as completely as 
+//* possible.  All of these names
+//* are fictitious and any similarity to the names and addresses used by 
+//* actual persons 
+//* or business enterprises is entirely coincidental.
+//*---------------------------------------------------------------------
+//*
+%>
+ 
+<%-- 
+  *****
+  * The page is included by MerchandisingAssociationsDisplay.jsp to display catentries for different association types (Cross Sell, Up Sell, Accessory and Replacment).
+  * To allow better reuse, this page is created because the logic to display catentries is the same for different association types.
+  *****
+--%>
+
+<!-- Start - JSP File Name:  AssociateCatentriesDisplay.jspf -->
+
+<c:set var="maxInRow" value="3"/>
+<c:set var="counter" value="0"/>
+
+<tr>
+	<%--
+	***
+	* Start: Display Product
+	* Note: Unlike other associations (e.g.x-sell), there are only methods to get replacement of the same type.  
+	* For example, ProductDataBean only has get method to getProductReplacements() and there is no ProductDataBean.getItemReplacements() method.
+	* As a result, every time before displaying the catentry, there is a <c:if> to check the catentry type and the association type.
+	* The display logic will not be executed if the association type is 'replacement, except the catentry type is the same as the type being displayed
+	* The associationType is passed by the MerchandisingAssociationsDisplay.jsp.
+	***	
+	--%>
+	<c:if test="${catentryType eq 'ProductBean' || associationType ne 'replacement'}">	
+		<c:forEach var="associateProduct" items="${catalog_associateProducts}" varStatus="status">
+		
+			<td valign="top" id="Catalog_MerchandisingAssociationsDisplay_TableCell_1_Product_<c:out value="${associateProduct.associationType}_${status.count}"/>">
+				<span class="productName">
+					<c:url var="ProductDisplayURL" value="ProductDisplay">
+					  <c:param name="langId" value="${WCParam.langId}" />
+					  <c:param name="storeId" value="${WCParam.storeId}" />
+					  <c:param name="catalogId" value="${WCParam.catalogId}" />
+					  <c:param name="productId" value="${associateProduct.product.productID}" />
+					</c:url>
+					<a href="<c:out value="${ProductDisplayURL}"/>" id="Catalog_MerchandisingAssociationsDisplay_Link_1_Product_<c:out value="${associateProduct.associationType}_${status.count}"/>">
+						<!--
+						<img src="<c:out value="${associateProduct.product.objectPath}${associateProduct.product.description.thumbNail}"/>" alt="<c:out value="${associateProduct.product.description.name}"/>" border="0"/><br/>
+						-->
+						<c:choose>
+							<c:when test="${!empty associateProduct.product.description.thumbNail}">
+								<img src="<c:out value="${associateProduct.product.objectPath}${associateProduct.product.description.thumbNail}"/>" alt="<c:out value="${associateProduct.product.description.name}"/>" border="0"/><br/>
+							</c:when>
+							<c:otherwise>
+								<img src="<c:out value="${jspStoreImgDir}"/>images/NoImageIcon_sm.jpg" alt="<fmt:message key="No_Image" bundle="${storeText}"/>" hspace="5" border="0"/><br/>
+							</c:otherwise>
+						</c:choose>
+						<c:out value="${associateProduct.product.description.name}" escapeXml="false"/><br/>
+					</a>
+				</span>
+				<br/>
+				<%-- 
+				  ***
+				  *	Start: Product Price
+				  * The 1st choose block below determines the way to show the product contract price: a) no price available, b) the minimum price, c) the price range.
+				  * The 2nd choose block determines whether to show the list price.
+				  * List price is only displayed if it is greater than the product price and if the product does not have price range (i.e. min price == max price) 
+				  ***
+				--%>
+		                <c:set var="type" value="product"/>
+				<c:set var="catalogEntry" value="${associateProduct.product}"/>
+				<%@ include file="../../../Snippets/ReusableObjects/CatalogEntryPriceDisplay.jspf"%>
+				<br/><br/>
+				<%-- 
+				  ***
+				  *	End: Product Price
+				  ***
+				--%>
+				
+				<%-- 
+				  ***
+				  *	Start: Product discount
+				  ***
+				--%>		
+				<%-- 
+				    ***
+				    * Remove the existing productDiscounts, otherwise wcbase:useBean or jsp:useBean won't instantiate
+				    * the productDiscounts.	
+				    ***
+				--%>		
+				<c:remove var="catalog_productDiscounts"/>
+				<wcbase:useBean id="catalog_productDiscounts" classname="com.ibm.commerce.fulfillment.beans.CalculationCodeListDataBean">
+					<c:set property="catalogEntryId" value="${catalog_associateProduct.product.productID}" target="${catalog_productDiscounts}" />
+					<c:set property="isProdPromoOnly" value="false" target="${catalog_productDiscounts}"/>
+					<c:set property="includeChildItems" value="true" target="${catalog_productDiscounts}"/>
+					<c:set property="includeParentProduct" value="true" target="${catalog_productDiscounts}"/>
+					<%-- UsageId for discount is -1 --%>
+					<c:set property="calculationUsageId" value="-1" target="${catalog_productDiscounts}" />
+				</wcbase:useBean>
+				
+				<c:if test="${!empty catalog_productDiscounts}">
+					<c:choose>
+						<c:when test="${pageView == 'detailed'}">					
+							<c:forEach var="discountEntry" items="${catalog_productDiscounts.calculationCodeDataBeans}" varStatus="discountCounter">
+								<br/>
+								<c:url var="DiscountDetailsDisplayViewURL" value="DiscountDetailsDisplayView">
+									<c:param name="code" value="${discountEntry.code}" />
+									<c:param name="langId" value="${langId}" />
+									<c:param name="storeId" value="${WCParam.storeId}" />
+									<c:param name="catalogId" value="${WCParam.catalogId}" />
+									<%-- This category ID will be used to retrieve the category information on DiscountDetailDisplay.jsp --%>
+									<c:param name="productId" value="${associateProduct.product.productID}"/>
+								</c:url>
+								<span class="discount">
+									<img src="<c:out value="${jspStoreImgDir}" />images/Discount_star.gif" alt="<c:out value="${discountEntry.descriptionString}" />"/>&nbsp;<a class="discount" href='<c:out value="${DiscountDetailsDisplayViewURL}" />' id="Catalog_CachedCategoriesDisplay_Link_ProductDiscount_1_<c:out value="${discountCounter.count}"/>"><c:out value="${discountEntry.descriptionString}" escapeXml="false" /></a>
+								</span>
+		              					<br/>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<span class="discount">
+								<img src="<c:out value="${jspStoreImgDir}" />images/Discount_star.gif" alt="<c:out value="${discountEntry.descriptionString}" />"/>&nbsp;<a class="discount" href='<c:out value="${DiscountDetailsDisplayViewURL}" />' id="Catalog_CachedCategoriesDisplay_Link_ProductDiscount_1_<c:out value="${discountCounter.count}"/>"><c:out value="${discountEntry.descriptionString}" escapeXml="false" /></a>
+							</span>
+		              				<a href="<c:out value="${ProductDisplayURL}"/>" id="Catalog_MerchandisingAssociationsDisplay_Link_1_Product_<c:out value="${associateProduct.associationType}_${status.count}"/>">
+								<fmt:message key="PRODUCT_DISCOUNT_DETAILS" bundle="${storeText}" />
+							</a>	
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				<%--
+				  ***
+				  *  End: Product Discount
+				  ***	
+				--%>
+				
+			</td>
+			<td valign="top" id="Catalog_MerchandisingAssociationsDisplay_TableCell_2_Product_<c:out value="${associateProduct.associationType}_${status.count}"/>">&nbsp;</td>
+			<%-- 
+				***
+				* Draw another row if number of items/products displayed on this row is greater than
+				* the number specified by MaxInRow 
+				***
+			--%>
+			<c:set var="counter" value="${counter + 1}"/>
+			<c:if test="${(counter) % maxInRow==0 }">
+				</tr>
+				<tr>
+			</c:if>
+		</c:forEach>
+	</c:if>
+	<%--
+	  ***
+	  * End: Display Product
+	  ***
+	 --%>
+
+	<%--
+	  ***
+	  * Start: Display Item
+	  ***
+	 --%>
+	<c:if test="${catentryType eq 'ItemBean' || associationType ne 'replacement'}">	
+		<c:forEach var="associateItem" items="${catalog_associateItems}" varStatus="status">
+			<td valign="top" id="Catalog_MerchandisingAssociationsDisplay_TableCell_1_Item_<c:out value="${associateItem.associationType}_${status.count}"/>">
+				<span class="productName">
+					<c:url var="ProductDisplayURL" value="ProductDisplay">
+						<c:param name="langId" value="${WCParam.langId}" />
+						<c:param name="storeId" value="${WCParam.storeId}" />
+						<c:param name="catalogId" value="${WCParam.catalogId}" />
+						<c:param name="productId" value="${associateItem.item.itemID}" />
+					</c:url>			
+					<a href="<c:out value="${ProductDisplayURL}"/>" id="Catalog_MerchandisingAssociationsDisplay_Link_1_Item_<c:out value="${associateItem.associationType}_${status.count}"/>">
+						<!--
+						<img src="<c:out value="${associateItem.item.objectPath}${associateItem.item.description.thumbNail}"/>" alt="<c:out value="${associateItem.item.description.name}"/>" border="0"/><br/>
+						-->
+						<c:choose>
+							<c:when test="${!empty associateItem.item.description.thumbNail}">
+								<img src="<c:out value="${associateItem.item.objectPath}${associateItem.item.description.thumbNail}"/>" alt="<c:out value="${associateItem.item.description.name}"/>" border="0"/><br/>
+							</c:when>
+							<c:otherwise>
+								<img src="<c:out value="${jspStoreImgDir}"/>images/NoImageIcon_sm.jpg" alt="<fmt:message key="No_Image" bundle="${storeText}"/>" hspace="5" border="0"/><br/>
+							</c:otherwise>
+						</c:choose>
+						<c:out value="${associateItem.item.description.name}" escapeXml="false"/><br/>
+					</a>
+				</span>
+
+				<%-- Display the item SKU number --%>
+				<strong><br/><fmt:message key="SKU" bundle="${storeText}" />:</strong>  <c:out value="${associateItem.item.partNumber}" escapeXml="false"/><br/>
+
+		
+				<%-- 
+				  ***
+				  *	Start: Item Price
+				  * Show the list price only if it is larger than the contract price
+				  ***
+				--%>		
+				<c:set var="type" value="item"/>
+				<c:set var="catalogEntry" value="${associateItem.item}"/>
+				<%@ include file="../../../Snippets/ReusableObjects/CatalogEntryPriceDisplay.jspf"%>
+				<br/><br/>
+				<%-- 
+				  ***
+				  *	End: Item Price
+				  ***
+				--%>	
+				<%-- 
+				  ***
+				  *	Start: Item discount
+				  ***
+				--%>		
+				<%-- 
+					***
+					* Remove the existing itemDiscounts, otherwise wcbase:useBean or jsp:useBean won't instantiate
+				    * the object.
+				    ***
+				--%>
+				<c:remove var="catalog_itemDiscounts"/>
+				<wcbase:useBean id="catalog_itemDiscounts" classname="com.ibm.commerce.fulfillment.beans.CalculationCodeListDataBean">
+					<c:set property="catalogEntryId" value="${associateItem.item.itemID}" target="${catalog_itemDiscounts}" />
+					<c:set property="isProdPromoOnly" value="false" target="${catalog_itemDiscounts}"/>
+					<c:set property="includeChildItems" value="false" target="${catalog_itemDiscounts}"/>
+					<c:set property="includeParentProduct" value="true" target="${catalog_itemDiscounts}"/>
+					<%-- UsageId for discount is -1 --%>
+					<c:set property="calculationUsageId" value="-1" target="${catalog_itemDiscounts}" />
+				</wcbase:useBean>
+				
+				<c:if test="${!empty catalog_itemDiscounts}">
+					<c:forEach var="discountEntry" items="${catalog_itemDiscounts.calculationCodeDataBeans}" varStatus="discountCounter">
+						<br/>
+						<c:url var="DiscountDetailsDisplayViewURL" value="DiscountDetailsDisplayView">
+		                   <c:param name="code" value="${discountEntry.code}" />
+		                   <c:param name="langId" value="${langId}" />
+		                   <c:param name="storeId" value="${WCParam.storeId}" />
+		                   <c:param name="catalogId" value="${WCParam.catalogId}" />
+		                   <%-- This category ID will be used to retrieve the category information on DiscountDetailDisplay.jsp --%>
+		                   <c:param name="productId" value="${associateItem.item.itemID}"/> 
+		            	</c:url>
+						<span class="discount">
+							<img src="<c:out value="${jspStoreImgDir}" />images/Discount_star.gif" alt="<c:out value="${discountEntry.descriptionString}" />"/>&nbsp;<a class="discount" href='<c:out value="${DiscountDetailsDisplayViewURL}" />' id="Catalog_CachedCategoriesDisplay_Link_ProductDiscount_1_<c:out value="${discountCounter.count}"/>"><c:out value="${discountEntry.descriptionString}" escapeXml="false" /></a>
+						</span>
+		              	<br/>
+					</c:forEach>
+				</c:if>			
+				<%--
+				  ***
+				  *  End: item Discount
+				  ***	
+				--%>
+				
+			</td>
+			<td valign="top" id="Catalog_MerchandisingAssociationsDisplay_TableCell_2_Item_<c:out value="${associateItem.associationType}_${status.count}" default="" />">&nbsp;</td>
+			<%-- 
+				***
+				* Draw another row if number of items/products displayed on this row is greater than
+				* the number specified by MaxInRow 
+				***
+			--%>
+			<c:set var="counter" value="${counter + 1}"/>
+			<c:if test="${(counter) % maxInRow==0 }">
+				</tr>
+				<tr>
+			</c:if>		
+		</c:forEach>
+	</c:if>
+	<%--
+	  ***
+	  * End: Display Item
+	  ***
+	 --%>
+
+	<%--
+	  ***
+	  * Start: Display Bundle
+	  ***		
+	 --%> 
+	<c:if test="${catentryType eq 'BundleBean' || associationType ne 'replacement'}">		
+		<c:forEach var="associateBundle" items="${catalog_associateBundles}" varStatus="status">
+			<td valign="top" id="Catalog_MerchandisingAssociationsDisplay_TableCell_1_Bundle_<c:out value="${associateBundle.associationType}_${status.count}"/>">
+				<span class="productName">
+					<c:url var="ProductDisplayURL" value="ProductDisplay">
+						<c:param name="langId" value="${WCParam.langId}" />
+						<c:param name="storeId" value="${WCParam.storeId}" />
+						<c:param name="catalogId" value="${WCParam.catalogId}" />
+						<c:param name="productId" value="${associateBundle.bundle.bundleID}" />
+					</c:url>				
+					<a href="<c:out value="${ProductDisplayURL}"/>" id="Catalog_MerchandisingAssociationsDisplay_Link_1_Bundle_<c:out value="${associateBundle.associationType}_${status.count}"/>">
+						<!--
+						<img src="<c:out value="${associateBundle.bundle.objectPath}${associateBundle.bundle.description.thumbNail}"/>" alt="<c:out value="${associateBundle.bundle.description.name}"/>" border="0"/><br/>
+						-->
+						<c:choose>
+							<c:when test="${!empty associateBundle.bundle.description.thumbNail}">
+								<img src="<c:out value="${associateBundle.bundle.objectPath}${associateBundle.bundle.description.thumbNail}"/>" alt="<c:out value="${associateBundle.bundle.description.name}"/>" border="0"/><br/>
+							</c:when>
+							<c:otherwise>
+								<img src="<c:out value="${jspStoreImgDir}"/>images/NoImageIcon_sm.jpg" alt="<fmt:message key="No_Image" bundle="${storeText}"/>" hspace="5" border="0"/><br/>
+							</c:otherwise>
+						</c:choose>
+						<c:out value="${associateBundle.bundle.description.name}" escapeXml="false"/><br/>
+					</a>
+				</span><br/>
+				
+				<%-- 
+				  ***
+				  *	Start: Bundle Price
+				  * The 1st choose block below determines the way to show the bundle contract price: a) no price available, b) the minimum price, c) the price range.
+				  * The 2nd choose block determines whether to show the list price.
+				  * List price is only displayed if it is greater than the bundle price and if the bundle does not have price range (i.e. min price == max price) 
+				  ***
+				--%>
+				<c:set var="type" value="bundle"/>
+				<c:set var="catalogEntry" value="${associateBundle.bundle}"/>
+				<%@ include file="../../../Snippets/ReusableObjects/CatalogEntryPriceDisplay.jspf"%>
+				<br/><br/>
+				<%-- 
+				  ***
+				  *	End: Bundle Price
+				  ***
+				--%>		
+			</td>
+			<td valign="top" id="Catalog_MerchandisingAssociationsDisplay_TableCell_2_Bundle_<c:out value="${associateBundle.associationType}_${status.count}"/>">&nbsp;</td>
+			<%-- 
+				***
+				* Draw another row if number of items/products displayed on this row is greater than
+				* the number specified by MaxInRow 
+				***
+			--%>
+			<c:set var="counter" value="${counter + 1}"/>
+			<c:if test="${(counter) % maxInRow==0 }">
+				</tr>
+				<tr>
+			</c:if>
+		</c:forEach>	
+	</c:if>
+	<%--
+	  ***
+	  * End: Display Bundle
+	  ***
+	 --%>
+	<%--
+	  ***
+	  * Start: Display Package
+	  ***
+	 --%>
+	<c:if test="${catentryType eq 'PackageBean' || associationType ne 'replacement'}">	
+		<c:forEach var="associatePackage" items="${catalog_associatePackages}" varStatus="status">
+			<td valign="top" id="Catalog_MerchandisingAssociationsDisplay_TableCell_1_Package_<c:out value="${associatePackage.associationType}_${status.count}"/>">
+				<span class="productName">
+					<c:url var="ProductDisplayURL" value="ProductDisplay">
+						<c:param name="langId" value="${WCParam.langId}" />
+						<c:param name="storeId" value="${WCParam.storeId}" />
+						<c:param name="catalogId" value="${WCParam.catalogId}" />
+						<c:param name="productId" value="${associatePackage.package.packageID}" />
+					</c:url>				
+					<a href="<c:out value="${ProductDisplayURL}"/>" id="Catalog_MerchandisingAssociationsDisplay_Link_1_Package_<c:out value="${associatePackage.associationType}_${status.count}"/>">
+					<!--
+					<img src="<c:out value="${associatePackage.package.objectPath}${associatePackage.package.description.thumbNail}"/>" alt="<c:out value="${associatePackage.package.description.name}"/>" border="0"/><br/>
+					-->
+					<c:choose>
+						<c:when test="${!empty associatePackage.package.description.thumbNail}">
+							<img src="<c:out value="${associatePackage.package.objectPath}${associatePackage.package.description.thumbNail}"/>" alt="<c:out value="${associatePackage.package.description.name}"/>" border="0"/><br/>
+						</c:when>
+						<c:otherwise>
+							<img src="<c:out value="${jspStoreImgDir}"/>images/NoImageIcon_sm.jpg" alt="<fmt:message key="No_Image" bundle="${storeText}"/>" hspace="5" border="0"/><br/>
+						</c:otherwise>
+					</c:choose>
+					<c:out value="${associatePackage.package.description.name}" escapeXml="false"/><br/>
+					</a>
+					</span>
+					<%-- Display the package/kit SKU number --%>
+					<strong><br/><fmt:message key="SKU" bundle="${storeText}" />:</strong>  <c:out value="${associatePackage.package.partNumber}"/><br/>
+				<%-- 
+				  ***
+				  *	Start: Package Price
+				  * Show the list price only if it is larger than the contract price
+				  ***
+				--%>				
+				<c:set var="type" value="package"/>
+				<c:set var="catalogEntry" value="${associatePackage.package}"/>
+				<%@ include file="../../../Snippets/ReusableObjects/CatalogEntryPriceDisplay.jspf"%>
+				<br/><br/>
+				<%-- 
+				  ***
+				  *	End: Package Price
+				  ***
+				--%>
+				<%-- 
+				  ***
+				  *	Start: Package discount
+				  ***
+				--%>		
+				<%-- 
+					***
+					* Remove the existing packageDiscounts, otherwise wcbase:useBean or jsp:useBean won't instantiate
+				    * the object.
+				    ***
+				--%>
+				<c:remove var="catalog_packageDiscounts"/>
+				<wcbase:useBean id="catalog_packageDiscounts" classname="com.ibm.commerce.fulfillment.beans.CalculationCodeListDataBean">
+					<c:set property="catalogEntryId" value="${associatePackage.package.packageID}" target="${catalog_packageDiscounts}" />
+					<c:set property="isProdPromoOnly" value="false" target="${catalog_packageDiscounts}"/>
+					<c:set property="includeChildItems" value="false" target="${catalog_packageDiscounts}"/>
+					<c:set property="includeParentProduct" value="true" target="${catalog_packageDiscounts}"/>
+					<%-- UsageId for discount is -1 --%>
+					<c:set property="calculationUsageId" value="-1" target="${catalog_packageDiscounts}" />
+				</wcbase:useBean>
+				
+				<c:if test="${!empty catalog_packageDiscounts}">
+					<c:forEach var="discountEntry" items="${catalog_packageDiscounts.calculationCodeDataBeans}" varStatus="discountCounter">
+						<br/>
+						<c:url var="DiscountDetailsDisplayViewURL" value="DiscountDetailsDisplayView">
+		                   <c:param name="code" value="${discountEntry.code}" />
+		                   <c:param name="langId" value="${langId}" />
+		                   <c:param name="storeId" value="${WCParam.storeId}" />
+		                   <c:param name="catalogId" value="${WCParam.catalogId}" />
+		                   <%-- This category ID will be used to retrieve the category information on DiscountDetailDisplay.jsp --%>
+		                   <c:param name="productId" value="${associatePackage.package.packageID}"/> 
+		            	</c:url>
+						<span class="discount">
+							<img src="<c:out value="${jspStoreImgDir}" />images/Discount_star.gif" alt="<c:out value="${discountEntry.descriptionString}" />"/>&nbsp;<a class="discount" href=<c:out value="${DiscountDetailsDisplayViewURL}" />>' id="Catalog_CachedCategoriesDisplay_Link_ProductDiscount_1_<c:out value="${discountCounter.count}"/>"><c:out value="${discountEntry.descriptionString}" escapeXml="false" /></a>
+						</span>
+		              	<br/>
+		
+					</c:forEach>
+				</c:if>		
+				
+				<%--
+				  ***
+				  *  End: Package Discount
+				  ***	
+				--%>				
+			</td>
+			<td valign="top" id="Catalog_MerchandisingAssociationsDisplay_TableCell_2_Package_<c:out value="${associatePackage.associationType}_${status.count}" default=""/>">&nbsp;</td>
+	
+			<%-- 
+				***
+				* Draw another row if number of items/products displayed on this row is greater than
+				* the number specified by MaxInRow 
+				***
+			--%>
+			<c:set var="counter" value="${counter + 1}"/>
+			<c:if test="${(counter) % maxInRow==0 }">
+				</tr>
+				<tr>
+			</c:if>
+		</c:forEach>
+	</c:if>
+</tr>
+<tr>
+	<td valign="top" width="20" id="Catalog_AsscoiateCatentriesDisplay_1">
+		<br><br>
+	</td>
+</tr>
+
+<%--
+  ***
+  * End: Display Package
+  ***
+ --%>
+<!-- End - JSP File Name:  AssociateCatentriesDisplay.jspf -->

@@ -1,0 +1,521 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%-- 
+  *****
+  *	This JSPF page shows the single and multiple shippment details: Ordered product, quantity, unit price, total price, discount , shipping date and shipping instructions.
+  *****
+--%>
+<wcf:getData type="com.ibm.commerce.order.facade.datatypes.OrderType" var="order" expressionBuilder="findByOrderId" scope="request">
+	<wcf:param name="accessProfile" value="IBM_Details" />
+	<wcf:param name="orderId" value="${WCParam.orderId}" />
+</wcf:getData>
+
+<tr>
+	<td colspan="3" style="border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9; font-size: 11px;">&nbsp;</td>
+</tr>
+<tr>
+	<td colspan="3" bgcolor="#e9eaea" width="594" valign="top" style="border-top: 1px solid #c9c9c9; border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9;font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold; font-size: 4px;">&nbsp;</td>
+</tr>
+<tr>
+	<td colspan="3" bgcolor="#e9eaea" width="594" valign="top" style="border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold;"><div style="margin-left: 12px;"><fmt:message key="MO_ORDERDETAILS" bundle="${storeText}"/></div></td>
+</tr>
+<tr>
+	<td colspan="3" bgcolor="#e9eaea" width="594" valign="top" style="border-bottom: 1px solid #c9c9c9; border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9;font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold; font-size: 4px;">&nbsp;</td>
+</tr>
+<tr>
+	<td colspan="3" style="border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9; font-size: 11px;">&nbsp;</td>
+</tr>
+<tr>
+	<td width="12" style="border-left: 1px solid #c9c9c9;"></td>
+	<td width="570" valign="top" style="font-family: Verdana, Arial; font-size: 11px; color: #404040;">			
+		<b><strong><fmt:message key="MO_ORDER_NUMBER" bundle="${storeText}"/></strong></b><c:out value="${order.orderIdentifier.uniqueID}"/><br />
+		<b><strong><fmt:message key="MO_ORDER_DATE" bundle="${storeText}"/></strong></b>
+		<c:catch>
+			<fmt:parseDate var="expectedDate" value="${order.placedDate}" pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" timeZone="GMT"/>
+		</c:catch>
+		<c:if test="${empty expectedDate}">
+			<c:catch>
+				<fmt:parseDate var="expectedDate" value="${order.placedDate}" pattern="yyyy-MM-dd'T'HH:mm:ss'Z'" timeZone="GMT"/>
+			</c:catch>
+		</c:if>
+		<fmt:formatDate value="${expectedDate}" dateStyle="long"/>
+	</td>
+	<td width="12" style="border-right: 1px solid #c9c9c9;"></td>
+</tr>
+<tr>
+	<td colspan="3" style="border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9; font-size: 11px;">&nbsp;</td>
+</tr>	
+<tr>
+	<td colspan="3" bgcolor="#e9eaea" width="594" valign="top" style="border-top: 1px solid #c9c9c9; border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9;font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold; font-size: 4px;">&nbsp;</td>
+</tr>
+<tr>
+	<td colspan="3" bgcolor="#e9eaea" width="594" valign="top" style="border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold;"><div style="margin-left: 12px;"><fmt:message key="MO_SHIPPINGINFO" bundle="${storeText}"/></div></td>
+</tr>
+<tr>
+	<td colspan="3" bgcolor="#e9eaea" width="594" valign="top" style="border-bottom: 1px solid #c9c9c9; border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9;font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold; font-size: 4px;">&nbsp;</td>
+</tr>
+<tr>
+	<td colspan="3" style="border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9; font-size: 11px;">&nbsp;</td>
+</tr>
+<jsp:useBean id="blockMap" class="java.util.HashMap" scope="request"/>
+<c:forEach var="orderItem1" items="${order.orderItem}" varStatus="status">
+	<c:set var = "itemId" value="${orderItem1.orderItemIdentifier.uniqueID}"/>
+	<c:set var ="addressId" value = "${orderItem1.orderItemShippingInfo.shippingAddress.contactInfoIdentifier.uniqueID}"/>
+	<c:set var ="shipModeId" value= "${orderItem1.orderItemShippingInfo.shippingMode.shippingModeIdentifier.uniqueID}"/>
+	<c:set var = "keyVar" value="${addressId}_${shipModeId}"/>
+	<c:set var = "itemIds" value="${blockMap[keyVar]}"/>
+	<c:choose>
+		<c:when test="${empty itemIds}">
+			<c:set target="${blockMap}" property="${keyVar}" value="${itemId}"/>
+		</c:when>	
+		<c:otherwise>
+			<c:set target="${blockMap}" property="${keyVar}" value="${itemIds},${itemId}"/>
+		</c:otherwise>	
+	</c:choose>	
+</c:forEach>
+<c:choose>
+	<c:when test = "${fn:length(blockMap) == 1}">
+		<tr>
+			<td width="12" style="border-left: 1px solid #c9c9c9;"></td>
+			<td width="570" valign="top" style="font-family: Verdana, Arial; font-size: 11px; color: #404040;">	
+					<table border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="190" style="font-family: Verdana, Arial; font-size: 11px; color: #404040; float:left" valign="top">
+									<b><fmt:message key="MO_SHIPPINGADDRESS" bundle="${storeText}"/></b><br /><br />
+									<c:set var="contact" value="${order.orderItem[0].orderItemShippingInfo.shippingAddress}" />
+									<c:if test="${!empty contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName}">
+											<c:choose>
+												<c:when test="${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName eq  profileShippingNickname}">
+													<fmt:message key="QC_DEFAULT_SHIPPING" bundle="${storeText}"/>
+												</c:when>
+												<c:when test="${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName eq  profileBillingNickname}">
+													<fmt:message key="QC_DEFAULT_BILLING" bundle="${storeText}"/>
+												</c:when>
+												<c:otherwise>
+													${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName}
+												</c:otherwise>
+											</c:choose>
+									</c:if>
+									<%@ include file="../Snippets/ReusableObjects/AddressDisplay.jspf" %>		
+								</td>
+								<td width="380" style="font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top">
+									<p>
+										<b><fmt:message key="MO_SHIPPINGMETHOD" bundle="${storeText}"/></b>
+										<c:out value="${order.orderItem[0].orderItemShippingInfo.shippingMode.description.value}"/>
+									</p>
+									</br>
+									<c:set var="shipInstructions" value="${order.orderItem[0].orderItemShippingInfo.shippingInstruction}"/>	
+									<flow:ifEnabled feature="ShippingInstructions">
+										<c:if test="${!empty shipInstructions}">
+											<p>
+												<b><fmt:message key="SHIP_SHIPPING_INSTRUCTIONS" bundle="${storeText}" />:</b> 						<c:out value = "${shipInstructions}"/>
+											</p>
+											<br />
+										</c:if>
+									</flow:ifEnabled>					
+									<%-- get requested shipping date --%>
+									<c:set var="requestedShipDate" value="${order.orderItem[0].orderItemShippingInfo.requestedShipDate}"/>
+									<c:if test='${!empty requestedShipDate}'>
+										<c:catch>
+											<fmt:parseDate var="expectedShipDate" value="${requestedShipDate}" pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" timeZone="GMT"/>
+										</c:catch>
+										<c:if test="${empty expectedShipDate}">
+											<c:catch>
+												<fmt:parseDate var="expectedShipDate" value="${requestedShipDate}" pattern="yyyy-MM-dd'T'HH:mm:ss'Z'" timeZone="GMT"/>
+											</c:catch>
+										</c:if>
+										<fmt:formatDate value="${expectedShipDate}" type="date" dateStyle="long" var="formattedDate" timeZone="${fn:replace(cookie.WC_timeoffset.value, '%2B', '+')}"/>
+									</c:if>
+									<flow:ifEnabled feature="FutureOrders">
+										<c:if test="${!empty formattedDate}">
+											<p>
+												<b><fmt:message key="SHIP_REQUESTED_DATE" bundle="${storeText}" />:</b>
+												<c:out value="${formattedDate}"/>
+											</p>
+											<br />
+										</c:if>
+									</flow:ifEnabled>
+									<p>
+										<b><fmt:message key="SHIP_SHIP_AS_COMPLETE" bundle="${storeText}"/>:</b>
+										<c:if test='${order.shipAsComplete}'>
+											<fmt:message key="YES" bundle="${storeText}"/>
+										</c:if>
+										<c:if test='${!order.shipAsComplete}'>
+											<fmt:message key="NO" bundle="${storeText}"/>
+										</c:if>
+									</p>
+								</td>
+							</tr>
+					</table>
+				</td>
+			<td width="12" style="border-right: 1px solid #c9c9c9;"></td>
+		</tr>
+		<tr>
+			<td colspan="3" style="border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9; font-size: 11px;">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="12" style="border-left: 1px solid #c9c9c9;"></td>
+			<td width="570" valign="top" >
+				<table width="570" border="0" cellpadding="0" cellspacing="0" style="padding-top: 3px;">
+					<tr>
+						<td width="360" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold;">
+							<fmt:message key="PRODUCT" bundle="${storeText}"/>
+						</td>
+						<td width="60" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold; text-align: center;">
+							<fmt:message key="QTY" bundle="${storeText}"/>
+						</td>
+						<td width="70" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold; text-align: right;">
+							<fmt:message key="EACH" bundle="${storeText}"/>
+						</td>
+						<td width="80" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold; text-align: right;">
+							<fmt:message key="TOTAL" bundle="${storeText}"/>
+						</td>
+					</tr><br />	
+					<c:forEach var="orderItem" items="${order.orderItem}" varStatus="status">
+						<tr>
+							<wcbase:useBean id="catEntry" classname="com.ibm.commerce.catalog.beans.CatalogEntryDataBean" scope="request">
+									<c:set property="catalogEntryID" value="${orderItem.catalogEntryIdentifier.uniqueID}" target="${catEntry}" />
+							</wcbase:useBean>
+							<fmt:formatNumber	var="quickCartOrderItemQuantity" value="${orderItem.quantity.value}" type="number" maxFractionDigits="0"/>
+							<td width="360" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040;">${catEntry.description.name}</td>
+							<td width="60" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: center;"><c:out value="${quickCartOrderItemQuantity}"/></td>
+							<td width="70" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:formatNumber value="${orderItem.orderItemAmount.unitPrice.price.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+							<td width="80" style="padding: 1px 0; border-top: 1px solid #c9c9c9;font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;">
+								<c:choose>
+									<c:when test="${orderItem.orderItemAmount.freeGift}">
+										<%-- the OrderItem is a freebie --%>
+										<span>
+											<fmt:message key="Free" bundle="${storeText}"/>
+										</span>
+									</c:when>
+									<c:otherwise>
+										<span>
+											<fmt:formatNumber var="totalFormattedProductPrice" value="${orderItem.orderItemAmount.orderItemPrice.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/>
+											<c:out value="${totalFormattedProductPrice}" escapeXml="false" />
+										</span>
+									</c:otherwise>
+								</c:choose>
+							</td><br />
+							<tr><br />
+								<%-- row to display product level discount --%>
+								<c:if test="${!empty orderItem.orderItemAmount.adjustment}">
+									<jsp:useBean id="aggregatedDiscounts" class="java.util.HashMap" scope="page" />
+									<jsp:useBean id="discountReferences" class="java.util.HashMap" scope="page" />
+									<%-- Loop through the discounts, summing discounts with the same code --%>
+									<c:forEach var="discounts" items="${orderItem.orderItemAmount.adjustment}">			
+										<%-- only show the adjustment detail if display level is OrderItem, if display level is order, display it at the order summary section --%>
+										<c:if test="${discounts.displayLevel == 'OrderItem'}">
+											<c:set property="${discounts.code}" value="${discounts}" target="${discountReferences}"/> 
+											<c:if test="${empty aggregatedDiscounts[discounts.code]}">
+												<c:set property="${discounts.code}" value="0" target="${aggregatedDiscounts}"/>	
+											</c:if>				
+											<c:set property="${discounts.code}" value="${aggregatedDiscounts[discounts.code]+discounts.amount.value}" target="${aggregatedDiscounts}"/>
+										</c:if>
+									</c:forEach>	
+																	
+									<c:forEach var="discountsIterator" items="${discountReferences}" varStatus="status2">	
+										<tr>
+											<td width="570" colspan="4" style="font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top"><img alt="" src="<c:out value="${jspStoreImgDir}images/dotted_border.gif"/>" width="570" height="1" /></td>
+										</tr>
+										<c:set var="discounts" value="${discountsIterator.value}" />
+										<%-- only show the adjustment detail if display level is OrderItem, if display level is order, display it at the order summary section --%>
+										<c:if test="${discounts.displayLevel == 'OrderItem'}">
+											<th abbr="<fmt:message key="Checkout_ACCE_prod_discount" bundle="${storeText}"/> ${catEntry.description.name}" id="OrderReceivedNotify${status.count}_${status2.count}">
+												<div id="OrderReceivedNotify_1_${status.count}_${status2.count}">
+													<c:url var="DiscountDetailsDisplayViewURL" value="DiscountDetailsDisplayView">
+														<c:param name="code" value="${discounts.code}" />
+														<c:param name="langId" value="${langId}" />
+														<c:param name="storeId" value="${WCParam.storeId}" />
+														<c:param name="catalogId" value="${WCParam.catalogId}" />
+													</c:url>	
+													<tr>
+														<td colspan="3" width="490" style="padding: 1px 0 1px 1px; font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top"><c:out 	value="${discounts.description.value}" escapeXml="false"/></td>
+														<td width="90" style="padding: 1px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;" valign="top"><fmt:formatNumber	var="formattedDiscountValue"	value="${aggregatedDiscounts[discounts.code]}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/>
+														<c:out value="${formattedDiscountValue}" escapeXml="false" /></td>
+													</tr>	
+												</div>
+											</th>
+										</c:if>
+									</c:forEach>
+									<c:remove var="aggregatedDiscounts"/>
+									<c:remove var="discountReferences"/>			
+								</c:if>
+							</tr><br />
+						</tr>
+					<c:remove var="catEntry"/>
+					</c:forEach>
+					<c:set var="totalProductDiscount" value="0"/>
+					<c:set var="hasProductDiscount" value="false"/>
+					<tr>
+						<td colspan="3" width="490" style="padding: 6px 0 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right; border-top: 1px solid #c9c9c9;"><fmt:message key="ORD_ORDER_SUBTOTAL" bundle="${storeText}"/>:</td>
+						<td width="80" style="padding: 6px 0 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right; border-top: 1px solid #c9c9c9;"><fmt:formatNumber value="${order.orderAmount.totalProductPrice.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+					</tr>					
+					<tr>
+						<c:forEach var="orderItemAdjustment" items="${order.orderAmount.adjustment}">
+							<c:if test="${!hasProductDiscount}">
+								<c:if test="${orderItemAdjustment.displayLevel.name == 'OrderItem'}">
+									<c:set var="hasProductDiscount" value="true"/>
+									<td colspan="3" width="490" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:message key="PRODUCT_DISCOUNT_TOTAL" bundle="${storeText}"/>:</td>
+								</c:if>
+							</c:if>
+						</c:forEach>
+						<c:forEach var="orderItemAdjustment" items="${order.orderAmount.adjustment}">
+							<c:if test="${hasProductDiscount}">
+								<c:if test="${orderItemAdjustment.displayLevel.name == 'OrderItem'}">
+									<c:set var="totalProductDiscount" value="${totalProductDiscount + orderItemAdjustment.amount.value}"/>
+								</c:if>
+							</c:if>
+						</c:forEach>
+						<c:if test="${hasProductDiscount}">
+							<td width="80" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:formatNumber value="${totalProductDiscount}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+						</c:if>
+					</tr>	
+					<tr>
+						<td colspan="3" width="490" style="padding: 6px 0 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:message key="ORD_DISCOUNT_TOTAL_ADJUSTMENTS" bundle="${storeText}"/>:</td>
+						<td width="80" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:formatNumber value="${order.orderAmount.totalAdjustment.value - totalProductDiscount}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+					</tr>
+					<tr>
+						<td colspan="3" width="490" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:message key="TAX" bundle="${storeText}"/>:</td>
+						<td width="80" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:formatNumber value="${order.orderAmount.totalSalesTax.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+					</tr>					
+					<tr>
+						<td colspan="3" width="490" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:message key="ORD_SHIPPING" bundle="${storeText}"/>:</td>
+						<td width="80" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:formatNumber value="${order.orderAmount.totalShippingCharge.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+					</tr>					
+					<tr>
+						<td colspan="3" width="490" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:message key="ORD_SHIPPING_TAX" bundle="${storeText}"/>:</td>
+						<td width="80" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:formatNumber value="${order.orderAmount.totalShippingTax.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+					</tr>
+					<tr>
+						<td colspan="3" width="490" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right; font-weight: bold;"><fmt:message key="ORD_ORDER_TOTAL" bundle="${storeText}"/>:</td>
+						<td width="80" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:formatNumber value="${order.orderAmount.grandTotal.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+					</tr>
+	</c:when>
+	<c:otherwise>
+		<tr>
+			<td width="12" style="border-left: 1px solid #c9c9c9;"></td>
+			<td width="190" style="font-family: Verdana, Arial; font-size: 11px; color: #404040; float:left" valign="top">
+				<p><b><fmt:message key="SHIP_SHIP_AS_COMPLETE" bundle="${storeText}"/>:</b>
+					<c:if test='${order.shipAsComplete}'>
+						<fmt:message key="YES" bundle="${storeText}"/>
+					</c:if>
+					<c:if test='${!order.shipAsComplete}'>
+						<fmt:message key="NO" bundle="${storeText}"/>
+					</c:if>
+				</p>
+			</td>
+			<td width="12" style="border-right: 1px solid #c9c9c9;"></td>
+		</tr>
+		<tr>
+			<td width="12" style="border-left: 1px solid #c9c9c9;"></td>
+			<td width="570" valign="top" >
+				<table width="570" border="0" cellpadding="0" cellspacing="0" style="padding-top: 3px;">
+					<tr>
+						<td width="200" style="padding: 1px 0 1px 1px; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold;"><fmt:message key="PRODUCT" bundle="${storeText}"/></td>
+						<td width="180" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold;"><fmt:message key="SHIP_SHIPPING_ADDRESS_CAPS" bundle="${storeText}"/></td>
+						<td width="180" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold;"><fmt:message key="SHIP_SHIPPING_METHOD_CAPS" bundle="${storeText}"/></td>
+						<td width="60" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold; text-align: center;"><fmt:message key="QTY" bundle="${storeText}"/></td>
+						<td width="50" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold; text-align: right;"><fmt:message key="EACH" bundle="${storeText}"/></td>
+						<td width="70" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold; text-align: right;"><fmt:message key="TOTAL" bundle="${storeText}"/></td>
+					</tr>			
+					<c:forEach var="orderItem" items="${order.orderItem}" varStatus="status">
+						<tr>
+							<wcbase:useBean id="catEntry" classname="com.ibm.commerce.catalog.beans.CatalogEntryDataBean" scope="request">
+								<c:set property="catalogEntryID" value="${orderItem.catalogEntryIdentifier.uniqueID}" target="${catEntry}" />
+							</wcbase:useBean>
+							<td width="200" style="padding: 1px 0 1px 1px; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top">${catEntry.description.name}</td>
+							<td width="180" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top">
+								<c:set var="contact" value="${orderItem.orderItemShippingInfo.shippingAddress}"/>
+								<c:if test="${!empty contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName}">
+									<p><c:choose><c:when test="${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName eq  profileShippingNickname}"><fmt:message key="QC_DEFAULT_SHIPPING" bundle="${storeText}"/></c:when>
+										<c:when test="${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName eq  profileBillingNickname}"><fmt:message key="QC_DEFAULT_BILLING" bundle="${storeText}"/></c:when>
+										<c:otherwise>${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName}</c:otherwise></c:choose></p>
+								</c:if>
+									<!-- Display shiping address of the order -->
+								<%@ include file="../Snippets/ReusableObjects/AddressDisplay.jspf"%>
+							</td>
+							<td width="180" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top">
+								<p>
+									<c:out value="${orderItem.orderItemShippingInfo.shippingMode.description.value}"/>
+								</p>
+								<br/>
+								<c:if test="${!orderItem.orderItemAmount.freeGift}">
+									<c:set var="shipInstructions" value="${orderItem.orderItemShippingInfo.shippingInstruction}"/>
+									<c:set var="requestedShipDate" value="${orderItem.orderItemShippingInfo.requestedShipDate}"/>
+									<c:remove var="formattedDate"/>
+									
+									<c:if test='${!empty requestedShipDate}'>
+										<c:catch>
+											<fmt:parseDate var="expectedShipDate" value="${requestedShipDate}" pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" timeZone="GMT"/>
+										</c:catch>
+										<c:if test="${empty expectedShipDate}">
+											<c:catch>
+												<fmt:parseDate var="expectedShipDate" value="${requestedShipDate}" pattern="yyyy-MM-dd'T'HH:mm:ss'Z'" timeZone="GMT"/>
+											</c:catch>
+										</c:if>
+										<%-- use value from WC_timeoffset to adjust to browser time zone --%>
+										<%-- Format the timezone retrieved from cookie since it is in decimal representation --%>
+										<%-- Convert the decimals back to the correct timezone format such as :30 and :45 --%>
+										<%-- Only .75 and .5 are converted as currently these are the only timezones with decimals --%>								
+										<c:set var="formattedTimeZone" value="${fn:replace(cookie.WC_timeoffset.value, '%2B', '+')}"/>													
+										<c:set var="formattedTimeZone" value="${fn:replace(formattedTimeZone, '.75', ':45')}"/>	
+										<c:set var="formattedTimeZone" value="${fn:replace(formattedTimeZone, '.5', ':30')}"/>							
+										<fmt:formatDate value="${expectedShipDate}" type="date" dateStyle="long" var="formattedDate" timeZone="${formattedTimeZone}"/>
+									</c:if>
+									
+									<flow:ifEnabled feature="ShippingInstructions">
+										<c:if test="${!empty shipInstructions}">
+											<p class="text"><fmt:message key="SHIP_SHIPPING_INSTRUCTIONS" bundle="${storeText}" />:</p>
+											<p class="text"><c:out value = "${shipInstructions}"/></p>
+										</c:if>
+									</flow:ifEnabled>
+											
+									<br />
+												
+									<flow:ifEnabled feature="FutureOrders">
+										<c:if test="${!empty formattedDate}">
+											<p>
+												<p class="text"><fmt:message key="SHIP_REQUESTED_DATE" bundle="${storeText}" />:</p>
+												<p class="text"><c:out value="${formattedDate}"/></p>
+											</p>
+										 </c:if>
+									</flow:ifEnabled>
+								</c:if>
+							</td>
+							<td width="60" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: center;" valign="top">
+								<fmt:formatNumber	var="quickCartOrderItemQuantity" value="${orderItem.quantity.value}" type="number" maxFractionDigits="0"/>
+								<c:out value="${quickCartOrderItemQuantity}"/>
+							</td>
+							<td width="50" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;" valign="top">
+								<fmt:formatNumber value="${orderItem.orderItemAmount.unitPrice.price.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/>
+							</td>
+							<td width="70" style="padding: 1px 0; border-top: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;" valign="top">
+								<c:choose>
+									<c:when test="${orderItem.orderItemAmount.freeGift}">
+										<%-- the OrderItem is a freebie --%>
+										<fmt:message key="Free" bundle="${storeText}"/>
+									</c:when>
+									<c:otherwise>
+										<fmt:formatNumber var="totalFormattedProductPrice" value="${orderItem.orderItemAmount.orderItemPrice.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/>
+											<c:out value="${totalFormattedProductPrice}" escapeXml="false" />
+									</c:otherwise>
+								</c:choose>
+							</td>
+						</tr>
+						<tr><br />
+							<%-- row to display product level discount --%>
+							<c:if test="${!empty orderItem.orderItemAmount.adjustment}">
+								<jsp:useBean id="aggregatedDiscountsMulti" class="java.util.HashMap" scope="page" />
+								<jsp:useBean id="discountReferencesMulti" class="java.util.HashMap" scope="page" />
+								
+								<%-- Loop through the discounts, summing discounts with the same code --%>
+								<c:forEach var="discounts" items="${orderItem.orderItemAmount.adjustment}">	
+										
+									<%-- only show the adjustment detail if display level is OrderItem, if display level is order, display it at the order summary section --%>
+									<c:if test="${discounts.displayLevel == 'OrderItem'}">
+										<c:set property="${discounts.code}" value="${discounts}" target="${discountReferencesMulti}"/> 
+										<c:if test="${empty aggregatedDiscountsMulti[discounts.code]}">
+											<c:set property="${discounts.code}" value="0" target="${aggregatedDiscountsMulti}"/>	
+										</c:if>				
+										<c:set property="${discounts.code}" value="${aggregatedDiscountsMulti[discounts.code]+discounts.amount.value}" target="${aggregatedDiscountsMulti}"/>
+									</c:if>
+								</c:forEach>	
+																
+								<c:forEach var="discountsIterator" items="${discountReferencesMulti}" varStatus="status2">									
+									<tr>
+										<td width="594" colspan="5" style="font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top"><img alt= "" src="<c:out value="${jspStoreImgDir}images/dotted_border.gif"/>" width="594" height="1" /></td>
+									</tr>
+									
+									<c:set var="discounts" value="${discountsIterator.value}" />
+									<%-- only show the adjustment detail if display level is OrderItem, if display level is order, display it at the order summary section --%>
+									<c:if test="${discounts.displayLevel == 'OrderItem'}">
+										<tr>
+											<th colspan="6" class="th_align_left_normal" abbr="<fmt:message key="Checkout_ACCE_prod_discount" bundle="${storeText}"/> <c:out value='${catEntry.description.name}'/>" id="MultipleShipment_rowHeader_discount<c:out value='${status.count}'/>_<c:out value='${status2.count}'/>">
+												<div class="itemspecs" id="WC_MSOrderItemDetailsSummaryf_div_5_<c:out value='${status.count}'/>_<c:out value='${status2.count}'/>">
+													<c:url var="DiscountDetailsDisplayViewURL" value="DiscountDetailsDisplayView">
+														<c:param name="code" value="${discounts.code}" />
+														<c:param name="langId" value="${langId}" />
+														<c:param name="storeId" value="${WCParam.storeId}" />
+														<c:param name="catalogId" value="${WCParam.catalogId}" />
+													</c:url>	
+													<tr>
+														<td colspan="5" width="490" style="padding: 1px 0 1px 1px; font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top"><c:out 	value="${discounts.description.value}" escapeXml="false"/></td>
+														<td width="70" style="padding: 1px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;" valign="top"><fmt:formatNumber var="formattedDiscountValue"	value="${aggregatedDiscountsMulti[discounts.code]}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/>
+														<c:out value="${formattedDiscountValue}" escapeXml="false" /></td>
+													</tr>
+													<br />
+												</div>
+											</th>
+										</tr>
+									</c:if>
+								</c:forEach>
+								<c:remove var="aggregatedDiscountsMulti"/>
+								<c:remove var="discountReferencesMulti"/>
+							</c:if>
+							<c:remove var="catEntry"/>
+						</c:forEach>
+					<c:set var="totalProductDiscount" value="0"/>
+					<c:set var="hasProductDiscount" value="false"/>
+					<tr>
+						<td colspan="5" width="490" style="padding: 6px 0 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right; border-top: 1px solid #c9c9c9;"><fmt:message key="ORD_ORDER_SUBTOTAL" bundle="${storeText}"/>:</td>
+						<td width="70" style="padding: 6px 0 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right; border-top: 1px solid #c9c9c9;"><fmt:formatNumber value="${order.orderAmount.totalProductPrice.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+					</tr>					
+					<tr>
+						<c:forEach var="orderItemAdjustment" items="${order.orderAmount.adjustment}">
+							<c:if test="${!hasProductDiscount}">
+								<c:if test="${orderItemAdjustment.displayLevel.name == 'OrderItem'}">
+									<c:set var="hasProductDiscount" value="true"/>
+									<td colspan="5" width="490" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:message key="PRODUCT_DISCOUNT_TOTAL" bundle="${storeText}"/></td>
+								</c:if>
+							</c:if>
+						</c:forEach>
+						<c:forEach var="orderItemAdjustment" items="${order.orderAmount.adjustment}">
+							<c:if test="${hasProductDiscount}">
+								<c:if test="${orderItemAdjustment.displayLevel.name == 'OrderItem'}">
+									<c:set var="totalProductDiscount" value="${totalProductDiscount + orderItemAdjustment.amount.value}"/>
+								</c:if>
+							</c:if>
+						</c:forEach>
+						<c:if test="${hasProductDiscount}">
+							<td width="70" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:formatNumber value="${totalProductDiscount}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+						</c:if>
+					</tr>	
+					<tr>
+						<td colspan="5" width="490" style="padding: 6px 0 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:message key="ORD_DISCOUNT_TOTAL_ADJUSTMENTS" bundle="${storeText}"/>:</td>
+						<td width="70" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:formatNumber value="${order.orderAmount.totalAdjustment.value - totalProductDiscount}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+					</tr>
+					<tr>
+						<td colspan="5" width="490" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:message key="TAX" bundle="${storeText}"/>:</td>
+						<td width="70" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:formatNumber value="${order.orderAmount.totalSalesTax.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+					</tr>					
+					<tr>
+						<td colspan="5" width="490" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:message key="ORD_SHIPPING" bundle="${storeText}"/>:</td>
+						<td width="80" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:formatNumber value="${order.orderAmount.totalShippingCharge.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+					</tr>					
+					<tr>
+						<td colspan="5" width="490" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right; font-weight: bold;"><fmt:message key="ORD_ORDER_TOTAL" bundle="${storeText}"/>:</td>
+						<td width="70" style="padding: 2px 0; font-family: Verdana, Arial; font-size: 11px; color: #404040; text-align: right;"><fmt:formatNumber value="${order.orderAmount.grandTotal.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></td>
+					</tr>
+					</c:otherwise>
+			</c:choose>
+
+			</table>
+				
+			</td>
+			<td width="12" style="border-right: 1px solid #c9c9c9;"></td>
+		</tr>
+<tr>
+	<td colspan="3" style="border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9; font-size: 11px;">&nbsp;</td>
+</tr>
+		

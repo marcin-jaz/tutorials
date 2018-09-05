@@ -1,0 +1,75 @@
+<!DOCTYPE repository-entries SYSTEM "../dtd/repository/Repository.dtd">
+<repository-entries>
+<features>
+
+	<feature id="Site.i1.impl1.f" enables="Site.i1.impl1" always-enabled="yes"/>
+
+	<!-- Features to enable AREA IMPLEMENTATIONS -->
+	<feature id="ShoppingArea.i1.impl1.f" enables="ShoppingArea.i1.impl1" always-enabled="yes"/>
+	<feature id="UserArea.i1.impl1.f" enables="UserArea.i1.impl1" always-enabled="yes"/>
+
+	<!-- Features to enable SECTION IMPLEMENTATIONS -->
+	<feature id="AccountSection.i1.impl1.f" enables="AccountSection.i1.impl1" always-enabled="yes"/>
+	<feature id="AddressbookSubsection.i1.impl1.f" enables="AddressbookSubsection.i1.impl1" always-enabled="yes"/>
+	<feature id="CheckoutSection.i1.impl1.f" enables="CheckoutSection.i1.impl1" always-enabled="yes"/>
+	<feature id="StandardCheckoutSubsection.i1.impl1.f" enables="StandardCheckoutSubsection.i1.impl1"/>
+
+	<!-- Features to enable PAGE IMPLEMENTATIONS -->
+	<feature id="AddressBookFormPage.i1.impl1.f" enables="AddressBookFormPage.i1.impl1" always-enabled="yes"/>
+	<feature id="AddressformPage.i1.impl1.f" enables="AddressformPage.i1.impl1" always-enabled="yes"/>
+	<feature id="BillingAddressPage.i1.impl1.f" enables="BillingAddressPage.i1.impl1" always-enabled="yes"/>
+	<feature id="MultipleShippingAddressPage.i1.impl.f" enables="MultipleShippingAddressPage.i1.impl"/>
+	<feature id="MultipleShippingMethodPage.i1.impl.f" enables="MultipleShippingMethodPage.i1.impl"/>
+	<feature id="OrderDisplayPendingPage.i1.impl1.f" enables="OrderDisplayPendingPage.i1.impl1" always-enabled="yes"/>
+	<feature id="SingleShippingAddressPage.i1.impl.f" enables="SingleShippingAddressPage.i1.impl"/>
+	<feature id="SingleShippingMethodPage.i1.impl.f" enables="SingleShippingMethodPage.i1.impl"/>
+
+	<feature id="AgeOptions"/>
+	<feature id="Age"/>
+	<feature id="DateOfBirth"/>
+	<feature id="MobilePhone"/>
+  <feature id="Gender"/>    	
+  <feature id="preferredCurrency"/>
+  <feature id="preferredLanguage"/>
+  <feature id="quickCheckout"/>
+  <feature id="search"/>
+  <feature id="TrackingStatus"/>
+  <feature id="wishList"/>
+  <feature id="QuickOrder"/>
+  <feature id="EmailOption"/>
+  <feature id="CustomLogo"/>
+  <feature id="promotionCode"/>
+  <feature id="promotionChoiceOfFreeGift"/>
+	<feature id="FutureOrders"/>
+	<feature id="ShippingInstructions"/>
+	<feature id="MultipleShipments"/>
+	<feature id="AjaxCheckout"/>
+	<feature id="SharedShippingBillingPage"/>
+	<feature id="AjaxMyAccountPage"/>
+	<feature id="miniShopCart"/>
+  <feature id="AjaxAddToCart"/>
+  <feature id="ProductQuickView"/>
+	<feature id="ProductDnD"/>
+	<feature id="ProductCompare"/>
+	<feature id="InventoryAvailability"/>
+	<feature id="StoreLocator"/>
+	<feature id="Analytics"/>
+	<feature id="AllowReOrder"/>
+	<feature id="EnableQuotes"/>
+
+	<feature id="ProductRatingsReview"/>
+	<feature id="CategoryProductBlogs"/>
+	<feature id="PhotoGallery"/>
+    	
+	<feature id="vfile.logo.jpg.f" enables="vfile.logo.jpg"/>
+	<feature id="vfile.logo.gif.f" enables="vfile.logo.gif"/>
+
+	<!-- Features for style  -->
+	<feature id="Style.f.1" enables="StyleDir.i1.impl1"/>
+			
+	<!-- Features for stylesheets and image directories-->
+	<feature id="Color.f.1" enables="vfile.style1.css vfile.styleie1.css vfile.color1.dir"/>
+	<feature id="Color.f.2" enables="vfile.style2.css vfile.styleie2.css vfile.color2.dir"/>
+
+</features>
+</repository-entries>

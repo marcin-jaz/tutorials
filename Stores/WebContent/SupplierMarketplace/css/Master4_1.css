@@ -1,0 +1,379 @@
+/**
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright IBM Corp. 2006
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+
+/****************************************
+ * Master4_1.css						*
+ * Style 4 - color 1 (blue)				*
+ * class Styles used in B2B Pages  		*
+ ****************************************/
+
+/*****************************/
+/* HTML Tag style definition */
+
+UNKNOWN 	{	FONT-SIZE: 10pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica }
+
+/* Body class Styles */
+BODY 		{ background-color:#E6E6E6;font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black; PADDING-RIGHT: 0px; PADDING-LEFT: 0px;  PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px;}
+BODY.noMargin {   MARGIN-LEFT:  0px; MARGIN-RIGHT:  0px; MARGINWIDTH: 0px; MARGINHEIGHT: 0px; background-color:#E6E6E6;font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black;}
+H1 			{	FONT-SIZE: 12pt; COLOR: #4A7DAF; FONT-FAMILY: Verdana,  Arial, Helvetica; FONT-WEIGHT: bold;   }
+TH 			{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica }
+/* Body class Styles */
+
+/* A class Styles */
+A 			{	FONT-SIZE: 10pt; FONT-FAMILY: Verdana,  Arial, Helvetica}
+A.nav 		{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none}
+A.nav:hover {	FONT-SIZE: 10pt; COLOR: #bccbdb; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none}
+A.search	{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: underline}
+A.button {background-image: url(../images/colors/color19/logon_but_back.gif); border: 1px solid #263C51; font: bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #003D77; height:20px; text-decoration:none; padding-left:5px; padding-right:5px; padding-top:1px; text-align: center;}
+A.button:hover {background-image: url(../images/colors/color19/logon_but_back2.gif); border: 1px solid #4795DF; font: bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #003D77; height:20px; text-decoration:none; padding-left:5px; padding-right:5px; padding-top:1px; text-align: center;}
+
+/* A class Styles */
+
+		
+
+STRONG 		{	FONT-WEIGHT: bold;   }
+I 			{	FONT-STYLE: italic; }
+P 			{	FONT-SIZE: 10pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica}
+SELECT 		{	FONT-SIZE:  8pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica}
+INPUT 		{	FONT-SIZE:  8pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica}
+OPTION 		{	FONT-SIZE:  8pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica}
+HEADER 		{	FONT-SIZE:  8pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none}
+
+
+/* Span class Styles */
+SPAN.reqd{	FONT-FAMILY: Verdana; COLOR: #ea2b2b; FONT_SIZE: 2pt;	}
+
+/* TABLE class Styles */
+TABLE.noBorder		{	BORDER-STYLE: none; BORDER-COLLAPSE: collapse; }
+TABLE.noBorderWide	{	BORDER-STYLE: none; BORDER-COLLAPSE: collapse; WIDTH: 100%; }
+
+/* TD class Styles */
+TD 			{	FONT-SIZE: 10pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica }
+TD.header 	{	FONT-SIZE: 10pt; COLOR: #4A7DAF; FONT-FAMILY: Verdana; PADDING-LEFT: 3px; FONT-WEIGHT: bold;   }
+TD.buttontext{	FONT-SIZE:  9pt; COLOR: white  ; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif; FONT-WEIGHT: bold;    BACKGROUND-COLOR: #ea2b2b; TEXT-DECORATION: none}
+TD.pixel 	{	FONT-SIZE:  1px; LINE-HEIGHT: 0px;}
+TD.content 	{	FONT-SIZE: 10pt; COLOR: black  ; FONT-FAMILY: Verdana; MARGIN-TOP: 10pt;  MARGIN-LEFT: 10pt;}
+TD.subtitle{	COLOR: #b7d9ff;	BACKGROUND-COLOR: #394959; FONT-WEIGHT: bold;	}
+TD.colHeader{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana; FONT-WEIGHT: bold; }
+TD.price 	{	FONT-SIZE:  9pt; COLOR: #32404f; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: right;}
+
+/*End HTML Tag Style definition */
+/********************************/
+
+/*Begin common portlet and logon classes*/
+TD.c_topline {background-image: url(../images/c_top_side.gif);}
+TD.c_leftline {background-image: url(../images/c_left_side.gif);}
+TD.c_rightline {background-image: url(../images/c_right_side.gif);}
+TD.c_botline {background-image: url(../images/c_bot_side.gif);}
+TD.white {background-color: white;}
+
+TD.portlet {padding: 4px 10px 8px 1px;}
+TD.portlet_main {padding: 4px 0px 0px 0px;}
+TD.portlet_title {border-width : 1px; border-style : solid none solid solid; border-color : #79ACD1 #575757 #575757 #79ACD1; font-family : Verdana, Arial, Helvetica, sans-serif; font-size : 11px; font-weight : bold; color: #DAE7F0; padding-left: 4px; height: 17px;}
+TD.portlet_title_nobg {font: bold 11px Verdana; color:white;}
+TD.portlet_content {font: 11px Verdana;}
+TD.portlet_colHeader{font: bold 11px Verdana; color:white;}
+TD.portlet_price{FONT-SIZE: 11px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #32404f; TEXT-ALIGN: right;}
+TD.portlet_discountPrice{FONT-SIZE: 11px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: purple; TEXT-ALIGN: right;}
+TD.portlet_maximize {TEXT-ALIGN: right; padding: 0px 4px 0px 0px;}
+A.portlet_content {font: 11px Verdana;}
+A.portlet_button {background-image: url(../images/colors/color19/logon_but_back.gif); border: 1px solid #263C51; font: bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #003D77; height:20px; text-decoration:none; padding-left:15px; padding-right:15px; padding-top:1px; text-align: center;}
+A.portlet_button:hover {background-image: url(../images/colors/color19/logon_but_back2.gif); border: 1px solid #4795DF; font: bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #003D77; height:20px; text-decoration:none; padding-left:15px; padding-right:15px; padding-top:1px; text-align: center;}
+TD.portlet_shadow {background-image : url(../images/colors/color19/shadow.gif); line-height: 2px;}
+A.garbage {vertical-align: top;background-image: url(../images/garbage.gif);width:16px; height: 16px;background-repeat: no-repeat; text-decoration: none;}
+A.garbage:hover {vertical-align: top;background-image: url(../images/garbage2.gif);width:16px; height: 16px;background-repeat: no-repeat;}
+A.copy {vertical-align: top;background-image: url(../images/copy_icon1.gif);width:16px; height: 16px;background-repeat: no-repeat; text-decoration: none;}
+A.copy:hover {vertical-align: top;background-image: url(../images/copy_icon2.gif);width:16px; height: 16px;background-repeat: no-repeat;}
+
+/*Begin style specific portlet classes*/
+TD.p_content {padding: 4px;}
+TABLE.outline {border-width : 1px; border-style : solid; border-color : #848484; background: #F3F3F3;}
+TABLE.portlet{background-color:white;}
+
+TD.logonLogo {background-color:#FFFFFF;}
+
+BODY.logon {MARGIN-LEFT:  0px; MARGIN-RIGHT:  0px; MARGINWIDTH: 0px; MARGINHEIGHT: 0px; background-color: #003D77; padding-top: 100px;}
+TD.logonwhite {background-color: white; padding-left:8px; padding-top:5px;}
+TD.logontitle {font: bold 16px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #4A7DAF;}
+SPAN.logontitle {font: bolder 15px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #A6A4A4;}
+TD.logonheading {font: bold 13px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black; padding-top: 3px; padding-bottom: 1px;}
+TD.logonspacing {padding-left:13px; padding-top:4px;}
+input.logon {border: 1px solid #4A7DAF; background-color:#EBF1F6;}
+select.logon {border: 1px solid #4A7DAF; background-color:#EBF1F6;}
+A.logon {font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #4A7DAF;}
+hr.logon {border: 1px solid #BDBDBD; height:1px;}
+TD.logontxt {font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black; padding-top: 3px; padding-bottom: 1px;}
+.logonbackgrnd {background-image: url(../images/colors/color19/logon_backgrnd.gif);}
+TD.button {padding-bottom:12px;}
+/*End common portlet and logon classes*/
+
+/* New Style 4 specific Styles */
+.headercontainer {
+	padding: 0px;
+	width: 100%;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	display:table;
+}
+.sidebarcontainer {
+	padding: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	margin-left: 0px;
+	width:0px;
+	display:table;
+	height: 100%;
+}
+.contentcontainer {
+	padding: 0px;
+	width: 100%;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	display:table;
+	vertical-align: top;
+}
+.headsupcontainer {
+	padding: 0px;
+	width: 300px;
+	overflow : hidden;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	display:table;
+	vertical-align: top;
+}
+.footercontainer {
+	padding: 0px;
+	width: 100%;
+	overflow : hidden;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	display:table;
+	/*height: 400px;*/
+}
+.sitecontainer {
+	padding: 0px;
+	height: 100%;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	margin-right: 0px;
+	margin-left: 0px;
+	display:table;
+}
+TABLE.white{background-color:white;font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black;}
+TD.top_strip {background-image : url(../images/colors/color19/top_strip.gif);width:980px;}
+TD.gradient {background-image : url(../images/colors/color19/gradient.gif);width: 606px;}
+TD.line { background-color: #4A7DAF; line-height: 1px;}
+
+TABLE.srch{background-color:#EBF1F6;}
+TD.padding {padding-left:10px;}
+TD.srch {padding-left:10px; width:140px;}
+INPUT.srch {border: 1px solid #4A7DAF;font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black;}
+TD.stripes {width: 639px;}
+TD.srch_but {background-image: url(../images/colors/color19/srch_but.gif);}
+A.srch_but {background-image: url(../images/colors/color19/srch_but.gif);border: 1px solid #4A7DAF; padding: 0px 3px 2px 3px; font: bold 11px Verdana; color:white; text-decoration: none; height:17px; width:35px;}
+A.srch_but:hover {background-image: url(../images/colors/color19/srch_but2.gif);border: 1px solid #4A7DAF; padding: 0px 3px 2px 3px; font: bold 11px Verdana; color:white; text-decoration: underline; height:17px; width:35px;}
+TD.srch_strip {background-image : url(../images/colors/color19/srch_strip.gif);height:6px;}
+
+TR.menu_row {background-color:#848484;}
+A.menu_but {font: bold 11px Verdana; color:#DADADA; text-decoration: none; padding: 0px 10px 0px 10px;}
+A.menu_but:hover {font: bold 11px Verdana; color:white; text-decoration: underline; padding: 0px 10px 0px 10px;}
+INPUT.sku {border: 1px solid white;font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black;background-color:#CFCFCF;}
+TD.sku_but { padding-left:3px; padding-right:10px;}
+A.sku_but {background-color: #4A7DAF; border: 1px solid white;font: bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif;color:white; text-decoration:none; height: 17px; padding: 0px 5px 1px 7px;}
+A.sku_but:hover {background-color: #669ED5; border: 1px solid white;font: bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif;color:white; text-decoration:underline; height: 17px; padding: 0px 5px 1px 7px;}
+TD.menu_strip {background-image : url(../images/colors/color19/menu_strip.gif);}
+.smallMenu {font: bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif;}
+
+TABLE.content{background-color:white;font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black;padding-top:10px; padding-left:10px;}
+
+TD.footer {background-image : url(../images/colors/color19/footer.gif);}
+
+/* Drop down menu Styles */
+.menuitemclass {
+	position: absolute;
+	visibility: hide;
+}
+
+.menulayer {
+	position: absolute;
+	visibility: hide;
+	z-index: 1;
+}
+
+.menulite {
+	position: absolute;
+	visibility: hide;
+	z-index: 1;
+}
+
+.menufg {
+	position: absolute;
+	visibility: hide;
+}
+
+.menuitem {
+	position: absolute;
+	visibility: hide;
+}
+
+.menuitemover {
+	position: absolute;
+	visibility: hide;
+}
+
+.menuitemtext{
+	background-image: url(../images/colors/color19/button_bk.gif); text-decoration: none;width: 174px; height: 17px;line-height: 17px;font: 11px Verdana;color:white;padding-left: 30px;padding-top: 1px; display : block;
+}
+
+.menuitemhilite {
+	background-image: url(../images/colors/color19/button_bk2.gif); text-decoration: none;width: 174px; height: 17px;line-height: 17px; font: 11px Verdana;color:white;padding-left: 30px;padding-top: 1px;
+}
+
+/* General Class Styles */
+.title		{	FONT-SIZE: 17pt; COLOR: #32404f ;FONT-FAMLY: Verdana	}
+.smallText	{	FONT-SIZE: -1pt; COLOR: #ffffff ;FONT-FAMILY: Verdana;  }
+.amount		{ 	FONT-SIZE: 8pt; FONT-FAMILY: Arial, Helvetica, Verdana;  TEXT-ALIGN: right;	}
+.summary	{	FONT-SIZE: 8pt;	}
+.bgColor 	{	BACKGROUND-COLOR: #4A7DAF;	}
+.cellBG_1	{	BACKGROUND-COLOR: #ffffff; }
+.cellBG_2	{	BACKGROUND-COLOR: #EBF1F6; }
+.warning	{	COLOR: red;	}
+
+
+/****************************************
+ * delta from Snippet.css
+ * classes to be used in snippets
+ ****************************************/
+
+/* Button link styles */
+a.button {background-image: url(../images/colors/color19/logon_but_back.gif); border: 1px solid #263c51; font: bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #003d77; height:20px; text-decoration:none; padding-left:5px; padding-right:5px; padding-top:1px; text-align: center;}
+a.button:hover {background-image: url(../images/colors/color19/logon_but_back2.gif); border: 1px solid #4795df; font: bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #003d77; height:20px; text-decoration:none; padding-left:5px; padding-right:5px; padding-top:1px; text-align: center;}
+
+/* TD class styles */
+th.colHeader	{font-size: 10pt; color: #ffffff; font-family: verdana; font-weight: bold;}
+td.price 		{font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif; text-align: right;}
+td.listPrice	{font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif; text-align: right; text-decoration: line-through;}
+td.offerPrice	{font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif; text-align: right;}
+td.discountPrice{font-size:  9pt; color: purple; font-family: arial, helvetica, sans-serif; text-align: right;}
+
+/* This class is used to bold regular text */
+strong 		{	font-weight: bold;}
+
+/* The following classes format how currency is displayed */
+.price		{	font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif;}
+.listPrice	{	font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif; text-decoration: line-through;}
+.offerPrice	{	font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif;}
+.discountPrice{	font-size:  9pt; color: purple; font-family: arial, helvetica, sans-serif;}
+
+/* This class is used to format text for discounts */
+.discount	{	font-size:  10pt; color: purple; font-family: arial, helvetica, sans-serif;}
+
+/* This class is used to format product names */
+.productName{	font-size:  10pt; color: #32404f; font-family: arial, helvetica, sans-serif;}
+
+/* Class to highlight a required field on a form */
+.required	{	font-family: verdana; color: #ea2b2b; FONT_SIZE: 2pt;}
+.strongRedText {	font-family: verdana; color: #ea2b2b; FONT_SIZE: 2pt;}
+
+/* Class to highlight an error message */
+.error		{	color: red;}
+
+/* The background color of a table and alternating row background colors */
+.bgColor 	{	background-color: #4a7daf;}
+.cellBG_1	{	background-color: #ffffff;}
+.cellBG_2	{	background-color: #ebf1f6;}
+
+/* This class is used for the section heading */
+.heading {font-family: verdana, arial, helvetica, sans-serif;font-size: 11pt;font-weight: bold;text-align: left;color: #333333;padding: 0px;margin: 0px;}
+
+/* This class is used for the section sub-heading */
+.subHeading {font-family: verdana, arial, helvetica, sans-serif;font-size: 10pt;font-weight: bold;text-align: left;color: #666666;padding: 0px;margin: 0px;}
+
+/* Breadcrumb trail for checkout pages */
+a.chkout_done {color: black; text-decoration:}
+td.chkout {font: bold 11px Verdana; color: #C6C6C6; padding-right: 7px;}
+td.chkout_active {font: bold 11px Verdana; color:#950000;}
+td.divider {width: 1px;}
+
+/* Darwyn: added for compatability with new catalog and checkout pages */
+H1 {font-family: Times, Arial,sans-serif; font-size: 20px; color: #427DBE;line-height:40px;font-weight: normal;padding:0px; margin:0px;}
+H2 {font-family: verdana, arial, helvetica, sans-serif;font-size: 12px;font-weight: bold;text-align: left;color: #427DBE;line-height:24px; padding:0px; margin:0px;}
+
+a.chkout_done:hover {color:#043982;}
+
+	/* content classes start */
+	
+	#content {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#444444;}
+	.c_back {background-color:white;padding: 10px 0px 10px 0px;}
+	.c_headings {color:#5F82AA; font-size: 11px;font-weight:bold;padding-bottom:6px;padding-top:10px;}
+	.c_line {width:100%; background-image :url(../images/colors/color19/c_line.gif);line-height:8px;margin:0px;font-size:2px;background-repeat: repeat-x;}
+	.c_large_img {width:245px;vertical-align:top;}
+	.c_flash {padding-top:10px; padding-bottom:13px;}
+	.c_homepage_cat {border:solid 1px #abaaaa;}
+	.c_homepage_cat_txt {font-family: Verdana, Arial,sans-serif; font-size: 13px; color:#444444;font-weight:bold; padding-left:6px; height:20px; text-transform: uppercase;}
+	.c_home_txt_blue {font-family: Verdana, Arial,sans-serif; font-size: 15px; color:#427DBE;font-weight:bold;}
+	.c_home_txt_black {font-family: Verdana, Arial,sans-serif; font-size: 15px; color:#444444;}
+	.c_select_yr_mnth {width:110px;}
+	
+	/* content classes end */
+	/* subNav classes start */
+	
+	#subNav {width:135px;padding-right:20px;vertical-align:top;}
+	.sn_heading {font-family: Times, Arial,sans-serif; font-size: 20px; color: #444444;line-height:40px;}
+	.sn_off {height:20px; border-top:solid 1px #929499;}
+	.sn_on {height:20px; border-top:solid 1px #929499;background-color:#DCE3ED;}
+	.sn_link {font-family: Verdana, Arial,sans-serif; font-size: 10px; font-weight:bold; color:#444444;text-decoration:none;height:100%;width:100%;padding-top:3px;display:block;}
+	.sn_link:hover {background-color:#DCE3ED;text-decoration:none;}
+	
+	
+	/* subNav classes end */
+	/* table classes start */
+	
+	#table {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#444444;}
+	.t_hd_rght {text-align : right; width:100%;}
+	.t_hd_cntr {text-align : center; width:100%;}
+	
+	.t_img_view {text-align : center; width:120px;display:block;padding-top:12px;padding-bottom:10px;vertical-align:top;}
+	.t_detail_view {display:block;padding-top:12px;padding-bottom:10px;vertical-align:top;}
+	.t_space {padding-bottom: 8px;text-align : center;}
+	.t_img_border { border:solid 1px #929499;}
+	.t_empty_cell {width:14px}
+
+	.t_row_img {padding-top:10px;padding-bottom:10px;vertical-align:top;}
+	.t_row_detail {padding:6px;vertical-align:top;width:230px;}
+	.t_txt_detail {font-size: 10px;}
+	.t_row_price {padding-top:6px;padding-bottom:6px;vertical-align:top;width:95px;display:block}
+	.t_button_space {padding-top:5px;display:block}
+	.t_line {border-bottom:solid 1px #929499;font-size:1px;}
+	.t_rght_space {padding-right:5px;}
+	
+	/* table classes end */
+	/* page scrolling widget start*/
+	
+	.ps_align {text-align:right;border-right:solid 1px #929499; border-bottom:solid 1px #929499;border-top:solid 1px #929499;padding:0px; margin: 0px;}
+	.ps_pad {padding-left:4px;}
+	.ps_view {padding-right:5px;background-color:#DCE3ED; }
+	.ps_input {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#444444; border: solid 1px #929499;height: 16px; padding-top:0px;margin-right:0px;border-top:solid 1px #929499;padding:0px; margin: 0px;}
+	.ps_text {font-family: Verdana, Arial,sans-serif; font-size: 9px; color:#444444;padding-left:4px;}
+
+	/* page scrolling widget end*/

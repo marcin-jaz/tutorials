@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<ObjectProperties definitionName="plmCatalogEntryBrowsingPageProperties">
+		
+		<PropertyPane name="pane">
+			<PropertyGroup baseDefinitionName="wcfPropertyAssetInformationGroup" name="assetGroup" />
+			<!-- Property Group: General Page Information. This properties group contains general page information such as name, description etc -->
+			<PropertyGroup groupTitle="${plmPageLayoutResources.pageProperties}" name="generalInfoPropGrpBunble" open="true">
+            	<EnablementOrCondition conditionId="bundleObjectCondition">
+					<EnablementCondition conditionId="bundlePageTypeCondition" checkObjectDefinition="true" enablementValue="BundleBrowsingPage" propertyName="objectType"/>
+					<EnablementCondition conditionId="inheritedBundlePageTypeCondition" checkObjectDefinition="true" enablementValue="InheritedBundleBrowsingPage" propertyName="objectType"/>
+				</EnablementOrCondition>
+        		<PropertyInputText promptText="${plmPageLayoutResources.pageNamePrompt}" propertyName="partnumber" extendedHelpText="${plmPageLayoutResources.extendedHelpText_BundleCode}" />			
+				<PropertyInputText promptText="${plmPageLayoutResources.bundleNamePrompt}" propertyName="name" extendedHelpText="${plmPageLayoutResources.extendedHelpText_BundleName}" />
+			</PropertyGroup>
+			<PropertyGroup groupTitle="${plmPageLayoutResources.pageProperties}" name="generalInfoPropGrpCatalogGroupSKU" open="true">
+				<EnablementOrCondition conditionId="CatalogGroupSKUBrowsingPageObjectCondition">
+					<EnablementCondition conditionId="catalogGroupSKUPageTypeCondition" checkObjectDefinition="true" enablementValue="CatalogGroupSKUBrowsingPage" propertyName="objectType"/>
+					<EnablementCondition conditionId="inheritedCatalogGroupSKUPageTypeCondition" checkObjectDefinition="true" enablementValue="InheritedCatalogGroupSKUBrowsingPage" propertyName="objectType"/>
+				</EnablementOrCondition>
+				<PropertyInputText promptText="${plmPageLayoutResources.pageNamePrompt}" propertyName="partnumber" extendedHelpText="${plmPageLayoutResources.extendedHelpText_CatalogGroupSKUCode}" />
+				<PropertyInputText promptText="${plmPageLayoutResources.CatalogGroupSKUNamePrompt}" propertyName="name" extendedHelpText="${plmPageLayoutResources.extendedHelpText_CatalogGroupSKUName}" />
+			</PropertyGroup>
+			<PropertyGroup groupTitle="${plmPageLayoutResources.pageProperties}" name="generalInfoPropGrpDynamicKit" open="true">
+				<EnablementOrCondition conditionId="DynamicKitBrowsingPageObjectCondition">
+					<EnablementCondition conditionId="dynamicKitPageTypeCondition" checkObjectDefinition="true" enablementValue="DynamicKitBrowsingPage" propertyName="objectType"/>
+					<EnablementCondition conditionId="inheritedDynamicKitPageTypeCondition" checkObjectDefinition="true" enablementValue="InheritedDynamicKitBrowsingPage" propertyName="objectType"/>
+				</EnablementOrCondition>
+				<PropertyInputText promptText="${plmPageLayoutResources.pageNamePrompt}" propertyName="partnumber" extendedHelpText="${plmPageLayoutResources.extendedHelpText_DynamicKitCode}" />
+				<PropertyInputText promptText="${plmPageLayoutResources.DynamicKitNamePrompt}" propertyName="name" extendedHelpText="${plmPageLayoutResources.extendedHelpText_DynamicKitName}" />
+			</PropertyGroup>			
+			<PropertyGroup groupTitle="${plmPageLayoutResources.pageProperties}" name="generalInfoPropGrpPredDynaKit" open="true">
+				<EnablementOrCondition conditionId="PredDynaKitBrowsingPageObjectCondition">
+					<EnablementCondition conditionId="predDynaKitPageTypeCondition" checkObjectDefinition="true" enablementValue="PredDynaKitBrowsingPage" propertyName="objectType"/>
+					<EnablementCondition conditionId="inheritedPredDynaKitPageTypeCondition" checkObjectDefinition="true" enablementValue="InheritedPredDynaKitBrowsingPage" propertyName="objectType"/>
+				</EnablementOrCondition>
+				<PropertyInputText promptText="${plmPageLayoutResources.pageNamePrompt}" propertyName="partnumber" extendedHelpText="${plmPageLayoutResources.extendedHelpText_PredDynaKitCode}" />
+				<PropertyInputText promptText="${plmPageLayoutResources.PredDynaKitNamePrompt}" propertyName="name" extendedHelpText="${plmPageLayoutResources.extendedHelpText_PredDynaKitName}" />
+			</PropertyGroup>
+			<PropertyGroup groupTitle="${plmPageLayoutResources.pageProperties}" name="generalInfoPropGrpKit" open="true">
+				<EnablementOrCondition conditionId="KitBrowsingPageObjectCondition">
+					<EnablementCondition conditionId="kitPageTypeCondition" checkObjectDefinition="true" enablementValue="KitBrowsingPage" propertyName="objectType"/>
+					<EnablementCondition conditionId="inheritedKitPageTypeCondition" checkObjectDefinition="true" enablementValue="InheritedKitBrowsingPage" propertyName="objectType"/>
+				</EnablementOrCondition>
+				<PropertyInputText promptText="${plmPageLayoutResources.pageNamePrompt}" propertyName="partnumber" extendedHelpText="${plmPageLayoutResources.extendedHelpText_KitCode}" />
+				<PropertyInputText promptText="${plmPageLayoutResources.KitNamePrompt}" propertyName="name" extendedHelpText="${plmPageLayoutResources.extendedHelpText_KitName}" />
+			</PropertyGroup>
+			<PropertyGroup groupTitle="${plmPageLayoutResources.pageProperties}" name="generalInfoPropGrpProduct" open="true">
+				<EnablementOrCondition conditionId="ProductBrowsingPageObjectCondition">
+					<EnablementCondition conditionId="productPageTypeCondition" checkObjectDefinition="true" enablementValue="ProductBrowsingPage" propertyName="objectType"/>
+					<EnablementCondition conditionId="inheritedProductPageTypeCondition" checkObjectDefinition="true" enablementValue="InheritedProductBrowsingPage" propertyName="objectType"/>
+				</EnablementOrCondition>
+				<PropertyInputText promptText="${plmPageLayoutResources.pageNamePrompt}" propertyName="partnumber" extendedHelpText="${plmPageLayoutResources.extendedHelpText_ProductCode}" />
+				<PropertyInputText promptText="${plmPageLayoutResources.ProductNamePrompt}" propertyName="name" extendedHelpText="${plmPageLayoutResources.extendedHelpText_ProductName}" />
+			</PropertyGroup>
+			<PropertyGroup groupTitle="${plmPageLayoutResources.pageProperties}" name="generalInfoPropGrpProductSKU" open="true">
+				<EnablementOrCondition conditionId="ProductSKUBrowsingPageObjectCondition">
+					<EnablementCondition conditionId="productSKUPageTypeCondition" checkObjectDefinition="true" enablementValue="ProductSKUBrowsingPage" propertyName="objectType"/>
+					<EnablementCondition conditionId="inheritedProductSKUPageTypeCondition" checkObjectDefinition="true" enablementValue="InheritedProductSKUBrowsingPage" propertyName="objectType"/>
+				</EnablementOrCondition>
+				<PropertyInputText promptText="${plmPageLayoutResources.pageNamePrompt}" propertyName="partnumber" extendedHelpText="${plmPageLayoutResources.extendedHelpText_ProductSKUCode}" />
+				<PropertyInputText promptText="${plmPageLayoutResources.ProductSKUNamePrompt}" propertyName="name" extendedHelpText="${plmPageLayoutResources.extendedHelpText_ProductSKUName}" />
+			</PropertyGroup>
+		
+			<!-- Property Group: Contains the catalog entry SEO properties inherited from the catalog asset store -->
+			<PropertyGroup  groupTitle="${catalogResources.searchEngineOptimizationTab}" name="plmCatEntrySeoAssetStoreSection" baseDefinitionName="plmManageInheritedCatalogEntrySeoAttributes" open="true"/>
+			<!-- Property Group: Contains the catalog entry SEO properties of the local store (shows store name in the group title) -->
+			<PropertyGroup  groupTitle="${catalogResources.searchEngineOptimizationTab}"  name="plmCatEntrySeoESiteStoreSection" baseDefinitionName="plmManageCatalogEntrySeoAttributes" open="true">
+				<EnablementAndCondition conditionId="inheritedObjectTypesAndStoreCondition">
+					<EnablementCondition conditionId="seoEnabledCondition" contextName="seoEnabled" enablementValue="true"/>
+					<EnablementOrCondition baseDefinitionName="plmInheritedCatalogEntryEnablement"/>
+				</EnablementAndCondition>
+			</PropertyGroup>
+			<!-- Property Group: Contains the catalog entry SEO properties of the local store (no group title) -->
+			<PropertyGroup  groupTitle="${catalogResources.searchEngineOptimizationTab}" name="plmCatEntrySeoLocalStoreSection" baseDefinitionName="plmManageCatalogEntrySeoAttributes" displayObjectStoreName="false" displayStoreName="false" open="true">
+				<EnablementAndCondition conditionId="localObjectTypesAndStoreCondition">
+					<EnablementCondition conditionId="seoEnabledCondition" contextName="seoEnabled" enablementValue="true"/>
+					<EnablementOrCondition conditionId="localObjectTypesCondition" baseDefinitionName="plmCatalogEntryEnablement"/>
+				</EnablementAndCondition>
+			</PropertyGroup>
+		</PropertyPane>
+	</ObjectProperties>
+
+	
+</Definitions>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+	
+	<!-- 
+		Definition for the dynamic sales category properties pages
+	-->
+	<ObjectProperties definitionName="catDynamicSalesCategoryProperties">
+		<PropertyTabs name="tabs">
+			<PropertyTabPane name="manageCategoryTab"
+				text="${catalogResources.manageCategoryTab}">
+				<PropertyPane baseDefinitionName="catManageDynamicSalesCategory" />
+			</PropertyTabPane>
+			
+			<PropertyTabPane name="ruleTab"
+				text="${catalogResources.ruleTab}">
+				<PropertyPane baseDefinitionName="catManageDynamicRule" />
+			</PropertyTabPane>
+			
+			<!-- 
+				A property tab pane for managing the Search Engine Optimization properties for a category.
+			-->
+			<PropertyTabPane name="searchEngineOptimizationTab" text="${catalogResources.searchEngineOptimizationTab}">
+				<EnablementCondition conditionId="seoEnabledCondition" contextName="seoEnabled" enablementValue="true"/>
+				<!--
+					An instantiation of 'catCatalogGroupSearchEngineOptimization", which represents the Search Engine Optimization 
+					properties for a category.
+				-->
+				<PropertyPane baseDefinitionName="catCatalogGroupSearchEngineOptimization"/>
+			</PropertyTabPane>				
+			
+			<!-- Tab: the attachment references for the current category -->
+			<PropertyTabPane name="manageAttachmentTab" text="${catalogResources.manageAttachmentTab}">
+				<!-- Property Pane: Manage Attachment Reference . This is an instantiation of the property pane which contains attachment reference of this category. -->
+				<PropertyPane baseDefinitionName="catManageAttachment"/>
+			</PropertyTabPane>
+		</PropertyTabs>
+	</ObjectProperties>
+
+	<!-- 
+		A property tab pane for managing the properties for a dynamic sales category.
+	-->
+	<PropertyPane definitionName="catManageDynamicSalesCategory">
+		<PropertyGroup name="dynamicSalesCatalogDisabled" collapsable="false" open="true">
+			<PropertyStaticText text="${catalogResources.ruleBasedSalesCategory_notEnabled}"/>
+			<EnablementCondition conditionId="dynamicSalesCatalogDisabled" contextName="ruleBasedCategoryEnabled" enablementValue="false"/>
+		</PropertyGroup>
+		<PropertyGroup name="dynamicSalesCatalogNoAutoEval" collapsable="false" open="true">
+			<PropertyStaticText text="${catalogResources.ruleBasedSalesCategory_autoEvalNotEnabled}"/>
+			<EnablementAndCondition>
+				<EnablementCondition conditionId="dynamicSalesCatalogEnabled" contextName="ruleBasedCategoryEnabled" enablementValue="true"/>
+				<EnablementCondition conditionId="dynamicSalesCatalogNoAutoEval" contextName="ruleBasedCategoryEvaluationTime" enablementValue="-1"/>
+			</EnablementAndCondition>
+		</PropertyGroup>
+		
+		<PropertyGroup baseDefinitionName="wcfPropertyAssetInformationGroup" />
+
+		<PropertyGroup groupTitle="${catalogResources.generalCategoryInformationSection}"
+			name="dynamicSalesCategoryPropGroup" open="true">
+			<!-- Catalog Group Unique ID -->
+			<PropertyViewLongText promptText="${catalogResources.uniqueId_ColumnHeader}"
+				propertyName="catgroupId">
+				<FalseEnablementCondition />
+			</PropertyViewLongText>
+			<PropertyInputText extendedHelpText="${catalogResources.extendedHelpText_Code}"
+				helpLinkURL="tasks/tpnrulebasedsalescatdefine.htm"
+				promptText="${catalogResources.codePrompt}" propertyName="identifier"
+				required="true" />
+			<PropertyInputText objectPath="CatalogGroupDescription"
+				promptText="${catalogResources.categoryName}" propertyName="name"
+				required="true" />
+			<PropertyInputLongText objectPath="CatalogGroupDescription"
+				promptText="${catalogResources.shortDescriptionPrompt}"
+				propertyName="sDesc" />
+			<PropertyRichTextEditor objectPath="CatalogGroupDescription"
+				promptText="${catalogResources.longDescriptionPrompt}" propertyName="lDesc" />
+			<PropertyInputMultiLineText
+				extendedHelpText="${catalogResources.extendedHelpText_CatalogEntryKeyword}" 
+				helpLinkURL="tasks/tpnrulebasedsalescatdefine.htm" 
+				objectPath="CatalogGroupDescription" promptText="${catalogResources.keywordPrompt}"
+				propertyName="keyword" />
+
+			<!--- A collection editor to manage the parents of a dynamic sale category -->
+			<CollectionListEditor listDefinitionName="catParentOfSalesCategoryCollectionGrid"
+				name="ParentOfSalesCategoryCollectionListEditor"
+				objectTypes="SalesCatalog,InheritedSalesCatalog,SalesCatalogGroup,InheritedSalesCatalogGroup"
+				promptText="${catalogResources.parentsInSalesCatalogPrompt}"
+				required="true" validatorTypes="parentValidator" />
+
+		</PropertyGroup>
+
+		<!--
+			The property group which contains the published flag and image
+			related properties of the dynamic sales category object.
+		-->
+		<PropertyGroup groupTitle="${catalogResources.displaySection}"
+			name="imagePropGroup">
+			<!--
+				Property: Published. A checkbox for the published property (Display
+				to customers).
+			-->
+			<PropertyCheckbox
+				extendedHelpText="${catalogResources.extendedHelpText_displayToCustomers}" 
+				helpLinkURL="tasks/tpnrulebasedsalescatdefine.htm" 
+				falseValue="0" objectPath="CatalogGroupDescription"
+				promptText="${catalogResources.displayToCustomerPrompt}"
+				propertyName="xdesc_published" trueValue="1" />
+			<ImageEditor objectPath="CatalogGroupDescription"
+				promptText="${catalogResources.thumbnailPrompt}" propertyName="tImage" />
+			<ImageEditor objectPath="CatalogGroupDescription"
+				promptText="${catalogResources.fullImagePrompt}" propertyName="fImage" />
+		</PropertyGroup>
+	</PropertyPane>
+	
+	<!-- 
+		A property tab pane for managing the properties and rules for a dynamic sales category.
+	-->
+	<PropertyPane definitionName="catManageDynamicRule">
+		<PropertyGroup name="dynamicSalesCatalogDisabled" collapsable="false" open="true">
+			<PropertyStaticText text="${catalogResources.ruleBasedSalesCategory_notEnabled}"/>
+			<EnablementCondition conditionId="dynamicSalesCatalogDisabled" contextName="ruleBasedCategoryEnabled" enablementValue="false"/>
+		</PropertyGroup>
+		<PropertyGroup name="dynamicSalesCatalogNoAutoEval" collapsable="false" open="true">
+			<PropertyStaticText text="${catalogResources.ruleBasedSalesCategory_autoEvalNotEnabled}"/>
+			<EnablementAndCondition>
+				<EnablementCondition conditionId="dynamicSalesCatalogEnabled" contextName="ruleBasedCategoryEnabled" enablementValue="true"/>
+				<EnablementCondition conditionId="dynamicSalesCatalogNoAutoEval" contextName="ruleBasedCategoryEvaluationTime" enablementValue="-1"/>
+			</EnablementAndCondition>
+		</PropertyGroup>
+		<PropertyGroup name="defineCriteriaPropertyGroup"
+			groupTitle="${catalogResources.ruleBasedSalesCategoryCriteria}" 
+			open="true" collapsable="true">
+			<PropertyGroup name="defineCriteriaGroupText" open="true" 
+				collapsable="false">
+  				<PropertyStaticText text="${catalogResources.ruleBasedSalesCategoryDynamicHeaderText}"/>
+  			</PropertyGroup> 			
+			<PropertyGroup name="defineCriteriaGroup" open="true" collapsable="false">
+				<PropertyChildListEditor
+					listDefinitionName="catSearchFiltersCombinedGrid" 
+					name="searchFilterEditor" 
+					objectTypes="catalogEntryPropertySearchFilter,
+						ChildAttributeWithAllowedValues,ChildInheritedAttributeWithAllowedValues,
+						ChildCatalogGroupFilter,ChildInheritedCatalogGroupFilter,
+						catalogEntryDateSearchFilter" 
+					promptText="${catalogResources.ruleBasedSalesCategoryFilters}" 
+					hideEditColumnAction="true"
+					extendedHelpText="${catalogResources.extendedHelpText_searchFilters_dynamic}"
+					helpLinkURL="tasks/tpnrulebasedsalescatdefine.htm"/>
+				<PropertyChildListEditor 
+					listDefinitionName="catCategoryFieldSortByGrid" 
+					name="orderByEditor" 
+					objectTypes="searchActionOrderBy" 
+					promptText="${catalogResources.ruleBasedSalesCategoryFiltersOrderBy}"
+					sequencePropertyName="sequence"
+					extendedHelpText="${catalogResources.extendedHelpText_sortCriteria_dynamic}"
+					helpLinkURL="tasks/tpnrulebasedsalescatdefine.htm"/>
+				<PropertyGroup name="specifyMaxGroupPropertyGroup" open="true" collapsable="false" displayGrouping="true">
+					<PropertyCheckbox name="ruleNVP_specifyMaximum" 
+							promptText="${catalogResources.ruleBasedSalesCategorySpecifyMaximum}" 
+							propertyName="ruleNVP_specifyMaximum"
+							extendedHelpText="${catalogResources.extendedHelpText_specifyMax_dynamic}"
+							helpLinkURL="tasks/tpnrulebasedsalescatdefine.htm"/>					
+					<PropertyGroup name="specifyMaxGroup" open="true" collapsable="false">
+						<PropertyStepper name="ruleNVP_displayMax" 
+							promptText="${catalogResources.ruleBasedSalesCategoryMaximum}" 
+							propertyName="ruleNVP_displayMax"
+							minimumValue="1">
+							<EnablementCondition propertyName="ruleNVP_specifyMaximum" enablementValue="true" conditionId="specifyMaxCondition"/>
+						</PropertyStepper>
+						<EnablementCondition propertyName="ruleNVP_specifyMaximum" enablementValue="true" conditionId="specifyMaxCondition"/>
+					</PropertyGroup>
+				</PropertyGroup>
+				<SearchCatentriesActionButton package="cat"
+					name="searchButtonStatic" 
+					buttonText="${catalogResources.ruleBasedSalesCategoryButtonText_dynamic}"
+					searchType="FindAllCatalogEntries" displayGrouping="true"
+					extendedHelpText="${catalogResources.extendedHelpText_sampleButton_dynamic}"
+					helpLinkURL="tasks/tpnrulebasedsalescatdefine.htm"/>					
+			</PropertyGroup>
+		</PropertyGroup>
+		<PropertyGroup groupTitle="${catalogResources.ruleBasedSalesCategoryRequiredCatentries}"
+			name="alwaysShowCatalogEntry" open="true">
+			<PropertyRadioGroup name="ruleNVP_alwaysShow" propertyName="ruleNVP_alwaysShow" 
+				promptText="${catalogResources.ruleBasedSalesCategoryDynamic_displayOption}"
+				extendedHelpText="${catalogResources.extendedHelpText_displayOption_dynamic}"
+				helpLinkURL="tasks/tpnrulebasedsalescatdefine.htm"/>
+			<PropertyChildListEditor 
+				listDefinitionName="catDynamicSalesCategoryInclusionGrid" 
+				name="dynamicSalesCategoryInclusionEditor" 
+				objectTypes="SearchFilterCatalogEntryInclusion" 
+				promptText="${catalogResources.ruleBasedSalesCategoryRequiredCatentriesList}"
+				sequencePropertyName="sequence"
+				extendedHelpText="${catalogResources.extendedHelpText_alwaysShow_dynamic}"
+				helpLinkURL="tasks/tpnrulebasedsalescatdefine.htm"/>
+		</PropertyGroup>
+		<PropertyGroup groupTitle="${catalogResources.ruleBasedSalesCategory_assignedCatalogEntries}" name="assignedCatalogEntriesGroup" open="true">
+			<PropertyViewLongText propertyName="ruleNVP_evaluating">
+				<FalseEnablementCondition/>
+			</PropertyViewLongText>
+			<PropertyViewLongText propertyName="ruleNVP_evaltime"
+				promptText="${catalogResources.ruleBasedSalesCategory_lastEvalTime}" 
+				extendedHelpText="${catalogResources.extendedHelpText_lastEvalTime}"
+				helpLinkURL="tasks/tpnrulebasedsalescatdefine.htm">
+				<FalseEnablementCondition/>
+			</PropertyViewLongText>
+			<ChildListViewer 
+				listDefinitionName="catSavedRuleResultsChildCatalogEntryGrid" 
+				name="ruleBasedSalesCategoryChildCatalogEntryViewer" 
+				objectTypes="DynamicSalesCatalogGroupChildCatalogEntry"
+				promptText="${catalogResources.ruleBasedSalesCategory_assignedCatalogEntries}"
+				extendedHelpText="${catalogResources.extendedHelpText_assigned_dynamic}"
+				helpLinkURL="tasks/tpnrulebasedsalescatdefine.htm">
+			</ChildListViewer>
+		</PropertyGroup>
+	</PropertyPane>
+    
+</Definitions>

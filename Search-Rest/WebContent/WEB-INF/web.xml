@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name>Search-Rest</display-name>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/jsp/commerce/foundation/restricted/Server500.jsp</location>
+	</error-page>
+	<servlet>
+		<description>JAX-RS Servlet</description>
+		<display-name>JAX-RS Servlet</display-name>
+		<servlet-name>JAX-RS Servlet</servlet-name>
+		<servlet-class>org.apache.wink.server.internal.servlet.RestServlet</servlet-class>
+		        <init-param>
+    		<param-name>propertiesLocation</param-name>
+   			<param-value>/WEB-INF/config/rest-config.properties</param-value>
+        </init-param>
+        <init-param>
+            <param-name>applicationConfigLocation</param-name>
+            <param-value>/WEB-INF/config/providers-ext.properties;/WEB-INF/config/providers.properties;/WEB-INF/config/resources-search-ext.properties;/WEB-INF/config/resources-search.properties</param-value>
+        </init-param>
+        <init-param> 
+            <param-name>deploymentConfiguration</param-name>
+            <param-value>com.ibm.commerce.foundation.rest.config.search.solr.SolrRESTSearchDeploymentConfiguration</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>JAX-RS Servlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<listener>
+		<description>Servlet listener that initializes Commerce REST configuration </description>
+		<listener-class>com.ibm.commerce.foundation.rest.servlets.search.solr.SolrRESTSearchServletListener</listener-class>
+	</listener>
+	<filter>
+		<display-name>REST Invalidation Filter</display-name>
+		<filter-name>RESTInvalidationFilter</filter-name>
+		<filter-class>com.ibm.commerce.rest.caching.RESTInvalidationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RESTInvalidationFilter</filter-name>
+		<servlet-name>JAX-RS Servlet</servlet-name>
+	</filter-mapping>
+	<filter>
+		<display-name>Rest Transaction Filter</display-name>
+		<filter-name>RestTransactionFilter</filter-name>
+		<filter-class>com.ibm.commerce.rest.filter.RestTransactionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RestTransactionFilter</filter-name>
+		<servlet-name>JAX-RS Servlet</servlet-name>
+	</filter-mapping>
+	<filter>
+		<display-name>REST Cache Filter</display-name>
+		<filter-name>RESTCacheFilter</filter-name>
+		<filter-class>com.ibm.commerce.rest.caching.RESTCacheFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RESTCacheFilter</filter-name>
+		<servlet-name>JAX-RS Servlet</servlet-name>
+	</filter-mapping>
+</web-app>

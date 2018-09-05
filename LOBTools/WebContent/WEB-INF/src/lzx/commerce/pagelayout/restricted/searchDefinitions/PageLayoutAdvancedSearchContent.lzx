@@ -1,0 +1,165 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<library>
+
+		<!---
+			<p>
+			Class definition for the advanced search class for Page Layouts.
+			This class extends from the wcfAdvancedSearchContent class and is in charge of building the 
+			user interface for gathering the input from the user to perform the advanced search.
+			</p>
+			
+			<p>
+			As required by extending the wcfAdvancedSearchContent, a setSearchOptions method is
+			implemented to set the searchOptions attribute of the super class. The searchOptions is an
+			object that contains the name/value pairs that will be sent to the search service.
+			</p>
+			
+			<p>
+			This search is used to find the following:
+			{@link plmBasePageLayoutPrimaryObjectDefinition Page Layouts}
+			</p>
+			
+			<p>			
+			Search parameters included in this class : 
+				<ol>
+					<li> layoutName - Represents the name of the page layout.
+					<li> startDate - Represents the beginning of the date range to search for.   
+					<li> endDate - Represents the end of the date range to search for.
+					<li> deviceClass - Represents the specific type of the page layouts.
+				</ol>
+			</p>									  
+			
+			<p>
+			If this class is extended to append some extra search parameters, you must also write the
+			setSearchOptions method that calls the super.setSearchOptions() and then appends the new
+			extra search parameters to the searchOptions attribute.
+			</p>
+		-->
+		<class name="plmPageLayoutsAdvancedSearchContent" extends="wcfAdvancedSearchContent">
+	
+			<attribute name="myStyle" value="${this.parent.parent.parent.parent.parent.style}"/>
+			
+			<simplelayout axis="y" spacing="6"/>
+			<view name="section1" width="100%">
+					<simplelayout axis="y"/>
+					<view name="filler1" height="15"/>
+					<!-- Instructional text to the user -->
+					<text text="${plmPageLayoutResources.searchInstructionalText.string}" multiline="true" width="100%" />
+					<view name="filler2" height="2"/>
+			</view>
+			<view name="section2" width="410">
+					<simplelayout axis="y" spacing="2"/>
+					<view name="section2_1" width="100%">
+						<text text="${plmPageLayoutResources.searchInstructionalText_findLayout.string}" multiline="true" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}" fontstyle="bold" />					
+					</view>
+					<view name="section2_2" width="100%">
+						<text text="${plmPageLayoutResources.namePrompt.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}"/>
+					</view>					
+					<view name="section2_3" width="100%">
+						<!-- Text field for the layoutName search parameter -->
+						<wcfInputText name="layoutName" width="177"/>
+					</view>
+			</view>
+			
+			<view name="section3" width="410">
+				<simplelayout axis="y" spacing="2"/>
+				<view resource="dividerLine" stretches="width" width="${parent.width - 3}"/>
+				<view name="filler5" height="2"/>	
+				<view name="section3_1" width="100%">
+					<text text="${plmPageLayoutResources.searchInstructionalText_narrowBy.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}" fontstyle="bold"/>
+				</view>
+				<view name="section3_2" width="100%">
+					<text text="${plmPageLayoutResources.searchInstructionalText_dateRange.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}"/>
+				</view>
+				<view name="section3_3" width="97%">
+					<simplelayout axis="y" spacing="2"/>
+					<text text="${plmPageLayoutResources.pageLayoutAssociationStartDatePrompt.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}"/>
+					<wcfDateTimePicker name="startDate" showTimeZone="false"/>
+					<view name="filler7" height="2"/>
+					<text text="${plmPageLayoutResources.pageLayoutAssociationEndDatePrompt.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}"/>
+					<wcfDateTimePicker name="endDate" endOfDay="true" showTimeZone="false"/>
+				</view>
+			</view>			
+			
+			<view name="section4" width="410">
+					<simplelayout axis="y" spacing="2"/>
+					<view name="section4_1" width="100%">
+						<text text="${plmPageLayoutResources.layoutTypeText.string}" width="100%" fgcolor="${classroot.myStyle.texthilitecolor}"/>
+					</view>					
+					<view name="section4_2" width="97%">
+						<simplelayout axis="y"/>
+						<wcfBaseRadioGroup x="5" name="layoutType">
+							    <wcfBaseRadioButton value="1" text="${plmPageLayoutResources.layoutTypeText_allPages.string}" selected="true"/>
+							    <wcfBaseRadioButton value="2" text="${plmPageLayoutResources.layoutTypeText_specifyType.string}"/>
+						</wcfBaseRadioGroup>
+						<state applied="${immediateparent.layoutType.value == 2}">
+							<view name="filler9" height="6"/>
+							<view name="section4_2_1" width="100%" x="24">
+								<simplelayout axis="y" spacing="2"/>
+								<!-- Checkbox for the typeResponsive search parameter -->
+								<wcfBaseCheckbox name="typeResponsive" text="${plmPageLayoutResources.layoutTypeText_responsiveLayout.string}" width="160"/>
+								<!-- Checkbox for the typeMobile search parameter -->
+								<wcfBaseCheckbox name="typeMobile" text="${plmPageLayoutResources.layoutTypeText_mobileLayout.string}" width="160"/>									
+								<!-- Checkbox for the typeDesktop search parameter -->
+								<wcfBaseCheckbox name="typeDesktop" text="${plmPageLayoutResources.layoutTypeText_desktopLayout.string}" width="160"/>									
+							</view>
+						</state>					
+					</view>
+			</view>
+			
+			<!---
+				Construct the search options for the all page layouts advanced search.
+			-->
+			<method name="setSearchOptions">
+				<![CDATA[
+					super.setSearchOptions();
+					var newSearchOptions = {};
+					newSearchOptions.layoutName = this.section2.section2_3.layoutName.getText();
+
+					var date1 = this.section3.section3_3.startDate.getDateTime();
+					if (date1 != null) {
+						newSearchOptions.startDate = wcfDateUtil.format(date1, wcfDateUtil.DATE_TIME_FORMAT);
+					} 
+					var date2 = this.section3.section3_3.endDate.getDateTime();
+					if (date2 != null) {
+						newSearchOptions.endDate = wcfDateUtil.format(date2, wcfDateUtil.DATE_TIME_FORMAT);
+					}						
+					
+					newSearchOptions.layoutType = this.section4.section4_2.layoutType.getValue();
+					if (newSearchOptions.layoutType == 2) {
+						newSearchOptions.deviceClass = '';
+						if(this.section4.section4_2.section4_2_1.typeResponsive.getValue()){
+							newSearchOptions.deviceClass = 'Any';
+						}
+						if(this.section4.section4_2.section4_2_1.typeDesktop.getValue()){
+							if(newSearchOptions.deviceClass != ''){
+								newSearchOptions.deviceClass += ',';
+							}
+							newSearchOptions.deviceClass += 'Web';
+						}
+						if(this.section4.section4_2.section4_2_1.typeMobile.getValue()){
+							if(newSearchOptions.deviceClass != ''){
+								newSearchOptions.deviceClass += ',';
+							}
+							newSearchOptions.deviceClass += 'Mobile';
+						}												
+					}
+					newSearchOptions.advancedSearch = true;
+															
+					this.searchOptions = newSearchOptions;
+				]]>
+			</method>
+		</class>		
+</library>

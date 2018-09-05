@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("ibmimagedatauri","ja",{error:"イメージの貼り付けは現在サポートされていません。代わりに「イメージの挿入」ツールバー・オプションを使用してください。"});

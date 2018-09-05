@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+/*$SkipWCCopr$*/
+/*
+ *-----------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (C) Copyright IBM Corp. 2008 All Rights Reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ *-----------------------------------------------------------------
+ */
+
+/*Madisons store CSS definitions overwrite for IE 7 and newer browsers*/
+/* -----------------------------------------------------------------------------*/
+/* HEADER CLASS
+/* -----------------------------------------------------------------------------*/
+.top_category_no_display {
+	padding-top: 12px;
+}
+
+/* -----------------------------------------------------------------------------*/
+/* SCROLLING ESPOT WIDGET CLASS
+/* -----------------------------------------------------------------------------*/
+.thumbScroller {
+	border: 0px;
+	float: left;
+	overflow: hidden;
+	position: relative;
+	height: 100%;
+	padding: 0px 0px 0px 0px;
+}

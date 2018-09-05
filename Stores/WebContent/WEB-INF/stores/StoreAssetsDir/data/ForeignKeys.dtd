@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ENTITY CATALOG_TARGET_STORE_ID "10051">
+<!ENTITY el_GR "-11">
+<!ENTITY CAT_STOREENT_ID "@catalogStore">
+<!ENTITY TARGET_STORE_ID "10051">
+<!ENTITY CAT_ORGANIZATION_DN "ou=madisons,o=seller organization,o=root organization">
+<!ENTITY ja_JP "-10">
+<!ENTITY CAT_STORE_IDENTIFIER "Madisons">
+<!ENTITY iw_IL "-11">
+<!ENTITY ORGANIZATION_DN "ou=madisons,o=seller organization,o=root organization">
+<!ENTITY CAT_MEMBER_ID "@catalog_mbr_id">
+<!ENTITY ORGANIZATION_NAME "Seller Organization">
+<!ENTITY NEW_ESPOT_01 "MobileHomePageFeaturedProducts">
+<!ENTITY NEW_ESPOT_02 "MobileFurnitureFeaturedProducts">
+<!ENTITY NEW_ESPOT_03 "MobileTablewareFeaturedProducts">
+<!ENTITY NEW_ESPOT_04 "MobileKitchenwareFeaturedProducts">
+<!ENTITY NEW_ESPOT_05 "MobileApparelFeaturedProducts">
+<!ENTITY zh_CN "-7">
+<!ENTITY NEW_ESPOT_06 "MobileHomePage">
+<!ENTITY es_ES "-5">
+<!ENTITY fr_FR "-2">
+<!ENTITY pl_PL "-22">
+<!ENTITY STORE_DIRECTORY_LOWERCASE "madisons">
+<!ENTITY TARGET_STOREENT_ID "@targetStore">
+<!ENTITY ko_KR "-9">
+<!ENTITY CAT_STORE_DIR "Madisons">
+<!ENTITY STORE_IDENTIFIER "Madisons">
+<!ENTITY pt_BR "-6">
+<!ENTITY STORE_DIR "Madisons">
+<!ENTITY ar_EG "-23">
+<!ENTITY TARGET_MEMBER_ID "@target_mbr_id">
+<!ENTITY ORGENTITYNAME "Madisons">
+<!ENTITY zh_TW "-8">
+<!ENTITY en_US "-1">
+<!ENTITY it_IT "-4">
+<!ENTITY de_DE "-3">
+<!ENTITY ru_RU "-20">
+<!ENTITY ro_RO "-21">
+

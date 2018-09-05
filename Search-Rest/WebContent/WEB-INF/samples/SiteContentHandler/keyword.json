@@ -1,0 +1,25 @@
+{
+	"suggestionView": [
+		{
+			"entry": [
+				{
+					"frequency": 772,
+					"term": "dress"
+				},
+				{
+					"frequency": 62,
+					"term": "dress empire"
+				},
+				{
+					"frequency": 62,
+					"term": "dress empire waist"
+				},
+				{
+					"frequency": 57,
+					"term": "dress layered"
+				}
+			],
+			"identifier": "Keyword"
+		}
+	]
+}

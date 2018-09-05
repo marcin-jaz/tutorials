@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<WidgetObjectDefinition package="plm"
+		definitionName="plmBaseLayoutWidget"
+		isBaseDefinition="true"
+		idProperty="widgetId"
+		iconPath="/images/pagelayouts/widgetIcons/missing_widget_icon.png"
+		objectGroups="LayoutWidgetAlias">
+
+		<PropertyDefinition propertyName="slotIdentifier" type="string" displayName="${plmPageLayoutResources.slotPrompt}" required="true" />
+		<PropertyDefinition propertyName="widgetName" maximumSize="256" type="string" displayName="${plmPageLayoutResources.widgetNamePrompt}" required="true" forceParentValidation="true" />
+		
+		<PropertyDefinition propertyName="sequence" required="true" type="number" 
+			maxValue="9999999999" maximumSize="14" minValue="-9999999999"
+			displayName="${plmPageLayoutResources.sequencePrompt}" />
+			
+		<PropertyDefinition propertyName="widgetDefId" type="string" displayName="${plmPageLayoutResources.widgetPrompt}" >
+			<PropertyValueService url="/cmc/GetWidgetDefDisplayNames" >
+				<ServiceParam name="storeId" />
+			</PropertyValueService>
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="parentWidgetId" copyProtected="true"/>
+		
+		<DeleteService url="/cmc/DeleteLayoutWidget">
+			<ServiceParam name="objectStoreId" parentProperty="true" />
+			<ServiceParam name="pageLayoutId" parentProperty="true" />
+			<ServiceParam name="widgetId" propertyName="widgetId" />
+			<ServiceParam name="widgetName" propertyName="widgetName" />
+			<ServiceParam name="storeId"/>
+		</DeleteService>
+
+		<Xml name="template">
+			<sequence>0</sequence>
+		</Xml>
+	</WidgetObjectDefinition>
+
+	<WidgetObjectDefinition package="plm"
+		definitionName="plmLayoutWidget" 
+		parentDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		baseDefinitionName="plmBaseLayoutWidget"
+		objectType="LayoutWidget"
+		iconPath="/images/pagelayouts/widgetIcons/generic_widget.png"
+		gridPropertiesDefinitionName="plmWidgetProperties_LayoutWidget">	
+		<CreateService baseDefinitionName="plmBaseCreateLayoutWidget" />
+		<UpdateService baseDefinitionName="plmBaseUpdateLayoutWidget" />
+	</WidgetObjectDefinition>
+
+	<!-- Base definition for Layout Widget create service -->
+	<CreateService definitionName="plmBaseCreateLayoutWidget" url="/cmc/CreateLayoutWidget">
+		<ServiceParam name="objectStoreId" parentProperty="true"/>
+		<ServiceParam name="pageLayoutId" parentProperty="true" />
+		<ServiceParam name="parentWidgetId" propertyName="widgetId" parentProperty="true" objectPath="LayoutContainerWidget" />
+		<ServiceParam name="storeId"/>
+	</CreateService>
+
+	<!-- Base definition for Layout Widget update service -->
+	<UpdateService definitionName="plmBaseUpdateLayoutWidget" url="/cmc/UpdateLayoutWidget" sendAll="true">
+		<ServiceParam name="objectStoreId" parentProperty="true"/>
+		<ServiceParam name="pageLayoutId" parentProperty="true" />
+		<ServiceParam name="storeId"/>
+	</UpdateService>
+
+</Definitions>

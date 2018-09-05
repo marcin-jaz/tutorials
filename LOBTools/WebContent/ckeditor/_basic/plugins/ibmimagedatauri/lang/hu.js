@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("ibmimagedatauri","hu",{error:"A képek beillesztése jelenleg nem támogatott. Használja ehelyett a 'Kép beszúrása' lehetőséget."});

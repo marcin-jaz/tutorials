@@ -1,0 +1,54 @@
+<%--
+*****
+This object snippet displays a set of address entry fields when included on a page, and the appropriate
+required parameters are set up.
+
+Required parameters:
+	paramSource:	An address databean or any other object implementing java.util.Map that the address databean
+					fields could be retrieved from.   For example, 'paramSource.firstName' will be evaluated.
+					If paramSource is set to be a map with an entry with a key of 'firstName' or an AddressDataBean 
+					with the method getFirstName, the first name field will be prepopulated.
+					This method of prepopulation is useful because you may wish to prepopulate the fields with
+					information from the request (for example, in an error situation) or with an existing address
+					(when updating an address).
+	
+Optional parameters:	
+	locale:		The locale of the address entry fields you wish to display.  
+				Note that in the starter stores this variable is declared for you.
+				If locale is not provided a default display format is used.
+	inputPrefix:	A string that will be prepended to all of the input names.  This is used on the
+					QuickCheckoutProfileForm -- 2 address entry fields are shown and when the form
+					is submitted they are differentiated this way.
+
+Note:  Because this snippet contains entry fields, we use the store style sheet entries in this object snippet.
+
+You may customize the 4 files listed below or add additional locale handling to this file.
+
+*****
+--%>
+
+<!-- Start - JSP File Name:  AddressEntryFormDisplay.jspf -->
+<%-- 
+  ***
+  *	Start: Address Form - First Name, Last Name, Address Information
+  * The layouts of these entry fields are different depending on the locale.
+  ***
+--%>
+<c:choose>
+	<c:when test="${locale eq 'fr_FR' || locale eq 'de_DE' || locale eq 'es_ES' || locale eq 'it_IT'}">
+		<%@ include file="AddressEntryForm_DE_ES_FR_IT.jspf"%>
+	</c:when>
+	<c:when test="${locale eq 'zh_CN'}">
+		<%@ include file="AddressEntryForm_CN.jspf"%>
+	</c:when>
+	<c:when test="${locale eq 'zh_TW'}">
+		<%@ include file="AddressEntryForm_TW.jspf"%>
+	</c:when>
+	<c:when test="${locale eq 'ja_JP' || locale eq 'ko_KR'}">
+		<%@ include file="AddressEntryForm_JP_KR.jspf"%>
+	</c:when>
+	<c:otherwise>
+		<%@ include file="AddressEntryForm.jspf"%>
+	</c:otherwise>
+</c:choose>
+<!-- End - JSP File Name:  AddressEntryFormDisplay.jspf -->

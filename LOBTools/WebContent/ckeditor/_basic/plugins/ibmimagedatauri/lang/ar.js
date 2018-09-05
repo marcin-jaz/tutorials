@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("ibmimagedatauri","ar",{error:"حاليا لا يتم دعم لصق الصور. يرجى استخدام اختيار خط الأدوات 'ادراج صورة' كبديل."});

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+	<panel id="OrdersPanel" title="OrdersPanel.title" description="OrdersPanel.description" display-priority="3"/>
+
+	<option-group id="Orders.checkbox" title="Orders.RunningTotal.checkboxEnable.title" type="checkbox" display-priority="1" panel="OrdersPanel" >
+		
+		<option id="Orders.RunningTotal.checkboxEnable"
+			label="Orders.RunningTotal.checkboxEnable.label"
+			enables-features="ShoppingTotal" />
+	</option-group>
+
+	<option-group id="Orders.QuickOrder.checkbox" title="Orders.QuickOrder.checkboxEnable.title" type="checkbox" display-priority="2" panel="OrdersPanel" >
+		
+		<option id="Orders.QuickOrder.checkboxEnable"
+			label="Orders.QuickOrder.checkboxEnable.label"
+			enables-features="QuickOrder" />
+	</option-group>
+		
+	<option-group id="WishList.checkbox" title="WishList.checkboxEnable.title" type="checkbox" display-priority="3" panel="OrdersPanel" >
+		
+		<option id="WishList.checkboxEnable"
+			label="WishList.checkbox.label"
+			enables-features="wishList" />
+	</option-group>
+
+	
+</display>

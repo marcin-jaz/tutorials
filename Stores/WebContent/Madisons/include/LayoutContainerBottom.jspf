@@ -1,0 +1,34 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2001, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%-- 
+  *****
+  * This JSP fragment is included in content JSP pages to construct the right and bottom portion of the layout.
+  *****
+--%>
+<!-- BEGIN LayoutContainerBottom.jspf -->
+
+	<%@ include file="RightSidebarDisplay.jspf"%>
+</div>
+     
+<%@ include file="FooterDisplay.jspf"%>
+
+
+<script type="text/javascript">
+	dojo.addOnLoad(function() { 
+		//Make sure page is loaded at this point
+		//Set requestedSubmitted to false
+		requestSubmitted = false;
+	}); 	
+</script>
+<!-- END LayoutContainerBottom.jspf -->

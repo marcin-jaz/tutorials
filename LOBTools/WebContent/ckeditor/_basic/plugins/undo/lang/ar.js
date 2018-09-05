@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","ar",{redo:"اعادة",undo:"تراجع"});

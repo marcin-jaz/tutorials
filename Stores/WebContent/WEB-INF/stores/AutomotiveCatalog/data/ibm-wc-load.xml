@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE data-deploy SYSTEM "ibm-wc-load.dtd">
+<data-deploy base-dir="." default-target="all">
+    <asset id="storeorg" location="storeorg.xml"/>
+    <asset id="master" location="store-data-assets.xml"/>
+    <asset id="resolved.master" location="store-data-assets.resolved.xml"/>
+    <asset id="foreignKeys" location="ForeignKeys.dtd" type="dtd"/>
+    <asset id="account" location="businessaccount.xml"/>
+    <asset id="contract" location="contract.xml"/>
+    <asset id="en_US_contract" location="en_US/contract.xml"/>
+    <asset id="de_DE_contract" location="de_DE/contract.xml"/>
+    <asset id="es_ES_contract" location="es_ES/contract.xml"/>
+    <asset id="fr_FR_contract" location="fr_FR/contract.xml"/>
+    <asset id="it_IT_contract" location="it_IT/contract.xml"/>
+    <asset id="ja_JP_contract" location="ja_JP/contract.xml"/>
+    <asset id="ko_KR_contract" location="ko_KR/contract.xml"/>
+    <asset id="pt_BR_contract" location="pt_BR/contract.xml"/>
+    <asset id="zh_CN_contract" location="zh_CN/contract.xml"/>
+    <asset id="zh_TW_contract" location="zh_TW/contract.xml"/>
+    <asset id="." location=""/>
+	 <deploy-task-cmd name="copy" class="com.ibm.commerce.tools.devtools.publish.tasks.unpack.CopyTaskCmd"/>
+	<deploy-task-cmd name="findStore" class="com.ibm.commerce.tools.devtools.publish.tasks.StoreIdBaseDeployTaskCmd"/>
+	<deploy-task-cmd name="UpdateDMTable" class="com.ibm.commerce.tools.devtools.publish.tasks.UpdateDMTaskCmd"/>
+	<deploy-task-cmd name="UpdatePXTable" class="com.ibm.commerce.tools.devtools.publish.tasks.UpdatePXTaskCmd"/>
+    <deploy-task-cmd name="contractImport" class="com.ibm.commerce.tools.devtools.publish.tasks.trading.ContractImportTaskCmd"/>
+    <deploy-task-cmd name="accountImport" class="com.ibm.commerce.tools.devtools.publish.tasks.trading.AccountImportTaskCmd"/>
+    <deploy-task-cmd name="commandInvoker" class="com.ibm.commerce.tools.devtools.publish.tasks.CommandInvokerTaskCmd"/>
+    <deploy-task-cmd name="copyLocaleFile" class="com.ibm.commerce.tools.devtools.publish.tasks.unpack.CopyLocaleFileTaskCmd"/>
+    <target id="all">
+		<task name="copy">
+            <param name="toDir" value="${wc:StoresDataPath}/AutomotiveCatalog/data" />
+            <param name="fromDir" value="${wc:StoresDataPath}/AutomotiveCatalog/data/${asset:foreignKeys#ATTR_CHOICE}" />
+    	</task>
+		<task name="findStore">
+	    		<param name="storeIdentifier" value="${asset:foreignKeys#MAR_STORE_IDENTIFIER}" />
+	    		<param name="organizationDN" value="${asset:foreignKeys#MAR_ORGANIZATION_DN}" />
+	    		<export name="storeEntityId" value="storeEntityId"/>
+	    </task>
+    	<task name="copyLocaleFile">
+            <param name="basename" value="${asset:storeorg}" />
+    	</task>
+    	<task name="idresolve">
+            <param name="infile" value="${asset:master}" />
+            <param name="outfile" value="${asset:resolved.master}" />
+    	</task>
+    	<task name="massload">
+            <param name="infile" value="${asset:resolved.master}" />
+   		    <param name="maxerror" value="1" />	
+            <param name="noprimary" value="error" />
+    	</task>
+    	<task name="commandInvoker">
+            <param name="invoked_commandClassName" value="com.ibm.commerce.scheduler.commands.RefreshRegistryCmd" />
+            <param name="URL" value="/ignore" />
+    	</task>
+        <task name="accountImport">
+            <param name="tradingXMLFileName" value="${asset:account}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#HOS_STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#HOS_ORGANIZATION_DN}" />
+    	</task>
+        <task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#HOS_STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#HOS_ORGANIZATION_DN}" />
+    	</task>
+    	<task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:en_US_contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#HOS_STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#HOS_ORGANIZATION_DN}" />
+    	</task>    	
+    	<task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:de_DE_contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#HOS_STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#HOS_ORGANIZATION_DN}" />
+    	</task>
+    	<task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:es_ES_contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#HOS_STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#HOS_ORGANIZATION_DN}" />
+    	</task>
+    	<task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:fr_FR_contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#HOS_STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#HOS_ORGANIZATION_DN}" />
+    	</task>
+    	<task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:it_IT_contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#HOS_STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#HOS_ORGANIZATION_DN}" />
+    	</task>
+    	<task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:ja_JP_contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#HOS_STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#HOS_ORGANIZATION_DN}" />
+    	</task>
+    	<task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:ko_KR_contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#HOS_STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#HOS_ORGANIZATION_DN}" />
+    	</task>
+    	<task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:pt_BR_contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#HOS_STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#HOS_ORGANIZATION_DN}" />
+    	</task>
+    	<task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:zh_CN_contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#HOS_STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#HOS_ORGANIZATION_DN}" />
+    	</task>
+    	<task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:zh_TW_contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#HOS_STORE_IDENTIFIER}" />
+            <param name="organizationDN" value="${asset:foreignKeys#HOS_ORGANIZATION_DN}" />
+    	</task>
+
+		<task name="UpdateDMTable">
+			<param name="type" value="catalogEntryIdList" />
+			<param name="storeId" value="${context:storeEntityId}" />
+				<param name="valuesParam" value="A0000462,A0000642,A00001307,A00001427,A00001560,A00001287,A00001482,A00001580,A00001267,A00001247,A00001182,A00001092,A0000282,A0000597,A0000372,A00001387,A00001092,A0000957,A0000282,A0000462,A0000507,A0000642,A0000867,A0000912,A00001047,A00001227,A00001307,A00001327,A00001427,A00001467,A0000237,A00001512,A00001560,A00001590,A0000192,A0000372,A0000417,A0000597,A0000552,A0000732,A0000687,A0000822,A0000777,A00001002,A0000957,A00001137,A00001092,A00001182,A00001247,A00001287,A00001267,A00001367,A00001347,A00001407,A00001387,A00001447,A00001482,A00001497,A00001527,A00001542,A00001550,A00001570,A00001580,A00001497,A0000237,A0000732,A00001137" />
+				<param name="elementIdsParam" value="@dmelement_id2_p1_prod1,@dmelement_id2_p1_prod2,@dmelement_id2_p1_prod3,@dmelement_id2_p1_prod4,@dmelement_id2_p1_prod5,@dmelement_id2_p1_prod6,@dmelement_id2_p1_prod7,@dmelement_id2_p1_prod8,@dmelement_id2_p1_prod9,@dmelement_id2_p1_prod10,@dmelement_id2_p1_prod11,@dmelement_id2_p1_prod12,@dmelement_id2_p2_prod1,@dmelement_id2_p2_prod2,@dmelement_id2_p2_prod3,@dmelement_id2_p3_prod1,@dmelement_id2_p3_prod2,@dmelement_id2_p3_prod3,@dmelement_id7_p4_prod1,@dmelement_id7_p4_prod2,@dmelement_id7_p4_prod3,@dmelement_id8_p4_prod1,@dmelement_id8_p4_prod2,@dmelement_id8_p4_prod3,@dmelement_id9_p4_prod1,@dmelement_id9_p4_prod2,@dmelement_id9_p4_prod3,@dmelement_id10_p4_prod1,@dmelement_id10_p4_prod2,@dmelement_id10_p4_prod3,@dmelement_id16_p4_prod1,@dmelement_id16_p4_prod2,@dmelement_id16_p4_prod3,@dmelement_id7_p5_prod1,@dmelement_id7_p5_prod2,@dmelement_id7_p5_prod3,@dmelement_id7_p5_prod4,@dmelement_id7_p5_prod5,@dmelement_id7_p5_prod6,@dmelement_id8_p5_prod1,@dmelement_id8_p5_prod2,@dmelement_id8_p5_prod3,@dmelement_id8_p5_prod4,@dmelement_id8_p5_prod5,@dmelement_id8_p5_prod6,@dmelement_id9_p5_prod1,@dmelement_id9_p5_prod2,@dmelement_id9_p5_prod3,@dmelement_id9_p5_prod4,@dmelement_id9_p5_prod5,@dmelement_id9_p5_prod6,@dmelement_id10_p5_prod1,@dmelement_id10_p5_prod2,@dmelement_id10_p5_prod3,@dmelement_id10_p5_prod4,@dmelement_id10_p5_prod5,@dmelement_id10_p5_prod6,@dmelement_id16_p5_prod1,@dmelement_id16_p5_prod2,@dmelement_id16_p5_prod3,@dmelement_id16_p5_prod4,@dmelement_id16_p5_prod5,@dmelement_id16_p5_prod6,@dmelement_id2_p6_prod1,@dmelement_id2_p6_prod2,@dmelement_id2_p6_prod3,@dmelement_id2_p6_prod4" />
+	    </task>
+		<task name="UpdateDMTable">
+			<param name="type" value="categoryIdList" />
+			<param name="storeId" value="${context:storeEntityId}" />
+				<param name="valuesParam" value="Brakes components,Electrical systems,Entertainment \ On board computing,Suspensions components,Transmission components,Brakes components,Electrical systems,Entertainment \ On board computing,Suspensions components,Transmission components,Brake pads,Master Cylinders,Tires,Batteries,Lamps,Starters,Audio Systems,GPS Navigation systems,Video Systems,Bearings,Shocks,Springs,Clutches,Gears,Differentials,Brakes components,Electrical systems,Entertainment \ On board computing,Suspensions components" />
+				<param name="elementIdsParam" value="@dmelement_id11_p4_cat1,@dmelement_id12_p4_cat1,@dmelement_id13_p4_cat1,@dmelement_id14_p4_cat1,@dmelement_id17_p4_cat1,@dmelement_id11_p5_cat1,@dmelement_id12_p5_cat1,@dmelement_id13_p5_cat1,@dmelement_id14_p5_cat1,@dmelement_id17_p5_cat1,@dmelement_id2_c1_cat1,@dmelement_id2_c1_cat2,@dmelement_id2_c1_cat3,@dmelement_id2_c2_cat1,@dmelement_id2_c2_cat2,@dmelement_id2_c2_cat3,@dmelement_id2_c3_cat1,@dmelement_id2_c3_cat2,@dmelement_id2_c3_cat3,@dmelement_id2_c4_cat1,@dmelement_id2_c4_cat2,@dmelement_id2_c4_cat3,@dmelement_id2_c5_cat1,@dmelement_id2_c5_cat2,@dmelement_id2_c5_cat3,@dmelement_id2_c6_cat1,@dmelement_id2_c6_cat2,@dmelement_id2_c6_cat3,@dmelement_id2_c6_cat4" />
+	    </task>
+		<task name="UpdateDMTable">
+			<param name="type" value="collateralIdList" />
+			<param name="storeId" value="${context:storeEntityId}" />
+				<param name="valuesParam" value="HomePageMainAd,WinterTiresDiscount,OrderDiscount,EmailSignUp,ShippingDiscount,EmailNewsletter,CustomerSupport" />
+				<param name="elementIdsParam" value="@dmelement_id2_collateral_01,@dmelement_id2_collateral_03_col1,@dmelement_id2_collateral_04_col1,@dmelement_id2_collateral_04_col2,@dmelement_id2_collateral_04_col3,@dmelement_id2_collateral_05_col1,@dmelement_id2_collateral_08_col1" />
+	    </task>
+		<task name="UpdateDMTable">
+			<param name="type" value="emsId" />
+				<param name="storeId" value="${context:storeEntityId}" />
+			<param name="valuesParam" value="${asset:foreignKeys#NEW_ESPOT_01},${asset:foreignKeys#NEW_ESPOT_02},${asset:foreignKeys#NEW_ESPOT_03},${asset:foreignKeys#NEW_ESPOT_05},${asset:foreignKeys#NEW_ESPOT_06},${asset:foreignKeys#NEW_ESPOT_07},${asset:foreignKeys#NEW_ESPOT_08},${asset:foreignKeys#NEW_ESPOT_09},${asset:foreignKeys#NEW_ESPOT_10},${asset:foreignKeys#NEW_ESPOT_11},${asset:foreignKeys#NEW_ESPOT_12},${asset:foreignKeys#NEW_ESPOT_13},${asset:foreignKeys#NEW_ESPOT_14},${asset:foreignKeys#NEW_ESPOT_15},${asset:foreignKeys#NEW_ESPOT_16},${asset:foreignKeys#NEW_ESPOT_17},${asset:foreignKeys#NEW_ESPOT_18}" />
+				<param name="elementIdsParam" value="@dmelement_id1_collateral_01,@dmelement_id1_collateral_03,@dmelement_id1_p1,@dmelement_id1_collateral_04,@dmelement_id1_collateral_05,@dmelement_id1_p2,@dmelement_id1_p3,@dmelement_id1_p4,@dmelement_id1_p5,@dmelement_id1_p6,@dmelement_id1_collateral_08,@dmelement_id1_c1,@dmelement_id1_c2,@dmelement_id1_c3,@dmelement_id1_c4,@dmelement_id1_c5,@dmelement_id1_c6" />
+	    </task>
+		<task name="UpdatePXTable">
+	    		<param name="type" value="catalogEntryIdList" />
+	    		<param name="storeId" value="${context:storeEntityId}" />
+					<param name="valuesParam" value="A0000511,A0000736,A0000646,A0000691,A0000736,A0000872,A0000552" />
+					<param name="elementIdsParam" value="@px_elementnvp_id_81_prod1,@px_elementnvp_id_107_prod1,@px_elementnvp_id_155_prod1,@px_elementnvp_id_156_prod1,@px_elementnvp_id_157_prod1,@px_elementnvp_id_158_prod1,@px_elementnvp_id_190_prod1" />
+	    </task>
+		<task name="UpdatePXTable">
+	    		<param name="type" value="categoryIdList" />
+	    		<param name="storeId" value="${context:storeEntityId}" />
+					<param name="valuesParam" value="Brake pads,Master Cylinders" />
+					<param name="elementIdsParam" value="@px_elementnvp_id_125_cat1,@px_elementnvp_id_206_cat1" />
+	    </task>
+		<task name="UpdatePXTable">
+	    		<param name="type" value="shipModeIdList" />
+	    		<param name="storeId" value="${context:storeEntityId}" />
+					<param name="valuesParam" value="US Regular Delivery" />
+					<param name="elementIdsParam" value="@px_elementnvp_id_20_shipmode1" />
+	    </task>
+   </target>
+</data-deploy>

@@ -1,0 +1,215 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%--
+***** 
+This object snippet displays the price for a catalog entry.
+
+Required parameters:
+
+catalogEntry:	This is the catalogy entry for which the price will be displayed. It has to 
+              	be one of ProductDataBean, ItemDataBean, BundleDataBean, or	PackageDataBean.
+
+type: 		This parameter is used to indicate the type of the given catalogEntry. It 
+		has to be one of {product, item, bundle, package}. By default, the type 
+		is either package or item.
+
+displayPriceRange: 	This parameter is used to indicate wheter or not to display the tiered
+			pricing setup for the catalog entry. Only items, products, packages will
+			display this.
+
+The rules for price display are as follows: 
+    
+     For product and bundle: 
+     	-- If there is no available item price, a message indicating 
+           that no price is available will be displayed. 
+        -- If the minimum item price is not equal to the maximum item
+           price, a price range will be displayed. 
+        -- If there is only one item price, and the list price is either
+           unavailable or smaller than the item price, then only the
+           item price will be displayed. 
+        -- If there is only one item price, and the list price is greater than
+           the item price, then both the list price and the item price will be
+           displayed. 
+           
+      For item and package: 
+        -- If there is no offer price, a message indicating that no price is
+           available will be displayed. 
+        -- If there is no list price or the list price is smaller than the 
+           offer price, then only will the offer price be displayed. 
+        -- If the list price is greater than the offer price, then both the
+           list price and the offer price will be displayed. 
+*****
+--%>
+
+<%-- 
+***	
+*	Make sure the following variables are initially empty, because 
+*    the display will be based on whether they are null or not, and 
+*    the including page may contain the same variables. 
+***
+--%>
+<!-- BEGIN CatalogEntryPriceDisplay.jspf-->
+
+<c:set var="minimumPrice" value=""/>
+<c:set var="maximumPrice" value=""/>
+<c:set var="emptyPriceString" value=""/>
+<c:set var="priceString" value=""/>
+
+<%--
+*** 
+*	Get the potential price range if the catalog entry is either a product,
+*    or a bundle. 
+***
+--%>
+<c:if test="${!empty catalogEntryDB}">
+	<c:choose>
+		<c:when test="${type eq 'catalogEntry'}">
+			<c:set var="apendId" value="${catalogEntryDB.catalogEntryID}"/>
+		</c:when>
+		<c:when test="${type eq 'product'}">
+			<c:set var="minimumPrice" value="${catalogEntryDB.minimumItemPrice}"/>
+			<c:set var="maximumPrice" value="${catalogEntryDB.maximumItemPrice}"/>
+			<c:set var="apendId" value="${catalogEntryDB.productID}"/>
+		</c:when>
+		
+		<c:when test="${type eq 'bundle'}">
+			<c:set var="minimumPrice" value="${catalogEntryDB.minimumBundlePrice}"/>
+			<c:set var="maximumPrice" value="${catalogEntryDB.maximumBundlePrice}"/>
+			<c:set var="apendId" value="${catalogEntryDB.bundleID}"/>
+		</c:when>
+		<c:when test="${type eq 'package'}">
+			<c:set var="apendId" value="${catalogEntryDB.packageID}"/>
+		</c:when>
+		<c:when test="${type eq 'item'}">
+			<c:set var="apendId" value="${catalogEntryDB.itemID}"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="apendId" value="${catalogEntryDB.catalogEntryID}"/>
+		</c:otherwise>
+	</c:choose>
+</c:if>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:choose>
+	<%--
+	***
+	*	If there is no calculated contract price, then get a message 
+	*   indicating there is no available price. This rule applies to
+	*	any type of a catalog entry.
+	*
+	--%>
+	<c:when test="${ empty minimumPrice && !catalogEntryDB.calculatedContractPriced}">
+		<fmt:message var="emptyPriceString" key="NO_PRICE_AVAILABLE" bundle="${storeText}"/>
+	</c:when>
+	
+	<%-- 
+	***
+	*	If there is a price range, then make the range as the price to 
+	*	be displayed. We do not need to test if maximum price is empty,
+	*   because as long as minimum price is not empty, nor will be 
+	*   the maximum price. 
+	***
+	--%>
+	<c:when test="${!empty minimumPrice && !empty maximumPrice && (minimumPrice.amount != maximumPrice.amount) && fn:indexOf(maximumPrice.amount, minimumPrice.amount)==-1 && fn:indexOf(minimumPrice.amount, maximumPrice.amount)==-1}">
+		 <fmt:formatNumber var ="minPrice" value="${minimumPrice.amount}" type="currency" currencySymbol="${currencyFormatterDB.currencySymbol}" maxFractionDigits="${currencyDecimal}"/> 
+		 <fmt:formatNumber var="maxPrice" value="${maximumPrice.amount}"  type="currency" currencySymbol="${currencyFormatterDB.currencySymbol}" maxFractionDigits="${currencyDecimal}"/>
+		 <c:set var="priceString" value='${minPrice}-${maxPrice}'/>
+	</c:when>
+	
+	<%-- 
+	***	If there is no price range, then the offer price will be displayed, 
+	*   and the offer price is the catalog entry's calculated contract
+	*   price. This applies to any type of a catalog entry.
+	***
+	--%>
+	<c:otherwise>
+		<c:choose>
+			<c:when  test="${type eq 'product' || type eq 'bundle'}">
+				<c:set var="offerPrice" value="${minimumPrice}"/>
+			</c:when>
+			<c:otherwise>
+				<c:set var="offerPrice" value="${catalogEntryDB.calculatedContractPrice}"/>
+			</c:otherwise>
+		</c:choose>
+	</c:otherwise>
+</c:choose>
+
+		<c:choose>
+		    <%-- If the price is unavailable, print out the corresponding message --%>
+			<c:when test="${!empty emptyPriceString}">
+				<span class="price"> 
+					<c:out value="${emptyPriceString}"/>
+				</span>
+			</c:when>
+			
+			<%-- If the price string has been set, then we simply print it out. --%>
+			<c:when test="${!empty priceString}">
+				<span class="price"><c:out value="${priceString}" escapeXml="false" /></span>
+			</c:when>
+			
+			<%-- If the list price does not exist or is smaller than the offer price, print out both the offer price only. --%>
+			<c:when test="${!catalogEntryDB.listPriced || catalogEntryDB.listPrice.amount <= offerPrice.amount}">
+				<span class="price">
+					<fmt:formatNumber value="${offerPrice.amount}" type="currency" currencySymbol="${currencyFormatterDB.currencySymbol}" maxFractionDigits="${currencyDecimal}"/>
+				</span>
+			</c:when>
+			
+			<c:otherwise>
+				<span class="listprice">
+					<fmt:formatNumber value="${catalogEntryDB.listPrice.amount}" type="currency" currencySymbol="${currencyFormatterDB.currencySymbol}" maxFractionDigits="${currencyDecimal}"/>
+				</span>&#160;&#160;
+				<span class="price">
+					<fmt:formatNumber value="${offerPrice.amount}" type="currency" currencySymbol="${currencyFormatterDB.currencySymbol}" maxFractionDigits="${currencyDecimal}"/>
+				</span>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:if test="${displayPriceRange}">
+			<c:if test="${type != 'bundle' && catalogEntryDB.checkNumberOfApplicableContractIds}">
+
+				<c:forEach var="i" begin="0" end="${catalogEntryDB.numberOfApplicableContractIds}" varStatus="appContractIdCounter">
+					<c:forEach var="contractPriceRange" items="${catalogEntryDB.applicableContractPriceRanges}" varStatus="priceRangeContractCounter">
+						<c:if test="${priceRangeContractCounter.index == appContractIdCounter.index}">
+							<c:forEach var="priceRange" items="${contractPriceRange.rangePrices}" varStatus="priceRangeCounter">
+								<c:choose>
+									<c:when test="${empty priceRange.endingNumberOfUnits && priceRangeCounter.index == '0'}">
+										
+									</c:when>
+									<c:when test="${!empty priceRange.endingNumberOfUnits}">
+										<span class="price">
+										<fmt:message key="TieredPricingDisp" bundle="${storeText}">
+											<fmt:param value="${priceRange.startingNumberOfUnits}" />
+											<fmt:param value="${priceRange.endingNumberOfUnits}" />
+											<fmt:param value="${priceRange.contractPrice}" />
+										</fmt:message>
+										</span>
+									</c:when>
+									<c:otherwise>
+										<span class="price">
+										<fmt:message key="TieredPricingDispLast" bundle="${storeText}">
+											<fmt:param value="${priceRange.startingNumberOfUnits}" />
+											<fmt:param value="${priceRange.contractPrice}" />
+										</fmt:message>
+										</span>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</c:if>
+					</c:forEach>
+				</c:forEach>
+			</c:if>
+		</c:if>
+	
+<!-- END CatalogEntryPriceDisplay.jspf-->

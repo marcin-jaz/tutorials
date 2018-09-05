@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+	
+	<!---
+		Top object definition for the Page Layout business object editor tool. This object creates instances of the following
+		organizational objects:<ul>
+			<li>{@link StorePageLayoutsTop Page Layouts Organizational ObjectDefinition}</li>
+		</ul>
+	-->
+    <TopObjectDefinition definitionName="plmPageLayoutTopObjectDefinition">
+
+		<!--- Retrieves the {@link PageLayoutCatalog} child objects. -->
+		<GetChildrenService objectTypes="PageLayoutCatalog,InheritedPageLayoutCatalog" url="/cmc/GetPageLayoutMasterCatalog">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="assetStoreId"/>
+		</GetChildrenService>
+
+		<!--- Retrieves the {@link PageLayoutSalesCatalog} child objects. -->
+		<GetChildrenService objectTypes="PageLayoutSalesCatalog,InheritedPageLayoutSalesCatalog" url="/cmc/GetPageLayoutSalesCatalogs">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="assetStoreId"/>
+			<ServiceParam name="defaultLanguageId"/>
+		</GetChildrenService>
+
+		<!--- Retrieves the {@link Catalog Catalog} child objects. -->
+		<GetChildrenService url="/cmc/GetMasterCatalogObject">
+			<ServiceParam name="storeId"/>
+		</GetChildrenService> 
+		
+		<!--- Retrieves the {@link SalesCatalog Sales Catalog} child objects. -->
+		<GetChildrenService url="/cmc/GetSalesCatalogs">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="defaultLanguageId"/>
+		</GetChildrenService>
+		
+		<!---
+			Retrieves the {@link attManagedDirectory ManagedDirectory} and 
+			{@link attInheritedManagedDirectory InheritedManagedDirectory} objects.
+		-->
+		<GetChildrenService url="/cmc/GetRootManagedDirectory">
+			<ServiceParam name="storeId"/>
+		</GetChildrenService>
+		
+		<!--- Retrieves the {@link SearchTermAssociations Search Term Associations} and {@link InheritedSearchTermAssociations Inherited Search Term Associations} child objects.  -->
+		<GetChildrenService objectTypes="SearchTermAssociations,InheritedSearchTermAssociations" url="/cmc/GetSearchTermAssociations">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="searchEnabled"/>
+		</GetChildrenService>
+		
+        <Xml name="template">
+			<object objectType="StorePageLayoutsTop"/>
+			<object objectType="ContentPagesTop"/>
+			<object objectType="CampaignsTop"/>
+			<object objectType="ActivitiesTop"/>
+			<object objectType="EMarketingSpotTop"/>
+			<object objectType="WebActivityTemplatesTop"/>
+			<object objectType="MarketingContentTop"/>
+			<object objectType="AttachmentResourceAttachmentType"/>
+			<object objectType="CustomerSegmentTop"/>
+			<object objectType="MerchandisableAttributeDictionaryAttributesTop"/>
+			<object objectType="FacetableAttributeDictionaryAttributesTop"/>
+		</Xml>
+		
+	</TopObjectDefinition>
+	
+	<!---
+		Organizational object definition for the Page Layout node in the navigation tree. 
+	-->
+	<OrganizationalObjectDefinition definitionName="StorePageLayoutsTop" 
+		objectType="StorePageLayoutsTop"
+		displayName="${plmPageLayoutResources.organizationalPageLayouts}"
+		organizedObjectTypes="PageLayout, InheritedPageLayout, LayoutFolder, InheritedLayoutFolder"
+		addNewActionsToExplorerContextMenu="true"
+		utilitiesListDefinitionName="plmPageLayoutBrowseGrid">
+
+ 		<GetChildrenService url="/cmc/GetPageLayouts" objectTypes="PageLayout,InheritedPageLayout">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="catalogId" contextName="masterCatalogId"/>
+			<ServiceParam name="assetStoreId"/>
+		</GetChildrenService>
+		
+		<GetChildrenService url="/cmc/GetTopFolders" objectTypes="LayoutFolder,InheritedLayoutFolder">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="folderType" value="IBM_LayoutFolder"/>
+			<ServiceParam name="folderObjectType" value="LayoutFolder"/>
+		</GetChildrenService>
+		
+		<NavigationListDefinition baseDefinitionName="plmPageLayoutGridChildList" isDefault="true"/>
+		<NavigationListDefinition baseDefinitionName="plmTopLayoutFolderGridChildList"/>
+		<NavigationListDefinition baseDefinitionName="plmPageLayoutGanttChartChildList"/>
+		<UnassignedFolderFilter/>
+	</OrganizationalObjectDefinition>
+	
+	<!---
+		Organizational object definition for the Content Pages node in the navigation tree. 
+	-->
+	<OrganizationalObjectDefinition definitionName="ContentPagesTop" 
+		objectType="ContentPagesTop" 
+		displayName="${plmPageLayoutResources.organizationalContentPages}"
+		organizedObjectTypes="ContentPage, InheritedContentPage, ContentPageFolder,InheritedContentPageFolder"
+		addNewActionsToExplorerContextMenu="true"
+		utilitiesListDefinitionName="plmContentPageGrid">
+		
+		<GetChildrenService url="/cmc/GetContentPages" objectTypes="ContentPage,InheritedContentPage">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="pageGroup" value="Content"/>
+		</GetChildrenService>
+		
+		<GetChildrenService url="/cmc/GetTopFolders" objectTypes="ContentPageFolder,InheritedContentPageFolder">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="folderType" value="IBM_ContentPageFolder"/>
+			<ServiceParam name="folderObjectType" value="ContentPageFolder"/>
+		</GetChildrenService>
+		
+		<NavigationListDefinition baseDefinitionName="plmContentPageList" isDefault="true"/>
+		<NavigationListDefinition baseDefinitionName="plmTopContentPageFolderGridChildList"/>
+		<UnassignedFolderFilter/>
+	</OrganizationalObjectDefinition>
+	
+</Definitions>

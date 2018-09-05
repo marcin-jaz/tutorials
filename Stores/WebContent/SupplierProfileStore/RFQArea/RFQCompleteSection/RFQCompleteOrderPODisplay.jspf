@@ -1,0 +1,34 @@
+<%
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2000, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+%>
+<%--
+  *****
+  * This JSP page displays purchase order information for the order.
+  *
+  *****
+--%>
+
+ 
+					<tr>
+						<td id="WC_RFQCompleteOrderPODisplay_TableCell_1">
+							<table width="100%" id="WC_RFQCompleteOrderPODisplay_Table_1">
+							<tr>
+								<td id="WC_RFQCompleteOrderPODisplay_TableCell_2"><fmt:message key="RFQCompleteOrderDisplay_PO" bundle="${storeText}" /></td>
+								<td id="WC_RFQCompleteOrderPODisplay_TableCell_3"><input name="PONumber" class="input" type="text" id="WC_RFQCompleteOrderPODisplay_FormInput_PONumber_1"/></td>
+							</tr>
+							</table>
+						</td>
+					</tr>

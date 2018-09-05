@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+	<panel id="StylePanel" />
+
+	<option-group id="StylePanelOptions" type="radio" panel="StylePanel" >
+		
+		<option id="Style.1"
+			enables-features="Style.f.1" 
+			enables-options="Color.1 Color.2 Color.3 Color.4 Color.5 Color.6"
+			src="tools/stores/$storeDir$/style/styles/style1.gif"
+			selected-by-default="true" />
+		<option id="Style.2"
+			enables-features="Style.f.2" 
+			enables-options="Color.7 Color.8 Color.9 Color.10 Color.11 Color.12"
+			src="tools/stores/$storeDir$/style/styles/style2.gif" />			
+	</option-group>
+
+	<panel id="ColorPanel" />
+
+	<option-group id="ColorPanelOptions" type="radio" panel="ColorPanel" >
+		
+		<option id="Color.1"
+			enables-features="Color.f.1"
+			enables-options="Banner.1 Banner.7 Banner.13"
+			src="tools/stores/$storeDir$/style/colors/color1_1.gif"
+			selected-by-default="true" />
+		<option id="Color.2"
+			enables-features="Color.f.2"
+			enables-options="Banner.2 Banner.8 Banner.14"
+			src="tools/stores/$storeDir$/style/colors/color1_2.gif" />
+		<option id="Color.3"
+			enables-features="Color.f.3"
+			enables-options="Banner.3 Banner.9 Banner.15"
+			src="tools/stores/$storeDir$/style/colors/color1_3.gif" />
+		<option id="Color.4"
+			enables-features="Color.f.4"
+			enables-options="Banner.4 Banner.10 Banner.16"
+			src="tools/stores/$storeDir$/style/colors/color1_4.gif" />
+		<option id="Color.5"
+			enables-features="Color.f.5"
+			enables-options="Banner.5 Banner.11 Banner.17"
+			src="tools/stores/$storeDir$/style/colors/color1_5.gif" />
+		<option id="Color.6"
+			enables-features="Color.f.6"
+			enables-options="Banner.6 Banner.12 Banner.18"
+			src="tools/stores/$storeDir$/style/colors/color1_6.gif"
+			selected-by-default="true" />
+			
+		<option id="Color.7"
+			enables-features="Color.f.7"
+			enables-options="Banner.19 Banner.25 Banner.31"
+			src="tools/stores/$storeDir$/style/colors/color2_1.gif"
+			selected-by-default="true" />	
+		<option id="Color.8"
+			enables-features="Color.f.8"
+			enables-options="Banner.20 Banner.26 Banner.32"
+			src="tools/stores/$storeDir$/style/colors/color2_2.gif"
+			selected-by-default="true" />
+		<option id="Color.9"
+			enables-features="Color.f.9"
+			enables-options="Banner.21 Banner.27 Banner.33"
+			src="tools/stores/$storeDir$/style/colors/color2_3.gif"
+			selected-by-default="true" />
+		<option id="Color.10"
+			enables-features="Color.f.10"
+			enables-options="Banner.22 Banner.28 Banner.34"
+			src="tools/stores/$storeDir$/style/colors/color2_4.gif"
+			selected-by-default="true" />
+		<option id="Color.11"
+			enables-features="Color.f.11"
+			enables-options="Banner.23 Banner.29 Banner.35"
+			src="tools/stores/$storeDir$/style/colors/color2_5.gif"
+			selected-by-default="true" />
+		<option id="Color.12"
+			enables-features="Color.f.12"
+			enables-options="Banner.24 Banner.30 Banner.36"
+			src="tools/stores/$storeDir$/style/colors/color2_6.gif"
+			selected-by-default="true" />																	
+	</option-group>
+	
+	<panel id="BannerPanel" />
+
+	<option-group id="CustomBannerPanelOptions" type="radio" panel="BannerPanel" >
+		
+		<option id="SelectBanner"
+			selected-by-default="true" 
+			enables-features="SelectBanner" />
+		<option id="CustomBanner"
+			enables-features="CustomBanner" />
+	</option-group>
+
+	<option-group id="UploadBannerPanelOptions" type="radio" panel="BannerPanel" >
+
+		<option id="Banner.upload.gif"
+			enables-features="vfile.banner.gif.f"
+			selected-by-default="true" />
+		<option id="Banner.upload.jpg"
+			enables-features="vfile.banner.jpg.f" />
+	</option-group>
+
+	<option-group id="BannerPanelOptions" type="radio" panel="BannerPanel" >
+		
+		<option id="Banner.1"
+			enables-features="Banner.f.1"
+			src="images/banners/banner1_1.gif" />
+		<option id="Banner.2"
+			enables-features="Banner.f.2" 
+			src="images/banners/banner1_2.gif" />
+		<option id="Banner.3"
+			enables-features="Banner.f.3" 
+			src="images/banners/banner1_3.gif" />
+		<option id="Banner.4"
+			enables-features="Banner.f.4" 
+			src="images/banners/banner1_4.gif" />
+		<option id="Banner.5"
+			enables-features="Banner.f.5" 
+			src="images/banners/banner1_5.gif" />
+		<option id="Banner.6"
+			enables-features="Banner.f.6" 
+			src="images/banners/banner1_6.gif" />
+			
+		<option id="Banner.7"
+			enables-features="Banner.f.7" 
+			src="images/banners/banner2_1.gif" />
+		<option id="Banner.8"
+			enables-features="Banner.f.8" 
+			src="images/banners/banner2_2.gif" />
+		<option id="Banner.9"
+			enables-features="Banner.f.9" 
+			src="images/banners/banner2_3.gif" />
+		<option id="Banner.10"
+			enables-features="Banner.f.10" 
+			src="images/banners/banner2_4.gif" />
+		<option id="Banner.11"
+			enables-features="Banner.f.11" 
+			src="images/banners/banner2_5.gif" />
+		<option id="Banner.12"
+			enables-features="Banner.f.12" 
+			src="images/banners/banner2_6.gif" />
+			
+		<option id="Banner.13"
+			enables-features="Banner.f.13" 
+			src="images/banners/banner3_1.gif" />
+		<option id="Banner.14"
+			enables-features="Banner.f.14" 
+			src="images/banners/banner3_2.gif" />
+		<option id="Banner.15"
+			enables-features="Banner.f.15" 
+			src="images/banners/banner3_3.gif" />
+		<option id="Banner.16"
+			enables-features="Banner.f.16" 
+			src="images/banners/banner3_4.gif" />
+		<option id="Banner.17"
+			enables-features="Banner.f.17" 
+			src="images/banners/banner3_5.gif" />
+		<option id="Banner.18"
+			enables-features="Banner.f.18" 
+			src="images/banners/banner3_6.gif" />
+			
+		<option id="Banner.19"
+			enables-features="Banner.f.19" 
+			src="images/banners/banner4_1.gif" />
+		<option id="Banner.20"
+			enables-features="Banner.f.20" 
+			src="images/banners/banner4_2.gif" />
+		<option id="Banner.21"
+			enables-features="Banner.f.21" 
+			src="images/banners/banner4_3.gif" />
+		<option id="Banner.22"
+			enables-features="Banner.f.22" 
+			src="images/banners/banner4_4.gif" />
+		<option id="Banner.23"
+			enables-features="Banner.f.23" 
+			src="images/banners/banner4_5.gif" />
+		<option id="Banner.24"
+			enables-features="Banner.f.24" 
+			src="images/banners/banner4_6.gif" />
+		
+		<option id="Banner.25"
+			enables-features="Banner.f.25" 
+			src="images/banners/banner5_1.gif" />
+		<option id="Banner.26"
+			enables-features="Banner.f.26" 
+			src="images/banners/banner5_2.gif" />
+		<option id="Banner.27"
+			enables-features="Banner.f.27" 
+			src="images/banners/banner5_3.gif" />
+		<option id="Banner.28"
+			enables-features="Banner.f.28" 
+			src="images/banners/banner5_4.gif" />
+		<option id="Banner.29"
+			enables-features="Banner.f.29" 
+			src="images/banners/banner5_5.gif" />
+		<option id="Banner.30"
+			enables-features="Banner.f.30" 
+			src="images/banners/banner5_6.gif" />
+			
+		<option id="Banner.31"
+			enables-features="Banner.f.31" 
+			src="images/banners/banner6_1.gif" />
+		<option id="Banner.32"
+			enables-features="Banner.f.32" 
+			src="images/banners/banner6_2.gif" />
+		<option id="Banner.33"
+			enables-features="Banner.f.33" 
+			src="images/banners/banner6_3.gif" />
+		<option id="Banner.34"
+			enables-features="Banner.f.34" 
+			src="images/banners/banner6_4.gif" />
+		<option id="Banner.35"
+			enables-features="Banner.f.35" 
+			src="images/banners/banner6_5.gif" />
+		<option id="Banner.36"
+			enables-features="Banner.f.36" 
+			src="images/banners/banner6_6.gif" />
+			
+	</option-group>
+
+</display>

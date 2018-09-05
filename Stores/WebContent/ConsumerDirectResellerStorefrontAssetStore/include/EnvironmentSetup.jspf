@@ -1,0 +1,115 @@
+
+<%
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2000, 2003, 2004
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+%>
+<%-- 
+  *****
+  * This file retrieves and prepares the JSP path, file path, and resource bundle, which are used by other JSPs
+  * Since this file is called by many JSP files in the store, the commonly needed attributes are retrieved here. 
+  *****
+--%>
+
+<%@page import="java.io.File" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.util.ResourceBundle" %>
+<%@ page import="com.ibm.commerce.command.CommandContext" %>
+<%@ page import="com.ibm.commerce.server.JSPResourceBundle" %>
+
+<%@ page import="com.ibm.commerce.server.JSPHelper" %>
+<%@ page import="com.ibm.commerce.server.ECConstants" %>
+
+
+<%@ page session="false"%>
+<jsp:useBean id="sdb" class="com.ibm.commerce.common.beans.StoreDataBean" scope="request" >
+<% com.ibm.commerce.beans.DataBeanManager.activate(sdb, request); %>
+</jsp:useBean>
+
+<%@ taglib uri="flow.tld" prefix="flow" %>
+<flow:fileRef id="vfileColor" fileId="vfile.color"/>
+<flow:fileRef id="StyleDir" fileId="StyleDir"/>
+<flow:fileRef id="vfileStylesheet" fileId="vfile.stylesheet"/>
+
+<%
+CommandContext cmdcontext = (CommandContext) request.getAttribute(ECConstants.EC_COMMANDCONTEXT);
+Locale locale = cmdcontext.getLocale();
+%>
+
+<%-- These are variables to pass to the cached pages --%>
+<%
+String userType = null;
+String lastCmdName = null;
+
+if  (cmdcontext != null) {
+  userType    = cmdcontext.getUser().getRegisterType();
+  lastCmdName =  cmdcontext.getCommandName().trim();
+}
+%>
+
+<%
+  // URL pointing to the hosted store home directory.  Use this to reference images 
+String storeImgDir = sdb.getFilePath();
+  // URL pointing to the shared image directory.  Use this to reference images
+String jspStoreImgDir = (String) new String(sdb.getJspStoreDirFilePath());         
+
+  // WebAsset directory of the hosted store.  Includes JSPs, HTML, Image files...
+String storeDir = sdb.getJspPath();
+  // WebAsset directory of the shared file directory.  Includes JSPs, HTML, Image files...
+String jspStoreDir = "/" + request.getAttribute(ECConstants.EC_JSP_STORE_DIR) + "/";
+
+  // Name of the store
+String storeName;
+try {  
+	storeName = sdb.getDescription(cmdcontext.getLanguageId()).getDisplayName();
+} catch (Exception e) {
+	// store name is not defined
+	storeName = " ";
+}
+
+
+//setup include variables for header, sidebar, and footer
+	String headerIncludeFile = jspStoreDir +  StyleDir + "CachedHeaderDisplay.jsp";
+	String sidebarIncludeFile = jspStoreDir + StyleDir + "CachedSidebarDisplay.jsp";
+	String footerIncludeFile = jspStoreDir + StyleDir + "CachedFooterDisplay.jsp";
+
+
+
+
+/* Example directories
+	storeImgDir=/wcsstore/FashionFlow/ 
+       	storedir=/FashionFlow/
+       	includeDir=/FashionFlow/include/
+*/
+
+JSPResourceBundle infashiontext = (JSPResourceBundle) request.getAttribute("ResourceText");
+JSPResourceBundle infashionDynamictext = (JSPResourceBundle) request.getAttribute("ResourceDynamicText");
+
+
+if (infashiontext == null)
+{
+	infashiontext =  new JSPResourceBundle(sdb.getResourceBundle("storetext"));
+	request.setAttribute("ResourceText", infashiontext);
+}
+
+if (infashionDynamictext == null)
+{
+	infashionDynamictext =   new JSPResourceBundle(sdb.getResourceBundle("storetext_dynamic"));
+	request.setAttribute("ResourceDynamicText", infashionDynamictext);	
+}
+
+
+response.setContentType(infashiontext.getString("ENCODESTATEMENT")); 
+ResourceBundle ccResBundle = infashiontext;
+
+%>

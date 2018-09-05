@@ -1,0 +1,163 @@
+/**
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright IBM Corp. 2006
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+
+.hbg {BACKGROUND-COLOR: #552BA1; margin: 0px; border: none;}
+.tbg {BACKGROUND-COLOR : #552BA1; margin: 0px; border: none;}
+.tbgc {BACKGROUND-COLOR: #552BA1}
+.bbg {VERTICAL-ALIGN: middle; BACKGROUND-COLOR: #000000}
+.dbg {background-image: url("images/nav_back.gif");}
+.mbg {BACKGROUND-COLOR: #CCBCE9}
+.lbg {BACKGROUND-COLOR: #cce5ff}
+.hil {BACKGROUND-COLOR: #ffffff}
+.country {FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #99ccff; FONT-FAMILY: Verdana, sans-serif}
+.related {FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif}
+.relatedblk {FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif}
+.relatedwht {FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif}
+.titletext {FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #ffffff; FONT-FAMILY: Verdana, sans-serif}
+.oprice {FONT-WEIGHT: bold; COLOR: #cc6600}
+A.browse:link {FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.browse:visited {FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.browse:hover {FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+
+
+A:link {COLOR: #006699}
+A:visited {COLOR: #996699}
+A:hover {COLOR: #006699}
+A.rlinks:link {FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.rlinks:visited {FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.rlinks:hover {FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: underline}
+A.rlinksblk:link {FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.rlinksblk:visited {FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.rlinksblk:hover {FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: underline}
+A.rlinkswht:link {FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.rlinkswht:visited {FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.rlinkswht:hover {FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: underline}
+A.highlight:link {FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ffcc00; FONT-FAMILY: Verdana, Arial, sans-serif; TEXT-DECORATION: none}
+A.highlight:visited {FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ffcc00; FONT-FAMILY: Verdana, Arial, sans-serif; TEXT-DECORATION: none}
+A.highlight:hover {FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ffcc00; FONT-FAMILY: Verdana, Arial, sans-serif; TEXT-DECORATION: underline}
+A.mainlink:link {FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, sans-serif; TEXT-DECORATION: none}
+A.mainlink:visited {FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, sans-serif; TEXT-DECORATION: none}
+A.mainlink:hover {FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, sans-serif; TEXT-DECORATION: underline}
+A.alternatelink:link {FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, sans-serif; TEXT-DECORATION: underline}
+A.alternatelink:visited {FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, sans-serif; TEXT-DECORATION: underline}
+A.alternatelink:hover {FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, sans-serif; TEXT-DECORATION: underline}
+A.parent:link {FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Verdana, Arial, sans-serif; TEXT-DECORATION: none}
+A.parent:visited {FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Verdana, Arial, sans-serif; TEXT-DECORATION: none}
+A.parent:hover {FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Verdana, Arial, sans-serif; TEXT-DECORATION: underline}
+A.nav:link {FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.nav:visited {FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.nav:hover {FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: underline}
+A.fbox:link {FONT-SIZE: 12px; COLOR: #006699; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.fbox:visited {FONT-SIZE: 12px; COLOR: #996699; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.fbox:hover {FONT-SIZE: 12px; COLOR: #006699; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: underline}
+A.bctl:link {FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.bctl:visited {FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: none}
+A.bctl:hover {FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif; TEXT-DECORATION: underline}
+.divider {FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #999999; FONT-FAMILY: Verdana, Arial, sans-serif}
+.input {FONT-WEIGHT: normal; FONT-SIZE: 11px; WIDTH: 150px; COLOR: #000000}
+.iform {FONT-WEIGHT: normal; FONT-SIZE: 11px; BACKGROUND: #F0E9FF; COLOR: #000000; FONT-FAMILY: Arial}
+.inlineform { FONT-WEIGHT: normal; FONT-FAMILY: Arial, sans-serif; display:inline}
+BODY {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif; MARGIN: 0px 0px 0px 0px; PADDING: 0px 0px 0px 0px; MARGIN-LEFT:0px; MARGIN-TOP:0px; BACKGROUND:white}
+P {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+B {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+I {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+STRONG {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+EM {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+DT {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+DD {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+DL {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+sl {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+CAPTION {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+TH {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+TD {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+TR {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+U {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+BLINK {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+SELECT {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+OPTION {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+FORM {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+DIV {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+FONT {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+LI {FONT-SIZE: 12px; FONT-FAMILY: Arial, sans-serif}
+
+td.tdheightFix{line-height:1px}
+img.imgHeightFix{display:block}
+
+.title {FONT-WEIGHT: normal; FONT-SIZE: 24px; FONT-FAMILY: Arial, sans-serif}
+.subtitle {FONT-WEIGHT: normal; FONT-SIZE: 15px; FONT-FAMILY: Arial, sans-serif}
+.boldtitle {FONT-WEIGHT: normal; FONT-SIZE: 24px; FONT-FAMILY: "Arial Black", Arial, sans-serif}
+.warning {FONT-WEIGHT: bold; FONT-SIZE: 15px; FONT-FAMILY: Arial, sans-serif; COLOR: #FF0000}
+
+UL {MARGIN-TOP: 2px; FONT-SIZE: 12px; MARGIN-BOTTOM: 2px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px; FONT-FAMILY: Arial, sans-serif}
+OL {MARGIN-TOP: 2px; FONT-SIZE: 12px; MARGIN-BOTTOM: 2px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px; FONT-FAMILY: Arial, sans-serif}
+H1 {FONT-WEIGHT: normal; FONT-SIZE: 35px; FONT-FAMILY: Arial, sans-serif}
+H2 {FONT-WEIGHT: normal; FONT-SIZE: 25px; FONT-FAMILY: Arial, sans-serif}
+H3 {FONT-WEIGHT: bold; FONT-SIZE: 22px; FONT-FAMILY: Arial, sans-serif}
+H4 {FONT-WEIGHT: normal; FONT-SIZE: 18px; FONT-FAMILY: Arial, sans-serif}
+
+.small {FONT-SIZE: 11px; FONT-FAMILY: Verdana, sans-serif}
+.error {FONT-SIZE: 11px; FONT-FAMILY: Verdana, sans-serif; COLOR: #FF0000}
+.medium {FONT-SIZE: 18px; FONT-FAMILY: Verdana, sans-serif}
+.title1 {FONT-SIZE: 25px; FONT-FAMILY: Arial, sans-serif}
+.smheading {FONT-SIZE: 11px; COLOR: #6699CC; FONT-WEIGHT: bold; FONT-FAMILY: Verdana, sans-serif}
+.tblue {FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: #552BA1; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif}
+.tdblue {FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: #552BA1; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif}
+.tlblue {FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: #CFE7FF; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif}
+.tgray {FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: #666666; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif}
+.bct {FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif}
+.wht {FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif}
+.medblk {FONT-WEIGHT: normal; FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif; text-decoration: none}
+.blk {FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Arial, sans-serif; text-decoration: none}
+.fnt {FONT-SIZE: 11px; FONT-FAMILY: Verdana, sans-serif}
+.dkgd {FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: #999966; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif}
+.hdgd {FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif}
+.mdgd {FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: #cccc99; COLOR: #666633; FONT-FAMILY: Arial, sans-serif}
+.flgd {BACKGROUND: #f7f7e7}
+.sth {FONT-SIZE: 11px; COLOR: #ffffff}
+.gbg {BACKGROUND-COLOR: #cccccc}
+.dgbg {BACKGROUND-COLOR: #999999}
+.vert {FONT-SIZE: 10px; FONT-FAMILY: Arial, sans-serif}
+.inputgm {FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: #000000; BACKGROUND-COLOR: #ffffcc}
+.greytext {COLOR: #666666}
+.bluetext {FONT-WEIGHT: bold; FONT-SIZE: 12pt; COLOR: #552BA1}
+.torg {FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: #ff9900; COLOR: #ffffff; FONT-FAMILY: Arial, sans-serif}
+.bgorg {BACKGROUND: #ff9900}
+
+
+A.pref:link {FONT-WEIGHT: bold; COLOR: #ffffff; TEXT-DECORATION: none}
+A.pref:visited {FONT-WEIGHT: bold; COLOR: #ffffff; TEXT-DECORATION: none}
+A.pref:hover {FONT-WEIGHT: bold; COLOR: #ffffff; TEXT-DECORATION: none}
+
+
+A.ver:link {FONT-SIZE: 10px; COLOR: #006699; FONT-FAMILY: verdana; TEXT-DECORATION: none}
+A.ver:visited {FONT-SIZE: 10px; COLOR: #996699; FONT-FAMILY: verdana; TEXT-DECORATION: none}
+A.ver:hover {FONT-SIZE: 10px; COLOR: #006699; FONT-FAMILY: verdana; TEXT-DECORATION: none}
+A.detl:link {FONT-SIZE: 10px; COLOR: #006699; FONT-FAMILY: verdana; TEXT-DECORATION: underline}
+A.detl:visited {FONT-SIZE: 10px; COLOR: #996699; FONT-FAMILY: verdana; TEXT-DECORATION: underline}
+A.detl:hover {FONT-SIZE: 10px; COLOR: #006699; FONT-FAMILY: verdana; TEXT-DECORATION: underline}
+
+A.option {color: #ffffff; text-decoration: none; font-family: Verdana; font-weight: bold; font-size: 8pt;}
+TD.searchBar { height: 55px; background-image: url("images/banner_right.jpg"); background-repeat: no-repeat;}
+TD.line { background-color: #ffffff; height: 1px;}
+TD.nav_def{ background-image: url("images/nav_item_back.gif"); height: 25px; padding-left: 5px; font-family: Verdana; font-size: 8pt;}
+TD.nav_sel{ background-image: url("images/nav_item_back_sel.gif"); height: 25px; padding-left: 5px; font-family: Verdana; font-size: 8pt;}
+A.nav	  { text-decoration: none; color: black; }
+
+.banner_tile { background-color: #3B176C }
+.white_bg { background-color: #FFFFFF }
+.verylightgrey_bg { background-color: #EEEEEE }
+.lightgrey_bg { background-color: #CCCCCC }
+.grey_bg { background-color: #999999 }
+.black_bg { background-color: #000000 }
+td.tdheightFix_black_bg { line-height:1px; background-color: black }

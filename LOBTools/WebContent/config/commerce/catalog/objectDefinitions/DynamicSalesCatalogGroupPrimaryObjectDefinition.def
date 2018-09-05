@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<!---
+		This definition defines the base object from which DynamicSalesCatalogGroup and
+		Inherited DynamicSalesCatalogGroup are derived.
+		These sales categories defined their child catentries through rules.
+	-->
+	<PrimaryObjectDefinition definitionName="catBaseDynamicSalesCatalogGroupPrimaryObjectDefinition"
+		detailsViewHeaderText="${catalogResources.UtilityPaneHeaderText}"
+		displayName="${catalogResources.ruleBasedSalesCategory_DisplayName}"
+		displayNameProperty="identifier"
+		helpLink="tasks/tpnsalesad.htm"
+		idProperty="catgroupId"
+		objectGroups="DynamicSalesCatalogGroupAlias,SalesCatalogGroupAlias,CatalogGroupAlias"
+		isBaseDefinition="true"
+		newDisplayName="${catalogResources.ruleBasedSalesCategory_NewDisplayName}"
+		newObjectMenuItemText="${catalogResources.contextMenuNewRuleBasedSalesCategory}"
+		propertiesDefinitionName="catDynamicSalesCategoryProperties"
+		writeUsage="IBM_ManageCatalogGroup"
+		searchType="FindDynamicSalesCategories">
+
+		<!--- 
+			Get service to retrieve the rule based sales catalog group.
+		-->		
+		<RefreshService url="/cmc/GetSalesCatalogGroup">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="salesCatalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="catalogIdentifier" propertyName="owningCatalogIdentifier"/>
+			<ServiceParam name="catalogStoreId" propertyName="owningCatalogStoreId"/>
+			<ServiceParam name="catgroupId" propertyName="catgroupId"/>
+		</RefreshService>
+		
+		<!--- 
+			Retrieves the {@link catDynamicSalesCatalogGroupChildCatalogEntry} child object.
+		 -->			
+		<GetChildrenService objectTypes="DynamicSalesCatalogGroupChildCatalogEntry" url="/cmc/GetDynamicSalesCatalogGroupChildCatalogEntry">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="defaultLanguageId"/>
+			<ServiceParam name="salesCatalogId" propertyName="owningCatalog"/>
+		</GetChildrenService>
+		
+		<!---
+			Retrieves the SEO URL for the category.
+		-->				
+		<GetPreviewURLService url="/cmc/GetCatalogGroupBrowsingPagePreviewUrl">
+			<ServiceParam name="catalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="catgroupId" propertyName="catgroupId"/>
+		</GetPreviewURLService>
+		
+		<!--- 
+			Retrieves the {@link catCatalogGroupDescription} child objects.
+		 -->
+		<GetChildrenService objectTypes="CatalogGroupDescription" url="/cmc/GetCatalogGroupChildren-LanguageDescriptions">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="catalogId" propertyName="owningCatalog"/>
+		</GetChildrenService>
+		
+		<!---
+	    	Retrieves the {@link catAttachmentReference} objects that refer to this object.
+		-->			
+		<GetChildrenService objectTypes="AttachmentReference,BusinessObjectToInheritedAttachment,InheritedBusinessObjectToInheritedAttachment" url="/cmc/GetAttachmentReferencesForCatalogGroup">
+       		<ServiceParam name="storeId"/>
+       		<ServiceParam name="catgroupId" propertyName="catgroupId"/>
+		</GetChildrenService>
+		
+		<!---
+			Retrieves the {@link catBaseCatalogGroupSeoAttributes}, and
+			{@link catBaseCatalogGroupSeoURL} child objects for a catalog group.
+		-->
+		<GetChildrenService objectTypes="CatalogGroupBaseSeoAttributes,InheritedCatalogGroupBaseSeoAttributes,CatalogGroupBaseSeoURL,InheritedCatalogGroupBaseSeoURL" url="/cmc/GetCatalogGroupSeoProperties">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="catalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="catgroupId" propertyName="catgroupId"/>
+			<ServiceParam name="defaultLanguageId"/>
+		</GetChildrenService>
+		
+		<!--- 
+			Retrieves the {@link catChildCatalogGroupFacet} child objects.
+		-->
+		<GetChildrenService url="/cmc/GetSalesCatalogGroupChildren-Facets"
+			objectTypes="ChildCatalogGroupFacet">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="salesCatalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="defaultLanguageId"/>
+		</GetChildrenService>
+		
+		<!---
+			Retrieves the {@link catChildCatalogGroupRule} child objects.
+		-->
+		<GetChildrenService url="/cmc/GetSalesCatalogGroupChildren-Rule"
+			objectTypes="catalogEntryPropertySearchFilter,
+				ChildAttributeWithAllowedValues,ChildInheritedAttributeWithAllowedValues,
+				ChildCatalogGroupFilter,ChildInheritedCatalogGroupFilter,
+				searchActionOrderBy,
+				SearchFilterCatalogEntryInclusion,
+				SearchFilterInheritedCatalogEntryInclusion">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="salesCatalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="defaultLanguageId"/>
+			<ServiceParam name="masterCatalogId"/>
+			<ServiceParam name="masterCatalogIdentifier"/>
+			<ServiceParam name="masterCatalogStoreId"/>			
+		</GetChildrenService>
+		
+		<!---
+		    Retrieves the {@link catChildSalesCatalogGroup} or 
+		    {@link catChildCatalogGroup}
+		    object that refer to this object.
+		 -->
+		<GetReferencesService url="/cmc/GetSalesCatalogGroupParent-ReferenceCatalogGroup">
+            <ServiceParam name="storeId"/>
+            <ServiceParam name="masterCatalogId"/>
+			<ServiceParam name="salesCatalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="catalogIdentifier" propertyName="owningCatalogIdentifier"/>
+			<ServiceParam name="catalogStoreId" propertyName="owningCatalogStoreId"/>
+            <ServiceParam name="catgroupId" propertyName="catgroupId"/>
+   		</GetReferencesService>
+   		
+		<!--- 
+			Update service to update a dynamic sales catalog group 
+		-->				
+		<UpdateService sendDefaultLanguageProperties="true" url="/cmc/UpdateSalesCatalogGroup">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="defaultLanguageId" parameterName="languageId"/>
+			<ServiceParam name="catalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="salesCatalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="catgroupId" propertyName="catgroupId"/>
+			<ServiceParam name="dynamicCatalogGroup" propertyName="dynamicCatalogGroup" value="1"/>
+			<ServiceParam name="ruleNVP_recommendationMethod" propertyName="ruleNVP_recommendationMethod" optional="true"/>
+			<ServiceParam name="ruleNVP_displayMax" propertyName="ruleNVP_displayMax" optional="true"/>
+			<ServiceParam name="ruleNVP_specifyMaximum" propertyName="ruleNVP_specifyMaximum" optional="true"/>
+			<ServiceParam name="ruleNVP_includeCategories" propertyName="ruleNVP_includeCategories" optional="true"/>
+			<ServiceParam name="ruleNVP_includeFacets" propertyName="ruleNVP_includeFacets" optional="true"/>
+			<ServiceParam name="ruleNVP_useUserSearchTerm" propertyName="ruleNVP_useUserSearchTerm" optional="true"/>
+			<ServiceParam name="ruleNVP_dynamicSalesCategory" propertyName="ruleNVP_dynamicSalesCategory" optional="true"/>
+			<ServiceParam name="ruleNVP_alwaysShow" propertyName="ruleNVP_alwaysShow" optional="true"/>				
+		</UpdateService>
+		
+		<!---
+			Delete service to delete a dynamic sales catalog group
+		 -->
+		<DeleteService url="/cmc/DeleteSalesCatalogGroup">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="catalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="salesCatalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="catgroupId" propertyName="catgroupId"/>
+			<ServiceParam name="dynamicCatalogGroup" propertyName="dynamicCatalogGroup" value="1"/>
+		</DeleteService>
+		
+		<!---
+			Post save service to evaluate a rule based sales catalog group
+		 -->
+		<PostSaveService url="/cmc/EvaluateRuleBasedCategory">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="catalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="salesCatalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="catgroupId" propertyName="catgroupId"/>
+			<ServiceParam name="defaultLanguageId"/>
+			<ServiceParam name="dynamicCatalogGroup" propertyName="dynamicCatalogGroup" value="1"/>
+			<ServiceParam name="ruleNVP_workspaceId" contextName="workspaceId" optional="true"/>
+			<ServiceParam name="ruleNVP_taskGroupId" contextName="workspaceTaskGroupId" optional="true"/>
+			<ServiceParam name="ruleNVP_taskId" contextName="workspaceTaskId" optional="true"/>
+			<ServiceParam name="ruleNVP_objectType" checkObjectDefinition="true" propertyName="objectType"/>
+		</PostSaveService>
+		
+		<!---
+			Custom service to evaluate a rule based sales catalog group
+		-->
+		<CustomService url="/cmc/EvaluateRuleBasedCategory" displayName="${catalogResources.ruleBasedSalesCategory_reapply}">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="catalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="salesCatalogId" propertyName="owningCatalog"/>
+			<ServiceParam name="catgroupId" propertyName="catgroupId"/>
+			<ServiceParam name="defaultLanguageId"/>
+			<ServiceParam name="dynamicCatalogGroup" propertyName="dynamicCatalogGroup" value="1"/>
+			<ServiceParam name="ruleNVP_workspaceId" contextName="workspaceId" optional="true"/>
+			<ServiceParam name="ruleNVP_taskGroupId" contextName="workspaceTaskGroupId" optional="true"/>
+			<ServiceParam name="ruleNVP_taskId" contextName="workspaceTaskId" optional="true"/>
+			<ServiceParam name="ruleNVP_objectType" checkObjectDefinition="true" propertyName="objectType"/>
+			<EnablementAndCondition>
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" 
+					enablementValue="DynamicSalesCatalogGroup" propertyName="objectType"/>
+				<EnablementCondition conditionId="dynamicSalesCatalogEnabled" contextName="ruleBasedCategoryEnabled" enablementValue="true"/>
+				<EnablementCondition conditionId="checkNew" checkNewObject="true" enablementValue="false"/>
+			</EnablementAndCondition>
+		</CustomService>
+		
+		<!---
+			Validator to check tha a parent is specified for the dynamic sales catalog group.
+		-->
+        <SalesCatalogGroupParentValidator package="cat" 
+        	errorMessage="${catalogResources.missingRequiredCategoryParent}" 
+        	validatorId="parentExistsCheck" validatorType="parentValidator"/>
+
+        <!---
+			Child object definition for the description related fields of a category.
+			This is object is language sensitive.
+		  -->
+		<ChildObjectDefinition baseDefinitionName="catCatalogGroupDescription"/>
+		
+		<!---
+			An instantiation of the child object {@link catCatalogGroupBaseSeoAttributes} representing the Search Engine Optimization properties for this catalog group.
+		 -->
+		<ChildObjectDefinition baseDefinitionName="catCatalogGroupBaseSeoAttributes"/>
+		
+		<!--- 
+			An instantiation of the child object {@link catInheritedCatalogGroupBaseSeoAttributes} representing the Search Engine Optimization properties for this catalog group which is inherited.
+		 -->
+		<ChildObjectDefinition baseDefinitionName="catInheritedCatalogGroupBaseSeoAttributes"/>
+		
+		<!--- 
+			An instantiation of the child object {@link catCatalogGroupBaseSeoURL} representing the Search Engine Optimization URL properties for this catalog group.
+		 -->
+		<ChildObjectDefinition baseDefinitionName="catCatalogGroupBaseSeoURL"/>
+		
+		<!---
+			An instantiation of the child object {@link catInheritedCatalogGroupBaseSeoURL} representing the Search Engine Optimization URL properties for this catalog group which is inherited.
+		 -->
+		<ChildObjectDefinition baseDefinitionName="catInheritedCatalogGroupBaseSeoURL"/>
+		
+		
+		<!---
+			This navigation list definition is used to display {@link catDynamicSalesCatalogGroupChildCatalogEntry}.
+		 -->		
+		<NavigationListDefinition
+			displayName="${catalogResources.catalogEntriesListDisplayName}"
+			isDefault="true"
+			listDefinitionName="catDynamicSalesCategoryChildList"
+			listTitle="${catalogResources.catalogEntriesList}"
+			name="DynamicSalesCategoryChildCatalogEntryNavigationList"
+			toolbarIcon="catalogEntriesListToolbarIcon"/>
+		
+		<!---
+			This navigation list definition is used to display {@link catCatalogGroupFacet}, {@link catCatalogGroupFacet}.
+		-->
+		<NavigationListDefinition
+			displayName="${catalogResources.facetList}"
+			listDefinitionName="catCategoryFacetList"
+			listTitle="${catalogResources.facetList}"
+			name="CategoryFacetNavigationList"
+			toolbarIcon="searchTermAssociationsIcon"
+			helpLink="tasks/tpn_topsalescatalog.htm">
+			<EnablementAndCondition conditionId="showFacetsListCondition">
+				<EnablementCondition contextName="searchEnabled" enablementValue="true" conditionId="searchEnabledContextValueCondition"/>
+				<EnablementOrCondition conditionId="storeTypeCondition">
+					<EnablementCondition conditionId="b2cStoreCondition" contextName="storeType" enablementValue="B2C"/>
+					<EnablementCondition conditionId="b2bStoreCondition" contextName="storeType" enablementValue="B2B"/>
+					<EnablementCondition conditionId="b2cESiteStoreCondition" contextName="storeType" enablementValue="MHS"/>
+					<EnablementCondition conditionId="b2bESiteStoreCondition" contextName="storeType" enablementValue="BMH"/>
+				</EnablementOrCondition>
+			</EnablementAndCondition>
+		</NavigationListDefinition>
+		
+		<!---  
+		    Parent Reference object definition between the category and a child facet.
+		-->
+		<ParentReferenceObjectDefinition baseDefinitionName="catChildCatalogGroupFacet"/>
+		
+		<!--- Property Definition for the external identifier of the dynamic sales catalog group -->
+		<PropertyDefinition displayName="${catalogResources.salesCategoryCode_DisplayName}" maximumSize="254" propertyName="identifier" required="true" type="string"/>
+		
+		<!--- Property Definition for the custom field of the dynamic sales catalog group -->
+		<PropertyDefinition displayName="${catalogResources.salesCategoryField1_DisplayName}" maximumSize="254" propertyName="field1" type="string"/>
+		
+		<!--- Property Definition for the custom field of the dynamic sales catalog group -->
+		<PropertyDefinition displayName="${catalogResources.salesCategoryField2_DisplayName}" maximumSize="254" propertyName="field2" type="string"/>
+		
+		<!--- 
+			Property definition for the owning catalog of a category.
+			This property is set to copyProtected to prevent copies of this object inheriting the owningCatalog.
+		-->
+		<PropertyDefinition copyProtected="true" propertyName="owningCatalog" serverManaged="true"/>
+
+		<!---
+			Property definition for the owning catalog identifier of a category.
+			This property is set to copyProtected to prevent copies of this object inheriting the owningCatalogIdentifier.
+		 -->
+		<PropertyDefinition copyProtected="true" propertyName="owningCatalogIdentifier" serverManaged="true"/>
+
+		<!--- 
+			Property definition for the store id of the owning catalog store of a category.
+			This property is set to copyProtected to prevent copies of this object inheriting the owningCatalogStoreId.
+		 -->
+		<PropertyDefinition copyProtected="true" propertyName="owningCatalogStoreId" serverManaged="true"/>
+		
+		<!---
+        	This property definition represents a flag indicating this sales category is a rule based sales category.
+        	The value will be initialized to '1' for rule based sales category.
+        -->
+		<PropertyDefinition propertyName="dynamicCatalogGroup"/>
+		<!---
+        	This property definition represents the internal rule property "dynamicSalesCategory".
+        	This is used by the marketing web activity action, and this property is not managed by the business user.
+        -->
+		<PropertyDefinition copyProtected="true" propertyName="ruleNVP_dynamicSalesCategory" serverManaged="true"/>
+		<!---
+        	This property definition represents the internal rule property "includeCategories".
+        	This is used by the marketing web activity action, and this property is not managed by the business user.
+        -->
+		<PropertyDefinition copyProtected="true" propertyName="ruleNVP_includeCategories" serverManaged="true"/>
+		<!---
+        	This property definition represents the internal rule property "includeFacets".
+        	This is used by the marketing web activity action, and this property is not managed by the business user.
+        -->		
+		<PropertyDefinition copyProtected="true" propertyName="ruleNVP_includeFacets" serverManaged="true"/>
+		<!---
+        	This property definition represents the internal rule property "recommendationMethod".
+        	This is used by the marketing web activity action, and this property is not managed by the business user.
+        -->			
+		<PropertyDefinition copyProtected="true" propertyName="ruleNVP_recommendationMethod" serverManaged="true"/>
+		<!---
+        	This property definition represents the internal rule property "useUserSearchTerm".
+        	This is used by the marketing web activity action, and this property is not managed by the business user.
+        -->				
+		<PropertyDefinition copyProtected="true" propertyName="ruleNVP_useUserSearchTerm" serverManaged="true"/>
+		
+		<!---
+        	This property definition represents the rule property "always show catalog entries - before or after".
+        -->
+        <PropertyDefinition displayName="${catalogResources.ruleBasedSalesCategoryRequiredCatentries}" 
+        	propertyName="ruleNVP_alwaysShow">
+            <PropertyValue displayName="${catalogResources.ruleBasedSalesCategoryRequiredCatentriesBefore}" value="before" isDefault="true"/>
+            <PropertyValue displayName="${catalogResources.ruleBasedSalesCategoryRequiredCatentriesAfter}" value="after"/>
+            <EnablementCondition contextName="searchEnabled" enablementValue="true" conditionId="searchEnabledContextValueCondition"/>
+        </PropertyDefinition>
+        
+        <!---
+        	This property definition represents the rule property "specify a maximum search result value".
+        -->
+        <PropertyDefinition displayName="${catalogResources.ruleBasedSalesCategorySpecifyMaximum}"
+        	propertyName="ruleNVP_specifyMaximum">
+            <EnablementCondition contextName="searchEnabled" enablementValue="true" conditionId="searchEnabledContextValueCondition"/>
+        </PropertyDefinition>
+        
+        <!---
+        	This property definition represents the rule property "maximum search result value".
+        -->
+        <PropertyDefinition displayName="${catalogResources.ruleBasedSalesCategoryMaximum}"
+        	propertyName="ruleNVP_displayMax" minValue="1" type="integer">
+            <EnablementCondition contextName="searchEnabled" enablementValue="true" conditionId="searchEnabledContextValueCondition"/>
+        </PropertyDefinition>
+        
+        <!---
+        	This property definition represents the rule evaluation status.
+        -->
+        <PropertyDefinition propertyName="ruleNVP_evaluating" copyProtected="true" serverManaged="true">
+            <PropertyValue value="0" isDefault="true" displayName="${catalogResources.ruleBasedSalesCategory_notCurrentyEvaluating}"/>
+            <PropertyValue value="1" displayName="${catalogResources.ruleBasedSalesCategory_currentyEvaluating}"/>
+            <PropertyValue value="2" displayName="${catalogResources.ruleBasedSalesCategory_notCurrentyEvaluating}"/>
+            <PropertyValue value="-2" displayName="${catalogResources.ruleBasedSalesCategory_evaluatingFailed}"/>
+            <EnablementCondition contextName="searchEnabled" enablementValue="true" conditionId="searchEnabledContextValueCondition"/>
+        </PropertyDefinition>
+        
+		<!---
+        	This property definition represents the last rule evaluation time.
+        -->
+        <PropertyDefinition propertyName="ruleNVP_evaltime" copyProtected="true" serverManaged="true"/>
+		
+		<!---
+		    Reference object definition between the sales category and a child catalog entry.
+		    This indicates that a sales category can be a parent of a catalog entry.
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="catDynamicSalesCatalogGroupChildCatalogEntry"/> 
+		
+		<!---  
+		   	Child object definition to filter by property
+		-->
+		<ChildObjectDefinition baseDefinitionName="catCatalogEntrySearchFilterChildObjectDefinition"/>
+		
+		<!--
+			Child object definition order by
+		-->
+		<ChildObjectDefinition baseDefinitionName="catSortByChildObjectDefinition"/>
+		
+		<!--- Check that the order by fields each have a unique property value. -->
+		<UniqueValueForChildObjectPropertyValidator objectPath="searchActionOrderByGroup" propertyName="orderByField" validatorId="sortCriteriaUniquenessValidator"/>
+		
+		<!--- Check that the search filter property has a unique value for text properties. -->		
+ 		<UniqueValueForChildObjectPropertyValidator objectPath="catalogEntryPropertySearchFilter" propertyName="filterName" validatorId="propertyFilterCriteriaUniquenessValidator">
+ 			<EnablementCondition conditionId="ExactStringValueCondition" objectPath="catalogEntryPropertySearchFilter" enablementValue="EXACTSTRING" propertyName="filterDataType"/>		
+ 		</UniqueValueForChildObjectPropertyValidator>
+ 		
+		<!---  
+		   	Reference object definition for the inherited filter attributes
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="catSearchFilterChildInheritedAttributeWithAllowedValues"/>
+		
+		<!---  
+		   	Reference object definition for the inherited filter categories
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="catSearchFilterInheritedCatalogGroup"/>
+		
+		<!-- Default values -->
+		<Xml name="template">
+			<dynamicCatalogGroup>1</dynamicCatalogGroup>
+			<ruleNVP_alwaysShow>before</ruleNVP_alwaysShow>
+			<ruleNVP_specifyMaximum>false</ruleNVP_specifyMaximum>
+			<ruleNVP_displayMax>100</ruleNVP_displayMax>
+			<ruleNVP_dynamicSalesCategory>true</ruleNVP_dynamicSalesCategory>
+			<ruleNVP_includeCategories>false</ruleNVP_includeCategories>
+			<ruleNVP_includeFacets>false</ruleNVP_includeFacets>
+			<ruleNVP_recommendationMethod>createSearchConditions</ruleNVP_recommendationMethod>
+			<ruleNVP_useUserSearchTerm>false</ruleNVP_useUserSearchTerm>
+			<ruleNVP_evaluating>0</ruleNVP_evaluating>
+			<ruleNVP_evaltime></ruleNVP_evaltime>
+		</Xml>
+		
+	</PrimaryObjectDefinition>
+	
+	<PrimaryObjectDefinition 
+		definitionName="DynamicSalesCatalogGroup"
+		objectType="DynamicSalesCatalogGroup"
+		baseDefinitionName="catBaseDynamicSalesCatalogGroupPrimaryObjectDefinition"
+		headerIcon="ruleBasedSalesCatalogGroupHeaderIcon"
+		icon="ruleBasedSalesCatalogGroupIcon">
+
+		<!--- Condition to disable the object creation in certain store types. -->
+		<EnablementOrCondition baseDefinitionName="catStoreTypeSalesCatalogObjectCreationRestriction"/>
+        
+		<!---
+	    	Reference object definition for the attachment of the catalog group
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="catCatalogGroupAttachmentReference"/>
+		
+		<!---  
+		   	Reference object definition for the asset store attachment of the catalog group
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="catCatalogGroupInheritedAttachmentReference"/>
+		
+		<!---
+			Create service to create a dynamic sales catalog group 
+		-->
+		<CreateService sendDefaultLanguageProperties="true" url="/cmc/CreateSalesCatalogGroup">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="defaultLanguageId" parameterName="languageId"/>
+			<SalesCatalogIdServiceParam name="catalogId" package="cat" propertyName="owningCatalog"/>
+			<SalesCatalogStoreIdServiceParam name="catalogStoreId" package="cat" propertyName="objectStoreId"/>
+			<SalesCatalogIdentifierServiceParam name="catalogIdentifier" package="cat" propertyName="identifier"/>
+			<ServiceParam name="dynamicCatalogGroup" propertyName="dynamicCatalogGroup" value="1"/>
+			<ServiceParam name="masterCatalogId"/>
+		</CreateService>
+		
+		<!---  
+		   	Reference object definition for the local catalog entries in the inclusion list
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="catSearchFilterInclusionCatalogEntry"/>
+		
+		<!---  
+		   	Reference object definition for the local filter attributes
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="catSearchFilterChildAttributeWithAllowedValues"/>
+		
+		<!---  
+		   	Reference object definition for the local filter categories
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="catSearchFilterCatalogGroup"/>
+		
+	</PrimaryObjectDefinition>
+	
+	<PrimaryObjectDefinition 
+		definitionName="InheritedDynamicSalesCatalogGroup"
+		objectType="InheritedDynamicSalesCatalogGroup"
+		baseDefinitionName="catBaseDynamicSalesCatalogGroupPrimaryObjectDefinition"
+		headerIcon="inheritedRuleBasedSalesCatalogGroupHeaderIcon"
+		icon="inheritedRuleBasedSalesCatalogGroupIcon">
+
+		<FalseEnablementCondition />
+		
+		<!---  
+		   	Reference object definition for the asset store attachment of the catalog group
+		 -->
+		<ReferenceObjectDefinition baseDefinitionName="catInheritedCatalogGroupInheritedAttachmentReference"/>
+		
+	</PrimaryObjectDefinition>
+
+	<!---
+	    Reference object definition between a parent Dynamic Sales category and a child catalog entry.
+	-->	
+	<ReferenceObjectDefinition 
+		definitionName="catDynamicSalesCatalogGroupChildCatalogEntry"
+		idProperty="catentryId"
+		objectType="DynamicSalesCatalogGroupChildCatalogEntry"
+		referencedTypes="Product,Bundle,Kit,CatalogGroupSKU,PredefinedDKit,InheritedProduct,InheritedBundle,InheritedKit,InheritedCatalogGroupSKU,InheritedPredefinedDKit">
+		<FalseEnablementCondition/>
+	</ReferenceObjectDefinition>
+</Definitions>

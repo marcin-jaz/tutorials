@@ -1,0 +1,27 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2001, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%-- 
+  *****
+  * This JSP fragment is included in content JSP pages to construct the top and left portion of the layout.
+  *****
+--%>
+<!-- BEGIN LayoutContainerTop.jspf -->
+
+<%@ include file="JSTLCacheParametersSetup.jspf"%>
+<%@ include file="HeaderDisplay.jspf"%>
+
+<div id="main_content_wrapper">
+	<%@ include file="LeftSidebarDisplay.jspf"%>
+
+<!-- END LayoutContainerTop.jspf -->

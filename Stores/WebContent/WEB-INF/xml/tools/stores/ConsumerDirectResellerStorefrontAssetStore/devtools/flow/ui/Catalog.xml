@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+	<panel id="CatalogPanel" title="CatalogPanel.title" description="CatalogPanel.description" display-priority="2"/>
+
+	<option-group id="Search.checkbox" title="Search.checkboxEnable.title" type="checkbox" display-priority="1" panel="CatalogPanel" >
+		
+		<option id="Search.checkboxEnable"
+			label="Search.checkboxEnable.label"
+			enables-features="search" />
+	</option-group>
+		
+	<option-group id="ProductDisplay.checkbox" title="ProductDisplay.checkboxEnable.title" type="checkbox" display-priority="2" panel="CatalogPanel" >
+		
+		<option id="ProductDisplay.checkboxEnable"
+			label="ProductDisplay.checkboxEnable.label"
+			enables-features="ProductQuantity" />
+	</option-group>
+
+</display>

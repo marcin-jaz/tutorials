@@ -1,0 +1,33 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2008
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%-- 
+  *****
+  * This JSP fragment is used to make CachedSidebarDisplay.jsp cachable.  The parameters passed into
+  * CachedSidebarDisplay.jsp are defined as a key in the cachespec.xml file.
+  *****
+--%>
+
+<!-- BEGIN RightSidebarDisplay.jspf -->
+
+<% out.flush(); %>
+<c:import url="${jspStoreDir}${StyleDir}CachedRightSidebarDisplay.jsp">
+	<c:param name="storeId" value="${WCParam.storeId}" />
+	<c:param name="catalogId" value="${catalogId}" />
+	<c:param name="langId" value="${langId}" />
+</c:import>
+<% out.flush(); %>
+<!-- END SidebarDisplay.jspf -->

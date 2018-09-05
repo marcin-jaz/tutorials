@@ -1,0 +1,123 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%-- 
+  *****
+  * This JSP snippet displays the order item details along with the order total for a particular order. 
+  * This snippet is used by the OrderDetailDisplay jsp page
+  *****
+--%>
+
+<!-- BEGIN OrderItemDetailsDisplay.jspf -->
+ 
+<c:if test="${!empty order.orderItem}"> 
+		<wcf:getData type="com.ibm.commerce.catalog.facade.datatypes.CatalogEntryType[]" var="catalogEntriesForAttributes" expressionBuilder="getStoreCatalogEntryAttributesByIDs">
+			<wcf:contextData name="storeId" data="${WCParam.storeId}"/>
+			<c:forEach var="orderItem" items="${order.orderItem}">
+				<wcf:param name="UniqueID" value="${orderItem.catalogEntryIdentifier.uniqueID}"/>
+			</c:forEach>
+			<wcf:param name="dataLanguageIds" value="${WCParam.langId}"/>
+		</wcf:getData>  
+</c:if>
+<c:forEach var="orderItem" items="${order.orderItem}" begin="${beginIndex}" end="${endIndex-1}" varStatus="status">
+	<wcbase:useBean id="catEntry" classname="com.ibm.commerce.catalog.beans.CatalogEntryDataBean" scope="request">
+		<c:set property="catalogEntryID" value="${orderItem.catalogEntryIdentifier.uniqueID}" target="${catEntry}" />
+	</wcbase:useBean>
+
+	<!-- get the formatted qty for this item -->
+	<fmt:formatNumber var="itemQty" value="${orderItem.quantity.value}" type="number" maxFractionDigits="0"/>
+	
+         <li class="item_container">  
+             <h4>${catEntry.description.name}</h4>
+             	   	<%--
+					 ***
+					 * Start: Display Defining attributes
+					 * Loop through the attribute values and display the defining attributes
+					 ***
+					--%>
+					<c:forEach var="catalogEntry1" items="${catalogEntriesForAttributes}" >
+						<c:if test="${catalogEntry1.catalogEntryIdentifier.uniqueID == orderItem.catalogEntryIdentifier.uniqueID}">
+							<c:forEach var="attribute" items="${catalogEntry1.catalogEntryAttributes.attributes}">
+								<c:if test="${ attribute.usage=='Defining' }" >	
+									<span class="strongtext"><c:out value="${attribute.name}"  escapeXml="false" /> : </span><c:out value="${attribute.value.value}"  escapeXml="false" />																				
+									<br />
+								</c:if>
+							</c:forEach>
+						</c:if>
+					</c:forEach>
+					<%--
+					 ***
+					 * End: Display Defining attributes
+					 ***
+					--%>  
+                   <dl>  
+                       <dt><fmt:message key="MO_PRD_SKU" bundle="${storeText}"/></dt> <dd>${catEntry.partNumber}</dd>  
+                   </dl>  
+                   <div class="clear_float" />
+                   <p>
+					<c:catch>
+						<fmt:parseDate var="availableDate" value="${orderItem.orderItemFulfillmentInfo.availableDate}" pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" timeZone="GMT"/>
+					</c:catch>
+					<c:if test="${empty availableDate}">
+						<c:catch>
+							<fmt:parseDate var="availableDate" value="${orderItem.orderItemFulfillmentInfo.availableDate}" pattern="yyyy-MM-dd'T'HH:mm:ss'Z'" timeZone="GMT"/>
+						</c:catch>
+					</c:if>
+					<jsp:useBean id="now" class="java.util.Date" />
+										
+					<c:choose>
+						<c:when test="${empty availableDate}">
+							<c:choose>
+								<c:when test="${(orderItem.orderItemStatus.inventoryStatus == 'Available') || (orderItem.orderItemStatus.inventoryStatus == 'Allocated')}">
+									<fmt:message key="MO_SHIP_IN_STOCK" bundle="${storeText}"/>
+								</c:when>
+								<c:otherwise>
+									<fmt:message key="MO_SHIP_OUT_OF_STOCK" bundle="${storeText}"/>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:when test="${availableDate <= now}">
+							<fmt:message key="MO_SHIP_IN_STOCK" bundle="${storeText}"/>
+						</c:when>
+						<c:otherwise>
+							<c:choose>
+								<c:when test="${(!empty orderItem.orderItemShippingInfo.requestedShipDate) && (orderItem.orderItemStatus.inventoryStatus != 'Backordered')}">
+									<fmt:message key="MO_SHIP_IN_STOCK" bundle="${storeText}"/>
+								</c:when>
+								<c:otherwise>
+									<fmt:formatDate var="formattedAvailableDate" value="${availableDate}" dateStyle="long"/>
+									<fmt:message key="MO_SHIP_BACKORDERED" bundle="${storeText}">
+										<fmt:param value="${formattedAvailableDate}"/>
+									</fmt:message>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</p> 
+                   <dl>  
+                      <dt><fmt:message key="MO_ORD_ITEM_PRICE" bundle="${storeText}"/></dt> <dd><span class="price"><fmt:formatNumber value="${orderItem.orderItemAmount.unitPrice.price.value}" type="currency" 
+				maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></span></dd>  
+                      <dt><fmt:message key="MO_ORD_ITEM_QTY" bundle="${storeText}"/></dt> <dd>${itemQty}</dd>  
+                  </dl>  
+                  <div class="clear_float" />
+         </li>  
+                                               
+     
+    <c:remove var="catEntry"/>
+</c:forEach>
+ 
+
+
+	
+<!-- END OrderItemDetailsDisplay.jspf -->

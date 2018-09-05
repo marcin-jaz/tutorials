@@ -1,0 +1,50 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<library>
+	<!---
+		<p>
+		This class is an enablement condition that will return true if the current store
+		has Marketing Center enabled.
+		</p>
+	    
+		<p>
+		If the attribute "negate" is set to "true", the result will be negated.
+		</p>	
+	-->
+	<class name="wcfMarketingCenterEnablementCondition" extends="wcfEnablementCondition">
+		<!--- 
+			<P>
+			This method returns <code>true</code> if the current store has
+			Marketing Center enabled.
+			</P>
+			@param wcfModelObject o the model object that is to be enabled/disabled.
+			@return boolean <code>true</code> if Marketing Center is enabled.
+		-->
+		<method name="isEnabled" args="o">
+			<![CDATA[
+			var storeConfig = wcfContextUtil.findStoreConfig(o);
+			var result = ((storeConfig != null) && (storeConfig.analytics != null));
+			if (result) {
+				result = storeConfig.analytics.isMarketingCenterEnabled == "true";
+			}
+
+			if (this.negate) {
+				result = !result;
+			}			
+			return result;
+			]]>
+		</method>
+	</class>
+</library>

@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("pastefromword","it",{confirmCleanup:"Il testo da incollare è stato copiato da Word. Cancellarlo prima di incollarlo?",error:"Non è stato possibile cancellare i dati incollati a causa di un errore interno",title:"Incolla speciale",toolbar:"Incolla speciale"});

@@ -1,0 +1,67 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%-- 
+  *****
+  * This is a JSP fragments for extensions. It contains javascripts that are used by UserRegistrationAddForm.jsp 
+  * for the B2B stores 
+  *****
+--%>
+   <%--
+    ***
+    * Identify the following from the distinguished name of the default
+    * organization:
+    *  - organization prefix (e.g. "o=")
+    *  - name of the default organization (e.g. "default organization")
+    *  - distinguished name of the root organization (e.g. ",o=root organization")
+    ***
+  --%>
+<%
+String storeId = request.getParameter("storeId");
+String strRootOrgDN = com.ibm.commerce.member.helpers.MemberRegistrationAttributesHelper.resolveOrgEntityDNFromOrgEntityId(
+    com.ibm.commerce.member.helpers.MemberRegistrationAttributesHelper.
+      getResolvedParentOrgIdForOrgRegistrationWithQualifier(
+        com.ibm.commerce.user.helpers.ECUserConstants.EC_BUYER_REGISTRATION_ROLES_QUALIFIER,
+        storeId));
+%>
+
+<c:set var="orgPrefix" value="o="/>
+<c:set var="defaultOrgName" value="${defaultOrg.organizationName}"/>
+<c:set var="rootOrgDN" value="<%= strRootOrgDN%>"/>
+<c:set var="rootOrgDN" value=",${rootOrgDN}"/>
+
+<script type="text/javascript">
+   var orgPrefix		= "<c:out value="${orgPrefix}" escapeXml="false"/>";
+   var defaultOrgName	= "<c:out value="${defaultOrgName}" escapeXml="false"/>";
+   var rootOrgDN		= "<c:out value="${rootOrgDN}" escapeXml="false"/>";
+</script>
+
+<script type="text/javascript">
+	function submitForm(form) {
+	 //check to make sure Buyer Organization is set. 	 
+	 var reWhiteSpace = new RegExp(/^\s+$/);
+     if (form.ancestorOrgs !=null && reWhiteSpace.test(form.ancestorOrgs.value) || form.ancestorOrgs.value=="") {
+        MessageHelper.formErrorHandleClient(form.ancestorOrgs.id,MessageHelper.messages["ERROR_OrgNameEmpty"]); return;
+     }
+     
+     //set the value of buyer organization
+     B2BLogonForm.setParentMemberValue(form);
+     
+     //set the SMS values
+     B2BLogonForm.setSMSCheckBoxes(form);
+     
+     //now submit the form
+     LogonForm.prepareSubmit(form);
+     return false;
+	}
+</script>

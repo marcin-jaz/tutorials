@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<!--- This definition defines the base object from which KitBrowsingPage and InheritedKitBrowsingPage are derived.
+	-->
+	<PrimaryObjectDefinition definitionName="plmBaseKitBrowsingPagePrimaryObjectDefinition" 
+		baseDefinitionName="plmBaseCatalogEntryBrowsingPagePrimaryObjectDefinition"
+		isBaseDefinition="true" 
+		displayName="${plmPageLayoutResources.kitPage_DisplayName}"
+		detailsViewHeaderText="${catalogResources.UtilityPaneHeaderText}" 
+	    helpLink="concepts/cpzpagecomptool.htm">
+	    
+		<!--- This navigation list definition is used to display the layout assignments for this catalog entry page. -->
+		<NavigationListDefinition name="CatalogEntryBrowsingPageAssignmentChildList"
+			displayName="${plmPageLayoutResources.navigation_layoutAssignmentListPrompt}"
+		 	isDefault="true"
+		 	listDefinitionName="plmPageLayoutReferenceList" 
+		 	toolbarIcon="listToolbarIcon"
+		 	listTitle="${plmPageLayoutResources.navigation_layoutAssignmentPrompt}" />	
+
+		<!--- This navigation list definition is used to display the layout assignments for this catalog entry page as a calendar view. -->
+		<NavigationListDefinition name="CatalogEntryBrowsingPageAssignmentGanttChildList"
+			displayName="${plmPageLayoutResources.pageLayoutsGanttChartMenuTitle}"
+		 	listDefinitionName="plmPageLayoutGanttReferenceList" 
+		 	listTitle="${plmPageLayoutResources.pageLayoutsGanttChartTitle}"
+		 	toolbarIcon="ganttChartToolbarIcon" />	
+		
+	</PrimaryObjectDefinition>
+
+	<!---		
+		This definition represents the primary object definition describing a Kit Browsing Page as a business object.
+	-->
+    <PrimaryObjectDefinition baseDefinitionName="plmBaseKitBrowsingPagePrimaryObjectDefinition"
+     	definitionName="KitBrowsingPage"
+     	headerIcon="kitPageHeaderIcon"
+		icon="kitPageIcon"
+     	objectType="KitBrowsingPage">
+	</PrimaryObjectDefinition>
+
+	<!---		
+		This definition represents the primary object definition describing an Inherited Kit Browsing Page as a business object.
+	-->
+    <PrimaryObjectDefinition definitionName="InheritedKitBrowsingPage"
+    	baseDefinitionName="plmBaseKitBrowsingPagePrimaryObjectDefinition"
+     	displayName="${plmPageLayoutResources.inheritedKitPage_DisplayName}"
+	    headerIcon="inheritedKitPageHeaderIcon" 
+	    icon="inheritedKitPageIcon" objectType="InheritedKitBrowsingPage">	
+	</PrimaryObjectDefinition>
+
+</Definitions>

@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("about","ar",{copy:"حقوق النشر &copy; $1. جميع الحقوق محفوظة.",dlgTitle:"نبذة عن CKEditor",help:"ارجع الى $1 للحصول على مساعدة",moreInfo:"لمعرفة معلومات الترخيص، برجاء زيارة موقع الانترنت الخاص بها:",title:"نبذة عن CKEditor",userGuide:"دليل مستخدم CKEditor"});

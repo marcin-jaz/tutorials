@@ -1,0 +1,702 @@
+<%--
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2003, 2004
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+--%>
+
+<%--
+  *****
+  * This JSPF creates an HTML table displaying the current order.
+  * It is intended for use in aiding Commerce store developers to quickly reuse snippets
+  * of code between the starter stores and their own projects.
+  * The cart included is as generic as possible, but the classes in the style sheets
+  * will need to be changed to match your site's look and feel.
+  *
+  *
+  * Required parameters:
+  * orderBean:  an instance of com.ibm.commerce.order.beans.OrderDataBean containing the
+  *				current order information.
+  *
+  * Optional parameters:
+  * showContracts:  if set to true, a choice of available contracts will appear
+  *
+  * How to use this snippet?
+  * 1. To display this feature in your store's checkout page, you can cut and
+  *    paste the code from the snippet to your checkout page, or simply include it:
+  *     <tr>
+  *		<td>
+  *			<%@ include file="../../Snippets/Order/Cart/CurrentOrderDisplay.jspf" %>
+  *		</td>
+  *	</tr>
+  *
+  *****
+--%>
+<script language="javascript">
+function jumpToPage(form, url)
+{
+		var pageNumber = parseInt(form.currentPage.value);
+    if ( pageNumber !="NaN" && pageNumber >=1 && pageNumber <= <c:out value="${orderBean.totalPages}" /> ) {
+    	 UpdateTotal(form, url, pageNumber);
+    } else {
+    	alert("<fmt:message key="SEARCH_INVALID_PAGE_NUM" bundle="${storeText}"/>");
+    }
+}
+</script>
+
+<c:if test="${orderBean.totalSize > pageSize}" >
+				<c:choose>
+					<c:when test="${currentPage == 1}">
+						<c:set var="prevPageIndex" value="1"/>
+					</c:when>
+					<c:otherwise>
+						<c:set var="prevPageIndex" value="${currentPage - 1}"/>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${pageSize*currentPage <= orderBean.totalSize}">
+						<c:set var="nextPageIndex" value="${currentPage + 1}"/>
+					</c:when>
+					<c:otherwise>
+						<c:set var="nextPageIndex" value="${currentPage}"/>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:url value="OrderItemDisplay" var="OrderItemDisplayFirstURL">
+					<c:param name="storeId" value="${storeId}"/>
+					<c:param name="langId" value="${langId}"/>
+					<c:param name="catalogId" value="${catalogId}"/>
+					<c:param name="orderId" value="${orderBean.orderId}"/>
+					<c:param name="pageSize" value="${pageSize}"/>
+					<c:param name="currentPage" value="1"/>
+				</c:url>
+				<c:url value="OrderItemDisplay" var="OrderItemDisplayPrevURL">
+					<c:param name="storeId" value="${storeId}"/>
+					<c:param name="langId" value="${langId}"/>
+					<c:param name="catalogId" value="${catalogId}"/>
+					<c:param name="orderId" value="${orderBean.orderId}"/>
+					<c:param name="pageSize" value="${pageSize}"/>
+					<c:param name="currentPage" value="${prevPageIndex}"/>
+				</c:url>
+				<c:url value="OrderItemDisplay" var="OrderItemDisplayNextURL">
+					<c:param name="storeId" value="${storeId}"/>
+					<c:param name="langId" value="${langId}"/>
+					<c:param name="catalogId" value="${catalogId}"/>
+					<c:param name="orderId" value="${orderBean.orderId}"/>
+					<c:param name="pageSize" value="${pageSize}"/>
+					<c:param name="currentPage" value="${nextPageIndex}"/>
+				</c:url>
+				<c:url value="OrderItemDisplay" var="OrderItemDisplayLastURL">
+					<c:param name="storeId" value="${storeId}"/>
+					<c:param name="langId" value="${langId}"/>
+					<c:param name="catalogId" value="${catalogId}"/>
+					<c:param name="orderId" value="${orderBean.orderId}"/>
+					<c:param name="pageSize" value="${pageSize}"/>
+					<c:param name="currentPage" value="${orderBean.totalPages}"/>
+				</c:url>
+				<c:url value="OrderItemDisplay" var="OrderItemDisplayJumpURL">
+					<c:param name="storeId" value="${storeId}"/>
+					<c:param name="langId" value="${langId}"/>
+					<c:param name="catalogId" value="${catalogId}"/>
+					<c:param name="orderId" value="${orderBean.orderId}"/>
+					<c:param name="pageSize" value="${pageSize}"/>
+				</c:url>
+				
+		<table cellpadding="0" cellspacing="0" border="0" class="t_table" id="WC_CurrentOrderDisplayJSPF_Table_2">
+			<tr>
+				<td id="WC_CurrentOrderDisplayJSPF_TableCell_2">	
+					<table cellpadding="0" cellspacing="0" border="0" id="WC_CurrentOrderDisplayJSPF_Table_3">
+						<tr>
+							<td id="WC_CurrentOrderDisplayJSPF_TableCell_5"><a href="javascript:UpdateTotal(document.ShopCartForm, '<c:out value="${OrderItemDisplayFirstURL}" />');" id="WC_CurrentOrderDisplayJSPF_Link_1"><img src="<c:out value="${jspStoreImgDir}${vfileColor}"/>ps_first.gif" alt="<fmt:message key="SEARCH_FIRST" bundle="${storeText}" />" width="14" height="14" border="0"></a></td>																					
+							<td class="ps_pad" id="WC_CurrentOrderDisplayJSPF_TableCell_6"><a href="javascript:UpdateTotal(document.ShopCartForm, '<c:out value="${OrderItemDisplayPrevURL}" />');" id="WC_CurrentOrderDisplayJSPF_Link_2"><img src="<c:out value="${jspStoreImgDir}${vfileColor}"/>ps_previous.gif" alt="<fmt:message key="SEARCH_PREV" bundle="${storeText}" />" width="14" height="14" border="0"></a></td>
+							<fmt:message var="pageNumberText" key="PAGE_NUMBER" bundle="${storeText}">
+								<fmt:param><c:out value="${orderBean.currentPage}" /></fmt:param>
+								<fmt:param><c:out value="${orderBean.totalPages}" /></fmt:param>
+							</fmt:message>
+							<td class="ps_text" id="WC_CurrentOrderDisplayJSPF_TableCell_7"><c:out value="${pageNumberText}" /></td>																		
+							<td class="ps_pad" id="WC_CurrentOrderDisplayJSPF_TableCell_8"><a href="javascript:UpdateTotal(document.ShopCartForm, '<c:out value="${OrderItemDisplayNextURL}" />');" id="WC_CurrentOrderDisplayJSPF_Link_3"><img src="<c:out value="${jspStoreImgDir}${vfileColor}"/>ps_next.gif" alt="<fmt:message key="SEARCH_NEXT" bundle="${storeText}" />" width="14" height="14" border="0"></a></td>									
+							<td class="ps_pad" id="WC_CurrentOrderDisplayJSPF_TableCell_9"><a href="javascript:UpdateTotal(document.ShopCartForm, '<c:out value="${OrderItemDisplayLastURL}" />');" id="WC_CurrentOrderDisplayJSPF_Link_4"><img src="<c:out value="${jspStoreImgDir}${vfileColor}"/>ps_last.gif" alt="<fmt:message key="SEARCH_LAST" bundle="${storeText}" />" width="14" height="14" border="0"></a></td>
+							<td class="ps_text" id="WC_CurrentOrderDisplayJSPF_TableCell_10"><label for="WC_CurrentOrderDisplayJSPF_JumpToPage"><fmt:message key="JUMP_TO_PAGE" bundle="${storeText}"/></label></td>
+							<td class="ps_pad" id="WC_CurrentOrderDisplayJSPF_TableCell_11"><input type="text" maxlength="4" size="3" class="ps_input" name="currentPage" id="WC_CurrentOrderDisplayJSPF_JumpToPage"><input type="hidden" name="pageSize" value="<c:out value="${pageSize}"/>" id="WC_CurrentOrderDisplayJSPF_FormInput_pageSize_In_JumpToPageForm_1"/></td>
+							<td class="ps_pad" id="WC_CurrentOrderDisplayJSPF_TableCell_12"><a href="javascript:jumpToPage(document.ShopCartForm, '<c:out value="${OrderItemDisplayJumpURL}" />');" id="WC_CurrentOrderDisplayJSPF_Link_5"><img src="<c:out value="${jspStoreImgDir}${vfileColor}"/>ps_page_jump.gif" alt="<fmt:message key="SEARCH_JUMP" bundle="${storeText}" />" width="16" height="16" border="0"></a></td>
+						</tr>
+					</table>
+				</td>
+				<td align="right" id="WC_CurrentOrderDisplayJSPF_TableCell_12a">
+					<table cellpadding="0" cellspacing="0" border="0" id="WC_CurrentOrderDisplayJSPF_Table_3a">
+						<tr>
+							<c:set var="beginIndex" value="${currentPage*pageSize - pageSize}"/>
+						  <c:set var="resultCountOnPage" value="${pageSize + beginIndex}"/>
+							<c:choose>
+								<c:when test="${resultCountOnPage > orderBean.totalSize}">
+									<c:set var="resultCountOnPage" value="${orderBean.totalSize}"/>
+								</c:when>
+							</c:choose>
+							<fmt:message var="resultsText" key="SEARCH_RESULT_LIST" bundle="${storeText}">
+								<fmt:param value="${beginIndex+1}"/>
+								<fmt:param value="${resultCountOnPage}"/>
+								<fmt:param value="${orderBean.totalSize}"/>
+							</fmt:message>
+							<td class="ps_text" id="WC_CurrentOrderDisplayJSPF_TableCell_301"><c:out value="${resultsText}" /></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+</c:if>
+
+<table width="100%" cellpadding="2" cellspacing="1" border="0" class="bgColor" id="WC_CurrentOrderDisplayJSPF_Table_1">
+	<%--
+		***
+		* Display the main heading for the shopcart (Quantity, Item, Price & Total)
+		***
+	--%>
+	<tr>
+		<th id="WC_CurrentOrderDisplayJSPF_TableCell_1" class="colHeader" width="40%">
+			<fmt:message key="CurrentOrder_ITEM" bundle="${storeText}"/>
+		</th>
+		<th id="WC_CurrentOrderDisplayJSPF_TableCell_2" class="colHeader"><span class="t_hd_cntr">
+			<fmt:message key="CurrentOrder_QTY" bundle="${storeText}"/>
+			</span>
+		</th>
+		<th id="WC_CurrentOrderDisplayJSPF_TableCell_3" class="colHeader">
+			<fmt:message key="CurrentOrder_AVAILABILITY_DATE" bundle="${storeText}"/>
+		</th>
+		<th id="WC_CurrentOrderDisplayJSPF_TableCell_4" class="colHeader"><span class="t_hd_rght">
+			<fmt:message key="CurrentOrder_PRICE" bundle="${storeText}"/>
+			</span>
+		</th>
+		<th id="WC_CurrentOrderDisplayJSPF_TableCell_5" class="colHeader_price"><span class="t_hd_rght">
+			<fmt:message key="CurrentOrder_TOTAL" bundle="${storeText}"/>
+			</span>
+		</th>
+		<th id="WC_CurrentOrderDisplayJSPF_TableCell_6" class="colHeader_last">
+		
+		</th>
+	</tr>
+	<%--
+		***
+		* End of main headings display
+		***
+	--%>
+
+	<%--
+		***
+		* For each order item, display the quantity, item short description, attributes, promotions, prices and total price.
+		***
+	--%>
+	<flow:ifDisabled feature="GiftRegistry">
+		<c:set var="orderItemDataBeans" value="${orderBean.orderItemDataBeansInCurrentPage}"/>
+	</flow:ifDisabled>
+	<flow:ifEnabled feature="GiftRegistry">
+		<c:set var="orderItemDataBeans" value="${orderBean.giftRegistryOrderItemDBs}"/>
+	</flow:ifEnabled>
+	<c:forEach var="orderItem" items="${orderItemDataBeans}" varStatus="status">
+		<c:choose>
+			<c:when test="${orderItem.catalogEntryDataBean.package}">
+				<c:set var="catalogEntry" value="${orderItem.catalogEntryDataBean.packageDataBean}"/>
+				<c:set var="catalogEntryId" value="${catalogEntry.packageID}"/>
+			</c:when>
+	
+			<c:when test="${orderItem.catalogEntryDataBean.item}">
+				<flow:ifDisabled feature="GiftRegistry">
+				<c:set var="catalogEntry" value="${orderItem.catalogEntryDataBean.itemDataBean}"/>
+				<c:set var="catalogEntryId" value="${catalogEntry.itemID}"/>
+				</flow:ifDisabled>
+				<flow:ifEnabled feature="GiftRegistry">
+				<c:set var="catalogEntry" value="${orderItem.catalogEntryDataBean.itemDataBean.parentProductDataBean}"/>
+				<c:set var="catalogEntryId" value="${catalogEntry.productID}"/>
+				</flow:ifEnabled>
+			</c:when>
+	
+			<c:otherwise>
+				<c:set var="catalogEntry" value="${orderItem.catalogEntryDataBean.productDataBean}" />
+				<c:set var="catalogEntryId" value="${catalogEntryDataBean.productID}"/>
+			</c:otherwise>
+		</c:choose>
+		<tr valign="top">
+			<td headers="WC_CurrentOrderDisplayJSPF_TableCell_1" class="<c:out value="cellBG_${((status.count+1) % 2) + 1}"/> t_td" valign="top" id="WC_CurrentOrderDisplayJSPF_TableCell_7_<c:out value="${status.count}"/>">
+				<%--
+					 ***
+					 * Display the item name as a link to the product display page
+					 ***
+				 --%>
+				 <c:url var="ProductDisplayURL" value="ProductDisplay">
+						<c:param name="langId" value="${langId}" />
+						<c:param name="storeId" value="${WCParam.storeId}" />
+						<c:param name="catalogId" value="${WCParam.catalogId}" />
+						<c:param name="productId" value="${catalogEntryId}" />
+				</c:url>
+				<table id="WC_CurrentOrderDisplayJSPF_Table_2_<c:out value="${status.count}"/>">
+					<tr>
+						<td valign="top" id="WC_CurrentOrderDisplayJSPF_TableCell_8_1_<c:out value="${status.count}"/>">
+							<!--
+							<c:if test="${!empty catalogEntry.description.thumbNail}">
+								<a href="<c:out value="${ProductDisplayURL}"/>" id="WC_CurrentOrderDisplayJSPF_Link_1_<c:out value="${status.count}"/>">
+					              			<img width="75" height="75" alt="<c:out value="${catalogEntry.description.shortDescription}"/>" src="<c:out value="${catalogEntry.objectPath}"/><c:out value="${catalogEntry.description.thumbNail}"/>" border="0"/>
+								</a>
+							</c:if>
+							-->
+							<c:choose>
+								<c:when test="${!empty catalogEntry.description.thumbNail}">
+									<a href="<c:out value="${ProductDisplayURL}"/>" id="WC_CurrentOrderDisplayJSPF_Link_1_<c:out value="${status.count}"/>">
+										<img width="75" height="75" alt="<c:out value="${catalogEntry.description.shortDescription}"/>" src="<c:out value="${catalogEntry.objectPath}"/><c:out value="${catalogEntry.description.thumbNail}"/>" border="0"/>
+									</a>
+								</c:when>
+								<c:otherwise>
+									<img width="75" height="75" alt="<fmt:message key="No_Image" bundle="${storeText}"/>" src="<c:out value="${jspStoreImgDir}" />images/NoImageIcon_sm.jpg" border="0">
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td valign="top" id="WC_CurrentOrderDisplayJSPF_TableCell_9_2_<c:out value="${status.count}"/>">
+							<a href="<c:out value="${ProductDisplayURL}"/>" id="WC_CurrentOrderDisplayJSPF_Link_2_<c:out value="${status.count}"/>">
+								<c:out value="${catalogEntry.description.name}" escapeXml="false"  /><br/>
+							</a>
+							<%-- Display the order item SKU number --%>
+							<fmt:message key="CurrentOrder_SKU" bundle="${storeText}"/>
+							<c:out value="${orderItem.catalogEntryDataBean.partNumber}" escapeXml="false"/><br/>
+							<c:if test="${showContracts}">
+								<label for="WC_CurrentOrderDisplay_FormInput_contractId_1_<c:out value='${status.count}' />"><fmt:message key="CurrentOrder_CONTRACT" bundle="${storeText}"/></label>
+								<select id="WC_CurrentOrderDisplay_FormInput_contractId_1_<c:out value='${status.count}' />" name="contractId_<c:out value="${status.count}"/>">
+				                			<c:forEach items="${CommandContext.eligibleTradingAgreementIds}" var="contractId">
+										<wcbase:useBean id="contractDataBean" classname="com.ibm.commerce.contract.beans.ContractDataBean">
+											<c:set target="${contractDataBean}" property="dataBeanKeyReferenceNumber" value="${contractId}"/>
+										</wcbase:useBean>
+										<option value="<c:out value="${contractId}"/>"<c:if test="${contractId==orderItem.contractId}"><c:set var="foundContract" value="true"/> selected="selected"</c:if>><c:out value="${contractDataBean.name}"/></option>
+				                        			<c:remove var="contractDataBean"/>
+									</c:forEach>
+								</select>
+								<c:if test="${foundContract!='true'}">
+									<br/>
+									<span class="error">
+				                         			<fmt:message key="CurrentOrder_InvalidContract" bundle="${storeText}"/>
+									</span>
+				                		</c:if>
+							</c:if>
+							
+							<%--
+							***
+							* Check to see if there are multiple order items with the same catentry, if so 
+							* display a warning message for the user.
+							***
+							--%>
+							<c:set var="repeatedCount" value="0"/>
+							<c:forEach var="orderItemDB" items="${orderBean.orderItemDataBeans}" varStatus="oiCount">
+								<c:if test="${orderItemDB.catalogEntry.catalogEntryReferenceNumber eq orderItem.catalogEntry.catalogEntryReferenceNumber}">
+									<c:set var="repeatedCount" value="${repeatedCount + 1}"/>
+								</c:if>
+							</c:forEach>
+							<c:if test="${repeatedCount > 1}">
+									<br/>
+									<span class="error">
+				          		<fmt:message key="CurrentOrder_SameCatentryWarning" bundle="${storeText}"/>
+									</span>
+				      </c:if>
+						</td>
+					</tr>
+				</table>
+			</td>
+	
+			<td headers="WC_CurrentOrderDisplayJSPF_TableCell_2" class="<c:out value="cellBG_${((status.count+1) % 2) + 1}"/> t_td" align="center" valign="top" id="WC_OrderItemDisplay_TableCell_8_<c:out value="${status.count}"/>">
+				<table cellpadding="0" cellspacing="2" id="WC_CurrentOrderDisplayJSPF_Table_3_<c:out value='${status.count}' />">
+				<tr>
+					<c:set var="imgWidth" value="1" />
+					<c:if test="${problemIds ne ''}">
+						<c:set var="imgWidth" value="12" />
+					</c:if>
+					<td width="<c:out value="${imgWidth}"/>" id="WC_CurrentOrderDisplayJSPF_TableCell_11__<c:out value='${status.count}' />">
+						<%-- Loop through all the orderItemId's that have problems in the cart and check if this current item is one of them --%>
+						<c:forTokens var="oneProblemId" delims="[], " items="${problemIds}">
+							<%-- If this item has a problem, flag it for the user --%>
+							<c:if test="${oneProblemId eq orderItem.orderItemId}">
+								<img src="<c:out value="${jspStoreImgDir}"/>images/alert.gif" alt="<fmt:message key="CurrentOrder_WARNING_ALERT" bundle="${storeText}" />" border="0"/>
+							</c:if>
+						</c:forTokens>
+					</td>
+					<td id="WC_CurrentOrderDisplayJSPF_TableCell_12_<c:out value='${status.count}' />">
+						<input type="hidden" name="orderItemId_<c:out value="${status.count}"/>" value="<c:out value="${orderItem.orderItemId}"/>" id="WC_OrderItemDisplay_FormInput_orderItemId_<c:out value="${status.count}"/>_In_ShopCartForm_1_<c:out value="${status.count}"/>"/>
+						<input type="hidden" name="shipModeId_<c:out value="${status.count}"/>" value="<c:out value="${orderItem.shippingModeId}"/>" id="WC_OrderItemDisplay_FormInput_shipModeId_<c:out value="${status.count}"/>_In_ShopCartForm_1_<c:out value="${status.count}"/>"/>
+						<%-- check to see if the order item is a freebie --%>
+						<c:choose>
+							<c:when test="${orderItem.free}">
+								<%-- the order item is a freebie --%>
+								<input type="hidden" name="<c:out value="quantity_${status.count}"/>" value="<c:out value="${orderItem.formattedQuantity}"/>" id="WC_OrderItemDisplay_FormInput_quantity_<c:out value="${status.count}"/>_In_ShopCartForm_1_<c:out value="${status.count}"/>"/>
+								<c:out value="${orderItem.formattedQuantity}"/>
+							</c:when>
+							<c:otherwise>
+								<%-- the order item is not freebie --%>
+								<input size="2" id="qty1_<c:out value='${status.count}' />" name="<c:out value="quantity_${status.count}" />" class="input" value="<c:out value="${orderItem.formattedQuantity}" />" />
+							</c:otherwise>
+						</c:choose>
+					</td>
+				</tr>
+				</table>
+			</td>
+	
+			<%--
+				***
+				* Begin: display availability date
+				***
+			--%>
+			<td headers="WC_CurrentOrderDisplayJSPF_TableCell_3" class="<c:out value="cellBG_${((status.count+1) % 2) + 1}"/> t_td" valign="top" id="WC_OrderItemDisplay_TableCell_8_1_<c:out value="${status.count}"/>">
+				<c:choose>
+					<c:when test="${orderItem.inventoryAvailable}">
+						<fmt:message key="CurrentOrder_AVAILABLE_NOW" bundle="${storeText}" />
+					</c:when>
+					<c:otherwise>
+						<c:out value="${orderItem.formattedEstimatedAvailableTime}"/>
+					</c:otherwise>
+				</c:choose>
+			</td>
+			<%--
+				***
+				* End: display availability date
+				***
+			--%>
+	
+			<%--
+				***
+				* Begin: display item prices, listed price and discounted amounts
+				***
+			--%>
+	
+			<td headers="WC_CurrentOrderDisplayJSPF_TableCell_4" class="<c:out value="cellBG_${((status.count+1) % 2) + 1}"/> price t_td" valign="top" id="WC_OrderItemDisplay_TableCell_9_<c:out value="${status.count}"/>">
+				<%--
+					***
+					* Begin: check item for listed price
+					***
+				--%>
+	
+				<c:choose>
+					<c:when test="${catalogEntry.listPriced}">
+						<c:set var="orderItemListPriceString" value="${orderItem.catalogEntryDataBean.listPrice}"/>
+						<c:set var="showListPrice" value="true"/>
+						<%-- Compare to see if items listed price is less than the items price.  If it is less, then also show the item price --%>
+						<c:if test="${ orderItem.catalogEntryDataBean.listPrice.amount <= orderItem.priceDataBean.amount }" >
+							<c:set var="showListPrice" value="false"/>
+						</c:if>
+					</c:when>
+					<c:otherwise>
+						<c:set var="showListPrice" value="false" />
+					</c:otherwise>
+				</c:choose>
+				<%--
+					***
+					* End: check item for listed price
+					***
+				--%>
+				<%--
+					***
+					* Begin: display the items price and listed price if it is more then the items price
+					***
+				--%>
+				<c:choose>
+					<%-- show both the list price & item price if list price is > item price --%>
+					<c:when test="${showListPrice}">
+						<%-- the empty gif are put in front of the prices so that the alt text can be read by the IBM Homepage Reader to describe the two prices displayed.
+						These descriptions are necessary for meeting Accessibility requirements --%>
+						<a href="#" id="WC_OrderItemDisplay_Link_1_<c:out value='${status.count}' />"><img src="<c:out value="${jspStoreImgDir}"/>images/empty.gif" alt="<fmt:message key="CurrentOrder_RegularPriceIs" bundle="${storeText}" />" width="0" height="0" border="0"/></a>
+						<span class="listPrice">
+							<c:out value="${orderItemListPriceString}" escapeXml="false" />
+						</span>
+						<%-- the empty gif are put in front of the prices so that the alt text can be read by the IBM Homepage Reader to describe the two prices displayed.
+						These descriptions are necessary for meeting Accessibility requirements --%>
+						<a href="#" id="WC_OrderItemDisplay_Link_2_<c:out value='${status.count}' />"><img src="<c:out value="${jspStoreImgDir}"/>images/empty.gif" alt="<fmt:message key="CurrentOrder_SalePriceIs" bundle="${storeText}" />" width="0" height="0" border="0" /></a>
+						<span class="offerPrice">
+							<c:out value="${orderItem.priceDataBean}" escapeXml="false" ><fmt:message key="CurrentOrder_NO_PRICE_AVAILABLE" bundle="${storeText}" /></c:out>
+						</span>
+					</c:when>
+					<%-- show only item price since it is greated than listed price --%>
+					<c:otherwise>
+						<%-- the empty gif are put in front of the prices so that the alt text can be read by the IBM Homepage Reader to describe the two prices displayed.
+						These descriptions are necessary for meeting Accessibility requirements --%>
+						<a href="#" id="WC_OrderItemDisplay_Link_3_<c:out value='${status.count}' />"><img src="<c:out value="${jspStoreImgDir}"/>images/empty.gif" alt="<fmt:message key="CurrentOrder_PriceIs" bundle="${storeText}" />" width="1" height="1" border="0" /></a>
+						<span class="price">
+							<c:out value="${orderItem.priceDataBean}" escapeXml="false" ><fmt:message key="CurrentOrder_NO_PRICE_AVAILABLE" bundle="${storeText}" /></c:out>
+						</span>
+					</c:otherwise>
+				</c:choose>
+			</td>
+	
+			<%--
+				***
+				* End: display of items price and the listed price
+				***
+	
+				***
+				* Begin: display discounted amount if there is a applicable promotion
+				***
+			--%>
+	
+			<c:choose>
+				<c:when test="${orderItem.free}">
+					<%-- the OrderItem is a freebie --%>
+					<td class="<c:out value="cellBG_${((status.count+1) % 2) + 1}"/> offerPrice t_td" headers="WC_CurrentOrderDisplayJSPF_TableCell_5" valign="top" id="WC_OrderItemDisplay_TableCell_10_<c:out value="${status.count}"/>">
+						<fmt:message key="CurrentOrder_SHOPCART_FREE" bundle="${storeText}"/>
+					</td>
+				</c:when>
+				<c:otherwise>
+					<td class="<c:out value="cellBG_${((status.count+1) % 2) + 1}"/> price t_td" headers="WC_CurrentOrderDisplayJSPF_TableCell_5" valign="top" id="WC_OrderItemDisplay_TableCell_10_<c:out value="${status.count}"/>">
+						<c:out value="${orderItem.formattedTotalProduct}" escapeXml="false" />
+					</td>
+				</c:otherwise>
+			</c:choose>
+			<%--
+				***
+				* End: display discounted amount
+				***
+			--%>
+			<%-- show the 'Remove' link which removes an item from the shopping cart --%>
+			<td headers="WC_CurrentOrderDisplayJSPF_TableCell_6" class="<c:out value="cellBG_${((status.count+1) % 2) + 1}"/> t_td" valign="top" id="WC_OrderItemDisplay_TableCell_21_<c:out value='${status.count}' />">
+				<table cellpadding="0" cellspacing="0" border="0" width="100%" id="WC_CurrentOrderDisplayJSPF_Table_4_<c:out value='${status.count}' />">
+				<tr>
+				<td id="WC_CurrentOrderDisplayJSPF_TableCell_18_<c:out value='${status.count}' />">
+					<c:url var="OrderItemDelete" value="OrderItemDelete">
+						<c:param name="orderItemId" value="${orderItem.orderItemId}"/>
+						<c:param name="orderId" value="${orderBean.orderId}"/>
+						<c:param name="updatePrices" value="1" />
+						<c:param name="calculationUsageId" value="-1" />
+						<c:param name="langId" value="${langId}" />
+						<c:param name="storeId" value="${WCParam.storeId}" />
+						<c:param name="catalogId" value="${WCParam.catalogId}" />
+						<c:param name="productId" value="${catalogEntryId}" />
+						<c:param name="URL" value="OrderCalculate?URL=OrderItemDisplay" />
+						<c:param name="errorViewName" value="InvalidInputErrorView" />
+					</c:url>
+					<%-- Remove button will not be displayed if the order item is a freebie --%>
+					<c:if test="${! orderItem.free}">
+						<a href="<c:out value="${OrderItemDelete}"/>" id="WC_OrderItemDisplay_Link_1_<c:out value="${status.count}"/>" class="t_button">
+							<fmt:message key="CurrentOrder_REMOVE_ITEM" bundle="${storeText}" />
+						</a>
+					</c:if>
+				</td>
+				</tr>
+				<flow:ifEnabled  feature="wishList">
+
+				<%-- 
+				Commented for 117584
+				We will display "Move item to Wish List" button for both Registered user and Guest User.
+				<c:if test="${!(userType eq 'G')}">
+				--%>
+				<flow:ifDisabled feature="GiftRegistry">
+				<tr>
+					<td id="WC_CurrentOrderDisplayJSPF_TableCell_19_<c:out value='${status.count}' />">
+						<c:url var="OrderItemMove" value="OrderItemDelete">
+							<c:param name="orderItemId" value="${orderItem.orderItemId}"/>
+							<c:param name="orderId" value="${orderBean.orderId}"/>
+							<c:param name="updatePrices" value="1" />
+							<c:param name="calculationUsageId" value="-1" />
+							<c:param name="langId" value="${langId}" />
+							<c:param name="storeId" value="${WCParam.storeId}" />
+							<c:param name="catalogId" value="${WCParam.catalogId}" />
+							<c:param name="productId" value="${catalogEntryId}" />
+							<c:param name="catEntryId" value="${catalogEntryId}" />
+							<c:param name="URL" value="InterestItemAdd?URL=OrderCalculate?URL=OrderItemDisplay?" />
+							<c:param name="errorViewName" value="InvalidInputErrorView" />
+						</c:url>
+						<a href="<c:out value="${OrderItemMove}"/>" id="OrderItemMoveLink_<c:out value='${status.count}' />" class="t_button">
+							<fmt:message key="CurrentOrder_MOVE_TO_WISHLIST" bundle="${storeText}" />
+						</a>
+					</td>
+				</tr>
+				</flow:ifDisabled>
+				<flow:ifEnabled feature="GiftRegistry">
+				<c:set var="hasWishList" value="false" />
+				<%@ include file="CurrentOrderGRDisplay.jspf" %>
+					<c:forEach var="grEntType" items="${grEntTypeList.eventList}" varStatus="counter">
+                    	<c:if test="${grEntType.eventTypeName == 'Wish List'}">
+                        	<c:set var="wishListEventTypeId" value="${grEntType.eventTypeId}"/>
+                        </c:if>                                                 
+					</c:forEach>
+				<c:if test="${searchResults.resultCount!=0}">
+					<c:forEach var="giftRegistryDB"	items="${searchResults.registries}" varStatus="counter">
+						<c:if test="${giftRegistryDB.eventTypeId==wishListEventTypeId}">
+							<c:set var="hasWishList" value="true" />
+							<c:set var="wishListId" value="${giftRegistryDB.externalId}" />
+						</c:if>	
+					</c:forEach>
+				</c:if>
+				<c:if test="${hasWishList==true}">
+				<tr>
+					<td id="WC_CurrentOrderDisplayJSPF_TableCell_19">
+						<c:url var="OrderItemMove" value="OrderItemDelete">
+							<c:param name="externalId" value="${wishListId}" />
+							<c:param name="storeId" value="${WCParam.storeId}" />
+							<c:param name="catEntryId_${status.count}" value="${orderItem.itemDataBean.itemID}" />
+							<c:param name="quantity_${status.count}" value="1" />
+							<c:param name="orderItemId" value="${orderItem.orderItemId}"/>
+							<c:param name="orderId" value="${orderId[0]}"/>
+							<c:param name="updatePrices" value="1" />
+							<c:param name="calculationUsageId" value="-1" />
+							<c:param name="langId" value="${langId}" />
+							<c:param name="catalogId" value="${WCParam.catalogId}" />
+							<c:param name="productId" value="${catalogEntryId}" />
+							<c:param name="URL" value="GiftRegistryItemAdd?URL=OrderCalculate?URL=OrderItemDisplay?" />
+							<c:param name="errorViewName" value="InvalidInputErrorView" />
+						</c:url>
+						<a href="<c:out value="${OrderItemMove}"/>" id="OrderItemMoveLink" class="t_button">
+							<fmt:message key="CurrentOrder_MOVE_TO_WISHLIST" bundle="${storeText}" />
+						</a>
+					</td>
+				</tr>
+				<%--
+				Commented for 117584
+				</c:if>
+				--%>
+				</c:if>
+				</flow:ifEnabled>
+				</flow:ifEnabled>
+				</table>
+			</td>
+		</tr>
+		<%--
+		  ***
+		  * Begin: Gift Registry Order integration
+		  ***
+		--%>
+		<%-- Display gift registry, if this is a gift item --%>
+		<flow:ifEnabled feature="GiftRegistry">
+		<c:if test='${!empty orderItem.externalGiftRegistryId}'>
+		<c:url var="GiftRegistryUrl" value="GiftRegistryAuthenticate">
+		  <c:param name="storeId" value="${WCParam.storeId}" />
+		  <c:param name="catalogId" value="${WCParam.catalogId}" />
+		  <c:param name="externalId" value="${orderItem.externalGiftRegistryId}" />
+		</c:url>
+		<tr>
+		<td></td>
+		<td colspan="5">
+		<input type="hidden" name="externalId_<c:out value='${counter.count}'/>" value="<c:out value='${orderItem.externalGiftRegistryId}' />"/>
+		<img src="<c:out value='${jspStoreImgDir}images/gift_item.gif'/>" border="0" alt="<fmt:message key='GR_GIFT_ITEM' bundle='${storeText}' />" />
+		<span class="text">
+		  <fmt:message key='GR_GIFT_ITEM_FOR_REG' bundle='${storeText}' /> <a href="<c:out value='${GiftRegistryUrl}'/>"><c:out value="${orderItem.giftRegistryDB.description}"/></a><br/>
+		</span>
+		</td>
+		</tr>
+		</c:if>
+		</flow:ifEnabled>
+		<%--
+		  ***
+		  * End: Gift Registry Order integration
+		  ***
+		--%>       
+		<%--
+		***
+		* Check to see if there is a product or item level discount and display the short description if there is one.
+		***
+		--%>
+		<c:if test="${!empty orderItem.appliedProductPromotions}">
+			<c:forEach var="appliedPromo" items="${orderItem.appliedProductPromotions}">
+				<c:url var="DiscountDetailsDisplayViewURL" value="DiscountDetailsDisplayView">
+					<c:param name="code" value="${appliedPromo.code}" />
+					<c:param name="langId" value="${langId}" />
+					<c:param name="storeId" value="${WCParam.storeId}" />
+					<c:param name="catalogId" value="${WCParam.catalogId}" />
+				</c:url>
+				<tr>
+					<td colspan="4" align="right" class="<c:out value="cellBG_${((status.count+1) % 2) + 1}"/> discount t_td"  valign="top" id="WC_CurrentOrderDisplayJSPF_TableCell_20_<c:out value="${((status.count+1) % 2) + 1}"/>">
+						<img src="<c:out value="${jspStoreImgDir}" />images/Discount_star.gif" alt="<c:out value="${appliedPromo.nationalizedShortDescription}"/>" />&nbsp;<a class="discount" href='<c:out value="${DiscountDetailsDisplayViewURL}" />' id="WC_OrderItemDisplay_Link_ItemDiscount_1_<c:out value="${((status.count+1) % 2) + 1}"/>"><c:out value="${appliedPromo.nationalizedShortDescription}" escapeXml="false"/></a>
+					</td>
+					<td align="right" class="<c:out value="cellBG_${((status.count+1) % 2) + 1}"/> discountPrice t_td" valign="top" id="WC_CurrentOrderDisplayJSPF_TableCell_21_<c:out value="${((status.count+1) % 2) + 1}"/>">
+						<c:out value="${appliedPromo.formattedTotal}" escapeXml="false" />
+					</td>
+					<td class="<c:out value="cellBG_${((status.count+1) % 2) + 1}"/> discountPrice t_td" id="WC_CurrentOrderDisplayJSPF_TableCell_22_<c:out value="${((status.count+1) % 2) + 1}"/>"></td>
+				</tr>
+				<c:set var="hasProductDiscount" value="true" />
+			</c:forEach>
+		</c:if>
+	
+	<%--
+	***
+	* End of product or item short description display
+	***
+	--%>
+	</c:forEach>
+	
+	<%--
+	***
+	* Display total price.  Check to see if there is a discount and display the total discount.
+	***
+	--%>
+			<c:set var="orderAdjustmentDBs" value="${orderBean.orderLevelDiscountOrderAdjustmentDataBeans}"/>
+			<%-- If there are discounts, then display the SubTotal before discounts --%>
+			<c:if test="${ !empty orderAdjustmentDBs || !empty orderBean.formattedOrderItemDiscountTotal }">
+				<tr>
+					<td colspan="4" id="WC_CurrentOrderDisplayJSPF_TableCell_23" align="right" class="cellBG_2 t_td">
+						<fmt:message key="CurrentOrder_SUBTOTAL_BEFORE_DISCOUNTS" bundle="${storeText}" /><br />
+						<%-- Display total of applicable Product discounts --%>
+						<c:if test="${hasProductDiscount}">
+							<fmt:message key="CurrentOrder_PRODUCT_DISCOUNT_TOTAL" bundle="${storeText}" /><br />
+						</c:if>
+						<%-- Display applicable Order discounts --%>
+						<c:if test="${ !empty orderAdjustmentDBs }">
+							<c:forEach var="adjustmentDB" items="${orderAdjustmentDBs}">
+								<c:out value="${adjustmentDB.calculationCodeDescriptionString}" escapeXml="false"/><br />
+							</c:forEach>				
+						</c:if>
+					</td>
+					<td id="WC_CurrentOrderDisplayJSPF_TableCell_24" align="right" class="cellBG_2 price t_td">
+						<c:out value="${orderBean.formattedTotalProductPrice}" escapeXml="false"/><br />
+						<%-- Display total of applicable Product discounts --%>
+						<c:if test="${hasProductDiscount}">
+							<c:out value="${orderBean.formattedOrderItemDiscountTotal}" escapeXml="false"/><br />
+						</c:if>
+						<%-- Display applicable Order discounts --%>
+						<c:if test="${ !empty orderAdjustmentDBs }">
+							<c:forEach var="adjustmentDB" items="${orderAdjustmentDBs}">
+								<c:out value="${adjustmentDB.formattedAmount}" escapeXml="false"/><br />
+							</c:forEach>						
+						</c:if>
+					</td>
+					<td id="WC_CurrentOrderDisplayJSPF_TableCell_25" class="cellBG_2 t_td">
+					</td>
+				</tr>
+			</c:if>
+		<tr>
+			<td colspan="4" id="WC_CurrentOrderDisplayJSPF_TableCell_26" class="cellBG_1 price t_total">
+				<fmt:message key="CurrentOrder_SUBTOTAL" bundle="${storeText}" />
+			</td>
+			<td id="WC_CurrentOrderDisplayJSPF_TableCell_27" class="cellBG_1 price t_total_figure">
+				<c:choose>
+					<%-- Cover the case where the order after discount is free --%>
+					<c:when test="${(orderBean.discountAdjustedProductTotal eq '0.00000') && !(orderBean.discountAdjustmentTotal eq '0.00000')}">
+						<c:out value="${orderBean.formattedDiscountAdjustedProductTotal}" escapeXml="false"/>
+					</c:when>
+					<%-- Cover the case where they access this page without calling OrderCalculate or OrderPrepare --%>
+					<c:when test="${!(orderBean.discountAdjustedProductTotal eq '0.00000')}">
+						<c:out value="${orderBean.formattedDiscountAdjustedProductTotal}" escapeXml="false"/>
+					</c:when>
+					<c:otherwise>
+						<c:out value="${orderBean.formattedTotalProductPrice}" escapeXml="false"/>
+					</c:otherwise>
+				</c:choose>			
+			</td>
+			<%-- Display the Update Total <button> --%>
+			<td id="WC_CurrentOrderDisplayJSPF_TableCell_28" class="cellBG_1 t_total">
+				<a href="javascript:UpdateTotal(document.ShopCartForm)" class="t_total_button" id="WC_OrderItemDisplay_Link_4"><fmt:message key="CurrentOrder_UPDATE_TOTALS" bundle="${storeText}" /></a>
+			</td>
+		</tr>
+		<%--
+		***
+		* End of price and order level discount section
+		***
+		--%>
+		<flow:ifEnabled feature="GiftRegistry">
+		<tr><td>
+		<c:url var="CurrentGiftRegistryURL" value="GiftRegistryAuthenticate">
+			<c:param name="storeId" value="${WCParam.storeId}" />
+			<c:param name="catalogId" value="${WCParam.catalogId}" />
+			<c:param name="externalId"	value="${grContextDB.currentExternalId}" />
+			<c:param name="URL"	value="GiftRegistryItemView" />
+		</c:url>			
+		<a href="<c:out value="${CurrentGiftRegistryURL}"/>"><fmt:message key="GR_RETURN_TO_REGISTRY" bundle="${storeText}" /></a>
+		</flow:ifEnabled>
+</table>

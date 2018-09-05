@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","zh",{redo:"重做",undo:"撤销"});

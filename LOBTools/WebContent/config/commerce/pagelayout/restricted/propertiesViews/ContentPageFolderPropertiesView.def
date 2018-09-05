@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+ 
+	<!--
+            Defines the properties page for Content Page folders.
+            This properties page shows the folder identifier, description,etc.
+       -->
+<Definitions>
+      <ObjectProperties definitionName="plmContentPageFolderProperties">
+            <PropertyPane name="ContentPageFolderPane">
+                  <PropertyGroup baseDefinitionName="wcfPropertyAssetInformationGroup" name="assetGroup"/>
+                  <PropertyGroup groupTitle="${plmPageLayoutResources.ContentPageFolder_newContentPageFolderProperties}" name="ContentPageFolderPropertiesGroup" open="true">
+                        <PropertyInputText name="identifier" promptText="${plmPageLayoutResources.ContentPageFolder_name}" propertyName="identifier" required="true"/>
+                        <PropertyInputMultiLineText promptText="${plmPageLayoutResources.ContentPageFolder_description}" propertyName="description"/>
+                        <ReferenceEditor promptText="${plmPageLayoutResources.ContentPageFolder_parentFolder}" headerText="${plmPageLayoutResources.ContentPageFolder_name}" helpText="${plmPageLayoutResources.ContentPageFolder_parentFolder_helpText}" minWidth="460" name="parentFolderRefEditor" parentObjectTypes="ContentPageFolder,InheritedContentPageFolder" referenceObjectTypes="ContentPageFolderReference,InheritedContentPageFolderReference"/>
+                  </PropertyGroup>                   
+            </PropertyPane>
+      </ObjectProperties>    
+</Definitions>

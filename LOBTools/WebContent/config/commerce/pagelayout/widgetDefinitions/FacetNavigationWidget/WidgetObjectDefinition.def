@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<WidgetObjectDefinition package="plm"
+		definitionName="plmLayoutWidget_FacetNavigationWidget" 
+		baseDefinitionName="plmBaseLayoutWidget"
+		parentDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		objectType="FacetNavigationWidget"
+		gridPropertiesDefinitionName="plmWidgetProperties_FacetNavigationWidget"
+		iconPath="/images/pagelayouts/widgetIcons/facet_nav.png"
+		widgetDisplayGroups="CategoryPage,SearchPage"
+		helpLink="concepts/cpzwidfacet.htm">
+
+		<PropertyDefinition propertyName="xWidgetProp_widgetOrientation">
+			<PropertyValue displayName="${plmPageLayoutResources.facetNavigationWidgetWidgetOrientation_Vertical}" value="vertical" />
+			<PropertyValue displayName="${plmPageLayoutResources.facetNavigationWidgetWidgetOrientation_Horizontal}" value="horizontal" />
+		</PropertyDefinition>
+
+		<CreateService baseDefinitionName="plmBaseCreateLayoutWidget" />
+		<UpdateService baseDefinitionName="plmBaseUpdateLayoutWidget" />
+
+		<Xml name="template">
+			<xWidgetProp_widgetOrientation>vertical</xWidgetProp_widgetOrientation>
+			<sequence>0</sequence>
+		</Xml>		
+	</WidgetObjectDefinition>
+	
+</Definitions>

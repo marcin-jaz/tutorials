@@ -1,0 +1,18 @@
+<!DOCTYPE repository-entries SYSTEM "../dtd/repository/Repository.dtd">
+<repository-entries>
+  <components>
+    <site-components>
+        <site directory="unknown" id="ToolTech"/>
+        
+	<interface id="Site.i1" component-id="ToolTech">
+		<entry-port id="Site.i1.e1" type="EntryPortType1"/>
+	</interface>
+	
+	<implementation id="Site.i1.impl1" interface-id="Site.i1" virtual-file-ids="vfile.logo vfile.banner vfile.selectedBanner vfile.selectedLogonBanner vfile.stylesheet vfile.color">
+		<component-interface id="Site.i1.impl1.ci1" interface="StyleDir.i1" included-in-pages="some" always-enabled="yes"/>
+	</implementation>
+      
+    </site-components>
+  </components>
+</repository-entries>
+

@@ -1,0 +1,191 @@
+<%--
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2003, 2004
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+--%>
+
+<%-- 
+  *****
+  * This file retrieves and prepares the JSP path, file path, and resource bundle, which are used by other JSPs
+  * Since this file is called by many JSP files in the store, the commonly needed attributes are retrieved here. 
+  *****
+--%>
+
+<!-- Start - JSPF File Name: JSTLEnvironmentSetup.jspf -->
+
+<%-- 
+  ***
+  *	Start: GiftRegistryCode
+  *
+  ***
+--%>
+<%@ page session="true"%>
+<%@ page pageEncoding="UTF-8"%>
+<%-- 
+  ***
+  *	End: GiftRegistryCode
+  ***
+--%>	
+<%--
+  ****
+  * BEGIN Comment out for use in the JSP preview environment.
+--%>
+<%@ page import="javax.servlet.jsp.jstl.fmt.LocalizationContext" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="com.ibm.commerce.command.CommandContext" %>
+<%@ page import="com.ibm.commerce.server.ECConstants" %>
+<%@ page import="com.ibm.commerce.datatype.WcParam" %>
+<%
+// check to see if the wcparam is available; initialise it if it is not available
+if( null == request.getAttribute(com.ibm.commerce.server.ECConstants.EC_INPUT_PARAM)){
+	request.setAttribute(com.ibm.commerce.server.ECConstants.EC_INPUT_PARAM, new WcParam(request));
+}
+%>
+<%--
+  * END Comment out for use in the JSP preview environment.
+  ****
+--%>
+
+
+<%-- The commerce useBean tag is used to activate the StoreDataBean --%>
+<wcbase:useBean id="sdb" classname="com.ibm.commerce.common.beans.StoreDataBean" scope="request" />
+
+<%-- This flow tag is used to change styles --%>
+<flow:fileRef id="vfileColor" fileId="vfile.color"/>
+<flow:fileRef id="StyleDir" fileId="StyleDir"/>
+<flow:fileRef id="vfileStylesheet" fileId="vfile.stylesheet"/>
+
+<%-- These are variables to use on pages --%>
+<c:set var="locale" value="${CommandContext.locale}" scope="page" />
+<c:set var="langId" value="${CommandContext.languageId}" scope="page" />
+<c:set var="storeName" value="${sdb.storeEntityDescriptionDataBean.displayName}" scope="page" />
+
+<%-- These are variables to pass to the cached pages --%>
+<c:set var="userType" value="${CommandContext.user.registerType}" scope="page" />
+<c:set var="lastCmdName" value="${CommandContext.commandName}" scope="page" />
+
+<%-- 
+	* Start Gift Registry Code.
+--%>
+
+<flow:ifDisabled feature="GiftRegistry">
+	<c:set var="storeId" value="${CommandContext.storeId}"/>
+	<c:set var="catalogId" value="${WCParam.catalogId}"/>
+	<c:set var="userId" value="${CommandContext.userId}"/>	
+</flow:ifDisabled>
+
+<%-- 
+	* End of Gift Registry Code.
+--%>
+
+<%-- 
+  *****
+  * For CategoryDisplay command, we can use the parameter called "catalogIdentifier" to identify the catalog instead of using the "catalogId".
+  * This command will then resolve the catalogId based on the Identifier and pass it as an attribute.
+  * In this specific case, the catalogId is not available in WCParam.
+  * We will get the catalogId from the scope and put it in the WCParam. 
+  *****
+--%>
+
+<c:if test="${empty WCParam.catalogId}" >
+	<c:set target="${WCParam}" property="catalogId" value="${catalogId}" />
+</c:if>
+
+<%-- URL pointing to the hosted store home directory.  Use this to reference images --%>
+<c:set var="storeImgDir" value="${sdb.filePath}" scope="page" />
+<%-- WebAsset directory of the hosted store.  Includes JSPs, HTML, Image files, etc --%>
+<c:set var="storeDir" value="${sdb.jspPath}" scope="page" />
+
+<%-- URL pointing to the shared image directory.  Use this to reference images --%>
+<c:set var="jspStoreImgDir" value="${sdb.jspStoreDirFilePath}" scope="page" />
+<%-- WebAsset directory of the shared file directory.  Includes JSPs, HTML, Image files, etc --%>
+<c:set var="jspStoreDir" value="/${sdb.jspStoreDir}/" scope="page" />
+
+<%--
+Example directories:
+storeImgDir - /wcsstore/<hostedstoredir>/
+jspStoreImgDir - /wcsstore/<sharedstorefrontassetstoredir>/ 
+storeDir - /<hostedstoredir>/
+jspStoreDir - /<sharedstorefrontassetstoredir>/ 
+--%>
+
+<%-- setup include variables for header, sidebar, and footer --%>
+<%-- 
+  ***
+  *	Start: GiftRegistryCode
+  *
+  ***
+--%>
+<flow:ifEnabled feature="GiftRegistry">
+<c:if test='${WCParam.layoutMode == "GiftConsultant" || sessionScope.layoutMode == "GiftConsultant"}'>
+	<c:set var="StyleDir" value="GiftConsultant/"/>
+	<c:set var="mainContentWidth" value="800" />
+</c:if>
+<c:set var="Snippets" value="Snippets/"/>
+<c:set var="ReusableObjects" value="ReusableObjects/"/>
+<!--c:out value="${StyleDir}"/-->
+<c:set var="grSidebarIncludeFile" value="${jspStoreDir}${StyleDir}CachedGRSidebarDisplay.jsp" scope="page" />
+<c:set var="grManageSidebarIncludeFile" value="${jspStoreDir}${StyleDir}CachedGRManageSidebarDisplay.jsp" scope="page" />
+</flow:ifEnabled>
+<%-- 
+  ***
+  *	End: GiftRegistryCode
+  ***
+--%>	
+<c:set var="headerIncludeFile" value="${jspStoreDir}${StyleDir}CachedHeaderDisplay.jsp" scope="page" />
+<c:set var="sidebarIncludeFile" value="${jspStoreDir}${StyleDir}CachedSidebarDisplay.jsp" scope="page" />
+<c:set var="footerIncludeFile" value="${jspStoreDir}${StyleDir}CachedFooterDisplay.jsp" scope="page" />
+
+
+<%-- Load the store bundles --%>
+<fmt:setLocale value="${CommandContext.locale}" />
+<fmt:setBundle basename="${jspStoreDir}storetext" var="storeText" />
+<%-- 
+  ***
+  *	Start: GiftRegistryCode
+  *
+  ***
+--%>
+<%
+// The store databean must load the resource bundle for dynamic text. This is so that it can 
+// reload the resource bundle when there is a text change in the Change Pages tool.
+
+// The following Java code cannot be used in the JSP preview environment.  If this
+// file is going to be used for previewing, then the java code must be replaced with:
+// <fmt:setBundle basename="${jspStoreDir}storetext_dynamic var="storeDynamicText" />
+
+// Once the tag is used in place of the Java code, the page imports at the beginning
+// of the page must also be deleted.
+
+LocalizationContext storeDynamicTextContext = (LocalizationContext) request.getAttribute("storeDynamicText");
+if (storeDynamicTextContext == null){
+	CommandContext cmdcontext = (CommandContext) request.getAttribute(ECConstants.EC_COMMANDCONTEXT);
+	Locale locale = cmdcontext.getLocale();
+	storeDynamicTextContext = new LocalizationContext(sdb.getResourceBundle("storetext_dynamic"), locale);
+	request.setAttribute("storeDynamicText", storeDynamicTextContext);
+}
+%>
+<c:set var="storeDynamicText" value="${requestScope.storeDynamicText}"/>
+<%-- 
+  ***
+  *	End: GiftRegistryCode
+  ***
+--%>	
+
+
+<%-- Set the content type of the response --%>
+<c:set property="contentType" target="${pageContext.response}">
+       <fmt:message key="ENCODESTATEMENT" bundle="${storeText}" />
+</c:set>
+
+<!-- End - JSPF File Name: JSTLEnvironmentSetup.jspf -->

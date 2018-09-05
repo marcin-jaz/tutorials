@@ -1,0 +1,90 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<library>
+	<!---
+		@keywords private
+
+         An icon view that has a maximum width, icon path and icon resource.
+
+        Sample usage:
+        @START_CODE
+        <canvas>
+			<wcfIconView name="previewIcon" iconPath="images\pagelayouts\widgetIcons\facebook.png" />
+            ...
+        </canvas>
+        @END_CODE
+    -->
+	<class name="wcfIconView" extends="view" stretches="both">
+			
+		<!---
+			The current iconPath if defined
+		-->
+		<attribute name="iconPath" type="string" value="" setter="setIconPath(iconPath)"/>
+		
+		<!---
+			The default icon resource used if iconPath not specified
+		-->
+		<attribute name="icon" type="string" value="" setter="setIcon(icon)"/>
+
+		<!---
+			The maximum width allowed for this icon. Icons that are wider than this value will be scaled down.
+			If this value is not specified then the icon will be displayed in its original size.
+		-->
+		<attribute name="maximumWidth" value="${null}" type="number"/>
+		
+		<method name="setIconPath" args="url">
+   			<![CDATA[
+   			if (url != null && url != "") {
+   				this.setSource(url);
+   				this.iconPath = url;
+   			}
+			]]>
+		</method>
+		
+		<method name="setIcon" args="r">
+   			<![CDATA[
+   			if (r != null && r != "") {
+	   			this.setAttribute('resource', r);
+	   			this.icon = r;
+	   		}
+			]]>
+		</method>
+
+		<handler name="onload">
+   			<![CDATA[
+				this.scaleImage();
+			]]>
+		</handler>
+		
+		<!--
+			@keywords private
+			This method will scale the icon down if required, and otherwise resets the icon to its full size.
+		-->
+		<method name="scaleImage">
+			<![CDATA[
+				if (classroot.maximumWidth != null && this.unstretchedwidth > classroot.maximumWidth) {
+					var scale = this.unstretchedwidth / classroot.maximumWidth;	
+					this.setAttribute('width', classroot.maximumWidth);	
+					this.setAttribute('height', this.unstretchedheight/scale);	
+				} else {	
+					//reset the icon size
+					this.setAttribute('height', this.unstretchedheight);
+					this.setAttribute('width', this.unstretchedwidth);
+				}
+			]]>
+		</method>
+
+	</class>
+
+</library>

@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<_config:DevelopmentComponentConfiguration
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ibm.com/xmlns/prod/commerce/foundation/config ../xsd/wc-component.xsd" xmlns:_config="http://www.ibm.com/xmlns/prod/commerce/foundation/config">
+	
+	<_config:database name="com.ibm.commerce.foundation.server.services.search.datasource" />
+	
+	<_config:valuemappingservice>
+
+		<!-- 
+			A value mapping service to resolve the relationship configuration between external and
+			internal keys of business objects.  The purpose of this service is to retrieve value
+			mapping between external and internal values of business objects.  
+		 -->
+		
+		<!-- 
+			This Locale mapping defines the relationship between the ISO locale name and its internal
+			representation in the runtime.
+		 -->
+		<_config:valuemapping externalName="Locale"	internalName="langId">
+			<_config:valuemap externalValue="en_US" internalValue="-1" />
+			<_config:valuemap externalValue="fr_FR" internalValue="-2" />
+			<_config:valuemap externalValue="de_DE" internalValue="-3" />
+			<_config:valuemap externalValue="it_IT" internalValue="-4" />
+			<_config:valuemap externalValue="es_ES" internalValue="-5" />
+			<_config:valuemap externalValue="pt_BR" internalValue="-6" />
+			<_config:valuemap externalValue="zh_CN" internalValue="-7" />
+			<_config:valuemap externalValue="zh_TW" internalValue="-8" />
+			<_config:valuemap externalValue="ko_KR" internalValue="-9" />
+			<_config:valuemap externalValue="ja_JP" internalValue="-10" />
+			<_config:valuemap externalValue="iw_IL" internalValue="-11" />
+			<_config:valuemap externalValue="tr_TR" internalValue="-13" />
+			<_config:valuemap externalValue="ru_RU" internalValue="-20" />
+			<_config:valuemap externalValue="ro_RO" internalValue="-21" />
+			<_config:valuemap externalValue="pl_PL" internalValue="-22" />
+			<_config:valuemap externalValue="ar_EG" internalValue="-23" />
+		</_config:valuemapping>
+
+	</_config:valuemappingservice>
+	
+	<_config:authentication-configuration />
+	
+	<_config:extendedconfiguration>
+
+		<!--
+			CommerceServerSetting
+			
+			This section defines the communication settings with the Commerce server.
+		 -->
+		<_config:configgrouping name="CommerceServerSetting">
+			<!--
+				SSLAcceleratorOption = [string|Enabled/Disabled]
+				SSLAcceleratorOption to allow bypass of ssl Secure check
+				Disabled by default
+			 -->
+			<_config:property name="CommerceServerSetting/SSLAcceleratorOption" value="Disabled"/>
+            <!--
+				inSSLPort = [number|81]
+				SSLAcceleratorOption to allow bypass of ssl Secure check on specific port
+			 -->
+			<_config:property name="CommerceServerSetting/inSSLPort" value="443"/>
+			<!--
+				CommerceServerSetting/hostnameReference = [string|localhost]
+				 
+				Specify the configured name binding in WAS for the hostname of the Commerce server that
+				interacts with this Search server. For example,
+				
+		        server or cluster scope: com.ibm.commerce.foundation.server.services.commerce.hostname
+		        cell scope: cell/persistent/com.ibm.commerce.foundation.server.services.commerce.hostname
+			 -->
+			<_config:property name="CommerceServerSetting/hostnameReference" value="com.ibm.commerce.foundation.server.services.commerce.hostname"/>
+	
+			<!--
+				CommerceServerSetting/integrationUsernameReference = [string]
+				 
+				Specify the configured name binding in WAS for the Commerce administrative user name for use
+				with WC role based access control.  See CommerceServerSetting/hostnameReference example above.
+			 -->
+			<_config:property name="CommerceServerSetting/integrationUsernameReference" value="com.ibm.commerce.foundation.server.services.commerce.integration.username"/>
+			
+			<!--
+				CommerceServerSetting/integrationUserPasswordReference = [string]
+				 
+				Specify the configured name binding in WAS for the Commerce administrative user password for
+				use with WC role based access control.  See CommerceServerSetting/hostnameReference example above.
+			 -->
+			<_config:property name="CommerceServerSetting/integrationUserPasswordReference" value="com.ibm.commerce.foundation.server.services.commerce.integration.password"/>
+
+			<!--
+				CommerceServerSetting/securedPreviewPort = [number|8006]
+				 
+				Specify the port number on the Commerce server for establishing a secured preview session.
+			 -->
+			<_config:property name="CommerceServerSetting/securedPreviewPort" value="8006"/>
+			
+			<!--
+				CommerceServerSetting/nonSecuredPreviewPort = [number|8007]
+				 
+				Specify the port number on the Commerce server for establishing a non-secured preview session.
+			 -->
+			<_config:property name="CommerceServerSetting/nonSecuredPreviewPort" value="8007"/>
+			
+			<!--
+				 CommerceServerSetting/Security/sessionKeyReference = [string]
+				 
+				 Specify the session key on the Commerce server for authenticating Commerce tokens and cookies. 
+				 It is used only when authentication is enabled on search server.
+			 -->
+			<_config:property name="CommerceServerSetting/Security/sessionKeyReference" value="com.ibm.commerce.foundation.server.services.commerce.integration.sessionkey"/>
+			
+			<!--
+				 CommerceServerSetting/SessionManagement/authenticationAllowedUsingCookies = [true|false]
+				 
+				 Specify whether authentication using Commerce cookies is allowed. 
+				 It is used only when authentication is enabled on search server.
+			 -->
+			<_config:property name="CommerceServerSetting/SessionManagement/authenticationAllowedUsingCookies" value="true"/>
+			 
+			<!--
+				 CommerceServerSetting/SessionManagement/allowMultipleLogonForSameUser = [true|false]
+				 
+				 Specify whether multiple logon for same user is allowed on Commerce server.
+				 It is used only when authentication is enabled on search server.
+			 -->			
+			<_config:property name="CommerceServerSetting/SessionManagement/allowMultipleLogonForSameUser" value="false"/> 
+			
+			<!--
+				 ServicesPreview/enable = [true|false]
+				 
+				 Specify whether service preview is enabled.
+				 It is used only when authentication is enabled on search server.
+			 -->			
+			<_config:property name="ServicesPreview/enable" value="true"/> 
+						
+			<!--
+				 LoginTimeout/Timeout/buffer = [number in milliseconds]
+				 
+				 Time in milliseconds before the user activity cookie is about to expire
+				 to force an update of the cookie timeout.
+				 Default to 29 minutes.
+				 It is used only when authentication is enabled on search server.
+			 -->			
+			<_config:property name="LoginTimeout/Timeout/buffer" value="1740000"/> 			
+			
+			<!--
+				 LoginTimeout/Timeout/value = [number in milliseconds]
+				 
+				 Time before the user activity cookie expires in milliseconds.
+				 Defaults to 30 minutes.
+				 It is used only when authentication is enabled on search server.
+			 -->			
+			<_config:property name="LoginTimeout/Timeout/value" value="1800000"/> 			
+			
+			<!--
+				 RemoteRestRequestConnectTimeout = [number in milliseconds]
+				 
+				 Maximum wait time before connecting to the remote server for REST service calls in milliseconds.
+				 Defaults to 10 seconds.
+				 It is used only when remote REST service calls are made from the Search server.
+			 -->			
+			<_config:property name="CommerceServerSetting/RemoteRestRequestConnectTimeout" value="10000"/>
+
+			<!--
+				 RemoteRestRequestReadTimeout = [number in milliseconds]
+				 
+				 Maximum socket time for completing REST service requests in milliseconds.
+				 Defaults to 10 seconds.
+				 It is used only when remote REST service calls are made from the Search server.
+			 -->			
+			<_config:property name="CommerceServerSetting/RemoteRestRequestReadTimeout" value="10000"/>
+
+			
+			<!--
+				 CommerceServerSetting/SessionManagement/cookie/domain = [String value]
+				 
+				 Specify the cookie domain to use.
+			 -->			
+			<_config:property name="CommerceServerSetting/SessionManagement/cookie/domain" value=""/> 
+			
+			<!--
+				 CommerceServerSetting/SessionManagement/cookie/path = [String value]
+				 
+				 Specify the cookie path to use.
+			 -->			
+			<_config:property name="CommerceServerSetting/SessionManagement/cookie/path" value="/"/> 
+			
+			<!--
+				 CommerceServerSetting/SessionManagement/allowBusinessContextCallback = [false|true]
+				 
+				 The Search server will try to resolve the business context based on the query parameters.
+				 But when certain business context cannot be resolved by the Search server during
+				 a non-preview session, this option defines whether to allow BCS callback to Commerce server
+				 to resolve the business context. Note that BCS callback always takes place during preview
+				 session, regardless of the value used for this option.	 Default is false.
+				 
+				 Note: this option is only effective when using SolrRESTSearchMixedContextServiceImpl as
+				       the business context service implementation.
+			 -->	
+			<_config:property name="CommerceServerSetting/SessionManagement/allowBusinessContextCallback" value="false"/>
+
+			<!--
+				 CommerceServerSetting/SessionManagement/keepAliveSessionEnabled = [true|false]
+				 
+				 Specify whether keep alive session is enabled on Commerce server.
+				 It is used only when authentication is enabled on search server.
+			 -->	
+			<_config:property name="CommerceServerSetting/SessionManagement/keepAliveSessionEnabled" value="true"/> 
+			
+			<!--
+				 CommerceServerSetting/SessionManagement/PersistentSession/enable = [true|false]
+				 
+				 Specify whether persistent session is enabled on Commerce server.
+				 It is used only when authentication is enabled on search server.
+			 -->
+			<_config:property name="CommerceServerSetting/SessionManagement/PersistentSession/enable" value="true"/> 
+			
+			<!--
+				 CommerceServerSetting/SessionManagement/PersistentSession/cookieExpiry = [days|-1]
+				 
+				 Specify the persistent session lifetime on Commerce server.
+				 It is used only when authentication is enabled on search server.
+			 -->
+			<_config:property name="CommerceServerSetting/SessionManagement/PersistentSession/cookieExpiry" value="-1"/> 
+			
+			<!--
+				 CommerceServerSetting/SessionManagement/ContextName/baseContext = [string]
+				 
+				 Specify the context name for base context on Commerce server.
+				 It is used only when authentication is enabled on search server.
+			 -->
+			<_config:property name="CommerceServerSetting/SessionManagement/ContextName/baseContext" value="com.ibm.commerce.context.base.BaseContext"/> 
+			
+			<!--
+				 CommerceServerSetting/SessionManagement/Security/multiHashEnabled = [true|false]
+				 
+				 Specify whether multiple hash algorighms is enabled on Commerce server.
+				 It is used only when authentication is enabled on search server.
+			 -->
+			<_config:property name="CommerceServerSetting/Security/multiHashEnabled" value="false"/>
+			
+			<!--
+				 CommerceServerSetting/SessionManagement/Security/AESDBEnabled = [true|false]
+				 
+				 Specify whether AES algorithm is enabled for DB data on Commerce server.
+				 It is used only when authentication is enabled on search server.
+			 -->
+			<_config:property name="CommerceServerSetting/Security/AESDBEnabled" value="false"/>
+			
+			<!--
+				 CommerceServerSetting/SessionManagement/Security/AESFilesEnabled = [true|false]
+				 
+				 Specify whether AES algorithm is enabled for files on Commerce server.
+				 It is used only when authentication is enabled on search server.
+			 -->
+			<_config:property name="CommerceServerSetting/Security/AESFilesEnabled" value="false"/>
+		</_config:configgrouping>
+
+		<!-- 
+			HashAlgorithmPriorities
+		
+			The priorities for hash algorithms. They are used only when authentication is enabled on search server.
+		 -->
+		<!--
+		<_config:configgrouping name="HashAlgorithmPriorities">
+			<_config:property name="SHA" value="1"/>
+			<_config:property name="SHA-256" value="2"/>
+		</_config:configgrouping>
+		-->
+
+		<!--
+			CrossTransactionCache
+			
+			The cross transaction cache holds data that persists across transactions until expired by DynaCache.
+		 -->
+		<_config:configgrouping name="CrossTransactionCache">
+			
+			<!--
+				CrossTransactionCache/enabled = [true|false]
+				 
+				Specify false to turn off cross transaction caching
+			 -->
+			<_config:property name="CrossTransactionCache/enabled" value="true"/>
+  
+  			<!-- 
+  				CrossTransactionCache/commandCaching = [on|off|default]
+  				
+  				Specify on to force the cross transaction cache to use command caching in the default baseCache DistributedMap.
+  				
+				Specify off to prevent the cross transaction cache from using command caching.
+				
+				The default setting uses DistributedMap caching when the corresponding DistributedMap is found by using its JNDI name,
+				and otherwise uses command caching in the default DistributedMap.
+  			 -->
+  			<_config:property name="CrossTransactionCache/commandCaching" value="default"/>
+  			
+  			<!--
+				CrossTransactionCache/maxInactivityTime = [seconds|86400]
+				 
+				Specify the number of seconds after which an inactive cache entry is removed from the cache due to inactivity.
+			 -->
+			<_config:property name="CrossTransactionCache/maxInactivityTime" value="86400"/>
+			
+			<!--
+				CrossTransactionCache/maxTimeToLive = [seconds|172800]
+				 
+				Specify the number of seconds after which a cache entry expires and is removed from the cache. 
+			 -->
+			<_config:property name="CrossTransactionCache/maxTimeToLive" value="172800"/>
+			
+			<!--
+				CrossTransactionCache/defaultResultSizeThreshold = [number|8]
+				 
+				When the size of the collection of objects to be cached in a cache entry exceeds the specified threshold value,
+				dependency IDs are generated by using table names. To reduce the number of dependency IDs generated for the cache entry,
+				column names and values are not used.
+			 -->
+			<_config:property name="CrossTransactionCache/defaultResultSizeThreshold" value="8"/>
+			
+			<!--
+				CrossTransactionCache/clearUserOnLogoff = [true|false]
+				 
+				Specify false if DC_userid:nnnn invalidation ids are not to be sent to the baseCache when the user with user IDnnnn logs off.
+			 -->
+			<_config:property name="CrossTransactionCache/clearUserOnLogoff" value="false"/>
+			
+			<!--
+				CrossTransactionCache/clearUserDataCacheOnLogoff = [true|false]
+				 
+				Specify true if data cache entries specific to a particular user are removed from the cache when the user logs off. 
+			 -->
+			<_config:property name="CrossTransactionCache/clearUserDataCacheOnLogoff" value="false"/>
+			
+			<!--
+				CrossTransactionCache/maxInvalidationldsPerTransaction = [number|100000]
+				 
+				Specifies the maximum number of cross transaction cache invalidation operations that can be run in a single transaction.
+
+				Knowledge of each invalidation operation run must be retained for the duration of the current transaction. A long running
+				transaction that runs too many invalidation operations can run out of memory.
+
+				When the specified limit is reached, no further invalidationIDs are remembered for the cross transaction cache for the
+				remainder of the current transaction. When the transaction completes:
+
+				- The action that is specified by the clearCacheOnMaxInvalidationIdsPerTransaction configuration is taken.
+			 -->
+			<_config:property name="CrossTransactionCache/maxInvalidationldsPerTransaction" value="100000"/>
+			
+			<!--
+				CrossTransactionCache/invalidationJobInterval = [number|30]
+				 
+				Specifies the frequency (in seconds) the cache invalidation framework should periodically query the (CACHEIVL) database 
+				table for pending invalidation events.  This setting, along with the following invalidation job parameter
+				"maxSeconds", can be used to determine how quickly cache invalidation events are processed on the Search server.
+
+				The default invalidation technique used on the Search server is slightly different from the Commerce server - instead of 
+				using a cache invalidation scheduler job that runs in the background at regular time intervals, the Search server
+				occasionally requires an incoming search request to devote a configurable portion of its processing time to perform cache 
+				invalidation (when there are pending invalidation events in the CACHEIVL table).  What this means is that each (Search) 
+				server instance will be responsible for invalidation of its own (local) cache instances.  Imagine this is like everyone 
+				walking by is given a "little shovel" to help clean up a snow pile-up until eventually nothing is left behind.
+
+				In order to synchronize the latest indexed data cached on the Search server, the expected amount of time delay for the 
+				cache to be invalidated could be as long as three times the value of the "invalidationJobInterval" parameter (in seconds) 
+				immediately after the search re-indexing task is completed.  This delay could be even longer when the number of pending
+				invalidation events in the CACHEIVL table exceeds the number that can be processed in the time allowed by the maxSeconds
+				parameter.
+
+				With respect to the invalidation of cached JSP fragments on the Commerce server, the expected time delay for related
+				cached content to be invalidated could be as long as the length of the DynaCacheInvalidation scheduler job time interval
+				plus the Search server cache invalidation time delay mentioned above.
+
+				Note that setting the invalidationJobInterval parameter to -1 indicates that the Search Server does not query the CACHEIVL 
+				table, and that some other means of receiving cache invalidation events, such as Domain Replication Services, is being used.
+			 -->
+			<_config:property name="CrossTransactionCache/invalidationJobInterval" value="30"/>
+			 
+			<!--
+				CrossTransactionCache/invalidationJobParameters = [string]
+				 
+				Specifies the parameters for the invalidation job executions.
+			 -->
+			<_config:property name="CrossTransactionCache/invalidationJobParameters" value="localJVMOnly=true&amp;maxSeconds=1&amp;maxSecondsPerTransaction=0&amp;enableRefreshRegistry=false"/> 
+  
+  			<!--
+				CrossTransactionCache/clearCacheOnMaxInvalidationIdsPerTransaction = [true|false]
+				 
+				Specifies the action when the maximum number of cross transaction cache invalidation operations, which are specified by the
+				maxInvalidationIdsPerTransaction element, is exceeded.
+
+				Specify true to clear the entire cross transaction cache after the current transaction ends.
+
+				When this element is set to false, invalidations are issued immediately and are not remembered until the end of the current
+				transaction. This setting leaves a small window of time during which stale data can be placed into the cache.
+			 -->
+			<_config:property name="CrossTransactionCache/clearCacheOnMaxInvalidationIdsPerTransaction" value="false"/>
+			
+			<!--
+				CrossTransactionCache/reduceMemory = [true|false]
+				 
+				Specify true to reduce the memory footprint of the cross transaction cache. 
+			 -->
+			<_config:property name="CrossTransactionCache/reduceMemory" value="false"/>
+			
+			<!--
+				CrossTransactionCache/reduceInvalidationIds = [true|false]
+				 
+				Specify true to reduce the number of invalidation messages that are issued when cached data changes in the database. Systems
+				with many WebSphere Commerce application server JVMs might benefit from this setting. However, some over-invalidation might
+				occur. Measure the overall performance impact before you choose this setting for a production system.
+			 -->
+			<_config:property name="CrossTransactionCache/reduceInvalidationIds" value="true"/>
+			
+			<!--
+				CrossTransactionCache/sizeable = [true|false]
+				 
+				Specify true to implement the com.ibm.websphere.cache.Sizeable interface for most cache entries that are used by the following
+				WebSphere Commerce object caches:
+
+    			- services/cache/DM_Cache (Marketing cache)
+    			- services/cache/DM_UserCache (Marketing user behavior cache)
+    			- dmap/IVCache (External Inventory availability cache)
+    			- dmap/PriceCache (External Price cache)
+    			- services/cache/WC*DistributedMapCache (all the "data cache" object cache instances)
+
+				Specifying true also implements the com.ibm.websphere.cache.Sizeable interface for most cacheable commands that are used by
+				default by WebSphere Commerce.
+
+				This setting does not implement the com.ibm.websphere.cache.Sizeable interface for the Price Rule cache, nor does it implement
+				the interface for Sales Center cacheable commands.
+			 -->
+			<_config:property name="CrossTransactionCache/sizeable" value="true"/>
+			
+			<!-- 
+				CrossTransactionCache/searchRulesCacheMode = [number]
+				
+				Specifies the mode of caching for search rule data. The mode is a bit map. Valid values are:
+				0 - caching for search rules is disabled
+				1 - cache terms with search rules
+				2 - cache the result of search rules
+				3 - cache both terms with search rules and the result of search rules 
+			 -->
+			<_config:property name="CrossTransactionCache/searchRulesCacheMode" value="3"/>  
+			
+			<!--
+				CrossTransactionCache/maxTimeToLiveForAutoCacheEntries = [seconds]
+				
+				Returns the maximum number of seconds until an auto cached entry expires from the cache.
+				A zero value indicates no auto cache entries should be created. A negative value indicates
+				there is no special limit for auto cache entries (only use this	value for debugging).
+			 -->
+			<_config:property name="CrossTransactionCache/maxTimeToLiveForAutoCacheEntries" value="172800"/>
+
+			<!-- 
+				CrossTransactionCache/autoCacheableTableNames = [string]
+				
+				This defines a list of table names for auto cache. Result sets from these database tables
+				will be cached via JDBCQueryService.  Try to minimize the use of this configuration to avoid
+				over-caching.
+			 -->
+			<_config:property name="CrossTransactionCache/autoCacheableTableNames" value="SRCHCONF SRCHCONFEXT SRCHATTRPROP SRCHATTR STORECAT STOREDEFCAT CATALOG"/>
+			
+			<!-- 
+				CrossTransactionCache/notAutoCacheableTableNames = [string]
+				
+				This defines a list of table names that should not be used for auto cache.
+			 -->
+			<_config:property name="CrossTransactionCache/notAutoCacheableTableNames" value=""/>
+
+		</_config:configgrouping>
+		
+		<!-- 
+			LocalTransactionCache
+			
+			The local transaction cache holds cache entries in memory for the duration of a single database transaction.
+		 -->
+		<_config:configgrouping name="LocalTransactionCache">
+			
+			<!--
+				LocalTransactionCache/enabled = [true|false]
+				 
+				Specify false to turn off local transaction caching. Do not turn off local transaction caching, except as part of
+				problem determination.
+				
+				Note: Never turn off local transaction caching without also turning off cross transaction caching.
+			 -->
+			<_config:property name="LocalTransactionCache/enabled" value="true"/>
+			
+			<!--
+				LocalTransactionCache/maxSize = [number|50000]
+				 
+				Specify the maximum number of cache entries that can be remembered for the duration of a transaction.
+
+				Each cache entry remains in memory until the current transaction completes. A long running transaction that creates
+				too many cache entries can run out of memory.
+
+				When the specified limit is reached, the transaction cache stops creating cache entries for the remainder of the
+				current transaction. This setting prevents an out of memory condition.
+			 -->
+			<_config:property name="LocalTransactionCache/maxSize" value="50000"/>
+			
+			<!--
+				LocalTransactionCache/maxInvalidationldsPerTransaction = [number|50000]
+				 
+				Specify the maximum number of cache invalidation operations that can be run in a single transaction.
+
+				Knowledge of each invalidation operation that is executed must be retained for the duration of the current transaction.
+				A long running transaction that executes too many invalidation operations can run out of memory.
+
+				When the specified limit is reached, the entire transaction cache is cleared and knowledge of individual invalidation
+				operations is removed from memory. This setting prevents an out of memory condition. Use of the cross transaction cache
+				is suspended for the remainder of the transaction. All cache entries are considered to be invalidated for the remainder
+				of the transaction.
+			 -->
+			<_config:property name="LocalTransactionCache/maxInvalidationldsPerTransaction" value="50000"/>
+
+		</_config:configgrouping>
+		
+		<_config:configgrouping name="TraceSettings">
+			<!-- 
+			    Specifies whether the SQL query template name is appended to an SQL query as a comment
+   		    -->
+			<_config:property name="DSLQueryNameTracing" value="true"/>			
+		</_config:configgrouping>
+				
+		<_config:configgrouping name="REST">
+			<!-- Determines if the REST API Discovery should be enabled. -->
+			<_config:property name="ApiDiscoveryEnabled" value="true"/> 			
+			<!-- comma separated list of URLs to query to gather the aggregate list of available APIs. -->
+			<_config:property name="ApiProviderList" value="http://localhost/wcs/resources/api,http://localhost/search/resources/api"/> 			
+		</_config:configgrouping>				
+	</_config:extendedconfiguration>
+
+</_config:DevelopmentComponentConfiguration>

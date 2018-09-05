@@ -1,0 +1,118 @@
+<!DOCTYPE repository-entries SYSTEM "../dtd/repository/Repository.dtd">
+<repository-entries>
+<features>
+
+	<feature id="Site.i1.impl1.f" enables="Site.i1.impl1" always-enabled="yes"/>
+
+	<!-- Features to enable AREA IMPLEMENTATIONS -->
+	<feature id="ShoppingArea.i1.impl1.f" enables="ShoppingArea.i1.impl1" always-enabled="yes"/>
+	<feature id="UserArea.i1.impl1.f" enables="UserArea.i1.impl1" always-enabled="yes"/>
+
+	<!-- Features to enable SECTION IMPLEMENTATIONS -->
+	<feature id="AccountSection.i1.impl1.f" enables="AccountSection.i1.impl1" always-enabled="yes"/>
+	<feature id="AddressbookSubsection.i1.impl1.f" enables="AddressbookSubsection.i1.impl1" always-enabled="yes"/>
+	<feature id="CheckoutSection.i1.impl1.f" enables="CheckoutSection.i1.impl1" always-enabled="yes"/>
+	<feature id="StandardCheckoutSubsection.i1.impl1.f" enables="StandardCheckoutSubsection.i1.impl1"/>
+
+	<!-- Features to enable PAGE IMPLEMENTATIONS -->
+	<feature id="AddressBookFormPage.i1.impl1.f" enables="AddressBookFormPage.i1.impl1" always-enabled="yes"/>
+	<feature id="AddressformPage.i1.impl1.f" enables="AddressformPage.i1.impl1" always-enabled="yes"/>
+	<feature id="BillingAddressPage.i1.impl1.f" enables="BillingAddressPage.i1.impl1" always-enabled="yes"/>
+	<feature id="MultipleShippingAddressPage.i1.impl.f" enables="MultipleShippingAddressPage.i1.impl"/>
+	<feature id="MultipleShippingMethodPage.i1.impl.f" enables="MultipleShippingMethodPage.i1.impl"/>
+	<feature id="OrderDisplayPendingPage.i1.impl1.f" enables="OrderDisplayPendingPage.i1.impl1" always-enabled="yes"/>
+	<feature id="SingleShippingAddressPage.i1.impl.f" enables="SingleShippingAddressPage.i1.impl"/>
+	<feature id="SingleShippingMethodPage.i1.impl.f" enables="SingleShippingMethodPage.i1.impl"/>
+
+        
+	<feature id="Age"/>
+    	<feature id="Gender"/>
+    	<feature id="preferredCurrency"/>
+    	<feature id="preferredLanguage"/>
+    	<feature id="ProductQuantity"/>
+    	<feature id="quickCheckout"/>
+    	<feature id="search"/>
+    	<feature id="TrackingURL"/>
+    	<feature id="TrackingStatus"/>
+    	<feature id="wishList"/>
+    	<feature id="CatalogList"/>
+    	<feature id="ShoppingTotal"/>
+    	<feature id="QuickOrder"/>
+    	<feature id="RequisitionList"/>
+    	<feature id="CommercePaymentsSupport"/>
+    	<feature id="RestrictSiteRegisteredCustomers"/>
+    	<feature id="EmailOption"/>
+    	<feature id="CustomBanner"/>
+    	<feature id="CustomLogo"/>
+        <feature id="FutureOrders"/>
+        <feature id="ShippingInstructions"/>
+    	<feature id="promotionCode"/>
+    
+	<feature id="vfile.logo.jpg.f" enables="vfile.logo.jpg"/>
+	<feature id="vfile.logo.gif.f" enables="vfile.logo.gif"/>
+
+	<feature id="vfile.banner.jpg.f" enables="vfile.banner.jpg"/>
+	<feature id="vfile.banner.gif.f" enables="vfile.banner.gif"/>
+
+	<!-- Features for style  -->
+	<feature id="Style.f.1" enables="StyleDir.i1.impl1"/>
+	<feature id="Style.f.2" enables="StyleDir.i1.impl2"/>
+	<feature id="Style.f.3" enables="StyleDir.i1.impl3"/>
+	<feature id="Style.f.4" enables="StyleDir.i1.impl4"/>
+	<feature id="Style.f.5" enables="StyleDir.i1.impl5"/>
+	<feature id="Style.f.6" enables="StyleDir.i1.impl6"/>
+			
+	<!-- Features for stylesheets and image directories-->
+	<feature id="Color.f.1" enables="vfile.style1.css vfile.color1.dir"/>
+	<feature id="Color.f.2" enables="vfile.style2.css vfile.color2.dir"/>
+	<feature id="Color.f.3" enables="vfile.style3.css vfile.color3.dir"/>
+	<feature id="Color.f.4" enables="vfile.style4.css vfile.color4.dir"/>
+	<feature id="Color.f.5" enables="vfile.style5.css vfile.color5.dir"/>
+	<feature id="Color.f.6" enables="vfile.style6.css vfile.color6.dir"/>
+	<feature id="Color.f.7" enables="vfile.style7.css vfile.color7.dir"/>
+	<feature id="Color.f.8" enables="vfile.style8.css vfile.color8.dir"/>
+	<feature id="Color.f.9" enables="vfile.style9.css vfile.color9.dir"/>
+	<feature id="Color.f.10" enables="vfile.style10.css vfile.color10.dir"/>
+	<feature id="Color.f.11" enables="vfile.style11.css vfile.color11.dir"/>
+	<feature id="Color.f.12" enables="vfile.style12.css vfile.color12.dir"/>
+
+	<!-- Features for banners -->
+	<feature id="Banner.f.1" enables="vfile.selectedBanner1.img"/>
+	<feature id="Banner.f.2" enables="vfile.selectedBanner2.img"/>
+	<feature id="Banner.f.3" enables="vfile.selectedBanner3.img"/>
+	<feature id="Banner.f.4" enables="vfile.selectedBanner4.img"/>
+	<feature id="Banner.f.5" enables="vfile.selectedBanner5.img"/>
+	<feature id="Banner.f.6" enables="vfile.selectedBanner6.img"/>
+	<feature id="Banner.f.7" enables="vfile.selectedBanner7.img"/>
+	<feature id="Banner.f.8" enables="vfile.selectedBanner8.img"/>
+	<feature id="Banner.f.9" enables="vfile.selectedBanner9.img"/>
+	<feature id="Banner.f.10" enables="vfile.selectedBanner10.img"/>
+	<feature id="Banner.f.11" enables="vfile.selectedBanner11.img"/>
+	<feature id="Banner.f.12" enables="vfile.selectedBanner12.img"/>
+	<feature id="Banner.f.13" enables="vfile.selectedBanner13.img"/>
+	<feature id="Banner.f.14" enables="vfile.selectedBanner14.img"/>
+	<feature id="Banner.f.15" enables="vfile.selectedBanner15.img"/>
+	<feature id="Banner.f.16" enables="vfile.selectedBanner16.img"/>
+	<feature id="Banner.f.17" enables="vfile.selectedBanner17.img"/>
+	<feature id="Banner.f.18" enables="vfile.selectedBanner18.img"/>					
+	<feature id="Banner.f.19" enables="vfile.selectedBanner19.img"/>
+	<feature id="Banner.f.20" enables="vfile.selectedBanner20.img"/>
+	<feature id="Banner.f.21" enables="vfile.selectedBanner21.img"/>
+	<feature id="Banner.f.22" enables="vfile.selectedBanner22.img"/>
+	<feature id="Banner.f.23" enables="vfile.selectedBanner23.img"/>
+	<feature id="Banner.f.24" enables="vfile.selectedBanner24.img"/>
+	<feature id="Banner.f.25" enables="vfile.selectedBanner25.img"/>
+	<feature id="Banner.f.26" enables="vfile.selectedBanner26.img"/>
+	<feature id="Banner.f.27" enables="vfile.selectedBanner27.img"/>
+	<feature id="Banner.f.28" enables="vfile.selectedBanner28.img"/>
+	<feature id="Banner.f.29" enables="vfile.selectedBanner29.img"/>
+	<feature id="Banner.f.30" enables="vfile.selectedBanner30.img"/>
+	<feature id="Banner.f.31" enables="vfile.selectedBanner31.img"/>
+	<feature id="Banner.f.32" enables="vfile.selectedBanner32.img"/>
+	<feature id="Banner.f.33" enables="vfile.selectedBanner33.img"/>
+	<feature id="Banner.f.34" enables="vfile.selectedBanner34.img"/>
+	<feature id="Banner.f.35" enables="vfile.selectedBanner35.img"/>
+	<feature id="Banner.f.36" enables="vfile.selectedBanner36.img"/>
+
+</features>
+</repository-entries>

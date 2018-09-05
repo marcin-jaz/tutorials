@@ -1,0 +1,76 @@
+Manifest-Version: 1.0
+Class-Path: Catalog-ProductManagementData.jar Catalog-ProductManagemen
+ tLogic.jar ContentManagement-WorkspaceFlowData.jar ContentManagement-
+ WorkspaceFlowLogic.jar Enablement-BaseComponentsData.jar Enablement-B
+ aseComponentsLogic.jar Enablement-BaseComponentsLogicWAS6.jar Enablem
+ ent-BusinessContextEngineAdvancedData.jar Enablement-BusinessContextE
+ ngineAdvancedInterface.jar Enablement-BusinessContextEngineAdvancedLo
+ gic.jar Enablement-BusinessContextEngineData.jar Enablement-BusinessC
+ ontextEngineInterface.jar Enablement-BusinessContextEngineLogic.jar E
+ nablement-IntegrationData.jar Enablement-IntegrationLogic.jar Enablem
+ ent-IntegrationLogicWAS6.jar Enablement-RelationshipManagementData.ja
+ r Enablement-RelationshipManagementLogic.jar Enablement-SecurityInter
+ face.jar Enablement-StaticFileLoaderLogic.jar Enablement-StaticFilePu
+ blishLogic.jar Enablement-StrutsBaseLogic.jar Enablement-TicklerData.
+ jar Enablement-TicklerLogic.jar GiftRegistry-BaseComponentData.jar Gi
+ ftRegistry-BaseComponentLogic.jar GiftRegistry-InfrastructureLogic.ja
+ r GiftRegistry-OrderIntegrationData.jar GiftRegistry-OrderIntegration
+ Logic.jar Marketing-CampaignsAndScenarioMarketingData.jar Marketing-C
+ ampaignsAndScenarioMarketingLogic.jar Marketing-CustomerProfilingAndS
+ egmentationData.jar Marketing-CustomerProfilingAndSegmentationLogic.j
+ ar Marketing-ExperimentationManagementData.jar Marketing-Experimentat
+ ionManagementLogic.jar Member-MemberManagementData.jar Member-MemberM
+ anagementLogic.jar Merchandising-PromotionsAndDiscountsData.jar Merch
+ andising-PromotionsAndDiscountsLogic.jar Order-OrderCaptureData.jar O
+ rder-OrderCaptureLogic.jar Order-OrderManagementData.jar Order-OrderM
+ anagementLogic.jar Payments-EDP-Common.jar Payments-EDP-Data.jar Paym
+ ents-Plugin-Controller.jar Payments-Plugin-LOC.jar Payments-Plugin-Si
+ mpleOffline.jar Payments-Plugin-WCPayments.jar Payments-Plugin.jar Te
+ lesales-BaseInterface.jar Telesales-EnablementIntegrationLogic.jar Tr
+ ading-AuctionsAndRFQsData.jar Trading-AuctionsAndRFQsLogic.jar Analyt
+ ics-BusinessIntelligenceLogic.jar Catalog-Client.jar Catalog-DataObje
+ cts.jar Catalog-Server.jar CatalogServicesJMSInterface.jar Contract-C
+ lient.jar Contract-DataObjects.jar Contract-Server.jar ContractServic
+ esJMSInterface.jar Enablement-JCACrossWorldsConnector.rar Enablement-
+ JCAEMailConnector.rar Enablement-JCAEWGConnector.rar Enablement-JCAFi
+ leConnector.rar Enablement-JCAHTTP-WSConnector.rar Enablement-JCAHTTP
+ Connector.rar Enablement-JCAJMS-WSConnector.rar Enablement-JCAJMSConn
+ ector.rar Enablement-JCASampleConnector.rar Enablement-SDO.jar Founda
+ tion-Core.jar Foundation-DataObjects.jar Foundation-Extension.jar Fou
+ ndation-Server.jar Marketing-Client.jar Marketing-DataObjects.jar Mar
+ keting-Server.jar Member-Client.jar Member-DataObjects.jar Member-Ser
+ ver.jar MemberServicesJMSInterface.jar Order-Client.jar Order-DataObj
+ ects.jar Order-Server.jar OrderServicesJMSInterface.jar Price-Client.
+ jar Price-DataObjects.jar Price-Server.jar Promotion-Client.jar Promo
+ tion-DataObjects.jar Promotion-Server.jar SEO-BaseComponentLogic.jar 
+ Store-Client.jar Store-DataObjects.jar Store-Server.jar lib/LMRecomme
+ nder.jar lib/feedbackilm.jar lib/feedbacklm.jar lib/jtopen.jar lib/li
+ keminds.jar lib/wcslm.jar lib/wpcpruntime.jar lib/wpcpruntimecommon.j
+ ar lib/xsdbeans.jar GiftCenter-Server.jar Wallet-Server.jar Subscript
+ ion-Server.jar Installment-Server.jar Search-Server.jar ILogJRules-Se
+ rver.jar PageLayout-Server.jar lib\noggit.jar lib\commons-codec.jar P
+ ageLayout-DataObjects.jar Enablement-RelationshipManagementLogic-FEP.
+ jar lib\solr-solrj.jar SEO-BaseComponentLogic-FEP.jar lib\ant-commons
+ -net.jar Content-Server-FEP.jar Catalog-Server-FEP.jar Wallet-CouponI
+ ntegrationLogic.jar Order-Client-FEP.jar Search-IndexSetup.jar Subscr
+ iption-DataObjects.jar Search-Client.jar lib\lucene-queryparser.jar l
+ ib\slf4j-jdk.jar Subscription-Client.jar ILogJRulesLogic.jar PageLayo
+ ut-Client.jar lib\xz.jar lib\lucene-core.jar lib\jsch-0.1.45.jar Foun
+ dation-DataLoad-FEP.jar lib\ibm-wink-jaxrs.jar lib\lucene-analyzers-c
+ ommon.jar GiftCenter-DataObjects.jar Enablement-BaseComponentsLogic-F
+ EP.jar lib\commons-io.jar lib\httpcore.jar Order-Server-FEP.jar Walle
+ t-DataObjects.jar Marketing-Server-FEP.jar lib\solr-core.jar Price-Se
+ rver-FEP.jar Foundation-Core-FEP.jar lib\guava.jar Installment-Client
+ .jar lib\commons-httpclient.jar lib\ant-jsch-1.6.2.jar lib\httpmime.j
+ ar Contract-Server-FEP.jar Promotion-Server-FEP.jar Installment-DataO
+ bjects.jar Infrastructure-Client-FEP.jar lib\commons-net-1.4.1.jar Me
+ mber-Server-FEP.jar Catalog-ProductManagementLogic-FEP.jar Wallet-Cli
+ ent.jar Search-DataObjects.jar lib\jsr311-api.jar lib\JSON4J.jar Foun
+ dation-Extension-FEP.jar Rest-Core.jar GiftCenter-Client.jar Foundati
+ on-DataImport.jar lib\httpclient.jar Foundation-Server-FEP.jar lib\sl
+ f4j-api.jar Infrastructure-Server-FEP.jar LOBTools-Core.jar SocialCom
+ merce-Thirdparty.jar ChinaStoreServerLogic-FEP.jar Location-Server.ja
+ r Location-Rest.jar Location-Client.jar Celadon-Core-DataObjects.jar 
+ Celadon-Common-Utils.jar Celadon-Core-Client.jar Location-DataObjects
+ .jar Celadon-Core-Server.jar Celadon-Common-DataObjects.jar
+

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<WidgetObjectDefinition package="plm"
+		definitionName="plmLayoutWidget_ProductListingWidget" 
+		baseDefinitionName="plmBaseLayoutWidget"
+		parentDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		objectType="ProductListingWidget"
+		gridPropertiesDefinitionName="plmWidgetProperties_ProductListingWidget"
+		iconPath="/images/pagelayouts/widgetIcons/catalog_entry_grid.png"
+		widgetDisplayGroups="CategoryPage,SearchPage"
+		helpLink="concepts/cpzwidcegrid.htm">
+
+		<PropertyDefinition propertyName="xWidgetProp_pageView">
+			<PropertyValue displayName="${plmPageLayoutResources.productListingWidgetInitialView_Grid}" value="grid" />
+			<PropertyValue displayName="${plmPageLayoutResources.productListingWidgetInitialView_List}" value="list" />
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_sortBy">
+			<PropertyValue displayName="${plmPageLayoutResources.productListingWidgetOrderBy_Relevance}" value="0" />
+			<PropertyValue displayName="${plmPageLayoutResources.productListingWidgetOrderBy_Brands}" value="1" />
+			<PropertyValue displayName="${plmPageLayoutResources.productListingWidgetOrderBy_Name}" value="2" />
+			<PropertyValue displayName="${plmPageLayoutResources.productListingWidgetOrderBy_LowToHigh}" value="3" />
+			<PropertyValue displayName="${plmPageLayoutResources.productListingWidgetOrderBy_HighToLow}" value="4" />
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_addAdditionalContent"/>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsName" copyProtected="true">
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsId" copyProtected="true">
+		</PropertyDefinition>
+		
+		<CreateService baseDefinitionName="plmBaseCreateLayoutWidget" />
+		<UpdateService baseDefinitionName="plmBaseUpdateLayoutWidget" />	
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmDefaultEMarketingSpotMarketingContentReference"/>
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedDefaultEMarketingSpotInheritedMarketingContentReference"/>
+		
+		<ReferenceObjectDefinition baseDefinitionName="plmInheritedDefaultEMarketingSpotMarketingContentReference"/>
+		
+		<Xml name="template">
+			<xWidgetProp_pageView>grid</xWidgetProp_pageView>
+			<xWidgetProp_enableSKUListView>false</xWidgetProp_enableSKUListView>
+			<xWidgetProp_sortBy>0</xWidgetProp_sortBy>
+			<xWidgetProp_disableProductCompare>false</xWidgetProp_disableProductCompare>
+			<xWidgetProp_addAdditionalContent>false</xWidgetProp_addAdditionalContent>
+			<sequence>0</sequence>
+		</Xml>
+		
+		<MarketingWidgetInheritedObjectValidator package="plm" />
+		<UniqueValueForChildObjectPropertyValidator validatorId="uniqueSequenceAssetStore" validatorType="uniqueSequenceAssetStore" objectPath="AssetStoreObjectsGroup" propertyName="sequence"/>
+		<UniqueValueForChildObjectPropertyValidator validatorId="uniqueSequenceESiteStore" validatorType="uniqueSequenceESiteStore" objectPath="ESiteStoreObjectsGroup" propertyName="sequence"/>
+	</WidgetObjectDefinition>
+
+</Definitions>

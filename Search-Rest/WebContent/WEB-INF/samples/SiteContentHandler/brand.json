@@ -1,0 +1,36 @@
+{
+	"suggestionView": [
+		{
+			"entry": [
+				{
+					"count": "14",
+					"name": "Adelee Plus",
+					"value": "mfName_ntk_cs%3A%22Adelee+Plus%22"
+				},
+				{
+					"count": "471",
+					"name": "Albini",
+					"value": "mfName_ntk_cs%3A%22Albini%22"
+				},
+				{
+					"count": "2",
+					"name": "Alexander Home",
+					"value": "mfName_ntk_cs%3A%22Alexander+Home%22"
+				},
+				{
+					"count": "2",
+					"name": "All-In-One",
+					"value": "mfName_ntk_cs%3A%22All-In-One%22"
+				},
+				{
+					"count": "12",
+					"name": "Alumina",
+					"value": "mfName_ntk_cs%3A%22Alumina%22"
+				}
+			],
+			"identifier": "Brand",
+			"name": "ManufacturerName",
+			"value": "mfName_ntk_cs"
+		}
+	]
+}

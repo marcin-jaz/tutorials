@@ -1,0 +1,24 @@
+<%
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright International Business Machines Corporation. 2003
+//*     All rights reserved.
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+%>
+<!-- START FOOTER -->
+<table cellspacing="0" cellpadding="0" width="750" border="0" background="<%=fileDir%>images/option_back.gif">
+	<tr valign="top">
+		<!--<td height="18">&nbsp;&nbsp;<a class="mainlink" href="#" target="_top"><%=storeText.getString("NavFooter_Link1")%></a><span class="divider">&nbsp;&nbsp;|&nbsp;&nbsp;</span><a class="mainlink" href="#" target="_top"><%=storeText.getString("NavFooter_Link2")%></a><span class="divider">&nbsp;&nbsp;|&nbsp;&nbsp;</span><a class="mainlink" href="#" target="_top"><%=storeText.getString("NavFooter_Link3")%></a><span class="divider">&nbsp;&nbsp;|&nbsp;&nbsp;</span><a class="mainlink" href="#" target="_top"><%=storeText.getString("NavFooter_Link4")%></a><span class="divider">&nbsp;&nbsp;|&nbsp;&nbsp;</span></td>-->
+		<td height="18">&nbsp;</td>
+	</tr>
+</table>
+<!-- END FOOTER -->

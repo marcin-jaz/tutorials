@@ -1,0 +1,50 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+
+
+<!-- BEGIN OnlineItemAvailability.jspf-->
+
+
+<%--
+*** 
+*	Get the potential price range if the catalog entry is either a product,
+*    or a bundle. 
+***
+--%>
+
+<wcf:getData var="onlineInventoryAvailabilities"
+		type="com.ibm.commerce.inventory.facade.datatypes.InventoryAvailabilityType[]"
+		expressionBuilder="findInventoryAvailabilityByCatalogEntryIdsAndOnlineStoreIdsAndPhysicalStoreIds">
+	<wcf:param name="accessProfile" value="IBM_Store_Details" />
+	<wcf:param name="catalogEntryId" value="${itemId}" />
+	<wcf:param name="onlineStoreId" value="${storeId}" />
+</wcf:getData>
+
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+
+<c:remove var="inventoryAvailability" />
+<c:forEach var="thisInventoryAvailability" items="${onlineInventoryAvailabilities}">
+	<c:if test="${thisInventoryAvailability.inventoryAvailabilityIdentifier.externalIdentifier.onlineStoreIdentifier.uniqueID == storeId}">
+		<c:set var="inventoryAvailability" value="${thisInventoryAvailability}" />
+	</c:if>
+</c:forEach>
+<c:set var="inventoryStatus" value="${empty inventoryAvailability ? 'Unavailable' : inventoryAvailability.inventoryStatus}" />
+<fmt:message var="inventoryStatusMessage" key="INV_STATUS_${inventoryStatus}" bundle="${storeText}" />
+<p class="status"><img src="${fn:escapeXml(jspStoreImgDir)}mobile/images/${inventoryStatus}.gif" width="12" height="12" alt="${inventoryStatusMessage}" /> ${inventoryStatusMessage}</p>
+
+	
+<!-- END OnlineItemAvailability.jspf-->

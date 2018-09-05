@@ -1,0 +1,31 @@
+{
+	"catalogGroupView": [
+		{
+			"childCatalogGroupID": [
+				"10001_10020_0.00000",
+				"10001_10021_0.00000",
+				"10001_10022_0.00000",
+				"10001_10023_0.00000"
+			],
+			"fullImage": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/category\/Girls.jpg",
+			"identifier": "Girls",
+			"name": "Girls",
+			"parentCatalogGroupID": "10001",
+			"productsURL": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byCategory\/10005",
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/categoryview\/byId\/10005",
+			"shortDescription": "Girls",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/category\/Girls.jpg",
+			"uniqueID": "10005"
+		}
+	],
+	"metaData": {
+		"price": "1"
+	},
+	"recordSetComplete": "true",
+	"recordSetCount": 1,
+	"recordSetStartNumber": 0,
+	"recordSetTotal": 1,
+	"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/categoryview\/byId\/10005",
+	"resourceName": "categoryview"
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>   
+	<PrimaryObjectDefinition definitionName="plmBasePageLayoutCatalogPrimaryObjectDefinition"
+		isBaseDefinition="true"
+		detailsViewHeaderText="${catalogResources.UtilityPaneHeaderText}"
+		displayName="${catalogResources.catalog_DisplayName}"
+		displayNameProperty="identifier"
+		idProperty="catalogId"
+		objectGroups="PageLayoutCatalogAlias"
+		writeUsage="IBM_ManagePageComposerTool"
+		utilitiesListDefinitionName="plmUtilitiesBrowseGrid">
+	
+        <!--- 
+			Retrieves the {@link plmChildCatalogGroupBrowsingPage} child objects.
+		-->			
+		<GetChildrenService objectTypes="ChildCatalogGroupBrowsingPage" 
+			url="/cmc/GetPageLayoutCatalogChildren">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="assetStoreId"/>
+			<ServiceParam name="defaultLanguageId"/>
+		</GetChildrenService>
+
+   	 	<!--- 
+			Child object definition for the child catalog group browsing page of the catalog browsing page.  
+		-->		
+		<CollectionReferenceObjectDefinition baseDefinitionName="plmChildCatalogGroupBrowsingPage"/>
+
+      	<!--- 
+			This navigation list definition is used to display {@link plmChildCatalogGroupBrowsingPage}.
+		-->			
+		<NavigationListDefinition name="CategoryBrowsingPageChildList"
+			displayName="${plmPageLayoutResources.categoryPagesList}"
+			isDefault="true" 
+			listDefinitionName="plmCategoryBrowsingPageChildList" 
+			listTitle="${plmPageLayoutResources.categoryPagesList}" 
+			
+			helpLink="concepts/cpzpagecomptool.htm"/>
+	</PrimaryObjectDefinition>
+	
+	<PrimaryObjectDefinition definitionName="PageLayoutCatalog" 
+		baseDefinitionName="plmBasePageLayoutCatalogPrimaryObjectDefinition" 
+		objectType="PageLayoutCatalog"/>
+		
+	<PrimaryObjectDefinition definitionName="InheritedPageLayoutCatalog"
+		baseDefinitionName="plmBasePageLayoutCatalogPrimaryObjectDefinition"
+		displayName="${catalogResources.inheritedCatalog_DisplayName}"
+		objectType="InheritedPageLayoutCatalog">
+	</PrimaryObjectDefinition>
+	
+</Definitions>

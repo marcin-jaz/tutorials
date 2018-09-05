@@ -1,0 +1,4 @@
+#Tue Dec 02 12:54:09 EET 2014
+eclipse.preferences.version=1
+referenceIgnoredPaths=*|\!|*/dojox/*/demos/*|\!|*/dojox/*/tests/*|\!|.*|\!|api|\!|apidocs|\!|dijit/demos|\!|dijit/tests|\!|dojo/tests/_base|\!|dojo/tests/dnd|\!|dojo/tests/io|\!|ibm_atom/tests|\!|ibm_gauge/tests|\!|ibm_opensearch/data/demos|\!|util/buildscripts
+referenceBrokenLinkSeverity=0

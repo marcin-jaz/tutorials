@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<!--- This definition defines the base object from which PDK and Inherited PDK are derived.
+		It uses the noun CatalogEntry from the file wc-catalog-clientobjects.xml
+		which contains information on how the parameters in the Create, Update or Delete services 
+	 	are mapped to create the appropriate BOD for the Web services.
+	-->
+	<PrimaryObjectDefinition baseDefinitionName="catBaseCatalogEntryPrimaryObjectDefinition" definitionName="catBasePredefinedDKitPrimaryObjectDefinition" detailsViewHeaderText="${catalogResources.UtilityPaneHeaderText}" displayName="${catalogResources.predefinedDynamicKit}" displayNameProperty="partnumber" helpLink="tasks/tpngrnew.htm" idProperty="catentryId" isBaseDefinition="true" newDisplayName="${catalogResources.newPredefinedDynamicKit}" newObjectMenuItemText="${catalogResources.newPredefinedDynamicKit}" objectGroups="CatalogEntry,Kits,PDKs,CatalogEntriesNotASKU" propertiesDefinitionName="catPredefinedDKitProperties" searchType="FindAllCatalogEntries">
+		
+
+		<!---
+			Retrieves the {@link catKitComponent} and
+			{@link catInheritedKitComponent} child objects.
+		-->
+		<GetChildrenService objectTypes="SterlingDynamicKitComponent,InheritedSterlingDynamicKitComponent" url="/cmc/GetCatalogEntryChildren-Components">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="defaultLanguageId"/>
+			<ServiceParam name="componentType" value="PreDefinedKit"/>
+			<ServiceParam name="sterlingConfigEnabled" contextName="sterlingConfigEnabled" />
+		</GetChildrenService>
+
+		<!--- Retrieves the {@link catCatalogEntryInventory} child objects. -->
+		<!--- This service is disabled by default. Uncomment this section to enable the service -->
+		<!--
+			<GetChildrenService url="/cmc/GetCatalogEntryChildren-CatalogEntryInventory" objectTypes="CatalogEntryInventory">
+				<ServiceParam name="storeId"/>
+			</GetChildrenService>
+		-->
+
+
+		<!---
+ 			Retrieves the {@link catChildSalesCatalogEntry} and {@link catChildSalesInheritedCatalogEntry}
+ 			reference objects for this catalog entry.
+		-->
+		<GetReferencesService primaryObjectTypes="SalesCatalogGroup,InheritedSalesCatalogGroup" referenceObjectTypes="ChildSalesCatalogEntry,ChildSalesInheritedCatalogEntry" url="/cmc/GetCatalogEntryReferences-SalesCatalogGroups">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="catentryId" propertyName="catentryId"/>
+			<ServiceParam name="masterCatalogId"/>
+		</GetReferencesService>
+		
+
+		<!--- Property definition for the partnumber of the pdk -->
+		<PropertyDefinition displayName="${catalogResources.kitPartnumber_DisplayName}" maximumSize="64" propertyName="partnumber" required="true" type="string"/>
+
+		<!--- Child object definition which holds the inventory details of this pdk. -->
+		<!--- This is disabled by default. Uncomment this section to enable it -->
+		<!-- <ChildObjectDefinition baseDefinitionName="catCatalogEntryInventory"/> -->
+		
+		<RequiredParentValidator errorMessage="${catalogResources.parentDynamicKitValidator}" validatorId="parentDynamicKitExistsCheck" validatorType="requiredParentDynamicKitValidator">
+			<EnablementCondition conditionId="objectVersionCondition" enablementValue="" propertyName="objectVersionId"/>
+		</RequiredParentValidator>
+		
+		<RequiredParentValidator errorMessage="${catalogResources.missingRequiredVersionedDynamicKitParent}" validatorId="versionedDynamicKitExistsCheck" validatorType="requiredParentVersionedDynamicKitValidator">
+			<EnablementCondition conditionId="objectVersionCondition" enablementValue="" propertyName="objectVersionId" negate="true"/>
+		</RequiredParentValidator>
+		
+		<LaunchConfiguratorClientAction actionType="Configurator">
+			<EnablementAndCondition>							
+				<ModelEnablementCondition package="cat" conditionId="launchConfiguratorClientActionCondition"/> 
+				<EnablementCondition checkReadOnly="true" conditionId="checkReadOnlyCondition" enablementValue="false"/> 
+				<EnablementCondition checkNewObject="true" conditionId="newFileObjectCondition" enablementValue="false"/>
+			</EnablementAndCondition>
+		</LaunchConfiguratorClientAction>
+		<DeletePreconfigClientAction actionType="Configurator">
+		    <EnablementAndCondition> 
+				<EnablementCondition propertyName="catentrelId" objectPath="SterlingDynamicKitComponentGroup" enablementValue="" conditionId="deletePreconfigClientActionCondition" negate="true"/>
+				<EnablementCondition checkReadOnly="true" conditionId="checkReadOnlyCondition" enablementValue="false"/> 
+			</EnablementAndCondition>	
+		</DeletePreconfigClientAction>
+				
+	</PrimaryObjectDefinition>
+
+    <PrimaryObjectDefinition baseDefinitionName="catBasePredefinedDKitPrimaryObjectDefinition" definitionName="PredefinedDKit" headerIcon="predefinedDKitHeaderIcon" icon="predefinedDKitIcon" objectType="PredefinedDKit">
+     	
+    	<!--- Condition to disable the object creation in certain store types. -->
+		<EnablementAndCondition>
+        		<EnablementCondition contextName="sterlingConfigEnabled" enablementValue="true" conditionId="sterlingConfiguratorEnabledContextValueCondition"/>
+        		<EnablementOrCondition baseDefinitionName="catStoreTypeCatalogObjectCreationRestriction"/>
+         	</EnablementAndCondition>
+		
+		<!---
+			Create service to create a predefined dynamic kit. need change the catentrytypeid by yan xia when service to create pdc is ready.
+		-->
+		<CreateService sendDefaultLanguageProperties="true" url="/cmc/CreateCatalogEntry">
+		    <ServiceParam name="catenttypeId" value="PredDynaKitBean"/>
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="masterCatalogId"/>
+			<ServiceParam name="defaultLanguageId" parameterName="descriptionLanguageId"/>			
+		</CreateService>
+				
+		
+		<!--- 
+			Retrieves the {@link catChildDynamicKitPDK} objects that refer to this PDK.
+		-->
+        <GetReferencesService url="/cmc/GetPDKParent-DynamicKit">  
+            <ServiceParam name="storeId"/>
+            <ServiceParam name="masterCatalogId"/>
+            <ServiceParam name="catentryId" propertyName="catentryId"/>
+            <ServiceParam name="objectStoreId" propertyName="objectStoreId"/>
+        </GetReferencesService>
+		
+		
+		<!---  
+		    Reference object definition for the attachment of the catalog entry
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="catCatalogEntryAttachmentReference"/>
+		
+		<!--- Reference object definition for the components of the pdk if Sterling configuration is enabled. -->
+		<ReferenceObjectDefinition baseDefinitionName="catSterlingDynamicKitComponent"/>
+				
+		<!---  
+		    Reference object definition for the asset store attachment of the catalog entry
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="catCatalogEntryInheritedAttachmentReference"/>				
+		
+		<!--- 
+			Retrieves the content version object for this object
+		-->		
+		<GetChildrenService objectTypes="ContentVersion" url="/cmc/GetContentVersions">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="objectId" propertyName="catentryId"/>
+			<ServiceParam name="objectType" value="PredefinedDKit"/>
+		</GetChildrenService>
+	
+		<!---
+		    Reference object definition for this object
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="wcfBaseContentVersion" referencedType="PredefinedDKit"/>
+	
+		<!---
+			Create Content Version Client Action
+		-->
+		<CreateContentVersionClientAction>
+			<EnablementCondition checkHasAccessRight="true" conditionId="accessRightCondition" enablementValue="true"/> 
+		</CreateContentVersionClientAction>
+
+	</PrimaryObjectDefinition>
+
+	<!---		
+		This definition represents the primary object definition describing an Inherited Predefined Dynamic Kit as a business object.
+	-->
+    <PrimaryObjectDefinition baseDefinitionName="catBasePredefinedDKitPrimaryObjectDefinition" compatibleObjectTypes="PredefinedDKit" definitionName="InheritedPredefinedDKit" displayName="${catalogResources.inheritedPredefinedDynamicKit}" headerIcon="inheritedPredefinedDKitHeaderIcon" icon="inheritedPredefinedDKitIcon" objectType="InheritedPredefinedDKit">	
+		
+		<!--- 
+			Retrieves the {@link catChildInheritedDynamicKitPDK} objects that refer to this PDK.
+		-->
+        <GetReferencesService url="/cmc/GetPDKParent-DynamicKit">  
+            <ServiceParam name="storeId"/>
+            <ServiceParam name="masterCatalogId"/>
+            <ServiceParam name="catentryId" propertyName="catentryId"/>
+            <ServiceParam name="objectStoreId" propertyName="objectStoreId"/>
+        </GetReferencesService>
+        
+		
+		<!---
+			Reference object definition for the pdk components in the Asset store when Sterling Configuration is enabled.
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="catInheritedSterlingDynamicKitComponent"/>
+				
+		<!---  
+		    Reference object definition for the asset store attachment of the catalog entry
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="catInheritedCatalogEntryInheritedAttachmentReference"/>	
+		
+
+		<!--- 
+		Retrieves the content version object for this object
+		-->		
+		<GetChildrenService objectTypes="ContentVersion" url="/cmc/GetContentVersions">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="objectId" propertyName="catentryId"/>
+			<ServiceParam name="objectType" value="InheritedPredefinedDKit"/>
+			<ServiceParam name="basedOnVersionNumber" propertyName="basedOnVersionNumber"/>
+		</GetChildrenService>
+		
+		
+		
+		<!---  
+	    Reference object definition for the versioned inherited predefined dynamic kit
+		-->
+		<ReferenceObjectDefinition baseDefinitionName="wcfBaseContentVersion" referencedType="InheritedPredefinedDKit"/>		
+		<!---
+			Create Content Version Client Action
+		-->
+		<CreateContentVersionClientAction />	
+		
+
+	</PrimaryObjectDefinition>
+   
+</Definitions>

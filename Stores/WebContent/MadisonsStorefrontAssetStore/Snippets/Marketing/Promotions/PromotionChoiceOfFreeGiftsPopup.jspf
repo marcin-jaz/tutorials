@@ -1,0 +1,50 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<script type="text/javascript">
+	dojo.addOnLoad(function() { parseWidget("free_gifts_popup"); parseWidget("PromotionFreeGiftsDisplay");});	
+</script>       
+
+<script type="text/javascript" src="<c:out value="${jsAssetsDir}javascript/CheckoutArea/PromotionChoiceOfFreeGifts.js"/>"></script>
+
+<div id="free_gifts_popup_main_div">
+	<div id="free_gifts_popup" dojoType="dijit.Dialog" >
+	  <div class="top_left" id="free_gifts_popup_div_2"><img alt="" src="<c:out value="${jspStoreImgDir}" />images/trasparent.gif" /></div>
+	  <div class="top_right" id="free_gifts_popup_div_3"><img alt="" src="<c:out value="${jspStoreImgDir}" />images/trasparent.gif" /></div>
+	  <div class="header" id="popupHeader">
+	        <div class="close" id="free_gifts_popup_div_4">
+				<a id="closeLink" href="javascript: PromotionChoiceOfFreeGiftsJS.hideFreeGiftsPopup('free_gifts_popup');" onkeydown="javascript: PromotionChoiceOfFreeGiftsJS.setFocusToCancel(event);" onmousedown="javascript: PromotionChoiceOfFreeGiftsJS.setFocusToCancel(event);">
+					<span onclick="javascript: PromotionChoiceOfFreeGiftsJS.hideFreeGiftsPopup('free_gifts_popup');" class="icon" id="free_gifts_popup_div_5">
+						<img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />popup_close.png" />
+					</span>		
+		   		<fmt:message key="PROMOTION_FREE_GIFTS_POPUP_CLOSE" bundle="${storeText}"/>
+		   	 	</a>
+	   	 	</div>
+	  </div>            
+	  <div class="bodyarea" id="free_gifts_popup_div_6">
+	  	<div class="bodycontent" id="free_gifts_popup_div_7">   		
+			<!-- Refresh area -->
+			<div dojoType="wc.widget.RefreshArea" id="PromotionFreeGiftsDisplay" controllerId="PromotionFreeGifts_Controller" role="wairole:region" waistate:live="polite" waistate:atomic="false" waistate:relevant="all">					
+				<%out.flush();%>
+				<c:import url="${jspStoreDir}Snippets/Marketing/Promotions/PromotionChoiceOfFreeGiftsPopupContent.jsp"/>			
+				<%out.flush();%>
+			</div>		
+		</div>	
+	  </div>
+	  <div class="footer" id="free_gifts_popup_div_8">
+		<div class="bot_left" id="free_gifts_popup_div_9"></div>
+	 	<div class="bot_right" id="free_gifts_popup_div_10"></div> 	
+	  </div>
+	</div>  
+</div>

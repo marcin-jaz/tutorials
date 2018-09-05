@@ -1,0 +1,181 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<library>
+	<!---
+		This class defines a property group for page layout slot widget assignment within a Page Layout properties view.
+	-->
+	<class name="plmPageLayoutWidgetAssignmentPropertyGroup" extends="wcfPropertyGroup" collapsable="false" showHeader="false">
+		
+		<!---
+			Comma separated list of widget object types to be displayed in this childWidgets {@link wcfPropertyChildListEditor}.
+			This is a required attribute.
+		-->
+		<attribute name="widgetObjectTypes" type="string"/>
+		<!---
+			The definition name for the this <code>childWidgets</code>. This must be a definition that extends {@link wcfObjectGrid}.
+			@type string
+		-->
+		<attribute name="listDefinitionName" value="${null}" type="string"/>
+		<!---
+			This attribute holds a string to use as the prompt text for this <code>childWidgets</code>. 
+			The default value of this attribute is null.
+		-->
+		<attribute name="listEditorPromptText" value="${null}" type="string"/>
+		<!---
+			This attribute holds a string to use as the extended help text for this <code>childWidgets</code>. 
+			The default value of this attribute is an empty string.
+		-->
+		<attribute name="listEditorExtendedHelpText" value="" type="text"/>
+		<!---
+			This attribute holds a string to use as the Tooltip text of the new button of this <code>childWidgets</code>. 
+			Specify this attribute if the default text needs to be overridden.
+		-->
+		<attribute name="listEditornewButtonHelpText" value="${null}" type="string" />
+		<!---
+			This attribute holds a string to use as the prompt text for this <code>layoutview</code>. 
+			The default value of this attribute is null.
+		-->
+		<attribute name="layoutViewPromptText" value="${null}" type="string"/>
+		<!--- 
+			The class name for the dialog used for this <code>childWidgets</code>.
+			@type string
+		-->
+		<attribute name="listEditorNewActionDialogClass" value="${null}" type="string"/>
+		
+		<plmPropertyPageLayoutViewer name="layoutview" promptText="${parent.layoutViewPromptText}" childWidgetsListEditor="${parent.childWidgets}"/>
+		
+		<wcfPropertyChildListEditor name="childWidgets" listDefinitionName="${parent.listDefinitionName}" objectTypes="${parent.widgetObjectTypes}" 
+			extendedHelpText="${parent.listEditorExtendedHelpText}" newButtonHelpText="${parent.listEditornewButtonHelpText}" promptText="${parent.listEditorPromptText}" 
+			hideEditColumnAction="true" newActionDialogClass="${parent.listEditorNewActionDialogClass}" fractionOfAvailableHeight="5"/>
+	</class>
+	
+	<!---
+		This class defines a page layout viewer for use within a properties view.
+	-->
+	<class name="plmPropertyPageLayoutViewer" extends="wcfPropertiesComponent">
+	
+		<!---  
+			@keywords private
+			A reference to {@link PropertyChildListEditor}, which displays all the widgets being populated within the layout 
+		-->
+		<attribute name="childWidgetsListEditor" value="${null}"/>
+		<!---
+			@keywords private
+			This method creates the editor for the given property component
+			@param wcfPropertiesComponent parentComponent The parent properties component from which to create the editor
+		-->
+		<method name="createEditor" args="parentComponent">
+			<![CDATA[
+			new lz.plmPageLayoutViewer(parentComponent, {
+				name: "editor",
+				x: parentComponent.promptWidth + parentComponent.xspacing,
+				width: 149,
+				o: parentComponent.o,
+				childWidgetsListEditor: parentComponent.childWidgetsListEditor,
+				showText: true,
+				showPopulatedSlots: true
+			});
+			]]>
+		</method>
+	</class>
+	
+	<!---
+		@keywords private
+		The page layout viewer class used by plmPropertyPageLayoutViewer to display a layout in the property view.
+	-->
+	<class name="plmPageLayoutViewer" extends="plmBasePageLayoutViewer" slotTooltipText="${plmPageLayoutResources.layoutSlotTooltip.string}">
+		
+		<!--- 
+			@keywords private
+			A reference to  {@link wcfPropertyChildListEditor}, which displays all the widgets being populated within the layout 
+		-->
+		<attribute name="childWidgetsListEditor" value="${null}"/>
+		<!---
+			@keywords private
+		-->
+		<method name="init">
+			<![CDATA[
+			super.init();
+			this.removeSelectionDel = new lz.Delegate(this, "removeSelection");
+			this.updateAllowSelectionDel = new lz.Delegate(this, "updateAllowSelection");
+			this.updateAllowSelection();
+			]]>
+		</method>
+		
+		<method name="updateAllowSelection" args="e=null">
+			<![CDATA[
+			this.updateAllowSelectionDel.unregisterAll();
+			if (this.childWidgetsListEditor == null) {
+				this.updateAllowSelectionDel.register(this, "onchildWidgetsListEditor");
+			}
+			else if (this.childWidgetsListEditor.editor == null) {
+				this.updateAllowSelectionDel.register(this.childWidgetsListEditor, "oneditor");
+			}
+			else {
+				this.updateAllowSelectionDel.register(this.childWidgetsListEditor.editor, "onaddEnabled" );
+				this.setAttribute("allowSelection", this.childWidgetsListEditor.editor.addEnabled);
+			}
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+		-->
+		<method name="destroy">
+			<![CDATA[
+			this.removeSelectionDel.unregisterAll();
+			this.updateAllowSelectionDel.unregisterAll();
+			delete this.updateAllowSelectionDel;
+			delete this.removeSelectionDel;
+			super.destroy();
+			]]>
+		</method>
+				
+		<!---
+			@keywords private
+			Remove selection of the slot.
+		-->
+		<method name="removeSelection" args="e=null">
+			<![CDATA[
+				this.setAttribute("selectedSlotObject", null);
+			]]>
+		</method>		
+		
+		<!---
+			Handle the selection of a slot.
+		-->
+		<method name="slotSelected" args="slotObject">
+			<![CDATA[
+				this.setAttribute("hoverSlotObject", null);
+				this.setAttribute("selectedSlotObject", slotObject);
+				var editor = this.childWidgetsListEditor.editor;
+				if (!editor["_newDialog"]) {
+					if (lz[editor.newActionDialogClass]) {
+						editor._newDialog = new lz[editor.newActionDialogClass](canvas);
+					}
+					else {
+						editor._newDialog = wcfDefinitionLoader.getDefinition(editor.newActionDialogClass, canvas);
+					}
+				}
+				editor._newDialog.openNewActionDialog(this.o, editor, {
+					callBackDel: this.removeSelectionDel,
+					selectedSlotObject: slotObject,
+					hidePageLayoutView: true
+				});
+			]]>
+		</method>
+	
+	</class>
+
+</library>

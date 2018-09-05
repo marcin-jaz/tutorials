@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+	<!-- The property view of the URL Link Widget -->
+	<GridObjectProperties definitionName="plmWidgetProperties_URLLinkWidget">
+		<PropertyPane>
+			<PropertyGroup name="widgetProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetPropertiesPrompt}">
+				<PropertyInputText name="${plmPageLayoutResources.widgetNamePrompt}" propertyName="widgetName"
+					promptText="${plmPageLayoutResources.widgetNamePrompt}" extendedHelpText="${plmPageLayoutResources.extendedHelpText_urlLinkWidgetWidgetName}"/>
+			</PropertyGroup>
+			<PropertyGroup name="contentProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetContentPrompt}">
+				<PropertyGroup baseDefinitionName="plmContent_URLLinkWidget"/>	
+			</PropertyGroup>
+		</PropertyPane>
+	</GridObjectProperties>
+
+	<!--  Property group for URL Link Widget -->
+	<PropertyGroup collapsable="false" definitionName="plmContent_URLLinkWidget">
+		<!--  Property group for widget display title of local page layout-->
+		<PropertyGroup collapsable="false" name="widgetDisplayTitle">
+			<EnablementCondition checkObjectDefinition="true" conditionId="layoutCondition" enablementValue="PageLayout" propertyName="objectType" parentProperty="true"/>
+			<PropertyInputText objectPath="WidgetDisplayTitle" promptText="${plmPageLayoutResources.widgetDisplayTitle}" propertyName="xExtData_displayTitle" extendedHelpText="${plmPageLayoutResources.extendedHelpText_urlLinkWidgetDisplayTitle}"/>
+		</PropertyGroup>
+		<!--  Property group for widget display title of inherited page layout-->
+		<PropertyGroup collapsable="false" name="inheritedWidgetDisplayTitle">
+			<EnablementCondition checkObjectDefinition="true" conditionId="inheritedLayoutCondition" enablementValue="InheritedPageLayout" propertyName="objectType" parentProperty="true"/>
+			<PropertyInputText objectPath="InheritedWidgetDisplayTitle" promptText="${plmPageLayoutResources.widgetDisplayTitle}" propertyName="xExtData_displayTitle" displayObjectStoreName="true" extendedHelpText="${plmPageLayoutResources.extendedHelpText_urlLinkWidgetDisplayTitle}"/>
+			<PropertyInputText objectPath="WidgetDisplayTitle" promptText="${plmPageLayoutResources.widgetDisplayTitle}" propertyName="xExtData_displayTitle" displayStoreName="true" extendedHelpText="${plmPageLayoutResources.extendedHelpText_urlLinkWidgetDisplayTitle}"/>
+		</PropertyGroup>
+
+		<!-- 
+			URL Links child list editor for local page layout.
+		 -->
+		<PropertyGroup collapsable="false" name="pageLayoutURLLink">
+			<EnablementCondition checkObjectDefinition="true" conditionId="layoutCondition" enablementValue="PageLayout" propertyName="objectType" parentProperty="true"/>
+			<PropertyChildListEditor baseDefinitionName="plmURLLinkList"/>
+		</PropertyGroup>
+		<!-- 
+			URL Links child list editor for inherited page layout. One child list editor for asset store and one for esite store.
+		 -->
+		<PropertyGroup collapsable="false" name="inheritedPageLayoutURLLink">
+			<EnablementCondition checkObjectDefinition="true" conditionId="inheritedLayoutCondition" enablementValue="InheritedPageLayout" propertyName="objectType" parentProperty="true"/>
+			<PropertyChildListEditor baseDefinitionName="plmInheritedURLLinkList" displayObjectStoreName="true"/>
+			<PropertyChildListEditor baseDefinitionName="plmURLLinkList" displayStoreName="true"/>
+		</PropertyGroup>
+		
+	</PropertyGroup>
+
+	<!-- Child list editor for local URL links -->
+	<PropertyChildListEditor definitionName="plmURLLinkList" listDefinitionName="plmURLLinkGrid" name="URLLinkList" 
+		promptText="${plmPageLayoutResources.links}"
+		extendedHelpText="${plmPageLayoutResources.extendedHelpText_urlLinkWidgetLinks}"
+		newButtonHelpText="${plmPageLayoutResources.addLink}"
+		objectTypes="URLLinkContentPageReference,URLLinkInheritedContentPageReference,URLLinkCatalogGroupPageReference,URLLinkInheritedCatalogGroupPageReference,URLLinkCatalogEntryPageReference,URLLinkInheritedCatalogEntryPageReference,URLLinkCustomURL"
+		objectPath="URLLinks"
+		sequencePropertyName="sequenceOrder"
+		hideEditColumnAction="true"/>
+		
+	<!-- Child list editor for inherited URL links -->	
+	<PropertyChildListEditor definitionName="plmInheritedURLLinkList" listDefinitionName="plmURLLinkGrid" name="InheritedURLLinkList" 
+		promptText="${plmPageLayoutResources.links}"
+		extendedHelpText="${plmPageLayoutResources.extendedHelpText_urlLinkWidgetLinks}"
+		newButtonHelpText="${plmPageLayoutResources.addLink}"
+		objectTypes="URLLinkInheritedContentPageReference,URLLinkInheritedCatalogGroupPageReference,URLLinkInheritedCatalogEntryPageReference,URLLinkCustomURL"
+		objectPath="InheritedURLLinks"
+		sequencePropertyName="sequenceOrder"
+		hideEditColumnAction="true"/>
+		
+    <!---	
+    	This definition displays the contents and characteristics of a list of URL links.
+	-->
+	<ObjectGrid definitionName="plmURLLinkGrid" preferenceKey="plmURLLinkGrid">
+		
+        <GridText editable="false" name="extDataId" propertyName="extDataId" text="${plmPageLayoutResources.uniqueID}" visible="false" width="100"/>
+        <GridIconTypeImage name="typeIcon" enableFilter="true" propertyName="null" required="true" text="${plmPageLayoutResources.pageType_ColumnHeader}" visible="false" width="60"/>
+        
+		<!-- <GridStoreName name="store" objectPath="PageAlias" width="250"/>  -->
+        			
+		<GridText editable="true" name="URLText" propertyName="xExtData_urlText" required="true" text="${plmPageLayoutResources.urlText}" visible="true" width="250"/>
+     
+  		<GridColumn required="true" enableFilter="true" name="Page" text="${plmPageLayoutResources.page_ColumnHeader}" visible="true" width="200">
+			<GridTextCellDescriptor objectType="URLLinkContentPageReferenceAlias" objectPath="PageAlias" propertyName="name" editable="false"/>
+			<GridTextCellDescriptor objectType="URLLinkCatalogGroupPageReferenceAlias" objectPath="PageAlias" propertyName="identifier" editable="false"/>
+			<GridTextCellDescriptor objectType="URLLinkCatalogEntryPageReferenceAlias" objectPath="PageAlias" propertyName="partnumber" editable="false"/>
+			<GridComboBoxCellDescriptor objectType="URLLinkCustomURL" propertyName="urlType" editable="false"/>
+		</GridColumn>
+        
+		<GridColumn required="true" enableFilter="false" name="URL" text="${plmPageLayoutResources.url}" visible="true" width="600">
+			<GridUrlCellDescriptor package="plm" objectType="URLLinkPageReferenceAlias" name="contentPage" propertyName="xExtData_url" editable="false"/>
+			<GridTextCellDescriptor objectType="URLLinkCustomURL" editable="true" propertyName="xExtData_url"/>
+		</GridColumn>
+		
+		<GridComboBox editable="true" name="target" propertyName="xExtData_target" text="${plmPageLayoutResources.target}" width="100"/>
+
+		<GridText editable="true" name="field1" propertyName="xExtData_field1" text="${plmPageLayoutResources.field1}" visible="false" width="100"/>
+		<GridText editable="true" name="field2" propertyName="xExtData_field2" text="${plmPageLayoutResources.field2}" visible="false" width="100"/>
+		<GridText editable="true" name="field3" propertyName="xExtData_field3" text="${plmPageLayoutResources.field3}" visible="false" width="100"/>
+		<GridText editable="true" name="field4" propertyName="xExtData_field4" text="${plmPageLayoutResources.field4}" visible="false" width="100"/>
+		<GridText editable="true" name="field5" propertyName="xExtData_field5" text="${plmPageLayoutResources.field5}" visible="false" width="100"/>
+		
+	</ObjectGrid>
+	
+</Definitions>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+	<panel id="customerCarePanel" title="customerCarePanel.title" description="customerCarePanel.description" display-priority="1" />
+
+	<option-group id="customerCarePanel.radios" type="radio" display-priority="1" panel="customerCarePanel" >
+		
+		<option id="customerCarePanel.radioEnable"
+			label="customerCarePanel.radioEnable.label"
+			enables-features="customerCare" />
+			
+		<option id="customerCarePanel.radioDisable"
+			label="customerCarePanel.radioDisable.label"
+			selected-by-default="true" />
+			
+	</option-group>
+
+</display>

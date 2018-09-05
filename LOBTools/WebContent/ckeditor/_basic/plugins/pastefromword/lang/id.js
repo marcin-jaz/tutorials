@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("pastefromword","id",{confirmCleanup:"Teks yang akan Anda tempel sepertinya disalin dari Word. Apakah Anda ingin membersihkannya sebelum ditempel?",error:"Pembersihan data yang ditempel tidak dapat dilakukan karena terjadi kesalahan internal",title:"Tempel Khusus",toolbar:"Tempel Khusus"});

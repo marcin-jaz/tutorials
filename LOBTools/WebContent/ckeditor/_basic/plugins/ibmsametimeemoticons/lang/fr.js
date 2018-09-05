@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("ibmsametimeemoticons","fr",{angel:"Ange",angry:"Fâché",cool:"Décontracté",crying:"En pleurs",eyebrow:"Sourciller",frown:"Bouder",goofy:"Grimace",grin:"Grand sourire",half:"Sourire en coin",idea:"Idée",laughing:"Rire",laughroll:"Hurler de rire",no:"Non",oops:"Oops",shy:"Timide",smile:"Sourire",tongue:"Tirer la langue",wink:"Clin d'oeil",yes:"Oui"});

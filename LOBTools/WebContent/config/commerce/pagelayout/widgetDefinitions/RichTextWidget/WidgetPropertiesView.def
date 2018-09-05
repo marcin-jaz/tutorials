@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<GridObjectProperties definitionName="plmWidgetProperties_RichTextWidget">
+		<PropertyPane>
+			<PropertyGroup name="widgetProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetPropertiesPrompt}">
+				<PropertyInputText name="${plmPageLayoutResources.widgetNamePrompt}" propertyName="widgetName"
+					promptText="${plmPageLayoutResources.widgetNamePrompt}" 
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_richTextWidgetWidgetName}"/>
+			</PropertyGroup>
+			
+
+			<!-- Use this property group to display the contents editor when the esite override feature is disabled. -->
+			<PropertyGroup name="widgetContents" collapsable="false" groupTitle="${plmPageLayoutResources.widgetContentPrompt}">
+				<EnablementCondition checkObjectDefinition="true" parentProperty="true" conditionId="layoutCondition" enablementValue="PageLayout" propertyName="objectType"/>
+				<PropertyRichTextEditor propertyName="xExtData_displayText"
+					promptText="${plmPageLayoutResources.richTextWidgetContentsPrompt}" 
+					objectPath="WidgetDisplayText"
+					defaultToRichTextMode="false"
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_richTextWidgetDisplayText}"
+					helpLinkText="${foundationResources.helpDefaultLinkText}"
+					helpLinkURL="concepts/ctfckeditor.htm"/>
+			</PropertyGroup>
+
+			<!-- Use this property group to display the contents editor when the esite override feature is enabled. -->
+			<PropertyGroup name="widgetOverrideContents" collapsable="false" groupTitle="${plmPageLayoutResources.widgetContentPrompt}">
+				<EnablementCondition checkObjectDefinition="true" parentProperty="true" conditionId="inheritedLayoutCondition" enablementValue="InheritedPageLayout" propertyName="objectType" />
+				<PropertyRichTextEditor propertyName="xExtData_displayText"
+					promptText="${plmPageLayoutResources.richTextWidgetContentsPrompt}" 
+					objectPath="InheritedWidgetDisplayText"
+					displayObjectStoreName="true"
+					defaultToRichTextMode="false"
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_richTextWidgetDisplayText}"
+					helpLinkText="${foundationResources.helpDefaultLinkText}"
+					helpLinkURL="concepts/ctfckeditor.htm"/>
+				<PropertyRichTextEditor propertyName="xExtData_displayText"
+					promptText="${plmPageLayoutResources.richTextWidgetContentsPrompt}" 
+					objectPath="WidgetDisplayText"
+					displayStoreName="true"
+					defaultToRichTextMode="false"
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_richTextWidgetDisplayText}"
+					helpLinkText="${foundationResources.helpDefaultLinkText}"
+					helpLinkURL="concepts/ctfckeditor.htm"/>
+			</PropertyGroup>	
+			
+			
+		</PropertyPane>
+	</GridObjectProperties>
+
+</Definitions>

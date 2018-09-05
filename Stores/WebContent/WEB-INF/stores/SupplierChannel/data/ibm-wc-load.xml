@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE data-deploy SYSTEM "ibm-wc-load.dtd">
+<data-deploy base-dir="." default-target="all">
+    <asset id="modelorg" location="model/modelorg.xml"/>
+    <asset id="channelorg" location="CommercePlaza/channelorg.xml"/>
+    <asset id="profileorg" location="profile/profileorg.xml"/>
+    <asset id="master" location="store-data-assets.xml"/>
+    <asset id="resolved.master" location="store-data-assets.resolved.xml"/>
+    <asset id="foreignKeys" location="ForeignKeys.dtd" type="dtd"/>
+    <asset id="contract" location="CommercePlaza/data/contract.xml"/>
+    <asset id="strutsConfigUpdateSCP.template" location="CommercePlaza/data/struts-config-update.tpl.xml"/>
+    <asset id="strutsConfigUpdateSCP" location="CommercePlaza/data/struts-config-update.xml"/>
+    <asset id="strutsConfigUpdateSPS.template" location="profile/supplier/data/struts-config-update.tpl.xml"/>
+    <asset id="strutsConfigUpdateSPS" location="profile/supplier/data/struts-config-update.xml"/>
+    <asset id="." location=""/>
+    <deploy-task-cmd name="contractImport" class="com.ibm.commerce.tools.devtools.publish.tasks.trading.ContractImportTaskCmd"/>
+    <deploy-task-cmd name="commandInvoker" class="com.ibm.commerce.tools.devtools.publish.tasks.CommandInvokerTaskCmd"/>
+    <deploy-task-cmd name="generateParams" class="com.ibm.commerce.tools.devtools.publish.tasks.GenerateParametersTaskCmd"/>
+    <deploy-task-cmd name="reconcileStoreLanguages" class="com.ibm.commerce.tools.devtools.publish.tasks.languages.ReconcileLanguagesTaskCmd"/>
+    <deploy-task-cmd name="copyLocaleFile" class="com.ibm.commerce.tools.devtools.publish.tasks.unpack.CopyLocaleFileTaskCmd"/>
+    <deploy-task-cmd name="findStore" class="com.ibm.commerce.tools.devtools.publish.tasks.StoreIdBaseDeployTaskCmd"/>
+    <deploy-task-cmd name="fileFilter" class="com.ibm.commerce.tools.devtools.publish.tasks.unpack.FileFilterTaskCmd"/>
+    <deploy-task-cmd name="setupContentDirectory" class="com.ibm.commerce.tools.devtools.publish.tasks.catalog.SetupContentManagedDirectoryTaskCmd"/>
+    <target id="all">
+    	<task name="copyLocaleFile">
+            <param name="basename" value="${asset:modelorg}" />
+    	</task>
+    	<task name="copyLocaleFile">
+            <param name="basename" value="${asset:channelorg}" />
+    	</task>
+    	<task name="copyLocaleFile">
+            <param name="basename" value="${asset:profileorg}" />
+    	</task>
+    	<task name="idresolve">
+            <param name="infile" value="${asset:master}" />
+            <param name="outfile" value="${asset:resolved.master}" />
+    	</task>
+    	<task name="massload">
+            <param name="infile" value="${asset:resolved.master}" />
+   		    <param name="maxerror" value="1" />	
+            <param name="noprimary" value="error" />
+    	</task>
+        <task name="reconcileStoreLanguages">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_SCP}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_SCP_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+    	</task>	
+        <task name="findStore">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_SCP}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_SCP_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+            <export name="storeEntityIdSCP" value="storeEntityId"/>
+    	</task>
+        <task name="fileFilter">
+            <param name="input-filename" value="${asset:strutsConfigUpdateSCP.template}"/>
+            <param name="output-filename" value="${asset:strutsConfigUpdateSCP}"/>
+            <param name="storeId" value="${context:storeEntityIdSCP}"/>
+    	</task>   
+        <task name="commandInvoker">
+            <param name="invoked_commandClassName" value="com.ibm.commerce.struts.commands.UpdateStrutsConfigFileCmd"/>
+            <param name="webAppName" value="Stores" />
+            <param name="updateFileName" value="${asset:strutsConfigUpdateSCP}"/>
+    	</task>
+        <task name="findStore">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_SPS}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PS_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+            <export name="storeEntityIdSPS" value="storeEntityId"/>
+    	</task>
+        <task name="fileFilter">
+            <param name="input-filename" value="${asset:strutsConfigUpdateSPS.template}"/>
+            <param name="output-filename" value="${asset:strutsConfigUpdateSPS}"/>
+            <param name="storeId" value="${context:storeEntityIdSPS}"/>
+    	</task>   
+        <task name="commandInvoker">
+            <param name="invoked_commandClassName" value="com.ibm.commerce.struts.commands.UpdateStrutsConfigFileCmd"/>
+            <param name="webAppName" value="Stores" />
+            <param name="updateFileName" value="${asset:strutsConfigUpdateSPS}"/>
+    	</task>
+        <task name="setupContentDirectory">
+            <param name="storeDir" value="${asset:foreignKeys#STORE_DIR_SCP}" />
+        </task>
+        <task name="setupContentDirectory">
+            <param name="storeDir" value="${asset:foreignKeys#STORE_DIR_CPS}" />
+        </task>
+        <task name="setupContentDirectory">
+            <param name="storeDir" value="${asset:foreignKeys#STORE_DIR_SPS}" />
+        </task>
+        <task name="contractImport">
+            <param name="tradingXMLFileName" value="${asset:contract}" />
+            <param name="XMLEntityPath" value="${config:Trading/DTDPath};${asset:.}" />
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_SCP}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_SCP_PART}${asset:foreignKeys#ORGANIZATION_DN}" />
+    	</task>
+        <task name="generateParams">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_SCP}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_SCP_PART}${asset:foreignKeys#ORGANIZATION_DN}" />    
+        </task>
+        <task name="generateParams">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_SPS}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_PS_PART}${asset:foreignKeys#ORGANIZATION_DN}" />    
+        </task>
+        <task name="commandInvoker">
+            <param name="invoked_commandClassName" value="com.ibm.commerce.scheduler.commands.RefreshRegistryCmd" />
+            <param name="URL" value="/ignore" />
+    	</task>
+   </target>
+   <target id="launch-store">
+       <task name="DummyTaskWorkaroundToLaunchStore">
+            <param name="storeIdentifier" value="${asset:foreignKeys#STORE_IDENTIFIER_SCP}" />
+            <param name="organizationDN" value="${asset:foreignKeys#ORG_DN_SCP_PART}${asset:foreignKeys#ORGANIZATION_DN}" />    
+       </task>
+   </target>
+</data-deploy>

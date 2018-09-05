@@ -1,0 +1,96 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+	
+<%-- 
+  *****
+  * This JSP snippet displays the product quick view navigation links (Previos Product/Next Product) at the bottom
+  * of each product. The product quick view navigation will appear in the product display page, when browsed through
+  * category navigation, search results, wishlist and product compare list.
+  *****
+--%>
+
+<!-- BEGIN ProductQuickNavigation.jspf -->
+	
+<div class="paging_control"> 	
+	<c:if test="${prevSeq > -1 || nextSeq > -1}">
+		<c:if test="${prevSeq > -1}">
+			<span class="bullet">&#171; </span>
+			<c:choose>
+				<c:when test='${WCParam.pgGrp == "search"}'>
+					<wcf:url var="catEntryDisplayUrl" value="mProduct3">
+						<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+						<wcf:param name="storeId" value="${WCParam.storeId}"/>
+						<wcf:param name="productId" value="${prevSeq}"/>
+						<wcf:param name="langId" value="${WCParam.langId}"/>
+						<wcf:param name="pgGrp" value="search"/>
+						<wcf:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+						<wcf:param name="pageSize" value="${WCParam.pageSize}"/>
+						<wcf:param name="searchTerm" value="${WCParam.searchTerm}"/>
+						<wcf:param name="beginIndex" value="${WCParam.beginIndex}"/>
+						<wcf:param name="sType" value="${WCParam.sType}"/>
+					</wcf:url>							
+				</c:when>
+				<c:otherwise>
+					<wcf:url var="catEntryDisplayUrl" value="mProduct1">
+						<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+						<wcf:param name="storeId" value="${WCParam.storeId}"/>
+						<wcf:param name="langId" value="${langId}"/>
+						<wcf:param name="categoryId" value="${WCParam.categoryId}"/>
+						<wcf:param name="top_category" value="${WCParam.top_category}"/>
+						<wcf:param name="parent_category_rn" value="${WCParam.parent_category_rn}"/>
+						<wcf:param name="sequence" value="${prevSeq}"/>
+						<wcf:param name="productId" value="${WCParam.productId}"/>					
+						<wcf:param name="pgGrp" value="${WCParam.pgGrp}"/>					
+					</wcf:url>				
+				</c:otherwise>
+			</c:choose>
+			<a href="${fn:escapeXml(catEntryDisplayUrl)}" title="<fmt:message key="PAGING_PREV_PRODUCT" bundle="${storeText}" />"><fmt:message key="PAGING_PREV_PRODUCT" bundle="${storeText}" /></a>
+		</c:if>
+		&#160;&#160;
+		<c:if test="${nextSeq > -1}">
+			<c:choose>
+				<c:when test='${WCParam.pgGrp == "search"}'>
+					<wcf:url var="catEntryDisplayUrl" value="mProduct3">
+						<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+						<wcf:param name="storeId" value="${WCParam.storeId}"/>
+						<wcf:param name="productId" value="${nextSeq}"/>
+						<wcf:param name="langId" value="${WCParam.langId}"/>
+						<wcf:param name="pgGrp" value="search"/>
+						<wcf:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+						<wcf:param name="pageSize" value="${WCParam.pageSize}"/>
+						<wcf:param name="searchTerm" value="${WCParam.searchTerm}"/>
+						<wcf:param name="beginIndex" value="${WCParam.beginIndex}"/>
+						<wcf:param name="sType" value="${WCParam.sType}"/>
+					</wcf:url>							
+				</c:when>
+				<c:otherwise>
+					<wcf:url var="catEntryDisplayUrl" value="mProduct1">
+						<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+						<wcf:param name="storeId" value="${WCParam.storeId}"/>
+						<wcf:param name="langId" value="${langId}"/>
+						<wcf:param name="categoryId" value="${WCParam.categoryId}"/>
+						<wcf:param name="top_category" value="${WCParam.top_category}"/>
+						<wcf:param name="parent_category_rn" value="${WCParam.parent_category_rn}"/>
+						<wcf:param name="sequence" value="${nextSeq}"/>
+						<wcf:param name="productId" value="${WCParam.productId}"/>					
+						<wcf:param name="pgGrp" value="${WCParam.pgGrp}"/>					
+					</wcf:url>			
+				</c:otherwise>
+			</c:choose>		
+			<a href="${fn:escapeXml(catEntryDisplayUrl)}" title="<fmt:message key="PAGING_NEXT_PRODUCT" bundle="${storeText}" />"><fmt:message key="PAGING_NEXT_PRODUCT" bundle="${storeText}" /></a>
+			<span class="bullet">&#187; </span>
+		</c:if>
+	</c:if>
+</div>	
+<!-- END ProductQuickNavigation.jspf -->

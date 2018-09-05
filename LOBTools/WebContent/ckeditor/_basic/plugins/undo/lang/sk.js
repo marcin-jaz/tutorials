@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","sk",{redo:"Znova vykonať",undo:"Vrátiť späť"});

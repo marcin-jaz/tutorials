@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<PrimaryObjectDefinition definitionName="PageLayoutTemplate"
+		baseDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		compatibleObjectTypes="PageLayout"
+		creatable="false"
+		idProperty="pageLayoutId"
+		displayName="PAGE LAYOUT TEMPLATE" 
+		displayNameProperty="name"
+		helpLink="concepts/cpzpagecomptool.htm"
+		newDisplayName="PAGE LAYOUT NEW" 
+		headerIcon="webActivityTemplateHeaderIcon" 
+		icon="webActivityTemplateIcon" 
+		objectGroups="PageLayoutTemplatesGroup"
+		objectType="PageLayoutTemplate"
+		searchType="FindPageLayoutTemplates">
+		
+		<PropertyDefinition copyProtected="true" propertyName="templateType"/>
+		<PropertyDefinition copyProtected="true" displayName="${plmPageLayoutResources.objectName}" maximumSize="64" propertyName="name" required="true" trim="true"/>
+		<PropertyDefinition displayName="${plmPageLayoutResources.descriptionPrompt}" maximumSize="254" propertyName="description"/>
+		
+	</PrimaryObjectDefinition>
+
+</Definitions>

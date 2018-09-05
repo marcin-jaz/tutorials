@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+	<panel id="headsUpDisplayPanel" title="headsUpDisplayPanel.title" description="headsUpDisplayPanel.description" display-priority="9" />
+
+	<option-group id="headsUpDisplay.radios" type="radio" display-priority="1" panel="headsUpDisplayPanel" >
+		
+		<option id="headsUpDisplay.radioEnable"
+			label="headsUpDisplay.radioEnable.label"
+			enables-option-groups="HUDminiCurrentOrderDisplay.checkbox HUDminiUserAccountDisplay.checkbox 
+									HUDminiTopCategoriesDisplay.checkbox HUDminiRequisitionListDisplay.checkbox
+									HUDminiOrdersWaitingApprovalDisplay.checkbox HUDminiOrdersPreviouslyProcessedDisplay.checkbox
+									HUDminiOrdersScheduledDisplay.checkbox HUDminiEMarketingSpotDisplay.checkbox
+                                    accountParticipantRole.radios"
+			selected-by-default="true"
+			enables-features="headsUpDisplay" 
+		/>
+			
+		<option id="headsUpDisplay.radioDisable"
+			label="headsUpDisplay.radioDisable.label"
+			disables-option-groups="HUDminiCurrentOrderDisplay.checkbox HUDminiUserAccountDisplay.checkbox
+									HUDminiTopCategoriesDisplay.checkbox HUDminiRequisitionListDisplay.checkbox
+									HUDminiOrdersWaitingApprovalDisplay.checkbox HUDminiOrdersPreviouslyProcessedDisplay.checkbox
+									HUDminiOrdersScheduledDisplay.checkbox HUDminiEMarketingSpotDisplay.checkbox
+                                    accountParticipantRole.radios"                                    
+		/>
+			
+	</option-group>
+	
+	<option-group id="HUDminiCurrentOrderDisplay.checkbox" type="checkbox" display-priority="2" panel="headsUpDisplayPanel" >
+	
+		<option id="HUDminiCurrentOrderDisplay.checkboxEnable"
+			label="HUDminiCurrentOrderDisplay.checkboxEnable.label"
+			description="HUDminiCurrentOrderDisplay.checkboxEnable.description"
+			selected-by-default="true"
+			enables-features="HUDminiCurrentOrderDisplay" />
+			
+	</option-group>
+	
+	<option-group id="HUDminiUserAccountDisplay.checkbox" type="checkbox" display-priority="3" panel="headsUpDisplayPanel" >
+	
+		<option id="HUDminiUserAccountDisplay.checkboxEnable"
+			label="HUDminiUserAccountDisplay.checkboxEnable.label"
+			description="HUDminiUserAccountDisplay.checkboxEnable.description"
+			enables-features="HUDminiUserAccountDisplay" />
+			
+	</option-group>
+	
+	<option-group id="HUDminiTopCategoriesDisplay.checkbox" type="checkbox" display-priority="4" panel="headsUpDisplayPanel" >
+	
+		<option id="HUDminiTopCategoriesDisplay.checkboxEnable"
+			label="HUDminiTopCategoriesDisplay.checkboxEnable.label"
+			description="HUDminiTopCategoriesDisplay.checkboxEnable.description"
+			enables-features="HUDminiTopCategoriesDisplay" />
+			
+	</option-group>
+	
+	<option-group id="HUDminiRequisitionListDisplay.checkbox" type="checkbox" display-priority="5" panel="headsUpDisplayPanel" >
+	
+		<option id="HUDminiRequisitionListDisplay.checkboxEnable"
+			label="HUDminiRequisitionListDisplay.checkboxEnable.label"
+			description="HUDminiRequisitionListDisplay.checkboxEnable.description"
+			enables-features="HUDminiRequisitionListDisplay" />
+			
+	</option-group>
+	
+	<option-group id="HUDminiOrdersWaitingApprovalDisplay.checkbox" type="checkbox" display-priority="6" panel="headsUpDisplayPanel" >
+	
+		<option id="HUDminiOrdersWaitingApprovalDisplay.checkboxEnable"
+			label="HUDminiOrdersWaitingApprovalDisplay.checkboxEnable.label"
+			description="HUDminiOrdersWaitingApprovalDisplay.checkboxEnable.description"
+			enables-features="HUDminiOrdersWaitingApprovalDisplay" />
+			
+	</option-group>
+	
+	<option-group id="HUDminiOrdersPreviouslyProcessedDisplay.checkbox" type="checkbox" display-priority="7" panel="headsUpDisplayPanel" >
+	
+		<option id="HUDminiOrdersPreviouslyProcessedDisplay.checkboxEnable"
+			label="HUDminiOrdersPreviouslyProcessedDisplay.checkboxEnable.label"
+			description="HUDminiOrdersPreviouslyProcessedDisplay.checkboxEnable.description"
+			enables-features="HUDminiOrdersPreviouslyProcessedDisplay" />
+			
+	</option-group>
+	
+	<option-group id="HUDminiOrdersScheduledDisplay.checkbox" type="checkbox" display-priority="8" panel="headsUpDisplayPanel" >
+	
+		<option id="HUDminiOrdersScheduledDisplay.checkboxEnable"
+			label="HUDminiOrdersScheduledDisplay.checkboxEnable.label"
+			description="HUDminiOrdersScheduledDisplay.checkboxEnable.description"
+			enables-features="HUDminiOrdersScheduledDisplay" />
+			
+	</option-group>
+	
+	<option-group id="HUDminiEMarketingSpotDisplay.checkbox" type="checkbox" display-priority="8" panel="headsUpDisplayPanel" >
+	
+		<option id="HUDminiEMarketingSpotDisplay.checkboxEnable"
+			label="HUDminiEMarketingSpotDisplay.checkboxEnable.label"
+			description="HUDminiEMarketingSpotDisplay.checkboxEnable.description"
+			selected-by-default="true"
+			enables-features="HUDminiEMarketingSpotDisplay" />
+	</option-group>
+<!--  Feature Added to Enable AccountParticipant Role & to  Enable Organization-Contracts for Buyer-->
+<option-group id="accountParticipantRole.radios" type="radio" display-priority="9" panel="headsUpDisplayPanel" >
+		
+		<option id="accountParticipantRole.radioEnable"
+			label="accountParticipantRole.radioEnable.label"
+			enables-option-groups=" HUDminiOrganizationIdDisplay.checkbox
+									HUDminiOrganizationContractsDisplay.checkbox"
+			selected-by-default="true"
+			enables-features="accountParticipantRole" 
+		/>
+			
+		<option id="accountParticipantRole.radioDisable"
+			label="accountParticipantRole.radioDisable.label"
+			disables-option-groups="HUDminiOrganizationIdDisplay.checkbox
+									HUDminiOrganizationContractsDisplay.checkbox"
+		/>
+	</option-group>
+<!--  Feature Added to Enable AccountParticipant Role for Buyer-->
+        <option-group id="HUDminiOrganizationIdDisplay.checkbox" type="checkbox" display-priority="10" panel="headsUpDisplayPanel" >
+	
+		<option id="HUDminiOrganizationIdDisplay.checkboxEnable"
+			label="HUDminiOrganizationIdDisplay.checkboxEnable.label"
+			description="HUDminiOrganizationIdDisplay.checkboxEnable.description"
+			enables-features="HUDminiOrganizationIdDisplay" />
+			
+	</option-group>
+<!--  Feature Added to Enable Organization-Contracts -->
+       <option-group id="HUDminiOrganizationContractsDisplay.checkbox" type="checkbox" display-priority="11" panel="headsUpDisplayPanel" >
+	
+		<option id="HUDminiOrganizationContractsDisplay.checkboxEnable"
+			label="HUDminiOrganizationContractsDisplay.checkboxEnable.label"
+			description="HUDminiOrganizationContractsDisplay.checkboxEnable.description"
+			enables-features="HUDminiOrganizationContractsDisplay" />
+			
+	</option-group>
+
+</display>

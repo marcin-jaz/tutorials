@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<!--
+	This XML defines services related configuration data for rest services.
+	Currently the only configurable attributes are searchProfile for GET methods.
+-->
+
+<ResourceConfig>
+
+	<Resource name="productview">
+		<GetUri uri="store/{storeId}/productview/{partNumber}" 
+				description="Get product by part number" 
+				searchProfile="IBM_findProductByPartNumber_Details,IBM_findProductByPartNumber_Summary"/>
+
+		<GetUri uri="store/{storeId}/productview/byId/{productId}" 
+				description="Get product by unique ID" 
+				searchProfile="IBM_findProductByIds_Details,IBM_findProductByIdsWithAttributesAndAttachments,IBM_findProductByIds_Summary,IBM_findProductByIds_Summary_WithNoEntitlementCheck,IBM_Admin_findProductByIds"/>
+
+		<GetUri uri="store/{storeId}/productview/byIds" 
+				description="Get products by unique IDs" 
+				searchProfile="IBM_findProductByIds_Details,IBM_findProductByIdsWithAttributesAndAttachments,IBM_findProductByIds_Summary,IBM_findProductByIds_Summary_WithNoEntitlementCheck,IBM_findProductByIds_Basic_Summary,IBM_Admin_findProductByIds"/>
+
+		<GetUri uri="store/{storeId}/productview/byCategory/{categoryId}" 
+				description="Get product by categoryid based on below search profile." 
+				searchProfile="IBM_findProductsByCategory,IBM_findProductsByCategory_Summary,IBM_ComposeFacetListByCategoryId,IBM_BreadCrumbByCategoryUniqueId,IBM_findProductsByCategory_grouping"/>
+
+		<GetUri uri="store/{storeId}/productview/bySearchTerm/{searchTerm}" 
+				description="Get products by search term based on below search profile." 
+				searchProfile="IBM_findProductsBySearchTerm,IBM_findProductsByNameOnly,IBM_findProductsByNameAndShortDescriptionOnly,IBM_findProductsByUnstructureOnly,IBM_findProductsBySearchTerm_Summary,IBM_findProductsBySearchTerm_grouping"/>
+	</Resource>
+
+	<Resource name="categoryview">
+		<GetUri uri="store/{storeId}/categoryview/@top" 
+				description="Get top level categories" 
+				searchProfile="IBM_findSubCategories"/>
+
+		<GetUri uri="store/{storeId}/categoryview/byParentCategory/{parentCategoryId}" 
+				description="Get child categories by a parent category unique ID" 
+				searchProfile="IBM_findSubCategories"/>
+				
+		<GetUri uri="store/{storeId}/categoryview/{categoryIdentifier}" 
+				description="Get category by identifier" 
+				searchProfile="IBM_findCategoryByIdentifier"/>
+
+		<GetUri uri="store/{storeId}/categoryview/byId/{categoryId}" 
+				description="Get category by unique ID" 
+				searchProfile="IBM_findCategoryByUniqueIds,IBM_Admin_findCategoryByIds"/>
+
+		<GetUri uri="store/{storeId}/categoryview/byIds" 
+				description="Get categories by unique IDs" 
+				searchProfile="IBM_findCategoryByUniqueIds,IBM_Admin_findCategoryByIds"/>
+    </Resource>
+    
+    <Resource name="sitecontent">
+    	<GetUri uri="store/{storeId}/sitecontent/productSuggestionsBySearchTerm/{searchTerm}" 
+				description="Get product suggestions." 
+				searchProfile="IBM_findNavigationSuggestion_Products,IBM_findNavigationSuggestion_PartNumber"/>
+				
+		<GetUri uri="store/{storeId}/sitecontent/webContentsBySearchTerm/{searchTerm}" 
+				description="Get Web Contents by search term based on below search profile." 
+				searchProfile="IBM_findWebContentsBySearchTerm"/>
+
+		<GetUri uri="store/{storeId}/sitecontent/brandSuggestions" 
+				description="Get brand suggestions." 
+				searchProfile="IBM_findNavigationSuggestion_Brands"/>
+
+		<GetUri uri="store/{storeId}/sitecontent/categorySuggestions" 
+				description="Get category suggestions." 
+				searchProfile="IBM_findNavigationSuggestion_Categories"/>
+    </Resource>
+</ResourceConfig>

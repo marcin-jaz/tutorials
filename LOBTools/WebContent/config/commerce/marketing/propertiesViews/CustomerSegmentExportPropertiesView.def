@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<Definitions>
+
+	<ObjectGrid definitionName="mktCustomerSegmentExportDownloadHistoryGrid" preferenceKey="mktCustomerSegmentExportDownloadHistoryGrid">
+		<GridText editable="false" name="userIdentifier"
+			propertyName="userIdentifier"
+			text="${mktMarketingResources.customerSegmentExportDownloadHistory_user}"
+			visible="true" width="250" />
+		<GridDateTime editable="false" name="downloadTime"
+			propertyName="downloadTime"
+			text="${mktMarketingResources.customerSegmentExportDownloadHistory_downloadTime}"
+			visible="true" width="150" />
+	</ObjectGrid>
+
+	<PropertyPane definitionName="mktCustomerSegmentExportPaneContent">
+		<PropertyGroup baseDefinitionName="wcfPropertyAssetInformationGroup"
+			name="assetGroup" />
+		<PropertyGroup groupTitle="${mktMarketingResources.customerSegmentExportProperties}"
+			name="customerSegmentExportPropertiesGroup" open="true">
+			<PropertyInputText
+				helpText="${mktMarketingResources.customerSegmentExport_customerSegmentExportName_helpText}"
+				name="customerSegmentExportName" promptText="${mktMarketingResources.customerSegmentExport_name}"
+				propertyName="customerSegmentExportName" required="true" />
+			<PropertyViewLongText
+				helpText="${mktMarketingResources.customerSegmentExport_customerSegmentName_helpText}"
+				name="customerSegmentName" promptText="${mktMarketingResources.customerSegmentExport_customerSegmentName}"
+				propertyName="customerSegmentName" />
+			<PropertyCheckbox
+				helpText="${mktMarketingResources.customerSegmentExport_includeCustomerNames_helpText}"
+				name="customerSegmentIncludeCustomerNames" promptText="${mktMarketingResources.customerSegmentExport_includeCustomerNames}"
+				trueValue="1" falseValue="0"
+				propertyName="customerSegmentExportIncludeCustomerNames" />
+			<PropertyCheckbox
+				helpText="${mktMarketingResources.customerSegmentExport_includeLogonId_helpText}"
+				name="customerSegmentIncludeLogonId" promptText="${mktMarketingResources.customerSegmentExport_includeLogonId}"
+				trueValue="1" falseValue="0"
+				propertyName="customerSegmentExportIncludeLogonId" />
+			<PropertyCheckbox
+				helpText="${mktMarketingResources.customerSegmentExport_includeEmailsOptOutCustomers_helpText}"
+				name="customerSegmentIncludeEmailsOptOutCustomers" promptText="${mktMarketingResources.customerSegmentExport_includeEmailsOptOutCustomers}"
+				trueValue="1" falseValue="0"
+				propertyName="customerSegmentExportIncludeEmailsOptOutCustomers" />
+			<PropertyViewLongText
+				helpText="${mktMarketingResources.customerSegmentExport_uniqueId_helpText}"
+				name="uniqueId" promptText="${mktMarketingResources.customerSegmentExport_uniqueId}"
+				propertyName="uniqueId" />
+			<PropertyViewLongText
+				helpText="${mktMarketingResources.customerSegmentExport_summary_helpText}"
+				name="summary" promptText="${mktMarketingResources.customerSegmentExport_summary}"
+				propertyName="summary" />
+		</PropertyGroup>
+	</PropertyPane>
+
+	<PropertyPane definitionName="mktCustomerSegmentDownloadHistoryPaneContent">
+		<PropertyGroup collapsable="false"
+			name="customerSegmentDownloadHistory">
+			<ChildListViewer listDefinitionName="mktCustomerSegmentExportDownloadHistoryGrid"
+				objectTypes="CustomerSegmentExportDownloadHistory" name="downloadHistory" 
+				promptText="${mktMarketingResources.customerSegmentExportDownloadHistory}" />
+		</PropertyGroup>
+	</PropertyPane>
+
+	<ObjectProperties definitionName="mktCustomerSegmentExportProperties">
+		<PropertyTabs name="tabs">
+			<PropertyTabPane name="customerSegmentExportTab" text="${mktMarketingResources.customerSegmentExportTab_customerSegmentExport}">
+				<PropertyPane baseDefinitionName="mktCustomerSegmentExportPaneContent"/>
+			</PropertyTabPane>
+			<PropertyTabPane name="downloadHistoryTab" text="${mktMarketingResources.customerSegmentExportTab_downloadHistory}">
+				<PropertyPane baseDefinitionName="mktCustomerSegmentDownloadHistoryPaneContent"/>
+			</PropertyTabPane>
+		</PropertyTabs>
+	</ObjectProperties>
+
+</Definitions>

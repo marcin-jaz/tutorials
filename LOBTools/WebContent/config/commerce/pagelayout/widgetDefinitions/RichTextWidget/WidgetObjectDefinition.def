@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<WidgetObjectDefinition package="plm"
+		definitionName="plmLayoutWidget_RichTextWidget"
+		baseDefinitionName="plmBaseLayoutWidget" 
+		parentDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		objectType="RichTextWidget" 
+		gridPropertiesDefinitionName="plmWidgetProperties_RichTextWidget"
+		iconPath="/images/pagelayouts/widgetIcons/rich_text.png"
+		widgetDisplayGroups="AnyPage,CatalogEntryPage,CategoryPage,SearchPage"
+		helpLink="concepts/cpzwidrich.htm">
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsName" copyProtected="true">
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsId" copyProtected="true">
+		</PropertyDefinition>
+
+		<CreateService baseDefinitionName="plmBaseCreateLayoutWidget" />
+		<UpdateService baseDefinitionName="plmBaseUpdateLayoutWidget" />
+
+		<!-- Child object definition for local widget display text -->
+		<ChildObjectDefinition baseDefinitionName="plmBaseWidgetDisplayText"
+			initializeObjectStoreId="true" objectType="WidgetDisplayText">
+			<TrueEnablementCondition />
+		</ChildObjectDefinition>
+
+		<!-- Child object definition for inherited widget display text -->
+		<ChildObjectDefinition baseDefinitionName="plmBaseWidgetDisplayText"
+			objectType="InheritedWidgetDisplayText" 
+			allowedParentTypes="InheritedPageLayout"
+			objectGroups="AssetStoreObjectsGroup">
+			<EnablementCondition checkHasAccessRight="true"
+				conditionId="accessRightCondition" 
+				enablementValue="true" />
+		</ChildObjectDefinition>
+
+		<Xml name="template">
+			<sequence>0</sequence>
+		</Xml>
+		
+		<MarketingWidgetInheritedObjectValidator package="plm" />
+		
+	</WidgetObjectDefinition>
+
+	<!-- Base child object definition for the display text of the widget -->
+	<ChildObjectDefinition definitionName="plmBaseWidgetDisplayText"
+		isBaseDefinition="true" 
+		idProperty="languageId" 
+		languageSensitive="true"
+		releaseWhenClosed="false">
+
+		<!-- Property definition for the display text of the widget. -->
+		<PropertyDefinition displayName="Display text"
+			propertyName="xExtData_displayText" />
+
+		<!-- Create service -->
+		<CreateService url="/cmc/CreateWidgetExtendedData">
+			<ServiceParam name="storeId" />
+			<ServiceParam name="dataStoreId1" 
+				parameterName="dataStoreId"
+				parentProperty="true" 
+				resolvePrimaryParent="true" 
+				propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true"
+					conditionId="objectTypeCondition" 
+					enablementValue="WidgetDisplayText"
+					negate="true" 
+					propertyName="objectType" />
+			</ServiceParam>
+			<ServiceParam name="dataStoreId2" 
+				parameterName="dataStoreId"
+				contextName="storeId">
+				<EnablementCondition checkObjectDefinition="true"
+					conditionId="objectTypeCondition" 
+					enablementValue="WidgetDisplayText"
+					propertyName="objectType" />
+			</ServiceParam>
+			<ServiceParam name="pageLayoutId" propertyName="pageLayoutId"
+				parentProperty="true" />
+			<ServiceParam name="type" value="IBM_DisplayText" />
+			<ServiceParam name="widgetId" 
+				propertyName="widgetId"
+				parentProperty="true" 
+				resolvePrimaryParent="false" />
+			<ServiceParam name="languageId" 
+				propertyName="languageId" />
+		</CreateService>
+
+		<!-- Update Service -->
+		<UpdateService url="/cmc/UpdateWidgetExtendedData">
+			<ServiceParam name="storeId" />
+			<ServiceParam name="dataStoreId1" 
+				parameterName="dataStoreId"
+				parentProperty="true" 
+				resolvePrimaryParent="true" 
+				propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true"
+					conditionId="objectTypeCondition" 
+					enablementValue="WidgetDisplayText"
+					negate="true" 
+					propertyName="objectType" />
+			</ServiceParam>
+			<ServiceParam name="dataStoreId2" 
+				parameterName="dataStoreId"
+				contextName="storeId">
+				<EnablementCondition checkObjectDefinition="true"
+					conditionId="objectTypeCondition" 
+					enablementValue="WidgetDisplayText"
+					propertyName="objectType" />
+			</ServiceParam>
+			<ServiceParam name="pageLayoutId" 
+				propertyName="pageLayoutId"
+				parentProperty="true" />
+			<ServiceParam name="widgetId" 
+				propertyName="widgetId"
+				parentProperty="true" 
+				resolvePrimaryParent="false" />
+			<ServiceParam name="type" 
+				value="IBM_DisplayText" />
+			<ServiceParam name="languageId" 
+				propertyName="languageId" />
+		</UpdateService>
+
+	</ChildObjectDefinition>
+
+
+</Definitions>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<GridObjectProperties definitionName="plmWidgetProperties_ShortDescriptionWidget">
+		<PropertyPane>
+			<PropertyGroup name="widgetProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetPropertiesPrompt}">
+				<PropertyInputText name="${plmPageLayoutResources.widgetNamePrompt}" propertyName="widgetName"
+					promptText="${plmPageLayoutResources.widgetNamePrompt}" 
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_WidgetName}" />
+			</PropertyGroup>
+			<PropertyGroup name="contentProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetContentPrompt}">
+				<PropertyStaticText text="${plmPageLayoutResources.ShortDescriptionWidgetContent}" />
+			</PropertyGroup>
+		</PropertyPane>
+	</GridObjectProperties>
+
+</Definitions>

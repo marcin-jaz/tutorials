@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><application id="Application_ID" version="5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd">
+ <display-name>Search</display-name>
+ <module id="Module_1385569781572">
+ 	<web>
+ 		<web-uri>Search-Preview.war</web-uri>
+ 		<context-root>/search/previewresources</context-root>
+ 	</web>
+ </module>
+ <module id="Module_1385569805467">
+ 	<web>
+ 		<web-uri>Search-Rest.war</web-uri>
+ 		<context-root>/search/resources</context-root>
+ 	</web>
+ </module>
+ <module id="Module_1385569857138">
+ 	<web>
+ 		<web-uri>Search-Solr.war</web-uri>
+ 		<context-root>/solr</context-root>
+ 	</web>
+ </module>
+ <module>
+ 	<web>
+ 		<web-uri>Search-IndexLoad.war</web-uri>
+ 		<context-root>/search/indexload</context-root>
+ 	</web>
+ </module>
+</application>

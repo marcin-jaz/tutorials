@@ -1,0 +1,52 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%--
+  *****
+  * This JSP page displays displays date/time values for RFQFindDisplay
+  * JSP pages.
+  *
+  *****
+--%>
+<!--BEGIN DISPLAY CALENDAR SELECTION-->
+<%--
+variables used in included files
+				select_name - name of select control
+				default_option - default value
+				selected_val - day selected, optional
+--%>
+<!-- YEAR -->
+<fmt:message key="RFQCreateDisplay_Year" bundle="${storeText}"/>
+<c:set var="select_name" value="${select_prefix}Year"/>
+<c:set var="default_option" value=""/>
+<%@ include file="../CommonSection/SelectYear.jspf" %>
+<!-- MONTH --> 
+<fmt:message key="RFQCreateDisplay_Month" bundle="${storeText}"/>
+<c:set var="select_name" value="${select_prefix}Month"/>
+<c:set var="default_option" value=""/>
+<%@ include file="../CommonSection/SelectMonth.jspf" %>
+<!-- DAY -->
+<fmt:message key="RFQCreateDisplay_Day" bundle="${storeText}"/>
+<c:set var="select_name" value="${select_prefix}Day"/>
+<c:set var="default_option" value=""/>
+<%@ include file="../CommonSection/SelectDay.jspf" %>
+<!--END CALENDAR SELECTION-->
+
+
+
+
+
+					

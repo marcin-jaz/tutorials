@@ -1,0 +1,267 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<library>
+
+	<!---
+		New object handler that creates marketing objects directly
+		bypassing the template wizard.
+		The marketing object will be populated if it has a populate new object service
+		and that service supports the objectType passed in.
+		A path to an object that is to receive the focus after open can be specified.
+	-->
+	<class name="mktNewMarketingObjectHandler" extends="wcfNewReferencedObjectHandler">
+	
+		<!-- The type of object to be create by the populate service. -->
+		<attribute name="objectType" value="null"/>
+		
+		<!--
+			The path to the object that is to get the focus after open.
+			Optional parameter.
+		-->
+		<attribute name="focusComponentPath" value="${null}"/>
+		
+		<!--
+			The property of the focus object that is to get the focus after open.
+			Optional parameter.
+		-->
+		<attribute name="focusComponentProperty" value="${null}"/>
+		
+		<!---
+			@keywords private
+		-->
+		<handler name="oninit">
+			<![CDATA[
+			this.setFocusDel = new lz.Delegate(this, "setFocus");
+			]]>
+		</handler>
+		
+		<!---
+			@keywords private
+		-->
+		<method name="createNewObject" args="objectDefinition, parentObject, del=null">
+			<![CDATA[
+				var o = objectDefinition.model.createNewObject(objectDefinition);								
+				if (o) {
+					if (this.objectType != null && o.objectDefinition.populateNewObjectService != null) {
+						var name = "";
+						if (parentObject) {
+							var layoutObj = parentObject.getParentPrimaryObject("PageLayoutAlias");
+							var layoutName = "";
+							if(layoutObj){
+								layoutName = layoutObj.getPropertyValue("name", null, true);
+							}
+							var slot = parentObject.getPropertyValue("slotIdentifier", null, true);
+							var sequence = parentObject.getPropertyValue("sequence", null, true);
+							name = mktMarketingResources.replaceValues("widgetGeneratedActivityName", [layoutName,slot,sequence]);
+							// Check length does not exceed activity name maximum
+							name = name.length > 64 ? name.substr(0, 64) : name;
+							name = this.handleDuplication(parentObject, name);
+						}
+						// Special case: Check if coremetrics is enabled before populating
+						//   the IBM Product recommendation activity else create a default activity
+						var objectType = this.objectType;
+						if (this.objectType == "Coremetrics") {
+							var storeConfig = wcfContextUtil.findStoreConfig(o);
+							var coremetricsEnabled = ((storeConfig != null) && (storeConfig.analytics != null));
+							if (coremetricsEnabled) {
+								coremetricsEnabled = storeConfig.analytics.isEnabled == "true" && storeConfig.analytics.provider == "coremetrics";
+							}
+							if (!coremetricsEnabled) {
+								objectType = "Default";
+							}
+						}
+						o.objectDefinition.populateNewObjectService.doRequest(o,{type:objectType,name:name});
+					}
+					o.model.oEditor.selectOpenObject(o);
+					// Set focus
+					if (this.focusComponentPath != null) {
+						var loadFocusChildrenTriggered = false;
+						var focusObjectPath = this.focusComponentPath;
+						var focusObject = o.getObject(focusObjectPath);
+						if (focusObject == null) {
+							var pathSelectors = wcfModelUtil.getPathSelectors(focusObjectPath);
+							var focusObjectDefinitions = o.objectDefinition.getChildDefinitions(pathSelectors[0].type);
+							if (focusObjectDefinitions.length > 0) {
+								wcfLoadChildrenActionHandler.triggerAction(o, focusObjectDefinitions, this.setFocusDel, {
+									o: o,
+									focusComponentPath: this.focusComponentPath,
+									focusComponentProperty: this.focusComponentProperty
+								});	
+								loadFocusChildrenTriggered = true;
+							}
+						}
+						if (!loadFocusChildrenTriggered) {
+							this.setFocus({
+								o: o,
+								focusComponentPath: this.focusComponentPath,
+								focusComponentProperty: this.focusComponentProperty
+							});
+						}
+					}					
+				}
+				if (del != null) {
+					del.execute(o);
+				}
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+		-->
+		<method name="setFocus" args="args=null">
+			<![CDATA[
+			if (args && args.o != null && args.focusComponentPath != null) {
+				mktSetFocusUtility.setFocusOnObject(args.o, args.focusComponentPath, args.focusComponentProperty);
+			}
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			Handle the duplicated activity name.
+			Return a name with proper suffix/prefix.
+		-->
+		<method name="handleDuplication" args="parent, name">
+			<![CDATA[
+			var newName = name;
+			var activityNamesMap = {};
+			
+			var activities = parent.getObjects("ActivityReferenceGroup/WebActivityGroup");
+			for (var i=0; i < activities.length; i++){
+				var activityName = activities[i].getPropertyValue("name");
+				if (activityName != "" && activityName.indexOf(name) != -1) {
+					activityNamesMap[activityName]=true;
+				}
+			}
+			var count = 2;
+			while(activityNamesMap[newName]){
+				newName = mktMarketingResources.replaceValues("newWidgetActivityNameTemplate", [name,count++]);
+			}
+			
+			return newName;
+			]]>
+		</method>
+	</class>
+	
+	<!---
+		Enablement condition that checks if the WebActivity was created by a page composer
+		widget and the type of widget activity it is.
+		If the type does not match, it will return false.
+		Multiple types can be specified as comma separated values.
+		This enablement condition is used to control the visiblity of flow elements
+		in the activity builder. 
+	-->
+	<class name="mktMatchesWidgetActivityTypeEnablementCondition" extends="wcfEnablementCondition">
+		
+		<!-- The object types to be checked -->
+		<attribute name="objectTypes" value="null"/>
+		
+		<!---					
+		    @keywords private
+			@param wcfModelObject o the model object that is to be enabled/disabled.
+		-->
+		<method name="isEnabled" args="o">
+			<![CDATA[
+			var result = true;
+			if (o) {
+				if (o.readOnly) {
+					result = false;
+				}
+				else {
+					var parentActivity = o.getParentPrimaryObject("WebActivityGroup");
+					if(parentActivity){
+						var viewESpot = parentActivity.getObject("path/viewEMarketingSpot");
+						if(viewESpot){
+							var widget = viewESpot.getProperty("widgetEspot");
+							if(widget != null && widget != 0)
+							{
+								var widgetType = viewESpot.getPropertyValue("widgetType");
+								if(widgetType != null && widgetType != '' && objectTypes != null)
+								{
+									if (widgetType == "Default") {
+										// Allow all normal actions for a default web activity
+										result = true;
+									} else {
+										result = false;
+										// Check if this activity matches one of the allowed types
+										var types = wcfStringUtil.splitAndTrim(objectTypes, ",");
+										for( var i=0; i < types.length; i++ )
+										{
+											if(types[i] == widgetType)
+											{
+												result = true;
+												break;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			if(this.negate)
+			{
+				result = !result;
+			}
+			
+			return result;
+			
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			Register a delegate to be executed when the enablement changes.
+			@param wcfModelObject o: the model object
+			@param lz.Delegate del: the delegate
+		-->
+		<method name="registerDelegate" args="o, del">
+			<![CDATA[
+			if (del) {
+				del.register(o, "onreadOnly");
+			}
+			]]>
+		</method>
+		
+	</class>
+	
+	<!--- @keywords private -->
+	<node id="mktSetFocusUtility">
+		
+		<method name="setFocusOnObject" args="o, path, property=null">
+			<![CDATA[
+				var detailsView = o.model.oEditor.getDetailsView();
+				if (detailsView["o"] && detailsView.o == o.openGroupObject && detailsView["setFocusOnComponent"]) 
+				{
+					var object = o.getObject(path,false);
+					var propertyObj = null;
+					if (object != null && property != null ) {
+						propertyObj = object.getProperty(property);
+					}
+					if (detailsView["panel"] && detailsView.panel.activeView == detailsView && detailsView.o != null && object != null) {					
+						
+						var focusSet = detailsView.setFocusOnComponent(detailsView, object, propertyObj, o);
+						if (!focusSet)
+						{
+							detailsView.setFocusToFirstComponent();
+						}			
+					}
+				}
+			]]>
+		</method>
+	</node>
+</library>

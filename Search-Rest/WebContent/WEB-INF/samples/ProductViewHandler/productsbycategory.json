@@ -1,0 +1,356 @@
+{
+	"breadCrumbTrailEntryView": [
+		{
+			"label": "Apparel",
+			"type_": "FACET_ENTRY_CATEGORY",
+			"value": "10001"
+		},
+		{
+			"label": "Girls",
+			"type_": "FACET_ENTRY_CATEGORY",
+			"value": "10005"
+		},
+		{
+			"label": "Tops",
+			"type_": "FACET_ENTRY_CATEGORY",
+			"value": "10023"
+		}
+	],
+	"catalogEntryView": [
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Albini",
+			"name": "Albini Tots Girl'S Cotton Short sleeve Shirt",
+			"parentCatalogGroupID": "10023",
+			"partNumber": "GCL017_1701",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "35.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/12174",
+			"shortDescription": "Girls ' short sleeve cotton button-up shirt with pretty floral print",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/girls\/gcl017_tops\/160x160\/gcl017_1701.jpg",
+			"uniqueID": "12174"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Gusso",
+			"name": "Gusso Kidswear Girls' Balloons Graphic T-Shirt",
+			"parentCatalogGroupID": "10023",
+			"partNumber": "GCL017_1702",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "25.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/12182",
+			"shortDescription": "Girls ' short sleeve balloons graphic t-shirt",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/girls\/gcl017_tops\/160x160\/gcl017_1702.jpg",
+			"uniqueID": "12182"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Gusso",
+			"name": "Gusso Kidswear Velour Hoodie",
+			"parentCatalogGroupID": "10023",
+			"partNumber": "GCL017_1703",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "36.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/12188",
+			"shortDescription": "Girls ' soft & comfortable velour hoodie",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/girls\/gcl017_tops\/160x160\/gcl017_1703.jpg",
+			"uniqueID": "12188"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Versatil",
+			"name": "Versatil Cotton\/Polyester Cable Knit Cardigan",
+			"parentCatalogGroupID": "10023",
+			"partNumber": "GCL017_1704",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "38.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/12194",
+			"shortDescription": "Girls cotton\/polyester cable knit cardigan",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/girls\/gcl017_tops\/160x160\/gcl017_1704.jpg",
+			"uniqueID": "12194"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Albini",
+			"name": "Albini Tots T-Shirt with Cotton Trim",
+			"parentCatalogGroupID": "10023",
+			"partNumber": "GCL017_1705",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "32.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/12200",
+			"shortDescription": "Girls ' colorful t-shirt with collared cotton trim",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/girls\/gcl017_tops\/160x160\/gcl017_1705.jpg",
+			"uniqueID": "12200"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Hermitage Collection",
+			"name": "Hermitage Sweater with Ruffled Neckline",
+			"parentCatalogGroupID": "10023",
+			"partNumber": "GCL017_1706",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "40.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/12206",
+			"shortDescription": "Girls ' long sleeve sweater with ruffled neckline",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/girls\/gcl017_tops\/160x160\/gcl017_1706.jpg",
+			"uniqueID": "12206"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Albini",
+			"name": "Albini Tots Cotton Tunic Shirt",
+			"parentCatalogGroupID": "10023",
+			"partNumber": "GCL017_1707",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "40.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/12212",
+			"shortDescription": "Girls ' long sleeve cotton tunic shirt",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/girls\/gcl017_tops\/160x160\/gcl017_1707.jpg",
+			"uniqueID": "12212"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Hermitage Collection",
+			"name": "Hermitage Cable Knit Cardigan",
+			"parentCatalogGroupID": "10023",
+			"partNumber": "GCL017_1708",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "35.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/12218",
+			"shortDescription": "Girls ' button-up cap sleeve cable knit cardigan",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/girls\/gcl017_tops\/160x160\/gcl017_1708.jpg",
+			"uniqueID": "12218"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Hermitage Collection",
+			"name": "Hermitage Cardigan with Tie Belt",
+			"parentCatalogGroupID": "10023",
+			"partNumber": "GCL017_1709",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "36.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/12226",
+			"shortDescription": "Girls ' button-up cable knit cardigan with tie belt",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/girls\/gcl017_tops\/160x160\/gcl017_1709.jpg",
+			"uniqueID": "12226"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Gusso",
+			"name": "Gusso Graphic T-Shirt",
+			"parentCatalogGroupID": "10023",
+			"partNumber": "GCL017_1710",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "25.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/12231",
+			"shortDescription": "Girls Spring Flowers graphic t-shirt",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/girls\/gcl017_tops\/160x160\/gcl017_1710.jpg",
+			"uniqueID": "12231"
+		}
+	],
+	"facetView": [
+		{
+			"entry": [
+				{
+					"count": "5",
+					"extendedData": {
+						"uniqueId": "-100271117115115111"
+					},
+					"label": "Gusso",
+					"value": "mfName_ntk_cs%3A%22Gusso%22"
+				},
+				{
+					"count": "4",
+					"extendedData": {
+						"uniqueId": "-10026510898105110105"
+					},
+					"label": "Albini",
+					"value": "mfName_ntk_cs%3A%22Albini%22"
+				},
+				{
+					"count": "4",
+					"extendedData": {
+						"uniqueId": "-10027210111410910511697103101326711110810810199116105111110"
+					},
+					"label": "Hermitage Collection",
+					"value": "mfName_ntk_cs%3A%22Hermitage+Collection%22"
+				},
+				{
+					"count": "3",
+					"extendedData": {
+						"uniqueId": "-10028610111411597116105108"
+					},
+					"label": "Versatil",
+					"value": "mfName_ntk_cs%3A%22Versatil%22"
+				}
+			],
+			"extendedData": {
+				"allValuesReturned": "false",
+				"allowMultipleValueSelection": "false",
+				"displaySequence": "0.0",
+				"displayable": "1",
+				"facet_id": "-1000",
+				"fdesc": "The manufacturer",
+				"fname": "Brand",
+				"groupId": "0",
+				"group_id": "0",
+				"keyword_search": "1",
+				"max_display": "20",
+				"maximumValuesToDisplay": "20",
+				"propertyname": "facet",
+				"propertyvalue": "mfName_ntk_cs",
+				"selection": "0",
+				"sortorder": "0",
+				"srchattr_id": "-1002",
+				"srchattridentifier": "_cat.ManufacturerName",
+				"storeent_id": "0",
+				"zero_display": "0"
+			},
+			"name": "ManufacturerName",
+			"value": "mfName_ntk_cs"
+		},
+		{
+			"entry": [
+				{
+					"count": 16,
+					"extendedData": {
+						"uniqueId": "4012342324948481253249484841"
+					},
+					"label": "({* 100} 100)",
+					"value": "price_USD%3A%28%7B*+100%7D+100%29"
+				},
+				{
+					"count": 0,
+					"extendedData": {
+						"uniqueId": "40123494848325048481253250484841"
+					},
+					"label": "({100 200} 200)",
+					"value": "price_USD%3A%28%7B100+200%7D+200%29"
+				},
+				{
+					"count": 0,
+					"extendedData": {
+						"uniqueId": "40123504848325148481253251484841"
+					},
+					"label": "({200 300} 300)",
+					"value": "price_USD%3A%28%7B200+300%7D+300%29"
+				},
+				{
+					"count": 0,
+					"extendedData": {
+						"uniqueId": "40123514848325248481253252484841"
+					},
+					"label": "({300 400} 400)",
+					"value": "price_USD%3A%28%7B300+400%7D+400%29"
+				},
+				{
+					"count": 0,
+					"extendedData": {
+						"uniqueId": "40123524848325348481253253484841"
+					},
+					"label": "({400 500} 500)",
+					"value": "price_USD%3A%28%7B400+500%7D+500%29"
+				},
+				{
+					"count": 0,
+					"extendedData": {
+						"uniqueId": "40123534848324212541"
+					},
+					"label": "({500 *})",
+					"value": "price_USD%3A%28%7B500+*%7D%29"
+				}
+			],
+			"name": "OfferPrice_USD",
+			"value": "price_USD"
+		}
+	],
+	"metaData": {
+		"price": "1"
+	},
+	"recordSetComplete": "false",
+	"recordSetCount": 10,
+	"recordSetStartNumber": 0,
+	"recordSetTotal": 16,
+	"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byCategory\/10023",
+	"resourceName": "productview"
+}

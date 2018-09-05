@@ -1,0 +1,83 @@
+<!DOCTYPE repository-entries SYSTEM "../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<page-components>
+	<virtual-file id="vfile.logo"/>
+	<virtual-file-implementation virtual-file-id="vfile.logo" url="images/logo.jpg" id="vfile.logo.jpg"/>
+	<virtual-file-implementation virtual-file-id="vfile.logo" url="images/logo.gif" id="vfile.logo.gif"/>
+
+	<virtual-file id="vfile.banner"/>
+	<virtual-file-implementation virtual-file-id="vfile.banner" url="images/banner.jpg" id="vfile.banner.jpg"/>
+	<virtual-file-implementation virtual-file-id="vfile.banner" url="images/banner.gif" id="vfile.banner.gif"/>
+
+	<virtual-file id="vfile.selectedBanner"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner1_1.gif" id="vfile.selectedBanner1.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner1_2.gif" id="vfile.selectedBanner2.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner1_3.gif" id="vfile.selectedBanner3.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner1_4.gif" id="vfile.selectedBanner4.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner1_5.gif" id="vfile.selectedBanner5.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner1_6.gif" id="vfile.selectedBanner6.img"/>	
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner2_1.gif" id="vfile.selectedBanner7.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner2_2.gif" id="vfile.selectedBanner8.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner2_3.gif" id="vfile.selectedBanner9.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner2_4.gif" id="vfile.selectedBanner10.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner2_5.gif" id="vfile.selectedBanner11.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner2_6.gif" id="vfile.selectedBanner12.img"/>	
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner3_1.gif" id="vfile.selectedBanner13.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner3_2.gif" id="vfile.selectedBanner14.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner3_3.gif" id="vfile.selectedBanner15.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner3_4.gif" id="vfile.selectedBanner16.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner3_5.gif" id="vfile.selectedBanner17.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner3_6.gif" id="vfile.selectedBanner18.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner4_1.gif" id="vfile.selectedBanner19.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner4_2.gif" id="vfile.selectedBanner20.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner4_3.gif" id="vfile.selectedBanner21.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner4_4.gif" id="vfile.selectedBanner22.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner4_5.gif" id="vfile.selectedBanner23.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner4_6.gif" id="vfile.selectedBanner24.img"/>	
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner5_1.gif" id="vfile.selectedBanner25.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner5_2.gif" id="vfile.selectedBanner26.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner5_3.gif" id="vfile.selectedBanner27.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner5_4.gif" id="vfile.selectedBanner28.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner5_5.gif" id="vfile.selectedBanner29.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner5_6.gif" id="vfile.selectedBanner30.img"/>	
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner6_1.gif" id="vfile.selectedBanner31.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner6_2.gif" id="vfile.selectedBanner32.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner6_3.gif" id="vfile.selectedBanner33.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner6_4.gif" id="vfile.selectedBanner34.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner6_5.gif" id="vfile.selectedBanner35.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner6_6.gif" id="vfile.selectedBanner36.img"/>
+	
+	<virtual-file id="vfile.stylesheet"/>
+	<!-- The following displays an example of how to create locale specific .css files.  If browsing a store in the iw_IL locale,
+		then the Master1_1iw_IL.css file will be used instead of the default Master1_1.css file -->
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master1_1$locale$.css" id="vfile.style1.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master1_2$locale$.css" id="vfile.style2.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master1_3$locale$.css" id="vfile.style3.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master1_4$locale$.css" id="vfile.style4.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master1_5$locale$.css" id="vfile.style5.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master1_6$locale$.css" id="vfile.style6.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master2_1$locale$.css" id="vfile.style7.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master2_2$locale$.css" id="vfile.style8.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master2_3$locale$.css" id="vfile.style9.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master2_4$locale$.css" id="vfile.style10.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master2_5$locale$.css" id="vfile.style11.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master2_6$locale$.css" id="vfile.style12.css" locale-specific="yes" locales="iw_IL,iw,ko_KR,zh_CN"/>
+	
+	<virtual-file id="vfile.color"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color1/" id="vfile.color1.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color2/" id="vfile.color2.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color3/" id="vfile.color3.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color4/" id="vfile.color4.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color5/" id="vfile.color5.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color6/" id="vfile.color6.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color7/" id="vfile.color7.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color8/" id="vfile.color8.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color9/" id="vfile.color9.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color10/" id="vfile.color10.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color11/" id="vfile.color11.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color12/" id="vfile.color12.dir"/>
+		
+</page-components>
+</components>
+</repository-entries>

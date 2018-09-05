@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+
+	<panel id="AnalyticsPanel" title="AnalyticsPanel.title" description="Analytics.description" display-priority="8" />
+
+	<option-group id="Analytics.checkbox" title="Analytics.checkboxEnable.title" type="checkbox" display-priority="1" panel="AnalyticsPanel" >
+		
+		<option id="Analytics.checkboxEnable"
+			label="Analytics.checkboxEnable.label"
+			enables-features="Analytics" />
+	</option-group>
+	
+</display>

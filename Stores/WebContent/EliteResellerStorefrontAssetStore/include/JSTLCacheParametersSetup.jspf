@@ -1,0 +1,47 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2001, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%-- 
+  *****
+  * This JSP fragment sets up variables used as parameters passed into JSP pages that enable caching on those pages.
+  * This file is used by JSP pages that use JSTL.
+  *****
+--%>
+<c:if test="${!(userType eq 'G')}">
+		<%-- Determine roles played by user to hide/show functionality on pages --%>
+		<wcbase:useBean id="userRegistrationDataBean" classname="com.ibm.commerce.user.beans.UserRegistrationDataBean" scope="request"/>
+		<c:forEach items="${userRegistrationDataBean.rolesInActiveOrganizationAndAncestors}" var="role">
+			<c:choose >
+				<c:when test="${role == -21}">
+					<c:set var="bBuyerAdmin" value="true"/>
+				</c:when>
+				<c:when test="${role == -22}">
+					<c:set var="bBuyerApprover" value="true"/>
+				</c:when>
+				<c:when test="${role == -24}">
+	 				<c:set var="bBuyerBuySide" value="true"/>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+		
+		<c:if test="${(bBuyerBuySide == true) && ((bBuyerApprover == true) || (bBuyerAdmin == true))}">
+			<c:set var="displayApproverLink" value="true"/>
+		</c:if>
+		
+		<c:if test="${(empty displayApproverLink) && (!empty param.displayApproverLink)}">
+			<c:set var="displayApproverLink" value="${param.displayApproverLink}"/>
+		</c:if>
+</c:if>

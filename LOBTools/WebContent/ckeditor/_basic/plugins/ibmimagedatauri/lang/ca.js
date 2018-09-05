@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("ibmimagedatauri","ca",{error:"Actualment, no es permet enganxar imatges. En comptes d'això, utilitzeu l'opció de la barra d'eines 'Insereix imatge'."});

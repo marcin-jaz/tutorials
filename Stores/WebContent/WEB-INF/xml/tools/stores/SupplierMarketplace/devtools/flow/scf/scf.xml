@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scf SYSTEM "scf.dtd">
+<scf version="1.0">
+  <exit-ports></exit-ports>
+  <features>
+    <feature id="Style.f.1"/>
+    <feature id="catalogSearch"/>
+    <feature id="Banner.f.1"/>
+    <feature id="LogonBanner.f.7"/>
+    <!-- feature id="HUDminiCurrentOrderDisplay"/ -->
+    <feature id="ATP"/>
+    <feature id="RequisitionList"/>
+    <feature id="QuickOrder"/>
+    <feature id="ScheduleOrder"/>
+    <feature id="Color.f.1"/>
+    <!-- feature id="headsUpDisplay"/ -->
+    <feature id="ProductQuantity"/>
+    <!-- feature id="HUDminiEMarketingSpotDisplay"/ -->
+    <feature id="trackOrderStatus"/>
+    <feature id="vfile.logo.gif.f"/>
+    <feature id="RFQ"/>
+    <feature id="vfile.banner.gif.f"/>
+  </features>
+  <file-refs>
+    <file-ref id="vfile.color" url="images/colors/color1/"/>
+    <file-ref id="vfile.selectedLogonBanner" url="images/banners/logonbanner_plain.jpg"/>
+    <file-ref id="StyleDir" url="include/styles/style1/"/>
+    <file-ref id="vfile.stylesheet" url="css/Master1_1.css"/>
+    <file-ref id="vfile.logo" url="images/logo.gif"/>
+    <file-ref id="vfile.banner" url="images/banner.gif"/>
+    <file-ref id="vfile.selectedBanner" url="images/banners/banner1_1.gif"/>
+  </file-refs>
+</scf>

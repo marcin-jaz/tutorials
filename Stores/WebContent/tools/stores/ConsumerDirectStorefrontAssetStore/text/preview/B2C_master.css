@@ -1,0 +1,213 @@
+/**
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright IBM Corp. 2006
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+
+/* General classes start */
+	
+	.body {margin:0px; padding:0px;background-color: #F0F3F8;}
+	TD,SPAN,DIV,P,UL,LI {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#444444;}
+	.checkbox, .radio {color:#7EABDC;padding:0px; margin:0px;}
+	.input{font-family: Verdana, Arial,sans-serif; font-size: 11px; border: solid 1px #7EABDC; height: 20px; padding-top:2px;margin-right:6px;width:210px} 
+	.select{font-family: Verdana, Arial,sans-serif; font-size: 11px; border: solid 1px #7EABDC; height: 20px; padding-top:2px;margin-right:6px;} 
+	TEXTAREA {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#444444; border: solid 1px #7EABDC; padding-top:2px;margin-right:5px;}
+	a {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#174D8A;text-decoration:underline}
+	a:hover {text-decoration:underline}
+	.space {padding-top:7px; padding-bottom:7px;}
+	.p_width {width:785px;}
+	.bold {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#444444;font-weight:bold;}
+	.select_length {width:224px;}
+	
+	
+	/* General classes end */
+	/* Menu classes start */
+	
+	.m_back {background-color:white;}
+	.m_line {vertical-align:bottom; height:35px;padding:0px; margin:0px;}
+	.m_top {padding-bottom:3px;vertical-align:bottom;}
+	.m_top_link {font-family: Verdana, Arial,sans-serif; font-size: 10px; font-weight:bold;color: #444444;padding-bottom:3px;text-decoration:none;}
+	.m_top_link:hover {color: #174D8A;}
+	.m_tile {background-image : url(images/m_tile.gif); background-repeat: repeat-x; background-color: #659BD6; text-align: -moz-center; height:26px;  padding:0px; margin:0px;}
+	.m_link {background-image : url(images/m_button_back.gif); background-repeat:no-repeat; font-family: Verdana, Arial,sans-serif; font-size: 11px; font-weight:bold;color: white;padding-left:12px;padding-right:15px;text-decoration:none;}
+	.m_link:hover {background-image :url(images/m_button_back2.gif);color: #174D8A;text-decoration:none;}
+	.m_bottom_line {background-image :url(images/m_bottom_line.gif);}
+	
+	/* Menu classes end */
+	/* search area classes start */
+	
+	.s_back {background-color: #F0F3F8;border-bottom: solid 1px #7EABDC;height:27px;}
+	.s_padding {padding-left:5px;}
+	.s_text {font-family: Verdana, Arial,sans-serif; font-size: 11px; font-weight:bold; text-decoration:none;color: #5C5E62;vertical-align:middle;}
+	.s_text_black {color:#174D8A;font-size: 11px;}
+	.s_link {font-family: Verdana, Arial,sans-serif; font-size: 11px;text-decoration:none;color: #5C5E62;}
+	.s_link2 {color: #174D8A;font-size: 11px;}
+	.s_link:hover {color: #174D8A;text-decoration:underline;}
+	.s_input {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:black; border: solid 1px #CFD2DC;height: 19px;}
+	.s_input2 {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:black; border: solid 1px #6E93BD;height: 19px;}
+	
+	/* search area classes end */
+	/* language select classes start */
+	
+	.lng_logo {padding-left:26px;}
+	.lng_link {text-decoration:none}
+	.lng_flag {border:solid 1px #7EABDC;}
+	
+	/* language select classes end */
+	/* logon classes start */
+	
+	.log_height {height: 20px;padding-top:5px;}
+	.log_page {height:100%;}
+	
+	/* logon classes end */
+	/* content classes start */
+	
+	#content {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#444444;}
+	.c_back {background-color:white;padding: 10px 0px 10px 0px;}
+	.c_headings {color:#5F82AA; font-size: 11px;font-weight:bold;padding-bottom:6px;padding-top:10px;}
+	.c_line {width:100%; background-image :url(images/c_line.gif);line-height:8px;margin:0px;font-size:2px;background-repeat: repeat-x;}
+	.c_large_img {width:245px;vertical-align:top;}
+	.c_flash {padding-top:10px; padding-bottom:13px;}
+	.c_homepage_cat {border:solid 1px #abaaaa;}
+	.c_homepage_cat_txt {font-family: Verdana, Arial,sans-serif; font-size: 13px; color:#444444;font-weight:bold; padding-left:6px; height:20px;}
+	.c_home_txt_blue {font-family: Verdana, Arial,sans-serif; font-size: 16px; color:#427DBE;font-weight:bold;}
+	.c_home_txt_black {font-family: Verdana, Arial,sans-serif; font-size: 16px; color:#444444;}
+	.c_select_yr_mnth {width:110px;}
+	
+	/* content classes end */
+	/* subNav classes start */
+	
+	#subNav {width:135px;padding-right:20px;vertical-align:top;}
+	.sn_off {height:20px; border-top:solid 1px #7EABDC;}
+	.sn_on {height:20px; border-top:solid 1px #7EABDC;background-color:#DCE3ED;}
+	.sn_link {font-family: Verdana, Arial,sans-serif; font-size: 10px; font-weight:bold; color:#444444;text-decoration:none;height:100%;width:100%;padding-top:3px;display:block;}
+	.sn_link:hover {background-color:#DCE3ED;text-decoration:none;}
+	
+	
+	/* subNav classes end */
+	/* table classes start */
+	
+	#table {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#444444;}
+	.t_table {width: 100%;}
+	.t_hd_last {color:#444444; font-size: 11px;font-weight:bold;padding: 3px 4px 3px 4px; background-color:#F0F3F8; text-align:left;height:15px;border:solid 1px #7EABDC;vertical-align:top;}
+	th.colHeader_last {color:#444444; font-size: 11px;font-weight:bold;padding: 3px 4px 3px 4px; background-color:#DCE3ED; text-align:left;height:15px;border-top:solid 1px #7EABDC;border-left:solid 1px #7EABDC;border-bottom:solid 1px #7EABDC;border-right:solid 1px #CFD2DC;vertical-align:top;border:solid 1px #7EABDC;}
+	.t_tr {border-bottom: solid 1px #7EABDC;}
+	.t_td { font-size: 11px; color:color:#444444;padding: 6px 4px 6px 4px;vertical-align:top; border-bottom: solid 1px #7EABDC;}
+	.t_td2 { font-size: 11px; color:color:#444444;padding: 7px 4px 3px 0px;vertical-align:top;}
+	.t_hd_rght {text-align : right; width:100%;color:#444444;  font-size: 11px;font-weight:bold;display:block;}
+	.t_hd_cntr {text-align : center; width:100%;color:#444444; font-size: 11px;font-weight:bold;display:block;}
+	.t_rght {text-align : right; display:block; font-size:11px;}
+	.t_cntr {text-align : center; width:100%;display:block;}
+	.t_fees { font-size: 11px; color:black;padding: 1px 4px 0px 4px;vertical-align:top;}
+	.t_fees_spc {line-heght:3px;font-size: 4px;}
+	.t_total { font-size: 11px; color:#444444;padding: 3px 4px 3px 4px;vertical-align:top;border-top:solid 1px #7EABDC;border-bottom:solid 1px #7EABDC;font-weight:bold;}
+	.t_total_figure { font-size: 11px; color:#444444;padding: 3px 4px 3px 4px;vertical-align:top;border-top:solid 1px #7EABDC;border-bottom:solid 1px #7EABDC;border-left:solid 1px #7EABDC;background-color:#DCE3ED;font-weight:bold;}
+	.t_discount {font-size: 11px; color:#8E8E8E;text-decoration : line-through;text-align : right; width:100%;display:block;}
+	.t_button {background-color:#D3DCE7; font-family: Verdana, Arial,sans-serif; font-size: 10px; text-decoration: none; font-weight:bold;color: #444444; padding:1 0 2 0px;border: solid 1px #7EABDC;height:14px; width:100%;text-align : center;margin-bottom:5px;display:block;}
+	.t_button:hover {color:#174D8A;border: solid 1px #6E93BD;background-color: #BDD0E6;text-decoration: none;}
+	
+	.t_img_view {text-align : center; width:120px;display:block;padding-top:12px;padding-bottom:10px;vertical-align:top;}
+	.t_detail_view {display:block;padding-top:12px;padding-bottom:10px;vertical-align:top;}
+	.t_space {padding-bottom: 8px;text-align : center;}
+	.t_img_border { border:solid 1px #7EABDC;}
+	.t_empty_cell {width:14px}
+
+	.t_row_img {padding-top:10px;padding-bottom:10px;vertical-align:top;}
+	.t_row_detail {padding:6px;vertical-align:top;width:230px;}
+	.t_txt_detail {font-size: 10px;}
+	.t_row_price {padding-top:6px;padding-bottom:6px;vertical-align:top;width:95px;display:block}
+	.t_button_space {padding-top:5px;display:block}
+	.t_line {border-bottom:solid 1px #7EABDC;font-size:1px;}
+	.t_rght_space {padding-right:5px;}
+	
+	/* table classes end */
+	/* page scrolling widget start*/
+	
+	.ps_align {text-align:right;border-right:solid 1px #7EABDC; border-bottom:solid 1px #7EABDC;border-top:solid 1px #7EABDC;padding:0px; margin: 0px;}
+	.ps_pad {padding-left:4px;}
+	.ps_view {padding-right:5px;background-color:#DCE3ED; }
+	.ps_input {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#444444; border: solid 1px #7EABDC;height: 16px; padding-top:0px;margin-right:0px;border-top:solid 1px #7EABDC;padding:0px; margin: 0px;}
+	.ps_text {font-family: Verdana, Arial,sans-serif; font-size: 9px; color:#444444;padding-left:4px;}
+
+	/* page scrolling widget end*/
+	/* footer classes start */
+	
+	.f_back {border-top:solid 1px #929499;align:left;}
+	.f_title {font-family: Verdana, Arial,sans-serif; font-size: 10px; color: #727272;font-weight:bold;}
+	.f_link {font-family: Verdana, Arial,sans-serif; font-size: 10px; color: #9B9B9D;}
+	.f_link:hover {color: #444444;}
+	.f_padding {vertical-align:top;padding: 10px 17px 10px 0px;}
+	
+	/* footer classes start */
+	
+	/****************************************
+ * delta from Snippet.css
+ * classes to be used in snippets
+ ****************************************/
+
+/* Button link styles */
+a.button {background-color:#D3DCE7; font-family: Verdana, Arial,sans-serif; font-size: 11px; text-decoration: none; font-weight:bold;color: #444444; padding:2 7 3 6px;border: solid 1px #7EABDC;height:19px;}
+a.button:hover {color:#174D8A;border: solid 1px #6E93BD;background-color: #BDD0E6;text-decoration: none;}
+
+/* TD class styles */
+th.colHeader	{color:#444444; font-size: 11px;font-weight:bold;padding: 3px 4px 3px 4px;text-align:left;height:15px;border-top:solid 1px #7EABDC;border-left:solid 1px #7EABDC;border-bottom:solid 1px #7EABDC;vertical-align:top;background-color: #F0F3F8;}
+th.colHeader_price	{color:#444444; font-size: 11px;font-weight:bold;padding: 3px 4px 3px 4px;text-align:right;height:15px;border-top:solid 1px #7EABDC;border-left:solid 1px #7EABDC;border-bottom:solid 1px #7EABDC;vertical-align:top;background-color:#DCE3ED;}
+td.price 		{font-size:  11px; color: #444444; font-family: arial, helvetica, sans-serif; text-align: right;}
+td.offerPrice	{font-size:  9pt; color: #444444; font-family: arial, helvetica, sans-serif; text-align: right;}
+td.discountPrice{font-size:  11pt; color: #9B9B9B; font-family: Verdana, Arial,sans-serif; text-align: right;}
+
+/* This class is used to bold regular text */
+strong 		{	font-weight: bold;}
+
+/* The following classes format how currency is displayed */
+.price		{	font-size:  11px; color: #427DBE; font-family: Verdana, Arial,sans-serif;font-weight: bold;}
+.listPrice	{	font-size:  11px; color: #9B9B9B; font-family: Verdana, Arial,sans-serif; text-decoration: line-through;}
+.offerPrice	{	font-size:  9pt; color: #444444; font-family: arial, helvetica, sans-serif;}
+.discountPrice{	font-size:  11pt; color: #9B9B9B; font-family: Verdana, Arial,sans-serif;}
+
+/* This class is used to format text for discounts */
+.discount	{	font-size:  10pt; color: purple; font-family: arial, helvetica, sans-serif;}
+
+/* This class is used to format product names */
+.productName{	font-size:  11px; color: #427DBE; font-family: Verdana, Arial,sans-serif;font-weight: bold;}
+
+/* Class to highlight a required field on a form */
+.required	{	font-family: verdana; color: red; FONT_SIZE: 2pt;}
+
+/* Class to highlight an error message */
+.error		{	color: red;}
+
+/* The background color of a table and alternating row background colors */
+.bgColor 	{	background-color: #003d77;}
+.cellBG_1	{	background-color: #ffffff;}
+.cellBG_2	{	background-color: #ebf1f6;}
+
+/* This class is used for the section heading */
+.heading {font-family: Times, Arial,sans-serif; font-size: 20px; color: #427DBE;line-height:40px;}
+.heading2 {font-family: Times, Arial,sans-serif; font-size: 20px; color: #444444;line-height:40px;}
+H1 {font-family: Times, Arial,sans-serif; font-size: 20px; color: #427DBE;line-height:40px;font-weight: normal;padding:0px; margin:0px;}
+H2 {font-family: verdana, arial, helvetica, sans-serif;font-size: 12px;font-weight: bold;text-align: left;color: #427DBE;line-height:30px; padding:0px; margin:0px;}
+
+/* This class is used for the section sub-heading */
+.subHeading {font-family: verdana, arial, helvetica, sans-serif;font-size: 12px;font-weight: bold;text-align: left;color: #427DBE;line-height:30px;}
+
+/* Breadcrumb trail for checkout pages */
+a.chkout_done {font-family: Verdana, Arial,sans-serif;color:#AFAFAF;font-weight: bold;sans-serif;font-size: 11px;}
+a.chkout_done:hover {color:#174D8A;}
+td.chkout {font-family: Verdana, Arial,sans-serif;color:#AFAFAF;font-weight: bold;sans-serif;font-size: 11px;}
+td.chkout_active {font-family: Verdana, Arial,sans-serif; font-size: 11px; font-weight:bold; color:#427DBE;}
+td.divider {width: 1px;}
+
+/* **********************
+ * Preview Pages Styles */
+.h1center { font-family: "Times New Roman,Times,serif"; font-size: 16pt; color: #565665; font-weight: normal; word-wrap: break-word; text-align: center;padding-bottom: 10px;}
+.buttonback {background-color: #C0C0C0; padding-top: 8px;padding-bottom: 7px; text-align: center;border-style: outset; border-width: 1px 0px 1px 0px; border-color: #8C8C8C;}
+.template {padding-top: 10px; padding-bottom: 10px;}

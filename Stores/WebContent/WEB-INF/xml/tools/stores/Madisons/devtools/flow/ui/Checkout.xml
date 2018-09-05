@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+	<panel id="CheckoutPanel" title="CheckoutPanel.title" description="CheckoutPanel.description" display-priority="4"/>
+
+	<option-group id="QuickCheckout.checkbox" title="QuickCheckout.checkboxEnable.title" type="checkbox" display-priority="1" panel="CheckoutPanel" >
+		
+		<option id="QuickCheckout.checkboxEnable"
+			label="QuickCheckout.checkboxEnable.label"
+			enables-features="quickCheckout" />
+	</option-group>
+
+	<option-group id="Shipment.checkbox" title="Shipment.checkboxEnable.title" type="checkbox" display-priority="2" panel="CheckoutPanel" >
+		
+		<option id="Shipment.checkboxEnable"
+			label="Shipment.checkboxEnable.label"
+			enables-features="MultipleShipments"
+		/>
+			
+	</option-group>
+
+	<option-group id="FutureOrders.checkbox" title="FutureOrders.checkboxEnable.title" type="checkbox" display-priority="3" panel="CheckoutPanel" >
+		
+		<option id="FutureOrders.checkboxEnable"
+			label="FutureOrders.checkboxEnable.label"
+			enables-features="FutureOrders" />
+	</option-group>
+	
+	<option-group id="ShippingInstructions.checkbox" title="ShippingInstructions.checkboxEnable.title" type="checkbox" display-priority="4" panel="CheckoutPanel" >
+		
+		<option id="ShippingInstructions.checkboxEnable"
+			label="ShippingInstructions.checkboxEnable.label"
+			enables-features="ShippingInstructions" />
+	</option-group>
+	
+	<option-group id="PromotionCode.checkbox" title="PromotionCode.checkboxEnable.title" type="checkbox" display-priority="5" panel="CheckoutPanel" >
+		
+		<option id="PromotionCode.checkboxEnable"
+			label="PromotionCode.checkboxEnable.label"
+			enables-features="promotionCode" />
+	</option-group>
+	
+	<option-group id="PromotionChoiceOfFreeGift.checkbox" title="PromotionChoiceOfFreeGift.checkboxEnable.title" type="checkbox" display-priority="6" panel="CheckoutPanel" >
+		
+		<option id="PromotionChoiceOfFreeGift.checkboxEnable"
+			label="PromotionChoiceOfFreeGift.checkboxEnable.label"
+			enables-features="promotionChoiceOfFreeGift" />
+	</option-group>
+
+</display>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2010, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<Definitions>
+
+	<!---
+		@keywords private
+	-->
+	<ChildObjectDefinition copyProtected="true" creatable="true" definitionName="wspTaskGroupComments" displayName="${wspWorkspaceResources.comments}" idProperty="taskGroupCommentId" objectType="TaskGroupComment">
+
+		<CreateService url="/cmc/CreateTaskGroupComment">
+			<ServiceParam name="taskGroupId" parentProperty="true" parentType="TaskGroup" propertyName="taskGroupId" />
+			<ServiceParam name="taskGroupComment" propertyName="taskGroupCommentText" />
+			<ServiceParam name="logonId" />
+		</CreateService>
+
+		<UpdateService url="/cmc/CreateTaskGroupComment">
+			<ServiceParam name="taskGroupId" parentProperty="true" parentType="TaskGroup" propertyName="taskGroupId" />
+			<ServiceParam name="taskGroupComment" propertyName="taskGroupCommentText" />
+			<ServiceParam name="logonId" />
+		</UpdateService>
+
+		<PropertyDefinition displayName="${wspWorkspaceResources.commentsPropertyPrompt}" maximumSize="4000" propertyName="taskGroupCommentText" required="true" trim="true" />
+
+	</ChildObjectDefinition>
+
+	<!---
+		@keywords private
+	-->
+	<ParentReferenceObjectDefinition definitionName="wspChildTaskGroupObjectDefinition" derivedId="true" idProperty="childTaskGroupId" objectType="ChildTaskGroup" referencedType="TaskGroup"/>
+
+	<!---
+		@keywords private
+	-->
+	<ParentReferenceObjectDefinition definitionName="wspChildTaskObjectDefinition" derivedId="true" idProperty="childTaskId" objectType="ChildTask" referencedType="Task"/>
+
+	<!--- 
+		This condition checks that the taskgroup is in a state that allows UNDO to history records.
+	-->
+	<EnablementOrCondition conditionId="allowHistoryChangeCondition" definitionName="wspAllowHistoryChangeCondition">
+		<EnablementCondition conditionId="taskGroupInactiveCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="0"/>
+		<EnablementCondition conditionId="taskGroupWorkingCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="1"/>
+		<EnablementCondition conditionId="taskGroupReadyForApprovalCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="2"/>
+		<EnablementCondition conditionId="taskGroupApprovedCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="3"/>
+		<EnablementCondition conditionId="taskGroupCommitFailedCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="7"/>
+	</EnablementOrCondition>
+
+	<!--- 
+		This condition checks that the taskgroup is in a state that allows OPEN/COMPARE of history records.
+	-->
+	<EnablementOrCondition conditionId="allowHistoryOpenCompareCondition" definitionName="wspAllowHistoryOpenCompareCondition">
+		<EnablementCondition conditionId="taskGroupInactiveCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="0"/>
+		<EnablementCondition conditionId="taskGroupWorkingCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="1"/>
+		<EnablementCondition conditionId="taskGroupReadyForApprovalCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="2"/>
+		<EnablementCondition conditionId="taskGroupApprovedCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="3"/>
+		<EnablementCondition conditionId="taskGroupReadyToCommitCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="4"/>
+		<EnablementCondition conditionId="taskGroupCommitFailedCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="7"/>
+		<EnablementCondition conditionId="taskGroupCommitInProgressCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="8"/>
+		<EnablementCondition conditionId="taskGroupCommittedCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="9"/>
+		<EnablementCondition conditionId="taskGroupReadyToPublishCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="10"/>
+		<EnablementCondition conditionId="taskGroupPublishInProgressCondition" parentProperty="true" parentType="TaskGroup" propertyName="status" enablementValue="11"/>
+	</EnablementOrCondition>
+	
+</Definitions>

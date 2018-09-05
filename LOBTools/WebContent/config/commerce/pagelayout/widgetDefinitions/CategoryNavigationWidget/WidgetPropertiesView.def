@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<GridObjectProperties definitionName="plmWidgetProperties_CategoryNavigationWidget">
+		<PropertyPane>
+			<PropertyGroup name="widgetProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetPropertiesPrompt}">
+				<PropertyInputText name="${plmPageLayoutResources.widgetNamePrompt}" propertyName="widgetName"
+					promptText="${plmPageLayoutResources.widgetNamePrompt}" 
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_categoryNavigationWidgetWidgetName}"/>
+				<PropertyCheckbox propertyName="xWidgetProp_showTopCategory" 
+					text="${plmPageLayoutResources.categoryNavigationWidgetShowTopCategory}" 
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_categoryNavigationWidgetShowTopCategory}" />
+ 			</PropertyGroup>
+			<PropertyGroup name="contentProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetContentPrompt}">
+				<PropertyStaticText text="${plmPageLayoutResources.categoryNavigationWidgetContent}" />
+			</PropertyGroup>
+		</PropertyPane>
+	</GridObjectProperties>
+
+</Definitions>

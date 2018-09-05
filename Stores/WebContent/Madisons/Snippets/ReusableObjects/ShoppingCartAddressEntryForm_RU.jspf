@@ -1,0 +1,200 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%--
+  *****
+  * This JSP segment displays the adress section of the registration forms
+  * for the following countries/regions:
+  *  - Russia
+  * The display order is as follows (* means mandatory):
+  *  - firstname
+  *  - middlename
+  *  - lastname*
+  *  - address*
+  *  - zip/postal code*
+  *  - city*
+  *  - state/province
+  *  - country/region*
+  *  - phone1
+  *  - email1*
+  *****
+  *****
+--%>
+<!-- BEGIN ShoppingCartAddressEntryForm_RU.jspf-->
+
+<%@ include file="AddressHelperCountrySelection.jspf" %>
+<%-- First name --%>
+<div class="label_spacer" id="WC_ShoppingCartAddressEntryForm_RUf_div_1">
+	<label for="firstName" class="nodisplay">
+	<fmt:message key="AB_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+	<fmt:param><fmt:message key="ADDR_FIRST_NAME" bundle="${storeText}"/></fmt:param>
+	<fmt:param> </fmt:param></fmt:message>
+	</label>
+	<fmt:message key="ADDR_FIRST_NAME" bundle="${storeText}"/></div>
+<div id="WC_ShoppingCartAddressEntryForm_RUf_div_2">
+	<input id="firstName" name="firstName" type="text" class="form_input" size="35" value='<c:out value="${selectedContact.contactName.firstName}"/>' />
+</div>
+
+<%-- Middle name --%>
+<div class="label_spacer" id="WC_ShoppingCartAddressEntryForm_RUf_div_18">
+	<label for="middleName" class="nodisplay">
+	<fmt:message key="AB_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+	<fmt:param><fmt:message key="ADDR_MIDDLE_NAME" bundle="${storeText}"/></fmt:param>
+	<fmt:param> </fmt:param></fmt:message>
+	</label>
+	<fmt:message key="ADDR_MIDDLE_NAME" bundle="${storeText}"/></div>
+<div id="WC_ShoppingCartAddressEntryForm_RUf_div_19">
+	<input id="middleName" name="middleName" type="text" class="form_input" size="35" value='<c:out value="${selectedContact.contactName.middleName}"/>' />
+</div>
+
+<%-- Last name --%>
+<div class="label_spacer" id="WC_ShoppingCartAddressEntryForm_RUf_div_3">
+	<label for="lastName" class="nodisplay">
+	<fmt:message key="AB_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+	<fmt:param><fmt:message key="ADDR_LAST_NAME" bundle="${storeText}"/></fmt:param>
+	<fmt:param><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></fmt:param></fmt:message>
+	</label>
+	<span class="required-field1"> *</span>
+	<fmt:message key="ADDR_LAST_NAME" bundle="${storeText}"/>
+</div>
+<div id="WC_ShoppingCartAddressEntryForm_RUf_div_4">
+	<input id="lastName" name="lastName" type="text" class="form_input" size="35" value='<c:out value="${selectedContact.contactName.lastName}"/>' />
+</div>
+
+<%-- address --%>
+<div class="label_spacer" id="WC_ShoppingCartAddressEntryForm_RUf_div_5">
+	<label for="address1" class="nodisplay">
+	<fmt:message key="AB_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+	<fmt:param><fmt:message key="ADDR_STREET_ADDRESS" bundle="${storeText}"/></fmt:param>
+	<fmt:param><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></fmt:param></fmt:message>
+	</label>
+	<span class="required-field"> *</span>
+	<fmt:message key="ADDR_STREET_ADDRESS" bundle="${storeText}"/>
+</div>
+<div id="WC_ShoppingCartAddressEntryForm_RUf_div_6">
+	<input id="address1" name="address1" type="text" class="form_input" size="35" value='<c:out value="${selectedContact.address.addressLine[0]}"/>'/>
+	<input id="address2" name="address2" type="text" class="form_input" size="35" value='<c:out value="${selectedContact.address.addressLine[1]}"/>'/>
+	<label for="address2" class="nodisplay"><fmt:message key="ADDR_STREET_ADDRESS" bundle="${storeText}"/></label>
+</div>
+
+<%-- zipcode --%>
+<div class="label_spacer" id="WC_ShoppingCartAddressEntryForm_RUf_div_7">
+	<label for="zipCode" class="nodisplay">
+	<fmt:message key="AB_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+	<fmt:param><fmt:message key="ADDR_ZIP_POSTALCODE" bundle="${storeText}"/></fmt:param>
+	<fmt:param><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></fmt:param></fmt:message>
+	</label>
+	<span class="required-field"> *</span>
+	<fmt:message key="ADDR_ZIP_POSTALCODE" bundle="${storeText}"/>
+</div>
+<div id="WC_ShoppingCartAddressEntryForm_RUf_div_8">
+	<input id="zipCode" name="zipCode" type="text" class="form_input" size="35" value='<c:out value="${selectedContact.address.postalCode}"/>' />
+</div>
+
+<%-- city --%>
+<div class="label_spacer" id="WC_ShoppingCartAddressEntryForm_RUf_div_9">
+	<label for="city" class="nodisplay">
+	<fmt:message key="AB_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+	<fmt:param><fmt:message key="ADDR_CITY" bundle="${storeText}"/></fmt:param>
+	<fmt:param><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></fmt:param></fmt:message>
+	</label>
+	<span class="required-field"> *</span>
+	<fmt:message key="ADDR_CITY" bundle="${storeText}"/>
+</div>
+<div id="WC_ShoppingCartAddressEntryForm_RUf_div_10">
+	<input id="city" name="city" type="text" class="form_input" size="35" value='<c:out value="${selectedContact.address.city}"/>'/>
+</div>
+
+<%-- state/province --%>
+<div class="label_spacer" id="WC_ShoppingCartAddressEntryForm_RUf_div_11">
+	<label for="state" class="nodisplay">
+	<fmt:message key="AB_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+	<fmt:param><fmt:message key="ADDR_STATE_PROVINCE" bundle="${storeText}"/></fmt:param>
+	<fmt:param> </fmt:param></fmt:message>
+	</label>
+	<fmt:message key="ADDR_STATE_PROVINCE" bundle="${storeText}"/>
+</div>
+<div id="stateDiv">
+	<c:choose>
+		<c:when test="${!empty countryBean.countryCodeStates}">
+			<select class="drop_down_country" id="state" name="state">
+				<c:forEach var="state" items="${countryBean.countryCodeStates}">
+					<option value="<c:out value='${state.code}'/>" 
+						<c:if test="${state.code eq selectedContact.address.stateOrProvinceName || state.displayName eq selectedContact.address.stateOrProvinceName}">
+							selected="selected"
+						</c:if>
+					>
+						<c:out value="${state.displayName}"/>
+					</option>
+				</c:forEach>
+			</select>
+		</c:when>
+		<c:otherwise>
+			<input type="text" class="form_input" size="35" name="state" id="state" maxlength="40" value="<c:out value='${selectedContact.address.stateOrProvinceName}'/>" />
+		</c:otherwise>
+	</c:choose>
+</div>
+
+<%-- country/region --%>
+<div class="label_spacer" id="WC_ShoppingCartAddressEntryForm_RUf_div_12">
+	<label for="country" class="nodisplay">
+	<fmt:message key="AB_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+	<fmt:param><fmt:message key="ADDR_COUNTRY_REGION" bundle="${storeText}"/></fmt:param>
+	<fmt:param><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></fmt:param></fmt:message>
+	</label>
+	<span class="required-field"> *</span>
+	<fmt:message key="ADDR_COUNTRY_REGION" bundle="${storeText}"/>
+</div>
+<div id="WC_ShoppingCartAddressEntryForm_RUf_div_13">
+	<select class="drop_down_country" name="country" id="country" onchange="javascript:AddressHelper.loadStatesUI('<c:out value='${formName}'/>','<c:out value='${paramPrefix}'/>','stateDiv','state')" >
+		<c:forEach var="country" items="${countryBean.countries}">
+			<option value="<c:out value='${country.code}'/>" 
+				<c:if test="${country.code eq selectedContact.address.country || country.displayName eq selectedContact.address.country}">
+					selected="selected"
+				</c:if>
+			>
+				<c:out value="${country.displayName}"/>
+			</option>
+		</c:forEach>
+	</select>
+</div>
+
+<%-- phone --%>
+<div class="label_spacer" id="WC_ShoppingCartAddressEntryForm_RUf_div_14">
+	<label for="phone1" class="nodisplay">
+	<fmt:message key="AB_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+        <fmt:param><fmt:message key="ADDR_PHONE_NUMBER" bundle="${storeText}"/></fmt:param>
+	<fmt:param> </fmt:param></fmt:message>
+	</label>
+	<fmt:message key="ADDR_PHONE_NUMBER" bundle="${storeText}"/>
+</div>
+<div id="WC_ShoppingCartAddressEntryForm_RUf_div_15">
+	<input id="phone1" name="phone1" type="text" class="form_input" size="35" value='<c:out value="${selectedContact.telephone1.value}"/>'/>
+</div>
+
+<%-- email --%>
+<div class="label_spacer" id="WC_ShoppingCartAddressEntryForm_RUf_div_16">
+	<label for="email1" class="nodisplay">
+	<fmt:message key="AB_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+	<fmt:param><fmt:message key="ADDR_EMAIL" bundle="${storeText}"/></fmt:param>
+	<fmt:param><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></fmt:param></fmt:message>
+	</label>
+	<span class="required-field1"> *</span>
+	<fmt:message key="ADDR_EMAIL" bundle="${storeText}"/>
+</div>
+<div id="WC_ShoppingCartAddressEntryForm_RUf_div_17">
+	<input id="email1" name="email1" type="text" class="form_input" size="35" value='<c:out value="${selectedContact.emailAddress1.value}"/>'/>
+</div>
+<!-- END ShoppingCartAddressEntryForm_RU.jspf-->
+

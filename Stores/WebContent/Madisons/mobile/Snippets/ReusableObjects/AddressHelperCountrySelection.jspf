@@ -1,0 +1,39 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<!-- BEGIN AddressHelperCountrySelection.jspf-->
+
+<script type="text/javascript">
+//get the list of all countries and states available from the database.
+countries = new Array();
+<wcbase:useBean id="countryBean" classname="com.ibm.commerce.user.beans.CountryStateListDataBean">
+	<c:set target="${countryBean}" property="countryCode" value="${paramSource.country}"/>
+</wcbase:useBean>
+
+<c:forEach var="country" items="${countryBean.countries}">
+	countries["<c:out value="${country.code}"/>"] = new Object();
+	countries["<c:out value="${country.code}"/>"].name = "<c:out value="${country.displayName}"/>";
+	countries["<c:out value="${country.code}"/>"].countryCallingCode = "<c:out value="${country.callingCode}"/>";
+	<c:if test="${!empty country.states}">
+		<c:forEach var="state" items="${country.states}" varStatus="counter">
+			<c:out value = "1"/>
+			<c:if test="${counter.index == 0}">
+				countries["<c:out value="${country.code}"/>"].states = new Object();
+			</c:if>
+			countries["<c:out value="${country.code}"/>"].states["<c:out value="${state.code}"/>"] = "<c:out value="${state.displayName}"/>";
+		</c:forEach>
+	</c:if>
+</c:forEach>
+</script>
+<!-- END AddressHelperCountrySelection.jspf-->

@@ -1,0 +1,867 @@
+!SESSION 2018-09-04 14:16:00.354 -----------------------------------------------
+eclipse.buildId=unknown
+java.fullversion=JRE 1.6.0 IBM J9 2.4 Windows 7 x86-32 jvmwi3260sr14-20130704_155156 (JIT enabled, AOT enabled)
+J9VM - 20130704_155156
+JIT  - r9_20130517_38390
+GC   - GA24_Java6_SR14_20130704_1138_B155156
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Framework arguments:  -showlocation
+Command-line arguments:  -os win32 -ws win32 -arch x86 -showlocation -data C:\IBM\WCDE_E~1\WORKSP~1
+
+This is a continuation of log file C:\IBM\WCDE_ENT70\workspace\.metadata\.bak_0.log
+Created Time: 2018-09-04 14:25:30.733
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.733
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/ReturnPolicyPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.740
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/ProductSKUPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.742
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/ProductSKUPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.755
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/ProductPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.756
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/ProductPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.768
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/PrivacyPolicyPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.768
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/PrivacyPolicyPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.823
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/PageLayoutTopObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.824
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/PageLayoutTopObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.858
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/PageLayoutPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.859
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/PageLayoutPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.870
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/LayoutSalesCatalogPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.870
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/LayoutSalesCatalogPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.878
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/LayoutCatalogPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.879
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/LayoutCatalogPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.893
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/KitPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.893
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/KitPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.904
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/HomePagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.905
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/HomePagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.919
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/HelpPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.919
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/HelpPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.930
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/DynamicKitPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.931
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/DynamicKitPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.943
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/CorporateInfoPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.944
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/CorporateInfoPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.956
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/CorporateContactUsPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.956
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/CorporateContactUsPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.969
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/ContactUsPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:30.970
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/ContactUsPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.008
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/CatalogPageCommonObjectDefinitions.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.009
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/CatalogPageCommonObjectDefinitions.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.019
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/CatalogGroupSKUPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.019
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/CatalogGroupSKUPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.118
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/CatalogGroupPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.119
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/CatalogGroupPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.134
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/CatalogEntryPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.134
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/CatalogEntryPagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.146
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/objectDefinitions/BundlePagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.146
+!MESSAGE zipEntryName:config/commerce/layout/objectDefinitions/BundlePagePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.150
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/listViewDefinitions/StaticPageSearchGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.151
+!MESSAGE zipEntryName:config/commerce/layout/listViewDefinitions/StaticPageSearchGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.157
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/listViewDefinitions/SalesCategoryPageGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.157
+!MESSAGE zipEntryName:config/commerce/layout/listViewDefinitions/SalesCategoryPageGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.185
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/listViewDefinitions/PageLayoutListView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.185
+!MESSAGE zipEntryName:config/commerce/layout/listViewDefinitions/PageLayoutListView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.193
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/listViewDefinitions/PageLayoutAssociationGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.194
+!MESSAGE zipEntryName:config/commerce/layout/listViewDefinitions/PageLayoutAssociationGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.202
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/listViewDefinitions/LayoutCatalogGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.203
+!MESSAGE zipEntryName:config/commerce/layout/listViewDefinitions/LayoutCatalogGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.213
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/listViewDefinitions/CategoryPageSearchGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.214
+!MESSAGE zipEntryName:config/commerce/layout/listViewDefinitions/CategoryPageSearchGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.229
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/listViewDefinitions/CategoryPageGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.230
+!MESSAGE zipEntryName:config/commerce/layout/listViewDefinitions/CategoryPageGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.244
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/listViewDefinitions/CatalogEntryPageGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.244
+!MESSAGE zipEntryName:config/commerce/layout/listViewDefinitions/CatalogEntryPageGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.351
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/layout/PageLayoutManagementToolDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.352
+!MESSAGE zipEntryName:config/commerce/layout/PageLayoutManagementToolDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.368
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/installment/propertiesViews/InstallmentRulePropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.369
+!MESSAGE zipEntryName:config/commerce/installment/propertiesViews/InstallmentRulePropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.389
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/installment/objectDefinitions/PaymentMethodChildObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.390
+!MESSAGE zipEntryName:config/commerce/installment/objectDefinitions/PaymentMethodChildObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.407
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/installment/objectDefinitions/ManufacturerChildObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.408
+!MESSAGE zipEntryName:config/commerce/installment/objectDefinitions/ManufacturerChildObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.417
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/installment/objectDefinitions/InstallmentTopObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.418
+!MESSAGE zipEntryName:config/commerce/installment/objectDefinitions/InstallmentTopObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.459
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/installment/objectDefinitions/InstallmentRulePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.459
+!MESSAGE zipEntryName:config/commerce/installment/objectDefinitions/InstallmentRulePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.481
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/installment/objectDefinitions/InstallmentOptionChildObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.481
+!MESSAGE zipEntryName:config/commerce/installment/objectDefinitions/InstallmentOptionChildObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.496
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/installment/objectDefinitions/CatalogGroupReferenceObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.496
+!MESSAGE zipEntryName:config/commerce/installment/objectDefinitions/CatalogGroupReferenceObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.522
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/installment/objectDefinitions/CatalogEntryReferenceObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.523
+!MESSAGE zipEntryName:config/commerce/installment/objectDefinitions/CatalogEntryReferenceObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.544
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/installment/listViewDefinitions/InstallmentRuleListView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.544
+!MESSAGE zipEntryName:config/commerce/installment/listViewDefinitions/InstallmentRuleListView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.557
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/installment/listViewDefinitions/ChildListEditorListViews.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.558
+!MESSAGE zipEntryName:config/commerce/installment/listViewDefinitions/ChildListEditorListViews.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.565
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/installment/InstallmentManagementToolDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.565
+!MESSAGE zipEntryName:config/commerce/installment/InstallmentManagementToolDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.569
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/foundation/Context.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.569
+!MESSAGE zipEntryName:config/commerce/foundation/Context.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.573
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindSearchTermAssociationsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.573
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindSearchTermAssociationsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.577
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindSalesCategoriesSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.578
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindSalesCategoriesSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.582
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindSKUsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.583
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindSKUsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.587
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindProductsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.588
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindProductsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.592
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindPDKsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.592
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindPDKsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.596
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindKitsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.597
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindKitsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.601
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindDynamicSalesCategoriesSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.602
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindDynamicSalesCategoriesSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.606
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindDefaultCatalogSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.607
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindDefaultCatalogSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.611
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindConfigModelsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.611
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindConfigModelsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.616
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindBundlesSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.616
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindBundlesSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.622
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindAllCategoriesSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.622
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindAllCategoriesSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.626
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindAllCatalogsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.627
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindAllCatalogsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.632
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindAllCatalogEntriesSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.632
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindAllCatalogEntriesSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.637
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindAllCatalogEntriesExceptSKUsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.637
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindAllCatalogEntriesExceptSKUsSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.642
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/searchDefinitions/FindAllAttributesSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.643
+!MESSAGE zipEntryName:config/commerce/catalog/searchDefinitions/FindAllAttributesSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.671
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/SearchTermAssociationsPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.671
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/SearchTermAssociationsPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.714
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/SalesCategoryPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.715
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/SalesCategoryPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.726
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/SalesCategoryAssociationPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.727
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/SalesCategoryAssociationPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.741
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/SalesCatalogPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.742
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/SalesCatalogPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.765
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/ProductSKUPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.765
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/ProductSKUPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.785
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/ProductPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.786
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/ProductPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.804
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/PredefinedDKitPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.804
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/PredefinedDKitPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.811
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/MerchandisingAssociationPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.812
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/MerchandisingAssociationPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.833
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/KitPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.834
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/KitPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.840
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/IntelligentOfferImportPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.841
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/IntelligentOfferImportPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.882
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/DynamicSalesCategoryPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.882
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/DynamicSalesCategoryPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.896
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/DefaultCatalogPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.896
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/DefaultCatalogPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.918
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/CategoryPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:31.918
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/CategoryPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.284
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/CatalogPropertyPane.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.285
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/CatalogPropertyPane.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.297
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/CatalogPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.298
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/CatalogPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.311
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/CatalogImportPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.311
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/CatalogImportPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.331
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/CatalogGroupSKUPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.331
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/CatalogGroupSKUPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.342
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/CatalogEntryAttributePropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.343
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/CatalogEntryAttributePropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.359
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/BundlePropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.360
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/BundlePropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.366
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/AttributeFolderPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.366
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/AttributeFolderPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.466
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/propertiesViews/AttributeDictionaryAttributePropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.466
+!MESSAGE zipEntryName:config/commerce/catalog/propertiesViews/AttributeDictionaryAttributePropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.514
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/SearchTermAssociationsPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.515
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/SearchTermAssociationsPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.549
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/SearchTermAssociationsCommonObjectDefinitions.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.549
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/SearchTermAssociationsCommonObjectDefinitions.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.564
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/SalesCategoryAssigmentObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.565
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/SalesCategoryAssigmentObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.633
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/SalesCatalogPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.634
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/SalesCatalogPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.802
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/SalesCatalogGroupPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.802
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/SalesCatalogGroupPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.851
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/ProductSKUPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.852
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/ProductSKUPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.899
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/ProductPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.899
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/ProductPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.931
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/PredefinedKitPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.931
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/PredefinedKitPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.986
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/KitPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.986
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/KitPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.996
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/IntelligentOfferImportPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:32.997
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/IntelligentOfferImportPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.140
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/DynamicSalesCategoryCommonObjects.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.141
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/DynamicSalesCategoryCommonObjects.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.240
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/DynamicSalesCatalogGroupPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.240
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/DynamicSalesCatalogGroupPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.260
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/DefaultCatalogPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.260
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/DefaultCatalogPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.294
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/CatalogTopObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.294
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/CatalogTopObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.307
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/CatalogPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.307
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/CatalogPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.327
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/CatalogImportPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.327
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/CatalogImportPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.370
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/CatalogGroupSKUPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.370
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/CatalogGroupSKUPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.432
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/CatalogGroupPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.432
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/CatalogGroupPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.443
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/CatalogGroupFacetPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.443
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/CatalogGroupFacetPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.485
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/CatalogEntryPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.485
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/CatalogEntryPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.623
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/CatalogEntryAttributeObjectDefinitions.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:33.623
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/CatalogEntryAttributeObjectDefinitions.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.103
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/CatalogCommonObjectDefinitions.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.103
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/CatalogCommonObjectDefinitions.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.132
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/BundlePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.133
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/BundlePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.170
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/AttributeFolderPrimaryObjectDefinitions.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.171
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/AttributeFolderPrimaryObjectDefinitions.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.179
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/AttributeDictionaryPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.180
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/AttributeDictionaryPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.274
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/AttributeDictionaryCommonObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.274
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/AttributeDictionaryCommonObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.461
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/objectDefinitions/AttributeDictionaryAttributePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.461
+!MESSAGE zipEntryName:config/commerce/catalog/objectDefinitions/AttributeDictionaryAttributePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.483
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/SearchTermAssociationsGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.483
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/SearchTermAssociationsGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.494
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/SalesCategoryGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.495
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/SalesCategoryGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.523
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/SalesCategoryAssignmentReferencesGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.523
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/SalesCategoryAssignmentReferencesGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.548
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/ReferenceGrids.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.548
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/ReferenceGrids.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.560
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/PricingObjectGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.560
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/PricingObjectGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.571
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/MerchandisingAssociationGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.572
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/MerchandisingAssociationGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.579
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/IntelligentOfferImportListView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.579
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/IntelligentOfferImportListView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.588
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/FacetGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.588
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/FacetGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.626
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/DynamicSalesCategoryGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.627
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/DynamicSalesCategoryGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.637
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/ConfigModelGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.638
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/ConfigModelGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.653
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/CatentryChildGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.653
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/CatentryChildGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.680
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/CategorySearchGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.680
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/CategorySearchGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.696
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/CategoryGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.696
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/CategoryGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.705
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/CatalogImportListView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.706
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/CatalogImportListView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.714
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/CatalogGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.715
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/CatalogGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.792
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/CatalogEntryGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.793
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/CatalogEntryGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.806
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/CatalogEntryDescriptiveAttributeGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.806
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/CatalogEntryDescriptiveAttributeGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.821
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/CatalogEntryDefiningAttributeGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.822
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/CatalogEntryDefiningAttributeGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.843
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/CatalogEntryAttributeDictionaryDescriptiveAttributeGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.844
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/CatalogEntryAttributeDictionaryDescriptiveAttributeGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.860
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/CatalogEntryAttributeDictionaryDefiningAttributeGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.861
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/CatalogEntryAttributeDictionaryDefiningAttributeGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.884
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/AttributeFolderListView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.885
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/AttributeFolderListView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.936
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/AttributeDictionaryAttributeGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.937
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/AttributeDictionaryAttributeGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.949
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/listViewDefinitions/AttachmentReferenceGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:34.949
+!MESSAGE zipEntryName:config/commerce/catalog/listViewDefinitions/AttachmentReferenceGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.010
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/catalog/CatalogManagementToolDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.010
+!MESSAGE zipEntryName:config/commerce/catalog/CatalogManagementToolDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.015
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/searchDefinitions/FindManagedFileSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.015
+!MESSAGE zipEntryName:config/commerce/attachment/searchDefinitions/FindManagedFileSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.019
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/searchDefinitions/FindAttachmentSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.019
+!MESSAGE zipEntryName:config/commerce/attachment/searchDefinitions/FindAttachmentSearchDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.037
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/propertiesViews/ManagedFilePropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.037
+!MESSAGE zipEntryName:config/commerce/attachment/propertiesViews/ManagedFilePropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.046
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/propertiesViews/ManagedDirectoryPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.047
+!MESSAGE zipEntryName:config/commerce/attachment/propertiesViews/ManagedDirectoryPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.065
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/propertiesViews/AttachmentPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.065
+!MESSAGE zipEntryName:config/commerce/attachment/propertiesViews/AttachmentPropertiesView.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.089
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/objectDefinitions/ManagedFilePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.090
+!MESSAGE zipEntryName:config/commerce/attachment/objectDefinitions/ManagedFilePrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.113
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/objectDefinitions/ManagedDirectoryPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.114
+!MESSAGE zipEntryName:config/commerce/attachment/objectDefinitions/ManagedDirectoryPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.121
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/objectDefinitions/AttachmentTopObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.122
+!MESSAGE zipEntryName:config/commerce/attachment/objectDefinitions/AttachmentTopObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.180
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/objectDefinitions/AttachmentPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.180
+!MESSAGE zipEntryName:config/commerce/attachment/objectDefinitions/AttachmentPrimaryObjectDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.187
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/listViewDefinitions/ManagedFileSearchGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.187
+!MESSAGE zipEntryName:config/commerce/attachment/listViewDefinitions/ManagedFileSearchGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.194
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/listViewDefinitions/ManagedFileGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.194
+!MESSAGE zipEntryName:config/commerce/attachment/listViewDefinitions/ManagedFileGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.207
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/listViewDefinitions/AttachmentReferenceGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.207
+!MESSAGE zipEntryName:config/commerce/attachment/listViewDefinitions/AttachmentReferenceGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.213
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/listViewDefinitions/AttachmentGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.213
+!MESSAGE zipEntryName:config/commerce/attachment/listViewDefinitions/AttachmentGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.219
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/listViewDefinitions/AttachmentAssetGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.219
+!MESSAGE zipEntryName:config/commerce/attachment/listViewDefinitions/AttachmentAssetGrid.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.228
+!MESSAGE fileName:/LOBTools/WebContent/config/commerce/attachment/AttachmentManagementToolDefinition.def
+
+!ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.229
+!MESSAGE zipEntryName:config/commerce/attachment/AttachmentManagementToolDefinition.def

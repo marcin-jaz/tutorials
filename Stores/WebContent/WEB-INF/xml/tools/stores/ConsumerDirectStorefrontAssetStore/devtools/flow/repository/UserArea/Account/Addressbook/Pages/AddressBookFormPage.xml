@@ -1,0 +1,25 @@
+<!DOCTYPE repository-entries SYSTEM "../../../../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<page-components>
+	<virtual-page id="AddressBookFormPage"/>
+
+	<virtual-page-interface id="AddressBookFormPage.i1" virtual-page-id="AddressBookFormPage">
+		<entry-port id="AddressBookFormPage.i1.e1" type="EntryPortType1"/>
+		<exit-port id="AddressBookFormPage.i1.xBackToCheckout" type="ExitPortType1"/>
+	</virtual-page-interface>
+
+	<simple-implementation id="AddressBookFormPage.i1.impl1" url="URLForAddressBookFormPage.i1.impl1" virtual-page-interface-id="AddressBookFormPage.i1">
+		<component-interface id="AddressBookFormPage.i1.impl1.ci1" interface="ActualAddressBookFormPage.i1"/>
+		<exit-port-map id="AddressBookFormPage.i1.impl1.xpm1" interface-exit-port="AddressBookFormPage.i1.xBackToCheckout" component-exit-ports="ActualAddressBookFormPage.i1.xBackToCheckout"/>
+	</simple-implementation>
+
+	<actual-page id="ActualAddressBookFormPage" file="AddressBookForm.jsp"/>
+
+	<actual-page-interface id="ActualAddressBookFormPage.i1" actual-page-id="ActualAddressBookFormPage">
+		<exit-port id="ActualAddressBookFormPage.i1.xBackToCheckout" type="ExitPortType1"/>
+	</actual-page-interface>
+
+</page-components>
+</components>
+</repository-entries>

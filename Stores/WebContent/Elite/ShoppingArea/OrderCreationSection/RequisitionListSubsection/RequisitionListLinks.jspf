@@ -1,0 +1,106 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<c:if test="${userType !='G'}">
+	<flow:ifEnabled feature="AjaxMyAccountPage">
+		<wcf:url var="requisitionListCreateView" value="AjaxLogonForm">
+			<wcf:param name="langId" value="${langId}" />
+			<wcf:param name="storeId" value="${WCParam.storeId}" />
+			<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+		  	<wcf:param name="newList" value="true"/>
+		  	<wcf:param name="page" value="createrequisitionlist" />
+		</wcf:url>							
+	</flow:ifEnabled>
+	
+	<flow:ifDisabled feature="AjaxMyAccountPage">
+		<wcf:url var="requisitionListCreateView" value="RequisitionListDetailView">
+			<wcf:param name="editable" value="true"/>
+			<wcf:param name="langId" value="${langId}" />
+			<wcf:param name="storeId" value="${WCParam.storeId}" />
+			<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+		  	<wcf:param name="newList" value="true"/>
+		</wcf:url>							
+	</flow:ifDisabled>
+	
+	<c:if test="${type == 'product'}">
+		<c:set var="catalogEntryID" value="${catalogEntryID}"/>
+		<script type="text/javascript">
+			dojo.addOnLoad(function() {
+				categoryDisplayJS.setCurrentPageType('product');
+				categoryDisplayJS.setCurrentCatalogEntryId('<c:out value="${catalogEntryID}"/>');
+			});
+		</script>
+	</c:if>
+	<c:if test="${type == 'package'}">
+		<c:set var="catalogEntryID" value="${packageDataBean.packageID}"/>
+		<script type="text/javascript">
+			dojo.addOnLoad(function() {
+				categoryDisplayJS.setCurrentPageType('package');
+				categoryDisplayJS.setCurrentCatalogEntryId('<c:out value="${packageDataBean.packageID}"/>');
+			});
+		</script>					
+	</c:if>
+	<c:if test="${type == 'item'}">
+		<c:set var="catalogEntryID" value="${item.itemID}"/>
+		<script type="text/javascript">
+			dojo.addOnLoad(function() {
+				categoryDisplayJS.setCurrentPageType('item');
+				categoryDisplayJS.setCurrentCatalogEntryId('<c:out value="${item.itemID}"/>');
+			});
+		</script>					
+	</c:if>				
+	<c:if test="${type == 'bundle'}">
+		<c:set var="catalogEntryID" value="${bundle.bundleID}"/>
+		<script type="text/javascript">
+			dojo.addOnLoad(function() {
+				categoryDisplayJS.setCurrentPageType('bundle');
+				categoryDisplayJS.setCurrentCatalogEntryId('<c:out value="${bundle.bundleID}"/>');
+			});
+		</script>					
+	</c:if>		
+	
+	<p>
+		<c:if test="${type == 'product'}">
+			<a id="addToNewRequisitionList" href="javascript:categoryDisplayJS.addToNewListFromProductDetail('entitledItem_<c:out value='${catalogEntryID}'/>', 'quantity_<c:out value='${catalogEntryID}'/>', document.location.href)">
+		</c:if>
+		<c:if test="${type == 'package'}">
+			<a id="addToNewRequisitionList" href="javascript:categoryDisplayJS.addItemToNewListFromProductDetail('<c:out value='${packageDataBean.packageID}'/>', 'quantity_<c:out value='${packageDataBean.packageID}'/>', document.location.href)">
+		</c:if>
+		<c:if test="${type == 'item'}">
+			<a id="addToNewRequisitionList" href="javascript:categoryDisplayJS.addItemToNewListFromProductDetail('<c:out value='${item.itemID}'/>', 'quantity_<c:out value='${item.itemID}'/>', document.location.href)">
+		</c:if>	
+		<c:if test="${type == 'bundle'}">
+			<a id="addToNewRequisitionList" href="javascript:categoryDisplayJS.addBundleToNewListFromProductDetail(document.getElementById('OrderItemAddForm_<c:out value='${bundle.bundleID}'/>'), document.location.href)">
+		</c:if>
+		<img src="<c:out value='${jspStoreImgDir}${vfileColor}/i_add_wishlist.png'/>" alt="<fmt:message key="ADD_TO_NEW_REQUISITIONLIST" bundle="${storeText}" />" /><fmt:message key="ADD_TO_NEW_REQUISITIONLIST" bundle="${storeText}" /> 
+		</a>
+	</p> 
+	
+	<p>
+		<c:if test="${type == 'product'}">
+			<a id="addToExistingRequisitionList" href="javascript:RequisitionList.showReqListPopupForItem('entitledItem_<c:out value='${catalogEntryID}'/>', 'quantity_<c:out value='${catalogEntryID}'/>');">
+		</c:if>
+		<c:if test="${type == 'package'}">
+			<a id="addToExistingRequisitionList" href="javascript:RequisitionList.showReqListPopup('quantity_<c:out value='${packageDataBean.packageID}'/>');">
+		</c:if>
+		<c:if test="${type == 'item'}">
+			<a id="addToExistingRequisitionList" href="javascript:RequisitionList.showReqListPopup('quantity_<c:out value='${item.itemID}'/>');">
+		</c:if>	
+		<c:if test="${type == 'bundle'}">
+			<a id="addToExistingRequisitionList" href="javascript:RequisitionList.showReqListPopup('', document.getElementById('OrderItemAddForm_<c:out value='${bundle.bundleID}'/>'));">
+		</c:if>	
+		<img src="<c:out value='${jspStoreImgDir}${vfileColor}/i_add_wishlist.png'/>" alt="<fmt:message key="ADD_TO_EXISTING_REQUISITIONLIST" bundle="${storeText}" />" /><fmt:message key="ADD_TO_EXISTING_REQUISITIONLIST" bundle="${storeText}" />
+		</a>
+	</p>
+</c:if>	
+								

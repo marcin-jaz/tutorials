@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+
+	<panel id="InteractionsPanel" title="InteractionsPanel.title" description="InteractionsPanel.description" display-priority="0" />
+
+	<option-group id="ProductQuickView.checkbox" title="ProductQuickView.checkboxEnable.title" type="checkbox" display-priority="1" panel="InteractionsPanel" >
+		
+		<option id="ProductQuickView.checkboxEnable"
+			label="ProductQuickView.checkboxEnable.label"
+			enables-features="ProductQuickView" />
+	</option-group>
+
+	<option-group id="AjaxAddToCart.checkbox" title="AjaxAddToCart.checkboxEnable.title" type="checkbox" display-priority="2" panel="InteractionsPanel" >
+		
+	<option id="AjaxAddToCart.checkboxEnable"
+			label="AjaxAddToCart.checkbox.label"
+			enables-features="AjaxAddToCart" />
+	</option-group>
+
+	<option-group id="CheckoutFlow.checkbox" title="CheckoutFlow.checkboxEnable.title" type="checkbox" display-priority="3" panel="InteractionsPanel" >
+
+		<option id="AjaxCheckout.checkboxEnable"
+			label="AjaxCheckout.checkboxEnable.label"
+			enables-features="AjaxCheckout" />
+	</option-group>
+	
+	<option-group id="MyAccount.checkbox" title="MyAccount.checkboxEnable.title" type="checkbox" display-priority="4" panel="InteractionsPanel" >
+		
+		<option id="AjaxMyAccountPage.checkboxEnable"
+			label="AjaxMyAccountPage.checkboxEnable.label"
+			enables-features="AjaxMyAccountPage" />
+	</option-group>
+
+	<option-group id="ProductDnD.checkbox" title="ProductDnD.checkboxEnable.title" type="checkbox" display-priority="5" panel="InteractionsPanel" >
+		
+		<option id="ProductDnD.checkboxEnable"
+			label="ProductDnD.checkboxEnable.label"
+			enables-features="ProductDnD" />
+	</option-group>
+	
+</display>

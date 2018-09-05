@@ -1,0 +1,499 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2010, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<library>
+	<!---
+		@keywords final
+		Use this class to show a multiple attribute value selection editor in a grid cell.
+	-->
+	<class name="catMultipleAttributeValueCellDescriptor" extends="wcfGridChildObjectCheckboxCellDescriptor">
+		<!---
+			@keywords private
+			Use {@link catMutipleAttributeValueEditor} to create cell editor instances.
+		-->
+		<attribute name="cellEditorClass" value="catMutipleAttributeValueEditor"/>		
+	</class>
+	
+	<!---
+		@keywords final
+		Use this class to show a single attribute value selection editor in a grid cell.
+	-->
+	<class name="catSingleAttributeValueCellDescriptor" extends="wcfGridChildObjectCheckboxCellDescriptor">
+		<!---
+			@keywords private
+			Use {@link catSingleAttributeValueEditor} to create cell editor instances.
+		-->
+		<attribute name="cellEditorClass" value="catSingleAttributeValueEditor"/>		
+	</class>
+
+	<!---
+		@keywords private
+	-->
+	<class name="catMutipleAttributeValueEditor" extends="catAttributeValueEditor">
+	</class>
+	
+	<!---
+		@keywords private
+	-->
+	<class name="catSingleAttributeValueEditor" extends="catAttributeValueEditor" multipleSelection="false">
+	</class>
+
+	<!---
+		@keywords private
+	-->
+	<class name="catAttributeValueEditor" extends="basecomponent" width="${immediateparent.availableWidth}" focusable="false">
+		<!---
+			The {@link wcfObjectDefinition#objectType object type} of the child object that will be created and deleted.
+			This attribute is required.
+		-->
+		<attribute name="childObjectType" type="string"/>
+		<!---
+			The name of the property that contains the attribute value ID.
+			This attribute is required.
+		-->
+		<attribute name="childPropertyName" type="string"/>
+		<!---
+			Indicates that multiple attribute values can  be selected.
+		-->
+		<attribute name="multipleSelection" type="boolean" value="true"/>
+		<!--- @keywords private -->
+		<attribute name="requestIdentifier" value="-1"/>
+
+		<!--- @keywords private -->
+		<method name="init">
+			<![CDATA[
+			super.init();
+			updateValue();
+			]]>
+		</method>
+		
+		<!--- @keywords private -->
+		<method name="destroy">
+			<![CDATA[
+			if (this["updateValueDel"]) {
+				this.updateValueDel.unregisterAll();
+				delete this.updateValueDel;
+			}
+			super.destroy();
+			]]>
+		</method>
+		
+		<!---
+			Update the value.
+			@keywords private
+		-->
+		<method name="updateValue" args="e=null">
+			<![CDATA[
+			if (typeof(this.updateValueDel) == "undefined") {
+				this.updateValueDel = new lz.Delegate(this, "updateValue");
+			}
+			this.requestIdentifier = -1;
+			this.updateValueDel.unregisterAll();
+			this.updateValueDel.register(this, "ono");
+			if (this.o != null) {
+				var attributeObject = this.o.getObject("AttributeDictionaryAttributes");
+				var attributeId = attributeObject.getPropertyValue("attrId");
+				if (attributeId != "") {
+					var objects = this.o.getObjects(this.childObjectType, this.updateValueDel);
+					var attributeValueIds = "";
+					for (var i = 0; i < objects.length; i++) {
+						var attributeValueId = objects[i].getPropertyValue(this.childPropertyName);
+						if (attributeValueId != "") {
+							if (attributeValueIds != "") {
+								attributeValueIds += ",";
+							}
+							attributeValueIds += attributeValueId;
+						}
+					}
+					if (attributeValueIds != "") {
+						catGetSelectedAttributeDictionaryAttributeValues.doRequest(this, {
+							attributeId: attributeObject.getPropertyValue("attrId"),
+							attributeValueIds: attributeValueIds
+						});
+						this.requestIdentifier = catGetSelectedAttributeDictionaryAttributeValues.requestIdentifier;
+					}
+				}
+			}
+			if (this.requestIdentifier == -1) {
+				this.textView.setAttribute("text", "");
+			}
+			]]>
+		</method>
+		
+		<!---
+			Set the display text.
+			@keywords private
+		-->
+		<method name="setDisplayText" args="newText">
+			<![CDATA[
+			newText = wcfStringUtil.escapeText(newText);
+			if (this.textView.text != newText) {
+				this.textView.setAttribute("text", newText);
+			}
+			]]>
+		</method>
+		
+		<simplelayout axis="x" spacing="0"/>
+		
+		<text name="textView" width="${parent.width-parent.openDialogButton.width}" multiline="true"/>	
+
+		<basebutton name="openDialogButton" enabled="${classroot.enabled}" resource="rteGridIcon" focusable="true">
+			<!---
+				@keywords private
+				Open the dialog.
+			-->
+			<handler name="onclick">
+				<![CDATA[
+				if (this.classroot.o.model.oEditor.attributeValueSelectionDialog == null) {
+					new lz.catAttributeValueSelectionDialog(this.classroot.o.model.oEditor, {
+						name: "attributeValueSelectionDialog",
+						model: this.classroot.o.model
+					});
+				}
+				this.classroot.o.model.oEditor.attributeValueSelectionDialog.openAttributeValueSelectionDialog(classroot);
+				]]>
+			</handler>
+			
+			<!---
+				@keywords private
+				Handle focus.
+			-->
+			<handler name="onfocus">
+				<![CDATA[
+				if(!this["indicator"]){
+					new lz.wcfFocusIndicator(this, {
+						name: "indicator",
+						focusableView: this,
+						indicatorView: this
+					});
+				}
+				]]>
+			</handler>
+		</basebutton>
+	</class>
+	
+	<!---
+		@keywords private
+		
+		Attribute value selection dialog.
+	-->
+	<class name="catAttributeValueSelectionDialog" extends="wcfDialog" contentPaddingLeftSize="0" contentPaddingRightSize="0" contentPaddingTopSize="0" contentPaddingBottomSize="0" minWidth="100">
+		<!---
+			Reference to grid editor from which this dialog was launched.
+		-->
+		<attribute name="gridEditor"/>
+		<!---
+			Attribute object.
+		-->
+		<attribute name="attributeObject"/>
+		<!---
+			Selected attribute values.
+		-->
+		<attribute name="selectedValues" value="${[]}"/>
+		<!---
+			This attribute specifies the name of the grid definition class that displays the attribute values. 
+			This class must extend {@link wcfBaseTemplateWizardGrid}.
+			The default value is {@link wcfTemplateWizardGrid}.
+		-->
+		<attribute name="gridDefinitionClass" type="string" value="catAttributeValueSelectionGrid"/>
+		<!---
+			The wcfModel instance.
+		-->
+		<attribute name="model"/>
+
+		<!---
+			Handle OK. 
+		-->
+		<method name="onOk">
+			<![CDATA[
+			var childObjects = this.gridEditor.o.getObjects(this.gridEditor.childObjectType);
+			for (var i = 0; i < childObjects.length; i++) {
+				var value = childObjects[i].getPropertyValue(this.gridEditor.childPropertyName);
+				if (this.selectedValues.indexOf(value) == -1) {
+					childObjects[i].deleteObject();
+				}
+			}
+			for (var i = 0; i < this.selectedValues.length; i++) {
+				var objectType = this.gridEditor.childObjectType + "[" + this.gridEditor.childPropertyName + "=" + this.selectedValues[i] + "]";
+				var childObject = this.gridEditor.o.getObject(objectType, true);
+				if (childObject.implicitNewObject) {
+					childObject.setAttribute("implicitNewObject", false);
+					childObject.openGroupObject.checkUnsavedChanges();
+				}
+			}
+			this.gridEditor.updateValue();
+			this.closeWindow();
+			]]>
+		</method>
+
+		<!---
+			Handle Cancel. 
+		-->
+		<method name="onCancel">
+			<![CDATA[
+			this.closeWindow();
+			]]>
+		</method>
+
+		<!---
+			Open the attribute value selection dialog.
+			@param catAttributeValueEditor gridEditor grid cell editor
+		 -->
+		<method name="openAttributeValueSelectionDialog" args="gridEditor">
+			<![CDATA[
+			this.openWindow();
+			this.gridEditor = gridEditor;
+			var childObjects = this.gridEditor.o.getObjects(this.gridEditor.childObjectType);
+			for (var i = 0; i < childObjects.length; i++) {
+				this.selectedValues.push(childObjects[i].getPropertyValue(this.gridEditor.childPropertyName));
+			}
+			this.attributeObject = this.gridEditor.o.getObject("AttributeDictionaryAttributes");
+			this.attributeObject.bindViewToChildren(this.borderedView.attributeValueGrid, null, "AttributeDictionaryAttributeStringValue,InheritedAttributeDictionaryAttributeStringValue,AttributeDictionaryAttributeIntegerValue,InheritedAttributeDictionaryAttributeIntegerValue,AttributeDictionaryAttributeFloatValue,InheritedAttributeDictionaryAttributeFloatValue");
+			]]>
+		</method>
+
+		<!---
+			Close the dialog.
+		 -->
+		<method name="closeWindow">
+			<![CDATA[
+			super.closeWindow();
+			this.attributeObject.releaseViewFromChildren(this.borderedView.attributeValueGrid);
+			this.gridEditor = null;
+			this.attributeObject = null;
+			this.selectedValues = [];
+			]]>
+		</method>
+
+		<attribute name="availableWidth" type="number" value="400"/>
+		<attribute name="availableHeight" type="number" value="400"/>
+		<wcfBorderedView name="borderedView" borderSize="1" borderColor="${parent.style.bordercolumnlistcolor}">
+			<!--- @keywords private -->
+			<method name="init">
+				<![CDATA[	
+				super.init();
+				wcfDefinitionLoader.getDefinition(this.classroot.gridDefinitionClass, this, {
+					name: "attributeValueGrid",
+					visible: true,
+					dialog: classroot
+				});
+				]]>
+			</method>
+		</wcfBorderedView>
+		
+		<view name="buttonSection" placement="footer">
+			<wcfButton name="okButton" text="${foundationResources.simpleDialogOK.string}" isdefault="true">
+				<handler name="onclick">
+					<![CDATA[
+					parent.parent.onOk();
+					]]>
+				</handler>
+			</wcfButton>
+			<wcfButton name="cancelButton" text="${foundationResources.simpleDialogCancel.string}">
+				<handler name="onclick">
+					<![CDATA[
+					parent.parent.onCancel();
+					]]>
+				</handler>
+			</wcfButton>
+			<simplelayout axis="x"/>
+		</view>
+
+	</class>
+	
+	<!---
+		@keywords private
+		Attribute value selection grid. 
+	-->
+	<class name="catBaseAttributeValueSelectionGrid" extends="wcfObjectGrid" listBorderSize="1" padding="0" isConfigurable="false" multiSelect="false" editable="false" dragEnabled="false">
+		<!--- @keywords private -->
+		<attribute name="dialog" value="null"/>
+		<!---
+			@keywords private
+			Handles ondblclick action from the row.
+			@param modelObject o: The object to activate.
+		-->
+		<method name="activateObject" args="o">
+			<![CDATA[
+			// do nothing
+			]]>
+		</method>
+		
+		<catGridAttributeValueSelectionCheckbox/>
+	</class>
+	
+	<!---
+		@keywords private
+	-->
+	<class name="catGridAttributeValueSelectionCheckboxEditor" extends="wcfBaseCheckbox">
+		<!--- Reference to wcfModelProperty object that is being edited. -->
+		<attribute name="property" value="null" setter="setProperty(property)"/>
+		
+		<!--- @keywords private -->
+		<method name="init">
+			super.init();
+			if (this["property"]) {
+				this.updateValue();
+			}
+		</method>
+		
+		<!--- @keywords private -->
+		<method name="destroy">
+			<![CDATA[
+			if (this["updateValueDel"]) {
+				this.updateValueDel.unregisterAll();
+				delete this.updateValueDel;
+			}
+			super.destroy();
+			]]>
+		</method>
+
+		<method name="setProperty" args="newProperty">
+			<![CDATA[
+			if (typeof(this["property"]) == "undefined" || newProperty != this["property"]) {
+				if (typeof(this.updateValueDel) == "undefined") {
+					this.updateValueDel = new lz.Delegate(this, "updateValue");
+				}
+				this.updateValueDel.unregisterAll();
+				this.property = newProperty;
+				if (this.property) {
+					var multipleSelection = this.parent.grid.dialog.gridEditor.multipleSelection;
+					if (this.useRadioButton && multipleSelection) {
+						this.setAttribute("useRadioButton", false);
+					}
+					else if (!this.useRadioButton && !multipleSelection) {
+						this.setAttribute("useRadioButton", true);
+					}
+					this.updateValueDel.register(this.property, "onvalue");
+					this.updateValueDel.register(this.parent.grid.dialog, "onselectedValues");
+					this.updateValue();
+				}
+				else {
+					this.__updateValueLock = true;
+					this.setAttribute("value", false);
+					this.__updateValueLock = false;
+				}
+			}
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+		-->
+		<method name="updateValue" args="e=null">
+			<![CDATA[
+			if (this._initcomplete) {
+				var newValue = this.parent.grid.dialog.selectedValues.indexOf(this.property.value) >= 0;
+				if (newValue != this.value) {
+					this.__updateValueLock = true;
+					this.setAttribute("value", newValue);
+					this.__updateValueLock = false;
+				}
+			}
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+		-->
+		<method name="storeValue">
+			<![CDATA[
+			if (this._initcomplete) {
+				if (this.property) {
+					var valueChanged = false;
+					var multipleSelection = this.parent.grid.dialog.gridEditor.multipleSelection;
+					var selectedValues = this.parent.grid.dialog.selectedValues;
+					var index = selectedValues.indexOf(this.property.value);
+					if (this.value) {
+						if (index == -1) {
+							if (multipleSelection) {
+								selectedValues.push(this.property.value);
+							}
+							else {
+								selectedValues = [this.property.value];
+							}
+							valueChanged = true;
+						}
+					}
+					else {
+						if (index != -1) {
+							if (multipleSelection) {
+								selectedValues.splice(index, 1);
+							}
+							else {
+								selectedValues = [];
+							}
+							valueChanged = true;
+						}
+					}
+					if (valueChanged) {
+						this.parent.grid.dialog.setAttribute("selectedValues", selectedValues);
+					}
+				}
+			}			
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+		-->		
+		<handler name="onvalue">
+			// Do not need to store the value if this event is sent in updateValue() method
+			if (!this["__updateValueLock"]) {
+				this.storeValue();
+			}
+		</handler>
+	 </class>
+	
+	<!---
+		@keywords private
+	-->
+	<class name="catGridAttributeValueSelectionCheckbox" extends="wcfGridColumn" propertyName="attrValId" width="80" alignment="center" sortable="false" draggable="false" resizable="false">
+		<attribute name="cellViewerClass" value="catGridAttributeValueSelectionCheckboxEditor"/>
+	</class>
+	
+	<!---
+		@keywords private
+		This service returns the display names of the specified attribute values.
+	-->
+	<wcfService id="catGetSelectedAttributeDictionaryAttributeValues" retryOnError="true" sendDefaultLanguageId="true" url="/cmc/GetSelectedAttributeDictionaryAttributeValues">
+		<wcfServiceParam name="storeId" />
+		<!---
+			@keywords private
+			Parse the returned values.
+			
+			@param node requestParent: the parent node for this service request
+			@param XML e: "values" data element
+			@param number requestIdentifier: unique request identifier
+		-->
+		<method name="parseValues" args="requestParent,e,requestIdentifier">
+			<![CDATA[
+			if (requestParent.requestIdentifier == requestIdentifier) {
+				var displayText = "";
+				var nodes = e.childNodes;
+				for (var i = 0; i < nodes.length; i++) {
+					var node = nodes[i];
+					if (node.nodeName == "value") {
+						var displayName = node.attributes["displayName"];
+						if (displayText != "") {
+							displayText += ", ";
+						}
+						displayText += node.attributes["displayName"];
+					}
+				}
+				requestParent.setDisplayText(displayText);
+			}
+			]]>
+		</method>
+	</wcfService>
+</library>

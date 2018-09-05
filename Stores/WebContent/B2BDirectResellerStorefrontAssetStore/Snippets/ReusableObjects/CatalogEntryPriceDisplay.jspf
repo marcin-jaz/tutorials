@@ -1,0 +1,213 @@
+<%--
+***** 
+This object snippet displays the price for a catalog entry.
+
+Required parameters:
+
+catalogEntry:	This is the catalogy entry for which the price will be displayed. It has to 
+              	be one of ProductDataBean, ItemDataBean, BundleDataBean, or	PackageDataBean.
+
+type: 		This parameter is used to indicate the type of the given catalogEntry. It 
+		has to be one of {product, item, bundle, package}. By default, the type 
+		is either package or item.
+
+displayPriceRange: 	This parameter is used to indicate wheter or not to display the tiered
+			pricing setup for the catalog entry. Only items, products, packages will
+			display this.
+
+The rules for price display are as follows: 
+    
+     For product and bundle: 
+     	-- If there is no available item price, a message indicating 
+           that no price is available will be displayed. 
+        -- If the minimum item price is not equal to the maximum item
+           price, a price range will be displayed. 
+        -- If there is only one item price, and the list price is either
+           unavailable or smaller than the item price, then only the
+           item price will be displayed. 
+        -- If there is only one item price, and the list price is greater than
+           the item price, then both the list price and the item price will be
+           displayed. 
+           
+      For item and package: 
+        -- If there is no offer price, a message indicating that no price is
+           available will be displayed. 
+        -- If there is no list price or the list price is smaller than the 
+           offer price, then only will the offer price be displayed. 
+        -- If the list price is greater than the offer price, then both the
+           list price and the offer price will be displayed. 
+*****
+--%>
+
+<!-- Start - JSP File Name:  CatalogEntryPriceDisplay.jspf -->
+
+<%-- 
+***	
+*	Make sure the following variables are initially empty, because 
+*    the display will be based on whether they are null or not, and 
+*    the including page may contain the same variables. 
+***
+--%>
+<c:set var="minimumPrice" value=""/>
+<c:set var="maximumPrice" value=""/>
+<c:set var="emptyPriceString" value=""/>
+<c:set var="priceString" value=""/>
+
+<%--
+*** 
+*	Get the potential price range if the catalog entry is either a product,
+*    or a bundle. 
+***
+--%>
+<c:if test="${!empty catalogEntry}">
+	<c:choose>
+		<c:when test="${type eq 'catalogEntry'}">
+			<c:set var="apendId" value="${catalogEntry.catalogEntryID}"/>
+		</c:when>
+		<c:when test="${type eq 'product'}">
+			<c:set var="minimumPrice" value="${catalogEntry.minimumItemPrice}"/>
+			<c:set var="maximumPrice" value="${catalogEntry.maximumItemPrice}"/>
+			<c:set var="apendId" value="${catalogEntry.productID}"/>
+		</c:when>
+		
+		<c:when test="${type eq 'bundle'}">
+			<c:set var="minimumPrice" value="${catalogEntry.minimumBundlePrice}"/>
+			<c:set var="maximumPrice" value="${catalogEntry.maximumBundlePrice}"/>
+			<c:set var="apendId" value="${catalogEntry.bundleID}"/>
+		</c:when>
+		<c:when test="${type eq 'package'}">
+			<c:set var="apendId" value="${catalogEntry.packageID}"/>
+		</c:when>
+		<c:when test="${type eq 'item'}">
+			<c:set var="apendId" value="${catalogEntry.itemID}"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="apendId" value="${catalogEntry.catalogEntryID}"/>
+		</c:otherwise>
+	</c:choose>
+</c:if>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:choose>
+	<%--
+	***
+	*	If there is no calculated contract price, then get a message 
+	*   indicating there is no available price. This rule applies to
+	*	any type of a catalog entry.
+	*
+	--%>
+	<c:when test="${ empty minimumPrice && !catalogEntry.calculatedContractPriced}">
+		<fmt:message var="emptyPriceString" key="NO_PRICE_AVAILABLE" bundle="${storeText}"/>
+	</c:when>
+	
+	<%-- 
+	***
+	*	If there is a price range, then make the range as the price to 
+	*	be displayed. We do not need to test if maximum price is empty,
+	*   because as long as minimum price is not empty, nor will be 
+	*   the maximum price. 
+	***
+	--%>
+	<c:when test="${!empty minimumPrice && !empty maximumPrice && (minimumPrice.amount != maximumPrice.amount) && fn:indexOf(maximumPrice.amount, minimumPrice.amount)==-1 && fn:indexOf(minimumPrice.amount, maximumPrice.amount)==-1}">
+		<c:set var="priceString" value="${minimumPrice} - ${maximumPrice}"/>
+	</c:when>
+	
+	<%-- 
+	***	If there is no price range, then the offer price will be displayed, 
+	*   and the offer price is the catalog entry's calculated contract
+	*   price. This applies to any type of a catalog entry.
+	***
+	--%>
+	<c:otherwise>
+		<c:choose>
+			<c:when  test="${type eq 'product' || type eq 'bundle'}">
+				<c:set var="offerPrice" value="${minimumPrice}"/>
+			</c:when>
+			<c:otherwise>
+				<c:set var="offerPrice" value="${catalogEntry.calculatedContractPrice}"/>
+			</c:otherwise>
+		</c:choose>
+	</c:otherwise>
+</c:choose>
+
+<c:choose>
+    <%-- If the price is unavailable, print out the corresponding message --%>
+	<c:when test="${!empty emptyPriceString}">
+		<span class="price"> 
+			<c:out value="${emptyPriceString}"/>
+		</span>
+	</c:when>
+	
+	<%-- If the price string has been set, then we simply print it out. --%>
+	<c:when test="${!empty priceString}">
+		<a href="#" id="WC_PriceDisplay_Link_1_<c:out value='${apendId}' />"><img src="<c:out value="${jspStoreImgDir}"/>images/empty.gif" alt='<fmt:message key="SalePriceIs" bundle="${storeText}"/>' width="1" height="1" border="0" /></a>
+		<span class="price"><c:out value="${priceString}" escapeXml="false" /></span>
+	</c:when>
+	
+	<%-- If the list price does not exist or is smaller than the offer price, print out both the offer price only. --%>
+	<c:when test="${!catalogEntry.listPriced || catalogEntry.listPrice.amount <= offerPrice.amount}">
+		<a href="#" id="WC_PriceDisplay_Link_3_<c:out value='${apendId}' />"><img src="<c:out value="${jspStoreImgDir}" />images/empty.gif" alt='<fmt:message key="PriceIs" bundle="${storeText}" />' width="1" height="1" border="0" /></a>
+		<span class="price">
+			<c:out value="${offerPrice}" escapeXml="false" />
+		</span>
+	</c:when>
+	
+	<c:otherwise>
+		<!-- 
+		The empty gif are put in front of the prices so that the alt text can be read by the IBM Homepage Reader to describe the two prices displayed. 
+		These descriptions are necessary for meeting Accessibility requirements 
+		-->
+		<a href="#" id="WC_PriceDisplay_Link_1_<c:out value='${apendId}' />"><img src="<c:out value="${jspStoreImgDir}" />images/empty.gif" alt='<fmt:message key="RegularPriceIs" bundle="${storeText}" />' width="1" height="1" border="0" /></a>
+		<span class="listPrice">
+			<c:out value="${catalogEntry.listPrice}" escapeXml="false" />
+		</span>
+		<br/>
+		<!-- 
+		The empty gif are put in front of the prices so that the alt text can be read by the IBM Homepage Reader to describe the two prices displayed. 
+		These descriptions are necessary for meeting Accessibility requirements 
+		-->
+		<a href="#" id="WC_PriceDisplay_Link_2_<c:out value='${apendId}' />"><img src="<c:out value="${jspStoreImgDir}" />images/empty.gif" alt='<fmt:message key="SalePriceIs" bundle="${storeText}" />' width="1" height="1" border="0" /></a>
+		<span class="redPrice">
+			<c:out value="${offerPrice}" escapeXml="false" />
+		</span>
+	</c:otherwise>
+</c:choose>
+
+<c:if test="${displayPriceRange}">
+	<c:if test="${type != 'bundle' && catalogEntry.checkNumberOfApplicableContractIds}">
+	<br />
+	<br />
+		<c:forEach var="i" begin="0" end="${catalogEntry.numberOfApplicableContractIds}" varStatus="appContractIdCounter">
+			<c:forEach var="contractPriceRange" items="${catalogEntry.applicableContractPriceRanges}" varStatus="priceRangeContractCounter">
+				<c:if test="${priceRangeContractCounter.index == appContractIdCounter.index}">
+					<c:forEach var="priceRange" items="${contractPriceRange.rangePrices}" varStatus="priceRangeCounter">
+						<c:choose>
+							<c:when test="${empty priceRange.endingNumberOfUnits && priceRangeCounter.index == '0'}">
+								
+							</c:when>
+							<c:when test="${!empty priceRange.endingNumberOfUnits}">
+								<span class="price">
+								<fmt:message key="TieredPricingDisp" bundle="${storeText}">
+									<fmt:param value="${priceRange.startingNumberOfUnits}" />
+									<fmt:param value="${priceRange.endingNumberOfUnits}" />
+									<fmt:param value="${priceRange.contractPrice}" />
+								</fmt:message>
+								</span><br />
+							</c:when>
+							<c:otherwise>
+								<span class="price">
+								<fmt:message key="TieredPricingDispLast" bundle="${storeText}">
+									<fmt:param value="${priceRange.startingNumberOfUnits}" />
+									<fmt:param value="${priceRange.contractPrice}" />
+								</fmt:message>
+								</span><br />
+                                   			</c:otherwise>
+                           			</c:choose>
+		    		     	</c:forEach>
+				</c:if>
+			</c:forEach>
+		</c:forEach>
+	</c:if>
+</c:if>
+
+<!-- End - JSP File Name:  CatalogEntryPriceDisplay.jspf -->

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<_config:ConfigurationRegistry
+	xmlns:_config="http://www.ibm.com/xmlns/prod/commerce/foundation/config"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ibm.com/xmlns/prod/commerce/foundation/config ../xsd/wc-config-mapping-registry.xsd ">
+	<_config:filemapping configFileName="wc-data-service-config.properties"
+		implementationClassName="com.ibm.commerce.foundation.internal.server.services.dataaccess.config.DataServiceConfigurationPropertyImpl" />
+	<_config:filemapping configFileName="wc-component.xml"
+		implementationClassName="com.ibm.commerce.foundation.internal.common.config.DevelopmentComponentConfigurationImpl" />
+	<_config:filemapping configFileName="wc-search.xml"
+		implementationClassName="com.ibm.commerce.foundation.internal.server.services.search.config.solr.SolrSearchConfiguration" />
+	<_config:filemapping configFileName="wc-store-properties.xml"
+		implementationClassName="com.ibm.commerce.foundation.internal.server.services.registry.config.StorePropertiesConfiguration" />
+	<_config:elementmapping
+		configElementName="http://www.ibm.com/xmlns/prod/commerce/foundation/config:database"
+		implementationClassName="com.ibm.commerce.foundation.server.services.rest.search.config.solr.SolrRESTSearchDatabaseConfiguration" />
+	<_config:elementmapping
+		configElementName="http://www.ibm.com/xmlns/prod/commerce/foundation/config:dataservice"
+		implementationClassName="com.ibm.commerce.foundation.internal.server.services.dataaccess.config.node.DataServiceConfigurationNodeImpl" />
+	<_config:elementmapping
+		configElementName="http://www.ibm.com/xmlns/prod/commerce/foundation/config:extendedconfiguration"
+		implementationClassName="com.ibm.commerce.foundation.internal.common.config.node.ExtendedConfigurationConfigNodeImpl" />
+</_config:ConfigurationRegistry>

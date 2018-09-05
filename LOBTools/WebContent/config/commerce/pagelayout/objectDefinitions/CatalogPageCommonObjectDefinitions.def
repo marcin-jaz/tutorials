@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>	
+
+	<CollectionReferenceObjectDefinition definitionName="plmChildCatalogEntryBrowsingPage"
+		idProperty="childCatalogEntryId"
+		objectType="ChildCatalogEntryBrowsingPage"
+		referencedTypes="ProductBrowsingPage,InheritedProductBrowsingPage,BundleBrowsingPage,InheritedBundleBrowsingPage,KitBrowsingPage,InheritedKitBrowsingPage,DynamicKitBrowsingPage,InheritedDynamicKitBrowsingPage,PredDynaKitBrowsingPage,InheritedPredDynaKitBrowsingPage,CatalogGroupSKUBrowsingPage,InheritedCatalogGroupSKUBrowsingPage,ProductSKUBrowsingPage,InheritedProductSKUBrowsingPage">
+ 		<FalseEnablementCondition/>
+	</CollectionReferenceObjectDefinition>
+
+	<!---  
+		    Collection Parent Reference object definition between the category browsing page and another child category browsing page.
+		    This indicates that a category browsing page can be a parent of another category browsing page.
+	-->
+	<CollectionReferenceObjectDefinition definitionName="plmChildCatalogGroupBrowsingPage"
+		objectType="ChildCatalogGroupBrowsingPage"
+		idProperty="childCatalogGroupId"
+		referencedTypes="CatalogGroupBrowsingPage,InheritedCatalogGroupBrowsingPage">
+		<FalseEnablementCondition/>
+	</CollectionReferenceObjectDefinition>
+	   
+	<ReferenceObjectDefinition definitionName="BaseSharedCatalogGroupBrowsingPage"
+	   	isBaseDefinition="true"
+	   	objectType="BaseSharedCatalogGroupBrowsingPage"
+	   	idProperty="childCatalogGroupId"
+	   	helpPage="plmLinkedCategoryHelpPage">
+	    <FalseEnablementCondition/>
+	</ReferenceObjectDefinition>
+  
+      	
+	<!---  
+		Reference object definition between the sales category browsing page and another category browsing page.
+		This indicates that a sales category browsing page can share as a child a category browsing page which belongs to the master layout catalog.
+	-->
+	<ReferenceObjectDefinition definitionName="plmSharedCatalogGroupBrowsingPage"
+		baseDefinitionName="BaseSharedCatalogGroupBrowsingPage"
+		icon="sharedCatalogGroupPageIcon"
+		objectType="SharedCatalogGroupBrowsingPage"
+		displayName="${plmPageLayoutResources.sharedCategoryPage_DisplayName}"
+		referencedTypes="CatalogGroupBrowsingPage">
+	</ReferenceObjectDefinition>		
+       		
+	<!---  
+		Reference object definition between the sales category browsing page and another category browsing page.
+		This indicates that a sales category browsing page can share as a child a category browsing page which belongs to the inherited master  layout catalog.
+	-->
+   	<ReferenceObjectDefinition definitionName="plmSharedInheritedCatalogGroupBrowsingPage" 
+   		baseDefinitionName="BaseSharedCatalogGroupBrowsingPage"
+   		icon="sharedInheritedCatalogGroupPageIcon"
+   		objectType="SharedInheritedCatalogGroupBrowsingPage"
+   		displayName="${plmPageLayoutResources.sharedInheritedCategoryPage_DisplayName}"
+   		referencedTypes="InheritedCatalogGroupBrowsingPage"/> 
+   		
+</Definitions>

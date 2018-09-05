@@ -1,0 +1,337 @@
+<!--********************************************************************-->
+<!--  Licensed Materials - Property of IBM                              -->
+<!--                                                                    -->
+<!--  WebSphere Commerce                                                -->
+<!--                                                                    -->
+<!--  (c) Copyright IBM Corp. 2006                                      -->
+<!--                                                                    -->
+<!--  US Government Users Restricted Rights - Use, duplication or       -->
+<!--  disclosure restricted by GSA ADP Schedule Contract with IBM Corp. -->
+<!--                                                                    -->
+<!--********************************************************************-->
+<%--
+*****
+This object snippet displays a catalog entry. 
+By default all aspects of the catalogEntry are shown.
+Users may specify display parameters to limit what is shown (see optional parameters).
+
+Parameters required:
+	catEntry: 	This is the catalogy entry that will be displayed.
+				It should be a populated CatalogEntryDataBean
+
+Optional display parameters:
+	hideThumbNailImage:		If set to true, will stop the image/link from being shown
+	hideNameLink:			If set to true, will stop the name/link
+	hideDescription:		If set to true, will stop showing the short description
+	hideDefiningAttributes:		If set to true, will stop defining attributes from being displayed
+	hideSKU:			If set to true, will stop SKU (partnumber) from being displayed
+	hideDiscounts:			If set to true, will stop discounts from being displayed
+	hideOrderButton:		If set to true, will stop showing order button
+	useClickInfoURL			If set to true, will use the variable 'ClickInfoURL' for the thumbnail image and name link.
+	ClickInfoURL			If 'useClickInfoURL' is set to true, this will be used as the link for the image and name links.
+	pageView			If set to 'detailed', will show item in detailed view instead
+	imgWidth			If set image will use this width otherwise default width will be 51
+	imgHeight			If set image will use this height otherwise default height will be 51
+	***** Start: GiftRegistryCode
+	selectable				If set to true, will display a checkbox for selecting this item
+	***** End: GiftRegistryCode
+*****
+--%>
+<%@ taglib uri="http://commerce.ibm.com/foundation" prefix="wcf" %>
+<!-- Start - JSP File Name:  CatalogEntryThumbnailDisplay.jspf -->
+
+<%--
+  ***
+  * Host name of the URL that is used to point to the shared image directory.  Use this variable to reference images.
+  ***
+--%>
+<c:set value="${pageContext.request.scheme}://${pageContext.request.serverName}" var="hostPath" />
+
+<%--
+***
+Using the catalogEntry variable to access common methods on the bean to avoid code duplication
+for the 4 different types of catalog entries we can display in the store.
+***
+--%>
+<c:choose>
+	<c:when test="${catEntry.product}">
+		<%-- set the catalogEntry var to the product bean --%>
+		<c:set var="catalogEntry" value="${catEntry.productDataBean}"/>
+		<c:set var="type" value="product" />		
+	</c:when>
+	<c:when test="${catEntry.item}">
+		<%-- set the catalogEntry var to the item bean --%>
+		<c:set var="catalogEntry" value="${catEntry.itemDataBean}"/>
+		<c:set var="type" value="item" />		
+	</c:when>
+	<c:when test="${catEntry.package}">
+		<%-- set the catalogEntry var to the package bean --%>
+		<c:set var="catalogEntry" value="${catEntry.packageDataBean}"/>
+		<c:set var="type" value="package" />		
+	</c:when>
+	<c:when test="${catEntry.bundle}">
+		<%-- set the catalogEntry var to the bundle bean --%>
+		<c:set var="catalogEntry" value="${catEntry.bundleDataBean}"/>
+		<c:set var="type" value="bundle" />		
+	</c:when>
+</c:choose>
+
+<c:choose>
+	<c:when test="${empty useClickInfoURL || useClickInfoURL == false}">
+		<%-- The URL that links to the display page --%>
+		<c:url var="catEntryDisplayUrl" value="ProductDisplay">
+		    <c:param name="catalogId" value="${WCParam.catalogId}"/>
+		    <c:param name="storeId" value="${WCParam.storeId}"/>
+		    <c:param name="productId" value="${catEntry.catalogEntryID}"/>
+		    <c:param name="langId" value="${langId}"/>
+		    <c:param name="parent_category_rn" value="${WCParam.categoryId}"/>
+		    <c:param name="top_category" value="${WCParam.top_category}"/>
+		</c:url>
+	</c:when>
+	<c:otherwise>
+		<c:set var="catEntryDisplayUrl" value="${ClickInfoURL}"/>
+	</c:otherwise>
+</c:choose>
+
+<c:if test="${empty subimgHeight}">
+	<c:set var="subimgHeight" value="73"/>
+</c:if>
+<c:if test="${empty subimgWidth}">
+	<c:set var="subimgWidth" value="73"/>
+</c:if>
+<%-- 
+  ***
+  *	Start: GiftRegistryCode
+  *
+  ***
+--%>
+<flow:ifEnabled feature="GiftRegistry">
+<c:choose>
+<c:when test="${selectable}">
+	<input type="checkbox" name="catEntryId_<c:out value='${counter.count}'/>" value="<c:out value='${catEntry.catalogEntryID}'/>" />
+	<input type="hidden" name="quantity_<c:out value='${counter.count}'/>" value="1"/>
+	<c:set var="selectAction" value="javascript:catEntryId_${counter.count}.checked=!catEntryId_${counter.count}.checked;"/>
+</c:when>
+<c:otherwise>
+	<c:set var="selectAction" value=""/>
+</c:otherwise>
+</c:choose>
+</flow:ifEnabled>
+<%-- 
+  ***
+  *	End: GiftRegistryCode
+  ***
+--%>	
+
+<c:if test="${empty hideThumbNailImage || hideThumbNailImage == false}">
+	<c:choose>
+		<c:when test="${!empty catalogEntry.description.thumbNail}">
+			<a href="<c:out value="${catEntryDisplayUrl}"  escapeXml="false"/>" id="WC_CatalogEntryThumbnailDisplay_Link_ForProductImg_<c:out value="${counter.count}"/>">
+			
+			<c:choose>
+				<c:when test="${pageView == 'detailed' && !empty catalogEntry.description.auxDescription2}">
+				<a href="<c:out value="${catEntryDisplayUrl}"  escapeXml="false"/>" id="WC_CatalogEntryThumbnailDisplay_Link_ForProductImg_<c:out value="${thumbnailCounter}"/>">
+				<span class="t_img_border"><img src="<c:out value="${hostPath}"/><c:out value="${catalogEntry.objectPath}${catalogEntry.description.auxDescription2}"/>" alt="<c:out value="${catalogEntry.description.shortDescription}" />" border="0"/></span></a>
+				</c:when>
+		   		<c:otherwise>
+					<%-- 
+					  ***
+					  *	Start: GiftRegistryCode
+					  *
+					  ***
+					--%>
+					<flow:ifEnabled feature="GiftRegistry">
+					<c:if test='${!selectable}'><a href="<c:out value='${catEntryDisplayUrl}' escapeXml='false'/>" id="WC_CatalogEntryThumbnailDisplay_Link_ForProductImg_<c:out value="${counter.count}"/>"></c:if>
+					</flow:ifEnabled>
+					<%-- 
+					  ***
+					  *	End: GiftRegistryCode
+					  ***
+					--%>	
+		   		
+		   			<img src="<c:out value="${hostPath}"/><c:out value="${catalogEntry.objectPath}${catalogEntry.description.thumbNail}"/>" alt="<c:out value="${catalogEntry.description.shortDescription}" />" border="0" width="${subimgWidth}" height="${subimgHeight}"/>
+		   		
+		   		<%-- 
+					  ***
+					  *	Start: GiftRegistryCode
+					  *
+					  ***
+					--%>
+					<c:if test='${!selectable}'></a></c:if><br/>
+					<%-- 
+					  ***
+					  *	End: GiftRegistryCode
+					  ***
+					--%>	
+		   		</c:otherwise>
+			</c:choose>
+		   	</a>
+			<c:choose>
+				<c:when test="${pageView == 'image'}">
+		   	<br/>
+				</c:when>
+				<c:otherwise>
+			</td><td class="t_row_detail">
+				</c:otherwise>
+			</c:choose>
+		</c:when>
+		<c:otherwise>
+			<a href="<c:out value="${catEntryDisplayUrl}"  escapeXml="false"/>" id="WC_CatalogEntryThumbnailDisplay_Link_ForProductImg_<c:out value="${thumbnailCounter}"/>">
+			<c:choose>
+				<c:when test="${pageView == 'detailed'}">
+				<span class="t_img_border">
+				<img src="<c:out value="${hostPath}"/><c:out value="${jspStoreImgDir}" />images/NoImageIcon_sm45.jpg" alt="<fmt:message key="No_Image" bundle="${storeText}"/>" border="0"/>
+		   		</span>
+		   		</c:when>
+		   		<c:otherwise>
+		   		<img src="<c:out value="${hostPath}"/><c:out value="${jspStoreImgDir}" />images/NoImageIcon_sm.jpg" alt="<fmt:message key="No_Image" bundle="${storeText}"/>" border="0"/>
+		   		</c:otherwise>
+			</c:choose>
+		   	</a>
+			<c:choose>
+				<c:when test="${pageView == 'image'}">
+		   	<br/>
+				</c:when>
+				<c:otherwise>
+			</td><td class="t_row_detail">
+				</c:otherwise>
+			</c:choose>		
+		</c:otherwise>
+	</c:choose>
+</c:if>
+
+<c:if test="${empty hideNameLink || hideNameLink == false}">
+	<a href="<c:out value="${catEntryDisplayUrl}"  escapeXml="false"/>" id="WC_CatalogEntryThumbnailDisplay_Link_1_<c:out value="${thumbnailCounter}"/>">
+		<span class="productName"><c:out value="${catalogEntry.description.name}"  escapeXml="false"/></span>
+	</a><br/>
+</c:if>
+
+<c:if test="${catEntry.item || catEntry.package}">
+	<c:if test="${empty hideSKU || hideSKU == false}">
+		<fmt:message key="SKU" bundle="${storeText}"/>:  <c:out value="${catalogEntry.partNumber}"/>
+		<br/>
+	</c:if>
+</c:if>
+
+<c:if test="${pageView == 'detailed'}">
+	<c:if test="${empty hideDescription || hideDescription == false}">
+		<span class="t_txt_detail"><c:out value="${catalogEntry.description.shortDescription}"/></span><br/>
+	</c:if>
+	
+	<c:if test="${empty hideDiscounts || hideDiscounts == false}">
+		<br/>
+		<c:remove var="discounts"/>
+		<wcbase:useBean id="discounts" classname="com.ibm.commerce.fulfillment.beans.CalculationCodeListDataBean" scope="page">
+			<c:set property="catalogEntryId" value="${catEntry.catalogEntryID}" target="${discounts}" />
+			<c:set property="includeParentProduct" value="true" target="${discounts}" />
+			<c:set property="includeChildItems" value="true" target="${discounts}"/>
+			<%-- UsageId for discount is -1 --%>
+			<c:set property="calculationUsageId" value="-1" target="${discounts}" />
+		</wcbase:useBean>
+		<c:if test="${ !empty discounts.calculationCodeDataBeans }" >
+			<c:forEach var="discountEntry" items="${discounts.calculationCodeDataBeans}" varStatus="discountCounter">
+				<c:set var="hasDiscount" value="true"/>
+				<c:url var="DiscountDetailsDisplayViewURL" value="DiscountDetailsDisplayView">
+					<c:param name="code" value="${discountEntry.code}" />
+					<c:param name="langId" value="${langId}" />
+					<c:param name="storeId" value="${WCParam.storeId}" />
+					<c:param name="catalogId" value="${WCParam.catalogId}" />
+				</c:url>
+				<img src="<c:out value="${hostPath}"/><c:out value="${jspStoreImgDir}" />images/Discount_star.gif" alt="<c:out value="${discountEntry.descriptionString}" escapeXml="false" />" align="middle"/>&nbsp;<a class="discount" href='<c:out value="${DiscountDetailsDisplayViewURL}" />' id="WC_CatalogEntryThumbnailDisplay_Link_1_<c:out value="${discountcount}"/>_<c:out value="${thumbnailCounter}"/>"><c:out value="${discountEntry.descriptionString}" escapeXml="false" /></a>
+				<br />
+				
+			</c:forEach>
+		</c:if>
+	</c:if>
+	</td><td align="right" class="t_row_price">
+</c:if>
+
+<%@ include file="CatalogEntryPriceDisplay.jspf" %>
+<c:if test="${pageView == 'detailed'}">
+<br/>
+</c:if>
+
+<c:choose>
+	<c:when test="${catEntry.product && !empty catalogEntry.definingAttributes}">
+<br/>
+	</c:when>
+	<c:when test="${catEntry.product && empty catalogEntry.itemDataBeans}">
+<br/>
+	</c:when>
+	<c:when test="${catEntry.bundle}">
+<br/>
+	</c:when>
+	<c:otherwise>
+<br/>
+<c:url var="orderItemAddURL" value="OrderItemAdd">
+	<c:param name="storeId" value="${WCParam.storeId}"/>   
+	<c:param name="catalogId" value="${WCParam.catalogId}"/>
+	<c:param name="orderId" value="."/>
+	<c:param name="URL" value="SetPendingOrder?URL=OrderCalculate?URL=OrderItemDisplay&updatePrices=1&calculationUsageId=-1&orderId=."/>									
+	<c:param name="catEntryId" value="${catEntry.catalogEntryID}"/>
+	<c:param name="quantity" value="1"/>
+	<c:param name="errorViewName" value="ProductDisplayErrorView"/>
+</c:url>
+
+<c:if test="${catalogEntry.buyable==1}"> 
+	<c:if test="${empty hideOrderButton || hideOrderButton == false}">
+		<a href="<c:out value="${orderItemAddURL}"/>" class="button" id="WC_CatalogEntryThumbnailDisplayView_Link_1_<c:out value="${catEntry.catalogEntryID}"/>">
+		<fmt:message key="Quick_Add_To_Order" bundle="${storeText}"/>
+		</a>
+		<br/>
+	</c:if>
+</c:if>
+
+	</c:otherwise>
+</c:choose>
+
+<c:if test="${empty hideDefiningAttributes || hideDefiningAttributes == false}">
+	<c:if test="${catEntry.item}">
+		<%-- Display Defining attributes -- loop through the attribute values and display the defining attributes --%>
+		<wcf:getData type="com.ibm.commerce.catalog.facade.datatypes.CatalogEntryType" var="catalogEntryAttributes" expressionBuilder="getStoreCatalogEntryAttributesByID">
+			<wcf:contextData name="storeId" data="${param.storeId}"/>
+			<wcf:param name="catEntryId" value="${catEntry.catalogEntryID}"/>
+			<wcf:param name="dataLanguageIds" value="${WCParam.langId}"/>
+		</wcf:getData>
+
+		<c:forEach var="attribute" items="${catalogEntryAttributes.catalogEntryAttributes.attributes}">
+			<c:if test="${ attribute.usage=='Defining' }" >	
+				<span class="strongtext"><c:out value="${attribute.name}"  escapeXml="false" /> : </span><c:out value="${attribute.value.value}"  escapeXml="false" />																				
+				<br/>
+			</c:if>
+		</c:forEach>
+		
+		<c:remove var="catalogEntryAttributes"/>
+	</c:if>
+</c:if>
+
+<c:if test="${pageView == 'image'}">
+	<c:if test="${empty hideDiscounts || hideDiscounts == false}">
+		<br/>
+		<c:remove var="discounts"/>
+		<wcbase:useBean id="discounts" classname="com.ibm.commerce.fulfillment.beans.CalculationCodeListDataBean" scope="page">
+			<c:set property="catalogEntryId" value="${catEntry.catalogEntryID}" target="${discounts}" />
+			<c:set property="includeParentProduct" value="true" target="${discounts}" />
+			<c:set property="includeChildItems" value="true" target="${discounts}"/>
+			<%-- UsageId for discount is -1 --%>
+			<c:set property="calculationUsageId" value="-1" target="${discounts}" />
+		</wcbase:useBean>
+		<c:if test="${ !empty discounts.calculationCodeDataBeans }" >
+			<c:forEach var="discountEntry" items="${discounts.calculationCodeDataBeans}" varStatus="discountCounter">
+				<c:set var="hasDiscount" value="true"/>
+				<c:url var="DiscountDetailsDisplayViewURL" value="DiscountDetailsDisplayView">
+					<c:param name="code" value="${discountEntry.code}" />
+					<c:param name="langId" value="${langId}" />
+					<c:param name="storeId" value="${WCParam.storeId}" />
+					<c:param name="catalogId" value="${WCParam.catalogId}" />
+				</c:url>
+				<img src="<c:out value="${hostPath}"/><c:out value="${jspStoreImgDir}" />images/Discount_star.gif" alt="<c:out value="${discountEntry.descriptionString}" escapeXml="false" />" align="middle" valign="top"/>
+				<a class="discount" href='<c:out value="${DiscountDetailsDisplayViewURL}" />' id="WC_CatalogEntryThumbnailDisplay_Link_1_<c:out value="${discountcount}"/>_<c:out value="${thumbnailCounter}"/>">
+				<fmt:message key="PRODUCT_DISCOUNT_DETAILS" bundle="${storeText}" /></a>
+				<br />
+			</c:forEach>
+		</c:if>
+	</c:if>
+</c:if>
+
+<!-- End - JSP File Name:  CatalogEntryThumbnailDisplay.jspf -->

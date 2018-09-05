@@ -1,0 +1,138 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2003, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+
+<%--
+  *****
+  * This JSP segment displays the miscellaneous section of the registration
+  * forms.
+  * The display order is as follows (* means mandatory):
+  *  - e-mail address*
+  *  - preferred currency*
+  *  - preferred language*
+  *  - internal mailing address
+  *  - job function
+  *  - receive email
+  *****
+--%>
+<wcbase:useBean id="bnEmailUserReceive" classname="com.ibm.commerce.emarketing.beans.EmailUserReceiveDataBean">
+<c:set property="usersId" value="${CommandContext.userId}" target="${bnEmailUserReceive}" />
+</wcbase:useBean>
+
+<tr>
+	<td class="logonheading t_td2" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_2"/>">
+		<span class="reqd">*</span><fmt:message key="Reg_Email" bundle="${storeText}"/>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_4"/>">
+		<input class="logon input" type="text" maxlength="80" size="35" name="<c:out value="${paramPrefix}email1"/>" value="<c:out value="${paramSource.email1}"/>" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_${paramPrefix}email_1"/>"/>
+	</td>
+</tr>
+
+<tr>
+	<td class="logonheading t_td2" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_5"/>">
+		<span class="reqd">*</span><fmt:message key="Reg_Curr" bundle="${storeText}"/>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_7"/>">
+		<c:set var="preferredCurrency" value="${paramSource.preferredCurrency}"/>
+		<c:if test="${empty preferredCurrency}">
+			<c:set var="preferredCurrency" value="${CommandContext.currency}"/>
+		</c:if>
+
+		<select class="logon select" name="<c:out value="${paramPrefix}preferredCurrency"/>" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_${paramPrefix}preferredCurrency_1"/>">
+		<c:forEach items="${sdb.storeCurrencies}" var="currency">
+			<option value="<c:out value="${currency.currencyCode}"/>"<c:if test="${currency.currencyCode == preferredCurrency}"> selected="selected"</c:if>>
+				<c:out value="${currency.currencyDescription}"/>
+			</option>
+		</c:forEach>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td class="logonheading t_td2" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_6"/>">
+		<span class="reqd">*</span><fmt:message key="Reg_Lang" bundle="${storeText}"/>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_8"/>">
+		<c:set var="preferredLanguage" value="${paramSource.preferredLanguage}"/>
+		<c:if test="${empty preferredLanguage}">
+			<c:set var="preferredLanguage" value="${CommandContext.languageId}"/>
+		</c:if>
+
+		<select class="logon select" name="<c:out value="${paramPrefix}preferredLanguage"/>" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_${paramPrefix}preferredLanguage_1"/>">
+		<c:forEach items="${sdb.languageDataBeans}" var="language">
+			<option value="<c:out value="${language.languageId}"/>"<c:if test="${language.languageId == preferredLanguage}"> selected="selected"</c:if>>
+				<c:out value="${language.descriptionString}"/>
+			</option>
+		</c:forEach>
+		</select>
+	</td>
+</tr>
+
+
+<tr>
+	<td class="logonheading t_td2" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_9"/>">
+		<fmt:message key="Reg_Mail" bundle="${storeText}"/>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_11"/>">
+		<input class="logon input" type="text" maxlength="50" size="35" name="<c:out value="${paramPrefix}officeAddress"/>" value="<c:out value="${paramSource.officeAddress}"/>" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_${paramPrefix}officeAddress_1"/>"/>
+	</td>
+</tr>
+<tr>
+	<td class="logonheading t_td2" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_10"/>">
+		<fmt:message key="Reg_Function" bundle="${storeText}"/>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_12"/>">
+		<c:set var="jobFunctionParamName" value="${paramPrefix}JobFunction_${storeId}_${memberAttributeAction}_1"/>
+		<c:choose>
+			<c:when test="${!empty userReg && empty storeError.key}">
+				<c:set var="jobFunctionParamValue" value="${userReg.attributes.JobFunction[WCParam.storeId][0]}"/>
+			</c:when>
+			<c:otherwise>
+				<c:set var="jobFunctionParamValue" value="${WCParam[jobFunctionParamName]}"/>
+			</c:otherwise>
+		</c:choose>
+
+		<wcbase:useBean id="userRegRB" classname="com.ibm.commerce.common.beans.ResourceBundleDataBean">
+			<c:set target="${userRegRB}" property="propertyFileName" value="UserRegistrationB2B"/>
+		</wcbase:useBean>
+		<c:set var="jobFunctions" value="${userRegRB.propertyHashtable['jobFunction']['Options']}"/>
+
+		<select class="logon select" name="<c:out value="${jobFunctionParamName}"/>" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_${jobFunctionParamName}"/>">
+		<option value=""<c:if test="${empty jobFunctionParamValue}"> selected="selected"</c:if>/>
+		<c:forEach items="${jobFunctions}" var="jobFunction">
+			<option value="<c:out value="${jobFunction[0]}"/>"<c:if test="${jobFunction[0] == jobFunctionParamValue}"> selected="selected"</c:if>>
+				<c:out value="${jobFunction[1]}"/>
+			</option>
+		</c:forEach>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td class="logonheading t_td2" colspan="2" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_13"/>">
+		<input type="hidden" name="receiveEmail" value="" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_receiveEmail"/>"/>
+		<input type="checkbox" name="sendMeEmail" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_sendMeEmail"/>" <c:if test="${bnEmailUserReceive.userReceive}"> checked="checked" </c:if>/>
+		<fmt:message key="Reg_receiveEmail" bundle="${storeText}"/>
+	</td>
+</tr>

@@ -1,0 +1,12 @@
+<%-- Start- JSP File Name: EDPEnvironmentSetup.jspf --%>
+
+<%-- Include ../SnippetEnvironmentSetup.jspf --%>
+<%@ include file="../SnippetEnvironmentSetup.jspf"%>
+
+<%-- Load the resource bundles for EDP component --%>
+<fmt:setLocale value="${CommandContext.locale}" />
+<fmt:setBundle basename="${snippetJspStoreDir}/Snippets/EDP/EdpJspCodeSnippetText" var="edpText" />
+
+<%-- Set the path name of the JSP file for billing address selection --%>
+<c:set var="billingAddressSelectListPath" value="${snippetJspStoreDir}Snippets/EDP/PaymentMethods/BillingAddressDropdownbox.jsp" />
+<%-- End- JSP File Name: EDPEnvironmentSetup.jspf --%>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2010, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+  
+  	<!---
+		This grid displays a list of search filter objects for use in the properties view.
+	-->
+	<ObjectGrid definitionName="catSearchFiltersCombinedGrid" preferenceKey="catSearchFiltersCombinedGrid">
+		<GridIconTypeImage name="type" enableFilter="true" required="true" text="${mktMarketingResources.type}" width="90"/>
+		<GridColumn name="filterName" required="true" text="${mktMarketingResources.displayProduct_searchFilterName}" visible="true" width="180">
+			<GridDisplayNameCellDescriptor name="categorySearchFilterNameCellDescriptor" objectType="ChildCatalogGroupFilterGroup" showObjectDefinitionDisplayName="true" resolveReferencedObject="false"/>
+			<GridComboBoxPropertyCellDescriptor package="mkt" objectType="catalogEntryPropertySearchFilter" name="catalogEntryPropertySearchFilterName" propertyName="filterName"/>
+			<GridComboBoxPropertyCellDescriptor package="mkt" objectType="catalogEntryDateSearchFilter" name="catalogEntryDateSearchFilterName" propertyName="filterName"/>
+			<GridTextCellDescriptor name="attributeName" objectType="ChildAttributeWithAllowedValuesGroup" objectPath="AttributeDictionaryAttributes" propertyName="attributeCode" editable="false"/>
+		</GridColumn>
+		<GridColumn name="filterOperator" editable="true" required="true" text="${mktMarketingResources.displayProduct_searchFilterMatchingRule}" visible="true" width="180">
+			<GridComboBoxCellDescriptor name="filterOperator1" editable="true" objectType="catenttype_id_ntk_cs" propertyName="filterOperator" />
+			<GridComboBoxCellDescriptor name="filterOperator2" editable="true" objectType="ChildCatalogGroupFilterGroup" propertyName="filterOperator" />
+			<GridComboBoxCellDescriptor name="filterOperator3" editable="true" objectType="catalogEntryPropertySearchFilter" propertyName="filterOperatorExactString" >
+				<EnablementCondition conditionId="catalogEntryPropertySearchFilterCondition" enablementValue="EXACTSTRING" propertyName="filterDataType"/>
+			</GridComboBoxCellDescriptor>
+			<GridComboBoxCellDescriptor name="filterOperator4" editable="true" objectType="catalogEntryPropertySearchFilter" propertyName="filterOperatorNumeric" >
+				<EnablementCondition conditionId="catalogEntryPropertySearchFilterCondition" enablementValue="NUMERIC" propertyName="filterDataType"/>
+			</GridComboBoxCellDescriptor>
+			<GridComboBoxCellDescriptor name="filterOperator5" editable="true" objectType="ChildAttributeWithAllowedValuesGroup" propertyName="filterOperator"/>
+			<GridComboBoxCellDescriptor name="filterOperator6" editable="true" objectType="catalogEntryPropertySearchFilter" propertyName="filterOperatorAnyString" >
+				<EnablementCondition conditionId="catalogEntryPropertySearchFilterCondition" enablementValue="ANYSTRING" propertyName="filterDataType"/>
+			</GridComboBoxCellDescriptor>
+			<GridComboBoxCellDescriptor name="filterOperator7" editable="true" objectType="catalogEntryDateSearchFilter" propertyName="filterOperator"/>
+		</GridColumn>
+		<GridColumn name="filterValue" editable="true" required="true" text="${mktMarketingResources.displayProduct_searchFilterValue}" visible="true" width="200" validatorTypes="noFilterValue">
+			<GridChildObjectCheckboxCellDescriptor name="catalogEntryTypeFilterValueCellDescriptor" objectType="catenttype_id_ntk_cs" childObjectType="filterValue" childPropertyName="filterValue"/>
+			<GridNumericCellDescriptor name="catalogEntryPropertyFilterNumericValueCellDescriptor" objectType="catalogEntryPropertySearchFilter" propertyName="filterValue">
+				<EnablementCondition conditionId="catalogEntryPropertySearchFilterCondition" enablementValue="NUMERIC" propertyName="filterDataType"/>
+			</GridNumericCellDescriptor>
+			<GridChildObjectTextCellDescriptor name="catalogEntryPropertyFilterStringValueCellDescriptor" objectType="catalogEntryPropertySearchFilter" childObjectType="filterValue" childPropertyName="filterValue">
+				<EnablementOrCondition conditionId="multipleValuesChoiceCondition">
+					<EnablementCondition conditionId="catalogEntryPropertySearchFilterCondition1" enablementValue="EXACTSTRING" propertyName="filterDataType"/>
+					<EnablementCondition conditionId="catalogEntryPropertySearchFilterCondition2" enablementValue="ANYSTRING" propertyName="filterDataType"/>
+				</EnablementOrCondition>
+			</GridChildObjectTextCellDescriptor>
+			<GridStepperCellDescriptor name="catalogEntryPropertyFilterDateCellDescriptor" objectType="catalogEntryDateSearchFilter" propertyName="filterValue"/>				
+			<GridDisplayNameCellDescriptor objectType="ChildCatalogGroupFilterGroup" name="categoryFilterValueCellDescriptor"/>
+			<MultipleAttributeValueCellDescriptor package="cat" name="attributeValue1" objectType="ChildAttributeWithAllowedValuesGroup" childObjectType="ChildAttributeAllowedValues" childPropertyName="attrValId">				
+				<EnablementAndCondition>
+					<EnablementOrCondition negate="true" conditionId="multipleValuesChoiceCondition">
+						<EnablementCondition propertyName="filterOperator" enablementValue="&lt;" conditionId="lessThanCondition" />
+						<EnablementCondition propertyName="filterOperator" enablementValue="&gt;" conditionId="greaterThanCondition" />
+					</EnablementOrCondition>
+				</EnablementAndCondition>
+			</MultipleAttributeValueCellDescriptor>
+			<SingleAttributeValueCellDescriptor package="cat" name="attributeValue2" objectType="ChildAttributeWithAllowedValuesGroup" childObjectType="ChildAttributeAllowedValues" childPropertyName="attrValId">
+				<EnablementAndCondition>
+					<EnablementOrCondition conditionId="singleValueChoiceCondition">
+						<EnablementCondition propertyName="filterOperator" enablementValue="&lt;" conditionId="lessThanCondition" />
+						<EnablementCondition propertyName="filterOperator" enablementValue="&gt;" conditionId="greaterThanCondition" />
+					</EnablementOrCondition>
+				</EnablementAndCondition>
+			</SingleAttributeValueCellDescriptor>
+		</GridColumn>
+	</ObjectGrid>
+	
+	<!---
+		This grid displays a list of sort criteria for use in the properties view.	
+	-->
+	<ObjectGrid definitionName="catCategoryFieldSortByGrid" preferenceKey="catCategoryFieldSortByGrid">
+		<GridIconTypeImage name="type" enableFilter="true" required="true" text="${catalogResources.type}" width="90"/>
+		<GridComboBox name="orderByField" required="true" propertyName="orderByField" text="${catalogResources.displayProduct_orderByField}" visible="true" width="180"/>
+		<GridComboBox name="orderBySequence" propertyName="orderBySequence" required="true" text="${catalogResources.displayProduct_orderBySequence}" width="130"/>
+	</ObjectGrid>
+		  
+   	<!---
+		This grid displays a list of catalog entries for the "always show" area of the properties view of a rule based sales category.	
+	-->
+    <ObjectGrid definitionName="catDynamicSalesCategoryInclusionGrid" preferenceKey="catDynamicSalesCategoryInclusionGrid">
+        <GridText editable="false" name="catentryId" objectPath="CatalogEntry" propertyName="catentryId" text="${catalogResources.productUniqueId_ColumnHeader}" visible="false" width="90"/>
+        <GridIconTypeImage name="typeIcon" objectPath="CatalogEntry" enableFilter="true" required="true" text="${catalogResources.productType_ColumnHeader}" visible="true" width="80"/>
+        <GridStoreName name="store" objectPath="CatalogEntry" width="125"/>
+        <GridText editable="false" name="ownerId" objectPath="CatalogEntry" propertyName="ownerId" text="${catalogResources.productOwnerId_ColumnHeader}" visible="false" width="90"/>
+        <GridText name="partNumber" objectPath="CatalogEntry" propertyName="partnumber" required="true" text="${catalogResources.productPartnumber_ColumnHeader}" visible="true" width="100"/>
+        <GridText name="catalogEntryName" objectPath="CatalogEntry/CatalogEntryDescription" propertyName="name" text="${catalogResources.productName_ColumnHeader}" visible="true" width="170"/>
+		<GridText name="sDesc" objectPath="CatalogEntry/CatalogEntryDescription" propertyName="sDesc" text="${catalogResources.productShortDesc_ColumnHeader}" visible="true" width="200"/>        
+        <GridImage name="thumbnailImage" objectPath="CatalogEntry/CatalogEntryDescription" propertyName="tImage" sortable="false" text="${catalogResources.productThumbnail_ColumnHeader}" visible="true"/>
+        <GridText name="xprop_manufacturerPartNumber" objectPath="CatalogEntry/CatalogEntryExtraProperties" propertyName="xprop_manufacturerPartNumber" text="${catalogResources.productManufacturerPartNumber_ColumnHeader}" visible="false" width="200"/>
+        <GridText name="xprop_manufacturer" objectPath="CatalogEntry/CatalogEntryExtraProperties" propertyName="xprop_manufacturer" text="${catalogResources.productmanufacturer_ColumnHeader}" visible="false" width="200"/>
+    </ObjectGrid>
+    
+    <!---
+		This grid displays a list of catalog entries for the "assignment" area of the properties view of a sales category.	
+	-->
+    <ObjectGrid definitionName="catDynamicSalesCategoryChildCatalogEntryGrid" preferenceKey="catDynamicSalesCategoryChildCatalogEntryGrid">
+        <GridText editable="false" name="catentryId" objectPath="CatalogEntry" propertyName="catentryId" text="${catalogResources.productUniqueId_ColumnHeader}" visible="false" width="90"/>
+        <GridIconTypeImage name="typeIcon" objectPath="CatalogEntry" enableFilter="true" required="true" text="${catalogResources.productType_ColumnHeader}" visible="true" width="80"/>
+        <GridStoreName name="store" objectPath="CatalogEntry" width="125"/>
+        <GridText editable="false" name="ownerId" objectPath="CatalogEntry" propertyName="ownerId" text="${catalogResources.productOwnerId_ColumnHeader}" visible="false" width="90"/>
+        <GridText name="partNumber" objectPath="CatalogEntry" propertyName="partnumber" required="true" text="${catalogResources.productPartnumber_ColumnHeader}" visible="true" width="100"/>
+        <GridText name="catalogEntryName" objectPath="CatalogEntry/CatalogEntryDescription" propertyName="name" text="${catalogResources.productName_ColumnHeader}" visible="true" width="170"/>
+        <GridText name="sDesc" objectPath="CatalogEntry/CatalogEntryDescription" propertyName="sDesc" text="${catalogResources.productShortDesc_ColumnHeader}" visible="true" width="200"/>
+		<GridImage name="thumbnailImage" objectPath="CatalogEntry/CatalogEntryDescription" propertyName="tImage" sortable="false" text="${catalogResources.productThumbnail_ColumnHeader}" visible="true"/>
+		<GridNumeric editable="true" name="sequence" numDecimalPlaces="1" propertyName="sequence" required="false" text="${catalogResources.displaySequence}" visible="true" width="130"/>	
+        <GridText name="xprop_manufacturerPartNumber" objectPath="CatalogEntry/CatalogEntryExtraProperties" propertyName="xprop_manufacturerPartNumber" text="${catalogResources.productManufacturerPartNumber_ColumnHeader}" visible="false" width="200"/>
+        <GridText name="xprop_manufacturer" objectPath="CatalogEntry/CatalogEntryExtraProperties" propertyName="xprop_manufacturer" text="${catalogResources.productmanufacturer_ColumnHeader}" visible="false" width="200"/>			
+    </ObjectGrid>
+    
+    <!---
+		This grid displays a list of catalog entries for the "Assigned catalog entries" area of the properties view of a rule based sales category.	
+	-->
+    <ObjectGrid definitionName="catSavedRuleResultsChildCatalogEntryGrid" preferenceKey="catSavedRuleResultsChildCatalogEntryGrid">
+        <GridText sortable="false" editable="false" name="catentryId" objectPath="CatalogEntry" propertyName="catentryId" text="${catalogResources.productUniqueId_ColumnHeader}" visible="false" width="90"/>
+        <GridIconTypeImage sortable="false" name="typeIcon" objectPath="CatalogEntry" enableFilter="true" required="true" text="${catalogResources.productType_ColumnHeader}" visible="true" width="80"/>
+        <GridStoreName sortable="false" name="store" objectPath="CatalogEntry" width="125"/>
+        <GridText sortable="false" editable="false" name="ownerId" objectPath="CatalogEntry" propertyName="ownerId" text="${catalogResources.productOwnerId_ColumnHeader}" visible="false" width="90"/>
+        <GridText sortable="false" name="partNumber" objectPath="CatalogEntry" propertyName="partnumber" required="true" text="${catalogResources.productPartnumber_ColumnHeader}" visible="true" width="100"/>
+        <GridText sortable="false" name="catalogEntryName" objectPath="CatalogEntry/CatalogEntryDescription" propertyName="name" text="${catalogResources.productName_ColumnHeader}" visible="true" width="170"/>
+        <GridText sortable="false" name="sDesc" objectPath="CatalogEntry/CatalogEntryDescription" propertyName="sDesc" text="${catalogResources.productShortDesc_ColumnHeader}" visible="true" width="200"/>
+		<GridImage name="thumbnailImage" objectPath="CatalogEntry/CatalogEntryDescription" propertyName="tImage" sortable="false" text="${catalogResources.productThumbnail_ColumnHeader}" visible="true"/>
+        <GridText sortable="false" name="xprop_manufacturerPartNumber" objectPath="CatalogEntry/CatalogEntryExtraProperties" propertyName="xprop_manufacturerPartNumber" text="${catalogResources.productManufacturerPartNumber_ColumnHeader}" visible="false" width="200"/>
+        <GridText sortable="false" name="xprop_manufacturer" objectPath="CatalogEntry/CatalogEntryExtraProperties" propertyName="xprop_manufacturer" text="${catalogResources.productmanufacturer_ColumnHeader}" visible="false" width="200"/>			
+    </ObjectGrid>
+
+    <!--
+	This definition is used to list the catalog entries underneath dynamic sales catalog groups.
+    -->
+    <ChildListEditor
+    	definitionName="catDynamicSalesCategoryChildList"
+    	listDefinitionName="catSavedRuleResultsChildCatalogEntryGrid"
+    	objectTypes="DynamicSalesCatalogGroupChildCatalogEntry"/>
+    	 
+</Definitions>

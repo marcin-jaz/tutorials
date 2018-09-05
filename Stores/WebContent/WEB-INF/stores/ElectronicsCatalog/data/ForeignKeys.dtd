@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ENTITY CATALOG_TARGET_STORE_ID "">
+<!ENTITY EMSPOT_ID_1 "@emspot_id_1">
+<!ENTITY el_GR "-11">
+<!ENTITY EMSPOT_ID_2 "@emspot_id_2">
+<!ENTITY HOS_ORGANIZATION_DN "ou=reseller organizationmadisonsreseller,o=reseller organization,o=root organization">
+<!ENTITY CAT_STOREENT_ID "@catalogStore">
+<!ENTITY MAR_STORE_IDENTIFIER "MadisonsResellerStorefrontAssetStore">
+<!ENTITY CAT_ORGANIZATION_DN "ou=asset store organization,o=demand chain management organization,o=root organization">
+<!ENTITY HOS_MEMBER_ID "@hosting_mbr_id">
+<!ENTITY ja_JP "-10">
+<!ENTITY MARKETING_TARGET_STORE_ID "">
+<!ENTITY MAR_STOREENT_ID "@marketingStore">
+<!ENTITY CAT_STORE_IDENTIFIER "Commerce Plaza Catalog">
+<!ENTITY iw_IL "-11">
+<!ENTITY MAR_ORGANIZATION_DN "ou=asset store organization,o=demand chain management organization,o=root organization">
+<!ENTITY CAT_MEMBER_ID "@catalog_mbr_id">
+<!ENTITY FFMCENTER_ID "@ffmcenter_id_1">
+<!ENTITY HOS_STORE_IDENTIFIER "MadisonsReseller">
+<!ENTITY zh_CN "-7">
+<!ENTITY HOS_STORE_DIR "MadisonsReseller">
+<!ENTITY pl_PL "-22">
+<!ENTITY es_ES "-5">
+<!ENTITY fr_FR "-2">
+<!ENTITY MAR_MEMBER_ID "@marketing_mbr_id">
+<!ENTITY CATALOG_ID "@PCDCatalog">
+<!ENTITY ko_KR "-9">
+<!ENTITY HOSTING_TARGET_STORE_ID "">
+<!ENTITY CAT_STORE_DIR "CommercePlazaCatalog">
+<!ENTITY pt_BR "-6">
+<!ENTITY MAR_STORE_DIR "MadisonsResellerStorefrontAssetStore">
+<!ENTITY STORE_DIR "CommercePlazaCatalog">
+<!ENTITY ar_EG "-23">
+<!ENTITY VENDOR_ID "@vendor_id_1">
+<!ENTITY en_US "-1">
+<!ENTITY zh_TW "-8">
+<!ENTITY HOS_STOREENT_ID "@hostingStore">
+<!ENTITY ro_RO "-21">
+<!ENTITY ru_RU "-20">
+<!ENTITY it_IT "-4">
+<!ENTITY de_DE "-3">
+<!ENTITY TRADEPOSCN_ID "@Pcd_tradeposcn">
+

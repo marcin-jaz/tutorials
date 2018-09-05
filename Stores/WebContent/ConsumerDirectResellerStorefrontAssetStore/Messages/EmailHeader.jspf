@@ -1,0 +1,116 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2007
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%-- 
+  *****
+  * This JSP fragment is included in content JSP pages to construct the top and left portion of the layout.
+  *****
+--%>
+
+<flow:fileRef id="vfileLogo" fileId="vfile.logo"/>
+<flow:fileRef id="vfileBanner" fileId="vfile.banner"/>
+<flow:fileRef id="vfileSelectedBanner" fileId="vfile.selectedBanner"/>
+
+<c:choose>
+	<c:when test="${empty WCParam.catalogId}">
+		<c:set var="catalogId" value="${param.catalogId}" />
+	</c:when>
+	<c:otherwise>
+		<c:set var="catalogId" value="${WCParam.catalogId}" />
+	</c:otherwise>
+</c:choose>
+
+<c:if test="${empty catalogId}">
+	<c:set var="catalogId" value="${sdb.masterCatalogDataBean.catalogId}" />
+</c:if>
+
+<c:url var="TopCategoriesDisplayURL" value="TopCategoriesDisplay">
+  <c:param name="langId" value="${langId}" />
+  <c:param name="storeId" value="${WCParam.storeId}" />
+  <c:param name="catalogId" value="${catalogId}" />
+</c:url>
+
+<!-- Layout enclosing table -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td colspan="3"  valign="top">
+
+<!--START HEADER-->
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" id="WC_CachedHeaderDisplay_Table_1">
+<tbody><tr>
+	<td id="WC_CachedHeaderDisplay_TableCell_1" align="center" class="m_back">
+        	<table cellpadding="0" cellspacing="0" border="0" id="WC_CachedHeaderDisplay_Table_2"  class="p_width">
+		<tbody><tr>
+			<%-- 
+			  ***
+			  *  Start: Custom Banner and Logo
+			  ***
+			--%>                	                            
+			<%-- Height and store name removal is to adapt new style --%>                                          
+			<flow:ifEnabled  feature="CustomBanner">
+			<td height="35" background="<c:out value="${hostPath}"/><c:out value="${storeImgDir}${vfileBanner}" />" id="WC_CachedHeaderDisplay_TableCell_2" class="storeName">
+				<flow:ifEnabled feature="CustomLogo">
+				       <a href="<c:out value="${hostPath}${webPath}"/><c:out value="${TopCategoriesDisplayURL}"/>" id="WC_CachedHeaderDisplay_Link_1"><img src="<c:out value="${hostPath}"/><c:out value="${storeImgDir}${vfileLogo}" />" align="middle" alt="<fmt:message key="HEADER_STORE_LOGO" bundle="${storeText}" />" align="middle" border="0"/></a><c:out value="${storeName}" escapeXml="false"/>
+				</flow:ifEnabled>
+				<flow:ifDisabled feature="CustomLogo">
+				       <a href="<c:out value="${hostPath}${webPath}"/><c:out value="${TopCategoriesDisplayURL}"/>" id="WC_CachedHeaderDisplay_Link_2"><img src="<c:out value="${hostPath}"/><c:out value="${jspStoreImgDir}${vfileLogo}" />" align="middle" alt="<fmt:message key="HEADER_STORE_LOGO" bundle="${storeText}" />" align="middle" border="0"/></a><c:out value="${storeName}" escapeXml="false"/>
+				</flow:ifDisabled>
+			</td>
+			</flow:ifEnabled>       
+			
+			<flow:ifDisabled  feature="CustomBanner">
+			<td height="35" id="WC_CachedHeaderDisplay_TableCell_3">
+				<flow:ifEnabled feature="CustomLogo">
+				       <a href="<c:out value="${hostPath}${webPath}"/><c:out value="${TopCategoriesDisplayURL}"/>" id="WC_CachedHeaderDisplay_Link_3_2"><img src="<c:out value="${hostPath}"/><c:out value="${storeImgDir}${vfileLogo}" />" alt="<fmt:message key="HEADER_STORE_LOGO" bundle="${storeText}"/>" border="0" /></a>
+				</flow:ifEnabled>
+				<flow:ifDisabled feature="CustomLogo">
+				       <a href="<c:out value="${hostPath}${webPath}"/><c:out value="${TopCategoriesDisplayURL}"/>" id="WC_CachedHeaderDisplay_Link_4_1"><img src="<c:out value="${hostPath}"/><c:out value="${jspStoreImgDir}${vfileLogo}" />" alt="<fmt:message key="HEADER_STORE_LOGO" bundle="${storeText}"/>" border="0" /></a>
+				</flow:ifDisabled>
+			</td>
+			</flow:ifDisabled>                                          
+			<%-- 
+			  ***
+			  *  End: Custom Banner and Logo
+			  ***
+			--%>
+		</tr>
+		</tbody></table>
+	</td>
+</tr><tr>
+	<td id="WC_CachedHeaderDisplay_TableCell_6" class="s_back" align="center">
+		<table cellpadding="0" cellspacing="0" border="0" class="p_width">
+		<tr>
+			<td id="WC_CachedHeaderDisplay_TableCell_61">
+			
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr></tbody>
+</table>
+		
+    </td>
+  </tr>
+  <tr> 
+    <td width="100%" height="100%"  valign="top">
+    <table align="center" cellpadding="0" cellspacing="0" border="0" width="100%"  id="WC_ContentContainerTop_Table_1">
+	<tr>
+		<td align="center" class="c_back" valign="top">
+			<table cellpadding="0" cellspacing="0" border="0" class="p_width">
+				<tr>
+					<td>
+<!-- END LayoutContainerTop.jspf -->

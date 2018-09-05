@@ -1,0 +1,164 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<c:set var="activeOrgId" value="${CommandContext.activeOrganizationId}"/>
+<c:set var="activeContractIds" value="${CommandContext.currentTradingAgreementIdsAsString}"/>
+
+<wcbase:useBean id="entitledOrgs" classname="com.ibm.commerce.user.beans.OrganizationListDataBean">
+	<c:set target="${entitledOrgs}" property="accountCheck" value="true"/>
+</wcbase:useBean>
+<wcbase:useBean id="entitledContracts" classname="com.ibm.commerce.user.beans.ContractListDataBean">
+	<c:set target="${entitledContracts}" property="commandContext" value="${CommandContext}"/>
+</wcbase:useBean>
+
+<c:set var="numEntitledOrgs" value="${fn:length(entitledOrgs.entitledOrganizations)}"/>
+<c:set var="numEntitledContracts" value="${fn:length(entitledContracts.contracts)}"/>
+
+<div class="contentgrad_header" id="WC_B2BMyAccountParticipantRole_div_1">
+	<div class="left_corner" id="WC_B2BMyAccountParticipantRole_div_2"></div>
+	<div class="left" id="WC_B2BMyAccountParticipantRole_div_3"><span class="header"><fmt:message key="MA_ORGANIZATIONS" bundle="${storeText}"/></span></div>
+	<div class="right_corner" id="WC_B2BMyAccountParticipantRole_div_4"></div>
+</div>
+
+<div class="content" id="WC_B2BMyAccountParticipantRole_div_5">
+	<div class="info" id="WC_B2BMyAccountParticipantRole_div_6"> 
+		<div class="info_table" id="summary_organization_table"> 
+			<form name="OrganizationSetInSessionForm" id="OrganizationSetInSessionForm" action="OrganizationSetInSession" method="get" >
+				<input type="hidden" name="storeId"   value="<c:out value="${WCParam.storeId}"/>"  />
+				<input type="hidden" name="catalogId" value="<c:out value="${WCParam.catalogId}"/>" />
+				<input type="hidden" name="URL"       value="AjaxLogonForm?myAcctMain=1&myAcctParticipation=orgUpdate" />
+				<div class="row" id="WC_B2BMyAccountParticipantRole_div_7">  
+					<div class="label" id="WC_B2BMyAccountParticipantRole_div_8">
+						<label for="WC_B2BMyAccountParticipantRole_select_1">
+							<fmt:message key="MA_CURRENTORGANIZATION" bundle="${storeText}"/>
+						</label>
+					</div>
+					<div class="info_content" id="WC_B2BMyAccountParticipantRole_div_9">  
+						<c:choose>
+							<c:when test="${numEntitledOrgs > 1}">
+								<%-- if there is more than one contract available, display in dropdown format --%>
+								<select name="activeOrgId" id="WC_B2BMyAccountParticipantRole_select_1">
+									<c:forEach items="${entitledOrgs.entitledOrganizations}" var="entitledOrg">
+										<c:set var="entitledOrgId" value="${entitledOrg.organizationIdInEJBType}"/>
+										<option value="<c:out value="${entitledOrgId}"/>"<c:if test="${entitledOrgId == activeOrgId}"> selected="selected"</c:if>>
+											<c:out value="${entitledOrg.organizationName}"/>
+										</option>
+									</c:forEach>
+								</select>
+							</c:when>
+							<c:otherwise>
+								<%-- if there is only one contract available, display in plain text and not dropdown format --%>
+								<c:out value="${entitledOrgs.entitledOrganizations[0].organizationName}"/>
+								<c:set var="entitledOrgId" value="${entitledOrgs.entitledOrganizations[0].organizationIdInEJBType}"/>
+								<input type="hidden" id="WC_B2BMyAccountParticipantRole_select_1" value="<c:out value="${entitledOrgId}"/>"/>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<c:if test="${numEntitledOrgs > 1}">
+						<div id="org_button">
+							<span class="primary_button button_fit" >
+								<span class="button_container">
+									<span class="button_bg">
+										<span class="button_top">
+											<span class="button_bottom">  
+												 <a href="#" onclick="this.blur(); MyAccountDisplay.updateOrganization('OrganizationSetInSessionForm');" id="WC_B2BMyAccountParticipantRole_orgLinks_1">	
+													<fmt:message key="UPDATE" bundle="${storeText}"/>
+												</a>
+											</span>
+										</span>	
+									</span>
+								</span>
+							 </span>
+						</div>	      
+					</c:if>
+					<div class="clear_float"></div> 
+				</div>
+			</form>
+			<div class="clear_float"></div> 
+		</div>
+		<div id="WC_B2BMyAccountParticipantRole_div_14">
+			<c:if test="${numEntitledOrgs > 1}">
+				<fmt:message key="MA_CURRENTORGANIZATION_WARNING" bundle="${storeText}"/>
+				<br clear="all" />
+			</c:if>
+		</div>
+		<form name="ContractSetInSessionForm" id="ContractSetInSessionForm" action="ContractSetInSession" method="get">
+			<input type="hidden" name="storeId"   value="<c:out value="${WCParam.storeId}"/>" />
+			<input type="hidden" name="catalogId" value="<c:out value="${WCParam.catalogId}"/>" />
+			<input type="hidden" name="URL"       value="AjaxLogonForm?myAcctMain=1&myAcctParticipation=contractUpdate" />
+			<div id="summary_contracts_table" class="table" >
+				<ul class="column_heading" id="WC_B2BMyAccountParticipantRole_ulHeader_1">  
+					<li class="contract_column"  id="WC_B2BMyAccountParticipantRole_liHeader_1"><fmt:message key="MA_CONTRACT" bundle="${storeText}" /></li>  
+					<li class="clear_float"  id="WC_B2BMyAccountParticipantRole_liHeader_2"></li>  
+				</ul> 
+
+				<c:forEach items="${entitledContracts.contracts}" var="entitledContract">
+					<c:set var="check" value="false" />
+					<c:forTokens items="${activeContractIds}" delims=";" var="currentContractKey">
+						<c:if test="${entitledContract.key == currentContractKey}">
+							<c:set var="check" value="true" />
+						</c:if>
+					</c:forTokens>
+					<ul class="row" id='WC_B2BMyAccountParticipantRole_ul_<c:out value="${entitledContract.key}"/>'>                         
+						<li class="contract_column" id='WC_B2BMyAccountParticipantRole_li_<c:out value="${entitledContract.key}"/>'>  
+							<p>
+								<c:choose>
+									<c:when test="${numEntitledContracts > 1}">
+										<%-- if there is more than one contract available, display in not checkbox format --%>
+										<input name="contractId" type="checkbox" id='WC_B2BMyAccountParticipantRole_checkbox_<c:out value="${entitledContract.key}"/>'
+												value="${entitledContract.key}" <c:if test="${check}"> checked=check </c:if>/> 
+										<label for='WC_B2BMyAccountParticipantRole_checkbox_<c:out value="${entitledContract.key}"/>'>
+											<c:out value='${entitledContract.value}'/>
+										</label>
+									</c:when>
+									<c:otherwise>
+										<%-- if there is only one contract available, display in plain text and not checkbox format --%>
+										<input name="contractId" type="hidden" id='WC_B2BMyAccountParticipantRole_checkbox_<c:out value="${entitledContract.key}"/>'
+												value="${entitledContract.key}" /> 
+										<c:out value='${entitledContract.value}'/>
+									</c:otherwise>
+								</c:choose>
+							</p>  
+						</li>  
+						<li class="clear_float"/>  
+					</ul>  
+				</c:forEach>
+			</div>
+			<c:if test="${numEntitledContracts > 1}">
+				<div id="contract_button">
+					<span class="primary_button button_fit" >
+						<span class="button_container">
+							<span class="button_bg">
+								<span class="button_top">
+									<span class="button_bottom">  
+										 <a href="#" onclick="this.blur(); MyAccountDisplay.updateContract('ContractSetInSessionForm','${activeContractIds}', 
+										 		'<fmt:message key='MA_CONTRACT_ERROR_MESSAGE' bundle='${storeText}'/>');" id="WC_B2BMyAccountParticipantRole_links_1">	
+											<fmt:message key="MA_SUBMITCONTRACTS" bundle="${storeText}"/>
+										</a>
+									</span>
+								</span>	
+							</span>
+						</span>
+					 </span>
+				</div>	      
+			</c:if>
+		</form>
+		<br clear="all" />
+		<br clear="all" />
+	</div>
+</div>
+<div class="footer" id="WC_B2BMyAccountParticipantRole_div_10">
+	<div class="left_corner" id="WC_B2BMyAccountParticipantRole_div_11"></div>
+	<div class="left" id="WC_B2BMyAccountParticipantRole_div_12"></div>
+	<div class="right_corner" id="WC_B2BMyAccountParticipantRole_div_13"></div>
+</div>

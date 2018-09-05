@@ -1,0 +1,61 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<library>
+	<!-- Custom client action to create a customer segment export for a particular customer segment -->
+	<class name="mktCreateCustomerSegmentExportClientAction" extends="wcfClientAction" 
+			allowMultipleSelection="false">
+		
+		<!---
+			Create the CustomerSegmentExport client objects using the select customer segment details
+			
+			@param wcfModelObject[] objects The array of selected model objects.
+		-->		
+		<method name="performAction" args="objects">
+			<![CDATA[
+				if(objects) {
+					var targetObjDef = objects[0].model.getObjectDefinition(null, "CustomerSegmentExport");
+					var newObject = objects[0].model.createNewObject(targetObjDef, null);
+					var uniqueId = objects[0].getPropertyValue("uniqueId");
+					newObject.setPropertyValue("uniqueId", null, uniqueId);
+					var customerSegmentName = objects[0].getPropertyValue("name");
+					newObject.setPropertyValue("customerSegmentExportName", null, customerSegmentName);
+					newObject.setPropertyValue("customerSegmentName", null, customerSegmentName);
+
+					newObject.model.oEditor.selectOpenObject(newObject);
+				}
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			Returns true if the context is not read only.
+			
+			@param wcfModelObject o: the object on which you want to perform this client action
+			@return boolean: true if the client action is enabled
+		-->
+		<method name="isEnabled" args="o">
+			<![CDATA[
+			var enabled = super.isEnabled(o);
+			if (enabled && o.model.oEditor.respectWorkspaceContext) {
+				var readOnlyModeContextValue = wcfContextUtil.findContextValue(null, "readOnlyMode");				
+				enabled = (readOnlyModeContextValue.value != "true");
+			}
+			if (enabled && o.isContextReadOnly()) {
+				enabled = false;
+			}
+			return enabled;
+			]]>
+		</method>
+	</class>
+</library>

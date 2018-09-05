@@ -1,0 +1,22 @@
+<%-- The custom tag should be defined outside of this file --%>
+<wcbase:useBean id="snippetSDB" classname="com.ibm.commerce.common.beans.StoreDataBean" />
+
+
+<%-- These are convenience variables to use on pages --%>
+
+<%-- URL pointing to the hosted store home directory.  Use this to reference images --%>
+<c:set var="snippetStoreImgDir" value="${snippetSDB.filePath}" scope="page" />
+
+<%-- WebAsset directory of the hosted store.  Includes JSPs, HTML, Image files, etc --%>
+<c:set var="snippetStoreDir" value="${snippetSDB.jspStoreDirFilePath}" scope="page" />
+
+<%-- URL pointing to the shared image directory.  Use this to reference images --%>
+<c:set var="snippetJspStoreImgDir" value="${snippetSDB.jspStoreDirFilePath}" scope="page" />
+
+<%-- WebAsset directory of the shared file directory.  Includes JSPs, HTML, Image files, etc --%>
+<c:set var="snippetJspStoreDir" value="/${requestScope.jspStoreDir}/" scope="request" />
+
+<%-- Load the common bundles --%>
+
+
+<c:set var="locale" value="${CommandContext.locale}" scope="page" />

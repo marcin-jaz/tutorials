@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2007, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+
+<security>
+
+  <!-- Define if SSL is enabled for a resource and its methods. -->
+  <!-- When not defined, SSL is disabled for the resource by default. -->
+  <!-- An optional "method" attribute may be set for each sslConfig element with value to be GET, POST, PUT, or DELETE. -->
+
+  <sslConfig resource="store/{storeId}/cart/@self/checkout" enabled="true"/>
+  <sslConfig resource="store/{storeId}/cart/@self/precheckout" enabled="true"/>
+  <sslConfig resource="store/{storeId}/cart/@self/payment_instruction" enabled="true"/>
+  <sslConfig resource="store/{storeId}/cart/@self/shipping_info" enabled="true"/>
+  <sslConfig resource="store/{storeId}/guestidentity" enabled="true"/>
+  <sslConfig resource="store/{storeId}/loginidentity" enabled="true"/>
+  <sslConfig resource="store/{storeId}/ltpaidentity" enabled="true"/>
+  <sslConfig resource="store/{storeId}/order" enabled="true"/>
+  <sslConfig resource="store/{storeId}/organization" enabled="true"/>
+  <sslConfig resource="store/{storeId}/person" enabled="true"/>
+  <sslConfig resource="store/{storeId}/previewToken" enabled="true"/>
+  <!-- 
+  <sslConfig resource="store/{storeId}/wishlist" enabled="true"/>
+   -->
+  <sslConfig resource="store/{storeId}/coupon" enabled="true"/>
+  <sslConfig resource="store/{storeId}/promotion" enabled="true"/>
+  <sslConfig resource="store/{storeId}/spot" enabled="true"/>
+  <sslConfig resource="store/{storeId}/requisition_list" enabled="false"/>
+  <sslConfig resource="store/{storeId}/approval_status" enabled="true"/>
+  <sslConfig resource="store/{storeId}/member_group" enabled="true"/>
+  
+  <!-- Enable basic cart operations only for partial authentication -->
+  <partialAuthentication resource="store/{storeId}/cart/@self/payment_instruction" enabled="false"/>
+  <partialAuthentication resource="store/{storeId}/cart/@self/shipping_info" enabled="false"/>
+  <partialAuthentication resource="store/{storeId}/cart/@self/precheckout" enabled="false"/>
+  <partialAuthentication resource="store/{storeId}/cart/@self/checkout" enabled="false"/>
+  <partialAuthentication resource="store/{storeId}/cart" enabled="true"/>
+
+  <partialAuthentication resource="store/{storeId}/inventoryavailability" enabled="true"/>
+  <partialAuthentication resource="store/{storeId}/productsearchview" enabled="true"/>
+  <partialAuthentication resource="store/{storeId}/categoryview" enabled="true"/>
+  <partialAuthentication resource="store/{storeId}/storelocator" enabled="true"/>
+  <partialAuthentication resource="store/{storeId}/usercontext" enabled="true"/>
+  <partialAuthentication resource="store/{storeId}/productview" enabled="true"/>
+  <partialAuthentication resource="store/{storeId}/geonode" enabled="true"/>
+  <partialAuthentication resource="store/{storeId}/espot" enabled="true"/>
+  <partialAuthentication resource="store/{storeId}/event" enabled="true"/>
+  <partialAuthentication resource="store/{storeId}/associated_promotion" enabled="true"/>
+  <partialAuthentication resource="store/{storeId}/price" method="POST" enabled="true"/>
+  
+  <!-- Disable all GET operations by default under the store ID path
+       to stop the Store Handler partial authentication authorization 
+       from propagating to all the other handlers -->
+  <partialAuthentication resource="store/{storeId}/" method="GET" enabled="false"/>
+  <!-- Enable the GET operations by default under the store ID path -->
+  <partialAuthentication resource="store/{storeId}" method="GET" enabled="true"/>
+    
+   <!-- Enable Customer segment operation -->
+	<sslConfig resource="store/{storeId}/segment" enabled="true"/> 
+ </security>

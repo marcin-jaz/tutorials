@@ -1,0 +1,130 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2003, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+
+<%--
+  *****
+  * This JSP segment displays the miscellaneous section of the registration
+  * forms.
+  * The display order is as follows (* means mandatory):
+  *  - preferred method of communication
+  *  - e-mail address 1*/2
+  *  - phone number 1/2
+  *  - fax number 1/2
+  *  - best time to call
+  *****
+--%>
+<tr>
+	<td class="logonheading" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_1"/>">
+		<span class="reqd">*</span><fmt:message key="UsrReg_ContactEmail1" bundle="${storeText}"/>
+	</td>
+	<td class="logonheading" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_2"/>">
+		<fmt:message key="UsrReg_ContactEmail2" bundle="${storeText}"/>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_3"/>">
+		<input class="logon" type="text" maxlength="80" size="25" name="<c:out value="${paramPrefix}email1"/>" value="<c:out value="${paramSource.email1}"/>" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_${paramPrefix}email1_1"/>"/>
+	</td>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_4"/>">
+		<input class="logon" type="text" maxlength="80" size="25" name="<c:out value="${paramPrefix}email2"/>" value="<c:out value="${paramSource.email2}"/>" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_${paramPrefix}email2_1"/>"/>
+	</td>
+</tr>
+
+<tr>
+	<td class="logonheading" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_5"/>">
+		<fmt:message key="UsrReg_ContactPhone1" bundle="${storeText}"/><br/>
+		<fmt:message key="Reg_PHONE_FORMAT" bundle="${storeText}"/>
+	</td>
+	<td class="logonheading" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_6"/>">
+		<fmt:message key="UsrReg_ContactPhone2" bundle="${storeText}"/><br/>
+		<fmt:message key="Reg_PHONE_FORMAT" bundle="${storeText}"/>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_7"/>">
+		<input class="logon" type="text" maxlength="32" size="25" name="<c:out value="${paramPrefix}phone1"/>" value="<c:out value="${paramSource.phone1}"/>" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_${paramPrefix}phone1_1"/>"/>
+	</td>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_8"/>">
+		<input class="logon" type="text" maxlength="32" size="25" name="<c:out value="${paramPrefix}phone2"/>" value="<c:out value="${paramSource.phone2}"/>" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_${paramPrefix}phone2_1"/>"/>
+	</td>
+</tr>
+
+<tr>
+	<td class="logonheading" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_9"/>">
+		<fmt:message key="UsrReg_ContactFax1" bundle="${storeText}"/><br/>
+		<fmt:message key="Reg_PHONE_FORMAT" bundle="${storeText}"/>
+	</td>
+	<td class="logonheading" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_10"/>">
+		<fmt:message key="UsrReg_ContactFax2" bundle="${storeText}"/><br/>
+		<fmt:message key="Reg_PHONE_FORMAT" bundle="${storeText}"/>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_11"/>">
+		<input class="logon" type="text" maxlength="32" size="25" name="<c:out value="${paramPrefix}fax1"/>" value="<c:out value="${paramSource.fax1}"/>" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_${paramPrefix}fax1_1"/>"/>
+	</td>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_12"/>">
+		<input class="logon" type="text" maxlength="32" size="25" name="<c:out value="${paramPrefix}fax2"/>" value="<c:out value="${paramSource.fax2}"/>" id="<c:out value="WC_${pageName}_MiscEntryForm_FormInput_${paramPrefix}fax2_1"/>"/>
+	</td>
+</tr>
+
+<c:if test="${paramPrefix != 'org_'}">
+<tr>
+	<td class="logonheading" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_13"/>">
+		<fmt:message key="UsrReg_PreferredComm" bundle="${storeText}"/>
+	</td>
+	<td class="logonheading" id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_14"/>">
+		<fmt:message key="UsrReg_ContactBestCallTime" bundle="${storeText}"/>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_15"/>">
+		<fmt:message key="UsrReg_PreferredComm1Value" bundle="${storeText}" var="preferredCommunication1Value"/>
+		<fmt:message key="UsrReg_PreferredComm2Value" bundle="${storeText}" var="preferredCommunication2Value"/>
+		<fmt:message key="UsrReg_PreferredComm3Value" bundle="${storeText}" var="preferredCommunication3Value"/>
+		<fmt:message key="UsrReg_PreferredComm4Value" bundle="${storeText}" var="preferredCommunication4Value"/>
+		<select class="logon" name="<c:out value="${paramPrefix}preferredCommunication"/>" id="WC_UserRegistrationAddForm_FormInput_preferredCommunication_1">
+			<option value=""<c:if test="${empty paramSource.preferredCommunication}"> selected="selected"</c:if>/>
+			<option value="<c:out value="${preferredCommunication1Value}"/>"<c:if test="${paramSource.preferredCommunication == preferredCommunication1Value}"> selected="selected"</c:if>>
+				<fmt:message key="UsrReg_PreferredComm1" bundle="${storeText}"/>
+			</option>
+			<option value="<c:out value="${preferredCommunication2Value}"/>"<c:if test="${paramSource.preferredCommunication == preferredCommunication2Value}"> selected="selected"</c:if>>
+				<fmt:message key="UsrReg_PreferredComm2" bundle="${storeText}"/>
+			</option>
+			<option value="<c:out value="${preferredCommunication3Value}"/>"<c:if test="${paramSource.preferredCommunication == preferredCommunication3Value}"> selected="selected"</c:if>>
+				<fmt:message key="UsrReg_PreferredComm3" bundle="${storeText}"/>
+			</option>
+			<option value="<c:out value="${preferredCommunication4Value}"/>"<c:if test="${paramSource.preferredCommunication == preferredCommunication4Value}"> selected="selected"</c:if>>
+				<fmt:message key="UsrReg_PreferredComm4" bundle="${storeText}"/>
+			</option>
+		</select>
+	</td>
+	<td id="<c:out value="WC_${pageName}_MiscEntryForm_TableCell_16"/>">
+		<fmt:message key="UsrReg_ContactBestCallTime1Value" bundle="${storeText}" var="bestCallingTime1Value"/>
+		<fmt:message key="UsrReg_ContactBestCallTime2Value" bundle="${storeText}" var="bestCallingTime2Value"/>
+		<select class="logon" name="<c:out value="${paramPrefix}bestCallingTime"/>" id="WC_UserRegistrationAddForm_FormInput_bestCallingTime_1">
+			<option value=""<c:if test="${empty paramSource.bestCallingTime}"> selected="selected"</c:if>/>
+			<option value="<c:out value="${bestCallingTime1Value}"/>"<c:if test="${paramSource.bestCallingTime == bestCallingTime1Value}"> selected="selected"</c:if>>
+				<fmt:message key="UsrReg_ContactBestCallTime1" bundle="${storeText}"/>
+			</option>
+			<option value="<c:out value="${bestCallingTime2Value}"/>"<c:if test="${paramSource.bestCallingTime == bestCallingTime2Value}"> selected="selected"</c:if>>
+				<fmt:message key="UsrReg_ContactBestCallTime2" bundle="${storeText}"/>
+			</option>
+		</select>
+	</td>
+</tr>
+</c:if>

@@ -1,0 +1,22 @@
+<!DOCTYPE repository-entries SYSTEM "../../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<section-components>
+
+	<section id="AccountSection"/>		
+			
+	<interface id="AccountSection.i1" component-id="AccountSection">
+		<entry-port id="AccountSection.i1.e1" type="EntryPortType1"/>
+		<exit-port id="AccountSection.i1.x1" type="ExitPortType1"/>
+	</interface>
+	
+	<implementation id="AccountSection.i1.impl1" interface-id="AccountSection.i1">
+		<component-interface id="AccountSection.i1.impl1.ci1" interface="AddressbookSubsection.i1" always-enabled="yes"/>
+		<entry-port-map id="AccountSection.i1.impl1.epm1" interface-entry-ports="AccountSection.i1.e1" component-entry-port="AddressbookSubsection.i1.e1"/>
+		<exit-port-map id="AccountSection.i1.impl1.xpm1" interface-exit-port="AccountSection.i1.x1" component-exit-ports="AddressbookSubsection.i1.x1"/>
+
+	</implementation>
+
+</section-components>
+</components>
+</repository-entries>

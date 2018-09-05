@@ -1,0 +1,24 @@
+<!DOCTYPE repository-entries SYSTEM "../../../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<section-components>
+
+	<section id="AddressbookSubsection"/>		
+			
+	<interface id="AddressbookSubsection.i1" component-id="AddressbookSubsection">
+		<entry-port id="AddressbookSubsection.i1.e1" type="EntryPortType1"/>
+		<exit-port id="AddressbookSubsection.i1.x1" type="ExitPortType1"/>
+	</interface>
+	
+	<implementation id="AddressbookSubsection.i1.impl1" interface-id="AddressbookSubsection.i1">
+		<component-interface id="AddressbookSubsection.i1.impl1.ci1" interface="AddressBookFormPage.i1" always-enabled="yes"/>
+		<component-interface id="AddressbookSubsection.i1.impl1.ci2" interface="AddressformPage.i1" always-enabled="yes"/>
+		
+		<entry-port-map id="AddressbookSubsection.i1.impl1.epm1" interface-entry-ports="AddressbookSubsection.i1.e1" component-entry-port="AddressBookFormPage.i1.e1"/>
+		<exit-port-map id="AddressbookSubsection.i1.impl1.xpm1" interface-exit-port="AddressbookSubsection.i1.x1" component-exit-ports="AddressBookFormPage.i1.xBackToCheckout AddressformPage.i1.xBackToCheckout"/>
+
+	</implementation>
+
+</section-components>
+</components>
+</repository-entries>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+	<panel id="RegistrationPanel" title="RegistrationPanel.title" description="RegistrationPanel.description" display-priority="1"/>
+
+	<option-group id="Preferences.Currency.checkbox" title="Preferences.title" type="checkbox" display-priority="1" panel="RegistrationPanel" >
+		
+		<option id="Preferences.Currency.checkboxEnable"
+			label="Preferences.Currency.checkboxEnable.label"
+			enables-features="preferredCurrency" />
+			
+	</option-group>
+
+	<option-group id="Preferences.Language.checkbox" type="checkbox" display-priority="2" panel="RegistrationPanel" >
+		
+		<option id="Preferences.Language.checkboxEnable"
+			label="Preferences.Language.checkboxEnable.label"
+			enables-features="preferredLanguage" />
+			
+	</option-group>
+
+	<option-group id="Demographics.Age.checkbox" title="Demographics.title" type="checkbox" display-priority="3" panel="RegistrationPanel" >
+		
+		<option id="Demographics.Age.checkboxEnable"
+			label="Demographics.Age.checkboxEnable.label"
+			enables-features="Age" />
+			
+	</option-group>
+
+	<option-group id="Demographics.Gender.checkbox" type="checkbox" display-priority="4" panel="RegistrationPanel" >
+		
+		<option id="Demographics.Gender.checkboxEnable"
+			label="Demographics.Gender.checkboxEnable.label"
+			enables-features="Gender" />
+			
+	</option-group>
+	
+	<option-group id="EmailOption.checkbox" title="EamilOption.description" type="checkbox" display-priority="5" panel="RegistrationPanel" >
+		
+		<option id="EmailOption.checkboxEnable"
+			label="EmailOption.checkboxEnable.label"
+			enables-features="EmailOption" />
+			
+	</option-group>
+</display>

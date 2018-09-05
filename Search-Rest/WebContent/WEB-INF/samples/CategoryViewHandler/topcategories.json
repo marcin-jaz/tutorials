@@ -1,0 +1,114 @@
+{
+	"catalogGroupView": [
+		{
+			"childCatalogGroupID": [
+				"10001_10005_1.00000",
+				"10001_10004_2.00000",
+				"10001_10003_3.00000",
+				"10001_10002_4.00000"
+			],
+			"identifier": "Apparel",
+			"name": "Apparel",
+			"parentCatalogGroupID": "-1",
+			"productsURL": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byCategory\/10001",
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/categoryview\/byId\/10001",
+			"shortDescription": "The latest styles for the entire family.",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/Kids_clothing_sm.jpg",
+			"uniqueID": "10001"
+		},
+		{
+			"childCatalogGroupID": [
+				"10001_10028_0.00000",
+				"10001_10029_0.00000",
+				"10001_10030_0.00000",
+				"10001_10031_0.00000",
+				"10001_10032_0.00000"
+			],
+			"identifier": "Electronics",
+			"name": "Electronics",
+			"parentCatalogGroupID": "-1",
+			"productsURL": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byCategory\/10027",
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/categoryview\/byId\/10027",
+			"shortDescription": "Electronics",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/electronics\/tablets.png",
+			"uniqueID": "10027"
+		},
+		{
+			"childCatalogGroupID": [
+				"10001_10034_0.00000",
+				"10001_10035_0.00000",
+				"10001_10036_0.00000",
+				"10001_10037_0.00000"
+			],
+			"identifier": "Grocery",
+			"name": "Grocery",
+			"parentCatalogGroupID": "-1",
+			"productsURL": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byCategory\/10033",
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/categoryview\/byId\/10033",
+			"shortDescription": "Grocery",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/grocery\/dairy.png",
+			"uniqueID": "10033"
+		},
+		{
+			"childCatalogGroupID": [
+				"10001_10039_0.00000",
+				"10001_10040_0.00000"
+			],
+			"identifier": "Health",
+			"name": "Health",
+			"parentCatalogGroupID": "-1",
+			"productsURL": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byCategory\/10038",
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/categoryview\/byId\/10038",
+			"shortDescription": "Health",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/health\/medicine.png",
+			"uniqueID": "10038"
+		},
+		{
+			"childCatalogGroupID": [
+				"10001_10042_0.00000",
+				"10001_10043_0.00000",
+				"10001_10044_0.00000",
+				"10001_10045_0.00000",
+				"10001_10046_0.00000",
+				"10001_10047_0.00000"
+			],
+			"identifier": "Home Furnishings",
+			"name": "Home & Furnishing",
+			"parentCatalogGroupID": "-1",
+			"productsURL": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byCategory\/10041",
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/categoryview\/byId\/10041",
+			"shortDescription": "Home & Furnishing",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/homefurnishings\/appliances.png",
+			"uniqueID": "10041"
+		},
+		{
+			"childCatalogGroupID": [
+				"10001_10049_0.00000",
+				"10001_10050_0.00000"
+			],
+			"identifier": "NewslettersAndMagazines",
+			"name": "Newsletters & Magazines",
+			"parentCatalogGroupID": "-1",
+			"productsURL": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byCategory\/10048",
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/categoryview\/byId\/10048",
+			"shortDescription": "Newsletters & Magazines",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/newslettersmagazines\/magazines.png",
+			"uniqueID": "10048"
+		}
+	],
+	"metaData": {
+		"price": "1"
+	},
+	"recordSetComplete": "true",
+	"recordSetCount": 6,
+	"recordSetStartNumber": 0,
+	"recordSetTotal": 6,
+	"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/categoryview\/@top",
+	"resourceName": "categoryview"
+}

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+ 
+	<!--
+            Defines the views to display top level folder, sub folders and the corresponding Page Layout in the folders.
+            A list view lists objects in the form of a table, providing selected information about the object, within table cells.
+            For example, a list of folders showing the type, Store, Name, Description, etc.
+       -->
+<Definitions>
+      <!--- This grid displays the contents and characteristics of a list of top level LayoutFolder Page Layouts folders. -->
+      <ObjectGrid definitionName="plmTopLayoutFolderGrid" preferenceKey="plmLayoutFolderGrid">
+            <GridIconTypeImage name="type" propertyName="" required="true" text="${plmPageLayoutResources.LayoutFolderType}" width="60"/>
+            <GridStoreName name="store" objectPath="LayoutFolderGroup" propertyName="objectStoreId" text="${plmPageLayoutResources.LayoutFolderStore}" width="125"/>
+            <GridText datatype="number" editable="false" name="uniqueID" propertyName="folderId"  text="${plmPageLayoutResources.LayoutFolderList_uniqueID}" visible="false" width="90"/>
+            <GridText editable="true" name="folderName" propertyName="identifier" required="true" text="${plmPageLayoutResources.LayoutFolderList_identifier}" visible="true" width="180"/>
+            <GridText editable="true"  name="folderDescription" propertyName="description" text="${plmPageLayoutResources.LayoutFolderList_description}" visible="true" width="350"/>          
+      </ObjectGrid>
+     
+      <!-- This child list editor shows a list of top level folders when the 'Page Layout Folders' organizational node is selected in the navigation view. -->
+      <ChildListEditor definitionName="plmTopLayoutFolderGridEditor" listDefinitionName="plmTopLayoutFolderGrid" objectTypes="LayoutFolder,InheritedLayoutFolder"/>
+     
+      <!--- This navigation list definition is used to display top level LayoutFolder. -->
+      <NavigationListDefinition definitionName="plmTopLayoutFolderGridChildList" displayName="${plmPageLayoutResources.LayoutFolderListMenuTitle}" listDefinitionName="plmTopLayoutFolderGridEditor" listTitle="${plmPageLayoutResources.LayoutFolderListTitle}" toolbarIcon="folderListToolbarIcon"/>
+     
+      <!--- This grid displays the contents and characteristics of a list of LayoutFolders -->
+      <ObjectGrid definitionName="plmLayoutFolderGrid" preferenceKey="plmLayoutFolderGrid">
+            <GridIconTypeImage name="type" propertyName="" required="true" text="${plmPageLayoutResources.LayoutFolderType}" width="60"/>
+            <GridStoreName name="store" propertyName="objectStoreId" text="${plmPageLayoutResources.LayoutFolderStore}" width="125"/>
+            <GridText datatype="number" editable="false" name="uniqueID" propertyName="LayoutFolderId" objectPath="LayoutFolderGroup" text="${plmPageLayoutResources.LayoutFolderList_uniqueID}" visible="false" width="90"/>
+            <GridText editable="true" name="folderName" propertyName="identifier" objectPath="LayoutFolderGroup" required="true" text="${plmPageLayoutResources.LayoutFolderList_identifier}" visible="true" width="180"/>
+            <GridText editable="true"  name="folderDescription" propertyName="description" objectPath="LayoutFolderGroup" text="${plmPageLayoutResources.LayoutFolderList_description}" visible="true" width="350"/>          
+      </ObjectGrid>
+     
+      <!-- This child list editor shows a list of Page Layoutfolders that are children of a Page Layout folder. -->
+      <ChildListEditor definitionName="plmLayoutFolderGridEditor" listDefinitionName="plmLayoutFolderGrid" objectTypes="LayoutFolderReference,InheritedLayoutFolderReference"/>
+     
+      <!--- This navigation list definition is used to display LayoutFolders -->
+      <NavigationListDefinition definitionName="plmLayoutFolderGridChildList" displayName="${plmPageLayoutResources.LayoutFolderListMenuTitle}" listDefinitionName="plmLayoutFolderGridEditor" listTitle="${plmPageLayoutResources.LayoutFolderListTitle}" toolbarIcon="listToolbarIcon"/>          
+      
+      <!--- This Gantt grid displays the contents and characteristics of a {@link PageLayout}, {@link InheritedPageLayout} calendar view. -->
+      <GanttGrid definitionName="plmPageLayoutFolderGanttReferenceGrid" dateObjectPath="PageLayoutAlias" endDatePropertyName="endDate" preferenceKey="plmPageLayoutGanttGrid" startDatePropertyName="startDate" showHorizontalScrollbar="true">
+            <GridText objectPath="PageLayoutAlias" editable="false" name="pageLayoutId" propertyName="pageLayoutId" text="${plmPageLayoutResources.pageLayoutUniqueID_ColumnHeader}" visible="false" width="90"/>
+            <GridPropertyImage objectPath="PageLayoutAlias" name="deviceTypeIcon" enableFilter="true" propertyName="deviceClass" text="${plmPageLayoutResources.deviceType_ColumnHeader}" visible="false" width="90"/>
+            <GridIconTypeImage objectPath="PageLayoutAlias" name="typeIcon" enableFilter="true" required="true" text="${plmPageLayoutResources.pageLayoutType_ColumnHeader}" visible="true" width="80"/>
+            <GridStoreName name="store" visible="false"/>
+            <GridPageLayout objectPath="PageLayoutAlias" package="plm" name="layoutView" propertyName="name" sortable="false" text="${plmPageLayoutResources.pageLayoutThumbnail_ColumnHeader}" visible="true" width="90"/>
+            <GridStepper objectPath="PageLayoutAlias" alignment="right" datatype="number" editable="true" maximumValue="1000" minimumValue="0" name="priority" propertyName="priority" text="${plmPageLayoutResources.priority_ColumnHeader}" width="65"/>
+            <GridText objectPath="PageLayoutAlias" editable="false" name="pageLayoutName" propertyName="name" text="${plmPageLayoutResources.pageLayoutName_ColumnHeader}" visible="true" width="170"/>
+            <GridDateTime objectPath="PageLayoutAlias" editable="true" name="startDate" propertyName="startDate" required="false" text="${plmPageLayoutResources.pageLayoutAssociationStartDate_ColumnHeader}" visible="false"/>
+            <GridDateTime objectPath="PageLayoutAlias" editable="true" endOfDay="true" name="endDate" propertyName="endDate" required="false" text="${plmPageLayoutResources.pageLayoutAssociationEndDate_ColumnHeader}" visible="false"/>
+      </GanttGrid>
+      
+      <!-- Child list editor to display Page Layout calendar in a folder. -->
+	  <ChildListEditor definitionName="plmPageLayoutFolderGanttChartEditor" listDefinitionName="plmPageLayoutFolderGanttReferenceGrid" objectTypes="LayoutFolderItemReference,LayoutFolderInheritedItemReference,InheritedLayoutFolderInheritedItemReference"/>
+      
+      <!--- This navigation list definition is used to display Page Layout Folder Calendar View -->
+      <NavigationListDefinition definitionName="plmPageLayoutFolderGanttChartChildList" displayName="${plmPageLayoutResources.pageLayoutsFolderGanttChartMenuTitle}" listDefinitionName="plmPageLayoutFolderGanttChartEditor" listTitle="${plmPageLayoutResources.pageLayoutsFolderGanttChartTitle}" toolbarIcon="ganttChartToolbarIcon"/>
+      
+      <!--- This grid displays the contents and characteristics of a list of Page Layouts -->
+      <ObjectGrid definitionName="plmPageLayoutFolderReferenceGrid" preferenceKey="plmPageLayoutFolderReferenceGrid">
+            <GridIconTypeImage name="typeIcon" enableFilter="true" propertyName="typeIcon" required="true" sortable="false" text="${plmPageLayoutResources.pageLayoutType_ColumnHeader}" visible="true" width="80"/>
+            <GridStoreName name="store" visible="false"/>
+            <GridPropertyImage objectPath="PageLayoutAlias" name="deviceTypeIcon" enableFilter="true" propertyName="deviceClass" text="${plmPageLayoutResources.deviceType_ColumnHeader}" visible="false" width="120"/> 
+            <GridPageLayout objectPath="PageLayoutAlias" package="plm" name="layoutView" propertyName="name" sortable="false" text="${plmPageLayoutResources.pageLayoutThumbnail_ColumnHeader}" visible="true" width="90"/>
+            <GridStepper objectPath="PageLayoutAlias" alignment="right" datatype="number" editable="true" maximumValue="1000" minimumValue="0" name="priority" propertyName="priority" text="${plmPageLayoutResources.priority_ColumnHeader}" width="65"/>
+            <GridText objectPath="PageLayoutAlias" editable="false" name="pageLayoutName" propertyName="name" text="${plmPageLayoutResources.pageLayoutName_ColumnHeader}" visible="true" width="170"/>
+            <GridDisplaySummary objectPath="PageLayoutAlias" name="pagesAndRulesSummary" text="${plmPageLayoutResources.summaryColumnTitle}" cellViewerClass="plmGridLayoutSummaryViewer" visible="true" width="200"/>
+            <GridDateTime objectPath="PageLayoutAlias" editable="true" name="startDate" propertyName="startDate" required="false" text="${plmPageLayoutResources.pageLayoutAssociationStartDate_ColumnHeader}" visible="true"/>
+            <GridDateTime objectPath="PageLayoutAlias" editable="true" endOfDay="true" name="endDate" propertyName="endDate" required="false" text="${plmPageLayoutResources.pageLayoutAssociationEndDate_ColumnHeader}" visible="true"/>
+            <GridText objectPath="PageLayoutAlias" editable="false" name="pageId" propertyName="pageLayoutId" text="${plmPageLayoutResources.pageLayoutUniqueID_ColumnHeader}" visible="false" width="90"/>
+      </ObjectGrid>
+      
+      <!--- This grid displays the contents and characteristics of a list of Page Layouts in a folder -->
+      <ObjectGrid definitionName="plmPageLayoutFolderBrowseGrid" preferenceKey="plmPageLayoutFolderBrowseGrid">
+            <GridIconTypeImage name="typeIcon" required="true" text="${plmPageLayoutResources.pageLayoutType_ColumnHeader}" width="80"/>
+            <GridPropertyImage name="deviceTypeIcon" objectPath="PageLayoutAlias" enableFilter="true" propertyName="deviceClass" text="${plmPageLayoutResources.deviceType_ColumnHeader}" visible="false" width="90"/>
+            <GridPageLayout package="plm" name="layoutView" objectPath="PageLayoutAlias" propertyName="name" sortable="false" text="${plmPageLayoutResources.pageLayoutThumbnail_ColumnHeader}" visible="true" width="90"/>
+            <GridDisplayName name="pageLayoutName" text="${plmPageLayoutResources.pageLayoutName_BrowseView_ColumnHeader}" visible="true" width="170"/>
+            <GridDisplaySummary name="pagesAndRulesSummary" objectPath="PageLayoutAlias" text="${plmPageLayoutResources.summaryColumnTitle}" cellViewerClass="plmGridLayoutSummaryViewer" visible="false" width="200"/>
+            <GridDateTime editable="false" name="startDate" objectPath="PageLayoutAlias" propertyName="startDate" required="false" text="${plmPageLayoutResources.pageLayoutAssociationStartDate_ColumnHeader}" visible="false"/>
+            <GridDateTime editable="false" endOfDay="true" objectPath="PageLayoutAlias" name="endDate" propertyName="endDate" required="false" text="${plmPageLayoutResources.pageLayoutAssociationEndDate_ColumnHeader}" visible="false"/>
+      </ObjectGrid>
+      
+      <!-- Child list editor to display Page Layout in a folder. -->
+      <ChildListEditor definitionName="plmLayoutFolderItemGridEditor" listDefinitionName="plmPageLayoutFolderReferenceGrid" objectTypes="LayoutFolderItemReference,LayoutFolderInheritedItemReference,InheritedLayoutFolderInheritedItemReference"/>
+      
+      <!--- This navigation list definition is used to display Page Layout Folder Item References} -->
+      <NavigationListDefinition definitionName="plmLayoutFolderItemGridChildList" displayName="${plmPageLayoutResources.LayoutFolderItemListMenuTitle}" listDefinitionName="plmLayoutFolderItemGridEditor" listTitle="${plmPageLayoutResources.LayoutFolderItemListTitle}" toolbarIcon="listToolbarIcon"/>
+      
+      <!--- 
+        This grid displays the contents and characteristics of a list of {@link LayoutFolder Layout Folders}.
+      -->
+      <ObjectGrid definitionName="plmPageLayoutFolderListDefinition" preferenceKey="plmPageLayoutFolderListDefinition">
+        <GridIconTypeImage name="type" required="true" text="${plmPageLayoutResources.LayoutFolderType}" width="60"/>
+        <GridStoreName name="store" text="${plmPageLayoutResources.LayoutFolderStore}" width="125"/>
+        <GridText datatype="number" editable="false" name="uniqueID" propertyName="folderId" text="${plmPageLayoutResources.LayoutFolderList_uniqueID}" visible="false" width="100"/>
+        <GridText editable="false" name="folderName" propertyName="identifier" required="true" text="${plmPageLayoutResources.LayoutFolderList_identifier}" visible="true" width="150"/>
+        <GridText editable="false" name="description" propertyName="description" text="${plmPageLayoutResources.LayoutFolderList_description}" visible="false" width="250"/>
+        <GridText editable="false" name="path" propertyName="path" text="${plmPageLayoutResources.LayoutFolderList_path}" visible="true" width="250"/>
+      </ObjectGrid>
+
+</Definitions>

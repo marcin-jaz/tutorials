@@ -1,0 +1,81 @@
+<%
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+%>
+<%--        
+  *****
+  * This JSP page holds constants values used by pages in the 
+  * RFQResponseSection.
+  *
+  *****
+--%>
+
+<c:set var="EC_OFFERING_ID" value="offering_id" scope="request" />
+<c:set var="EC_RFQ_RESPONSE_ID" value="response_id" scope="request" />
+<c:set var="EC_RFQ_REQUEST_ID" value="request_id" scope="request" />
+<c:set var="RFQ_EC_OFFERING_CATENTRYID" value="catentryid" scope="request" />
+<c:set var="EC_RFQ_PRODUCT_ID" value="rfqprod_id" scope="request" />
+
+<c:set var="EC_OFFERING_ITEMBEAN" value="ItemBean" scope="request" />
+<c:set var="EC_OFFERING_PRODUCTBEAN" value="ProductBean" scope="request" />
+<c:set var="EC_OFFERING_PACKAGEBEAN" value="PackageBean" scope="request" />
+<c:set var="EC_OFFERING_DYNAMICKITBEAN" value="DynamicKitBean" scope="request" />
+<c:set var="EC_RFQRSPPRODEVAL_ACCEPT" value="1" scope="request" />
+
+<c:set var="EC_UTF_ENDRESULT_CONTRACT" value="0" scope="request" />
+<c:set var="EC_UTF_ENDRESULT_ORDER" value="1" scope="request" />
+<c:set var="EC_ATTACH_ID" value="attachment_id" scope="request" />
+<c:set var="EC_UTF_MANDATORY" value="1" scope="request" />
+<c:set var="EC_UTF_OPTIONAL" value="0" scope="request" />
+<c:set var="EC_UTF_NON_CHANGEABLE" value="0" scope="request" />
+<c:set var="EC_UTF_CHANGEABLE" value="1" scope="request" />
+
+
+<c:set var="EC_STATE_START" value="0" scope="request" />
+<c:set var="EC_STATE_ACTIVE" value="1" scope="request" />
+<c:set var="EC_STATE_CANCELED" value="2" scope="request" />
+<c:set var="EC_STATE_CLOSED" value="3" scope="request" />
+<c:set var="EC_STATE_COMPLETED" value="4" scope="request" />
+<c:set var="EC_STATE_DRAFT" value="5" scope="request" />
+<c:set var="EC_STATE_FUTURE" value="6" scope="request" />
+<c:set var="EC_STATE_INEVAL" value="7" scope="request" />
+<c:set var="EC_STATE_LOST" value="8" scope="request" />
+<c:set var="EC_STATE_PENDINGAPPROVAL" value="9" scope="request" />
+<c:set var="EC_STATE_REJECTED" value="10" scope="request" />
+<c:set var="EC_STATE_RETRACTED" value="11" scope="request" />
+<c:set var="EC_STATE_WON" value="12" scope="request" />
+<c:set var="EC_STATE_CONTRACT_CREATED" value="13" scope="request" />
+<c:set var="EC_STATE_ORDER_CREATED" value="14" scope="request" />
+<c:set var="EC_STATE_NO_RESPONSE" value="15" scope="request" />
+<c:set var="EC_STATE_NEXT_ROUND" value="16" scope="request" />
+
+<c:set var="RFQ_EC_RESPONSE_STATE_DRAFT" value="1" scope="request" />
+<c:set var="RFQ_EC_RESPONSE_STATE_ACTIVE" value="2" scope="request" />
+<c:set var="RFQ_EC_RESPONSE_STATE_CANCELLED" value="3" scope="request" />
+<c:set var="RFQ_EC_RESPONSE_STATE_RETRACTED" value="7" scope="request" />
+<c:set var="RFQ_EC_RESPONSE_STATE_IN_EVALUATION" value="4" scope="request" />
+<c:set var="RFQ_EC_RESPONSE_STATE_WON" value="8" scope="request" />
+<c:set var="RFQ_EC_RESPONSE_STATE_LOST" value="9" scope="request" />
+<c:set var="RFQ_EC_RESPONSE_STATE_WON_COMPLETED" value="10" scope="request" />
+<c:set var="RFQ_EC_RESPONSE_STATE_LOST_COMPLETED" value="11" scope="request" />
+<c:set var="RFQ_EC_RESPONSE_STATE_PENDING_APPROVAL" value="5" scope="request" />
+<c:set var="RFQ_EC_RESPONSE_STATE_REJECTED" value="6" scope="request" />
+
+<c:set var="RFQ_EC_RESPONSE_ACCEPTACTION_ALL" value="0" scope="request" />
+<c:set var="RFQ_EC_RFQ_RESPONSE_PRODUCT_ID" value="responseProductId" scope="request" />
+
+<c:set var="EC_ATTRTYPE_FREEFORM" value="FREEFORM" scope="request" />
+<c:set var="EC_ATTRTYPE_STRING" value="STRING" scope="request" />
+<c:set var="EC_ATTRTYPE_INTEGER" value="INTEGER"  scope="request" />

@@ -1,0 +1,172 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<library>
+
+	<!---
+		@keywords private
+		This class is used to save many to many sales category
+		assignments via {@link wcfActionManager}.
+	-->
+	<class name="catSalesCategoryAssignmentsSaveHandler" extends="wcfSaveHandler">
+	
+		<!--- 
+			This attribute indicates that the user is allowed to create inherited to inherited assignments
+		-->
+		<attribute name="allowInheritedToInherited" value="false" type="boolean"/>
+		
+		<method name="save" args="object">
+			<![CDATA[
+			var sourceObjects = object.getObjects("SalesCategoryAssignmentReferenceCatalogEntryGroup");
+			var targetObjects = object.getObjects("SalesCategoryAssignmentReferenceSalesCategoryGroup");
+		
+			object.setOpen(false);
+			object.setAttribute("openGroupDirty", false);
+			this.commitObject(object);
+			
+			if (sourceObjects.length > 0 && targetObjects.length > 0) {
+				
+				var transactionEventId = wcfServiceTransactionUtil.createTransactionEvent(true);
+				for (var i = 0; i < targetObjects.length; i++) {
+					var targetObject = targetObjects[i].getReferencedObject();
+					var targetType = targetObject.objectType;
+					var targetInherited = false;
+					if (targetType.indexOf("Inherited") == 0){
+						targetInherited = true;
+					}
+					var transactionGroupId = wcfServiceTransactionUtil.createTransactionGroup(targetObject, transactionEventId, true);
+					for (var j = 0; j < sourceObjects.length; j++) {
+						var sourceObject = sourceObjects[j];
+						var sourceType = sourceObject.getReferencedObject().objectType;
+						var objectDefinition = null;
+						var allowReference = true;
+						var inherited = "";
+						if (sourceType.indexOf("Inherited") == 0){
+							inherited = "Inherited";
+							allowReference = !targetInherited;
+						}
+						// Create reference object and check if allowed.
+						// ChildSalesInheritedCatalogEntry - not normally allow to create these for inherited categories
+						if( allowReference || this.allowInheritedToInherited ) {
+							objectDefinition = targetObject.model.getObjectDefinition(targetObject, "ChildSales"+inherited+"CatalogEntry");
+							if (objectDefinition != null) {
+								wcfCopyActionHandler.triggerAction(sourceObject,
+									targetObject,
+									objectDefinition,
+									false,
+									null,
+									transactionEventId,
+									transactionGroupId,
+									true,
+									j==(sourceObjects.length-1),
+									(i == (targetObjects.length-1) && (j == sourceObjects.length-1)));
+							}
+						}
+					}
+				}
+			}
+			
+			wcfReleaseObjectHandler.triggerAction(object);
+			]]>
+		</method>
+		
+		<method name="commitObject" args="o">
+			<![CDATA[
+			for (var key in o.propertyMap) {
+				o.propertyMap[key].reset();
+			}
+			o.newObject = false;
+			o.implicitNewObject = false;
+			for (var key in o.childObjectMap) {
+				var childObject = o.childObjectMap[key];
+				if (!childObject.getIsVersionObject() && childObject.parentObject == o && childObject.openGroupObject == o.openGroupObject) {
+					this.commitObject(childObject);
+				}
+			}
+			]]>
+		</method>
+	</class>
+
+	<!---
+		This is an object level validator. 
+		This validator performs the following checks:
+		<ul>
+			<li>That the total number of assignments to be created does not exceed the specified maximum.</li>
+			<li>That there is at least one catalog entry and one category specified.</li>
+			<li>If there is only one catentry and one category, that they are not both inherited.</li>
+		</ul>
+	-->
+	<class name="catSalesCategoryAssignmentValidator" extends="wcfValidator">
+		<!---
+			The maximum number of assignments that can be created at one time.
+			The default is 1000.
+		-->
+		<attribute name="maximumAssignments" value ="1000" type="number"/>
+		
+		<!--- 
+			This attribute indicates that the user is allowed to create inherited to inherited assignments
+		-->
+		<attribute name="allowInheritedToInherited" value="false" type="boolean"/>
+		
+		<!--- @keywords private -->
+		<method name="validate" args="o, property=null">
+			<![CDATA[
+			if(this.isEnabled(o)) {
+				var errorMsg = null;
+				var assignmentCount = 0;
+				
+				var sourceObjects = o.getObjects("SalesCategoryAssignmentReferenceCatalogEntryGroup");
+				var targetObjects = o.getObjects("SalesCategoryAssignmentReferenceSalesCategoryGroup");
+				
+				if (sourceObjects.length == 0 || targetObjects.length == 0) {
+					errorMsg = catalogResources.errorMessageMinimumNotMet.string;
+				} else {
+					for (var i = 0; i < targetObjects.length; i++) {
+						var targetObject = targetObjects[i].getReferencedObject();
+						var targetType = targetObject.objectType;
+						var targetInherited = false;
+						if (targetType.indexOf("Inherited") == 0) {
+							targetInherited = true;
+						}
+						for (var j = 0; j < sourceObjects.length; j++) {
+							var sourceType = sourceObjects[j].getReferencedObject().objectType;
+							var allowReference = true;
+							if (sourceType.indexOf("Inherited") == 0) {
+								allowReference = !targetInherited;
+							}
+							if( allowReference || this.allowInheritedToInherited ) {
+								assignmentCount++;
+							}
+						}
+					}
+					if (assignmentCount == 0) {
+						errorMsg = catalogResources.errorMessageOnlyInherited.string;
+					} else {
+						if(assignmentCount > this.maximumAssignments) {
+						errorMsg = catalogResources.replaceValues("errorMessageMaxExceeded", [this.maximumAssignments,assignmentCount]);
+						}
+					}
+				}
+				if (errorMsg != null) {
+					o.addValidationError(this, errorMsg);
+				} else {
+					o.clearValidationError(this);
+				}
+			} else {
+				o.clearValidationError(this);
+			}
+			]]>
+		</method>
+	</class>
+</library>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Search">
+        <wb-resource deploy-path="/" source-path="/"/>
+        <dependent-module archiveName="Enablement-BaseComponentsLogic.jar" deploy-path="/" handle="module:/resource/Enablement-BaseComponentsLogic/Enablement-BaseComponentsLogic">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Foundation-Core.jar" deploy-path="/" handle="module:/resource/Foundation-Core/Foundation-Core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Foundation-Core-FEP.jar" deploy-path="/" handle="module:/resource/Foundation-Core-FEP/Foundation-Core-FEP">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Foundation-DataImport.jar" deploy-path="/" handle="module:/resource/Foundation-DataImport/Foundation-DataImport">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Foundation-Extension.jar" deploy-path="/" handle="module:/resource/Foundation-Extension/Foundation-Extension">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Foundation-Extension-FEP.jar" deploy-path="/" handle="module:/resource/Foundation-Extension-FEP/Foundation-Extension-FEP">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Foundation-Server.jar" deploy-path="/" handle="module:/resource/Foundation-Server/Foundation-Server">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Foundation-Server-FEP.jar" deploy-path="/" handle="module:/resource/Foundation-Server-FEP/Foundation-Server-FEP">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Rest-Core.jar" deploy-path="/" handle="module:/resource/Rest-Core/Rest-Core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Enablement-BusinessContextEngineAdvancedLogic.jar" deploy-path="/" handle="module:/resource/Enablement-BusinessContextEngineAdvancedLogic/Enablement-BusinessContextEngineAdvancedLogic">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Enablement-BusinessContextEngineLogic.jar" deploy-path="/" handle="module:/resource/Enablement-BusinessContextEngineLogic/Enablement-BusinessContextEngineLogic">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Search-Preview.war" deploy-path="/" handle="module:/resource/Search-Preview/Search-Preview">
+            <dependent-object>Module_1385569781572</dependent-object>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Search-Rest.war" deploy-path="/" handle="module:/resource/Search-Rest/Search-Rest">
+            <dependent-object>Module_1385569805467</dependent-object>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Search-Solr.war" deploy-path="/" handle="module:/resource/Search-Solr/Search-Solr">
+            <dependent-object>Module_1385569857138</dependent-object>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Search-Solr-Core.jar" deploy-path="/" handle="module:/resource/Search-Solr-Core/Search-Solr-Core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Crawler.jar" deploy-path="/" handle="module:/resource/Crawler/Crawler">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

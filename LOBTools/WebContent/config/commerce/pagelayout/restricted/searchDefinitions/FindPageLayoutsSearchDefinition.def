@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+	<SearchDefinition definitionName="FindStorePageLayouts" 
+			searchType="FindStorePageLayouts"
+			displayName="${plmPageLayoutResources.findPageLayouts}" 
+			icon="pageLayoutIcon"
+			listDefinitionName="plmPageLayoutGrid" 
+			listTitle="${plmPageLayoutResources.pageLayoutSearchResult}" 
+			objectTypeDisplayName="${plmPageLayoutResources.pageLayoutObjects}" 
+			tooltip="${plmPageLayoutResources.searchAllLayoutsTooltip}"
+			utilitiesListDefinitionName="plmPageLayoutBrowseGrid"
+			advancedSearchContentClass="plmPageLayoutsAdvancedSearchContent"
+			helpLink="concepts/cpzpagecomptool.htm">	 
+		<SearchService name="findStorePageLayouts" url="/cmc/FindStorePageLayouts">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="assetStoreId"/>
+		</SearchService>
+	</SearchDefinition>
+</Definitions>

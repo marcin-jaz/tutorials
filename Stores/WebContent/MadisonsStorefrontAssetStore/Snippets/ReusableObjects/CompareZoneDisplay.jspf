@@ -1,0 +1,111 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<!-- BEGIN CompareZoneDisplay.jspf-->
+
+<script type="text/javascript" src="<c:out value="${jsAssetsDir}javascript/CatalogArea/CompareProduct.js"/>"></script>
+
+<input id="sessionId" name="sessionId" type="hidden" value="<c:out value='${CommandContext.uniqueSessionTag}'/>" />
+
+<script type="text/javascript">
+	dojo.addOnLoad(function() { 
+		var compareCounter = 0;
+		var compareRowCounter = 0;
+		//Set the global variables
+		compareProductJS.setCommonParameters("<c:out value='${langId}'/>", "<c:out value='${WCParam.storeId}'/>","<c:out value='${WCParam.catalogId}'/>");
+		
+		//Set the sessionId in compareProductJS property
+		compareProductJS.setProperty("sessionId",document.getElementById("sessionId").value);
+		<fmt:message key="COMPARE_ITEM_EXISTS" bundle="${storeText}" var="COMPARE_ITEM_EXISTS" />
+		<fmt:message key="COMPATE_MAX_ITEMS" bundle="${storeText}" var="COMPATE_MAX_ITEMS" />
+		<fmt:message key="COMPAREZONE_ADDED" bundle="${storeText}" var="COMPAREZONE_ADDED" />
+		<fmt:message key="COMPARE_ITEMS_CLEAR" bundle="${storeText}" var="COMPARE_ITEMS_CLEAR" />
+		
+		MessageHelper.setMessage("COMPARE_ITEM_EXISTS", <wcf:json object="${COMPARE_ITEM_EXISTS}"/>);
+		MessageHelper.setMessage("COMPATE_MAX_ITEMS", <wcf:json object="${COMPATE_MAX_ITEMS}"/>);
+		MessageHelper.setMessage("COMPAREZONE_ADDED", <wcf:json object="${COMPAREZONE_ADDED}"/>);
+		MessageHelper.setMessage("COMPARE_ITEMS_CLEAR", <wcf:json object="${COMPARE_ITEMS_CLEAR}"/>);
+		parseWidget("compareZone");
+		compareProductJS.init();
+		compareProductJS.initializeCompare();
+	});
+</script>
+
+	<div class="compare_content_top" id="WC_CompareZoneDisplayf_div_1"></div>
+	
+      <flow:ifEnabled feature='ProductDnD'>
+			<c:set var="compareDisplayKey" value="COMPARE_DROP_ZONE_INSTRUCTIONS_WITH_DND"  />
+	</flow:ifEnabled>
+	
+	<flow:ifDisabled feature='ProductDnD'>
+			<c:set var="compareDisplayKey" value="COMPARE_DROP_ZONE_INSTRUCTION_WITHOUT_DND"  />
+	</flow:ifDisabled>	
+
+	<flow:ifDisabled feature='ProductQuickView'>
+		<flow:ifDisabled feature='ProductDnD'>		
+			<c:set var="compareDisplayKey" value="COMPARE_DROP_ZONE_INSTRUCTION_WITHOUT_DND_AND_QUICK_INFO"  />					
+		</flow:ifDisabled>		
+	</flow:ifDisabled>
+	
+	<form name="CompareForm" id="CompareForm" action="CompareProductsDisplay">
+		<input type="hidden" name="storeId" value="<c:out value="${WCParam.storeId}"/>" id="WC_CompareZoneDisplayf_inputs_1"/>
+		<input type="hidden" name="catalogId" value="<c:out value="${WCParam.catalogId}"/>" id="WC_CompareZoneDisplayf_inputs_2"/>
+		<input type="hidden" name="langId" value="<c:out value="${langId}"/>" id="WC_CompareZoneDisplayf_inputs_3"/>
+		<input type="hidden" name="categoryId" value="<c:out value="${WCParam.categoryId}"/>" id="WC_CompareZoneDisplayf_inputs_4"/>
+		<input type="hidden" name="top" value="<c:out value="${WCParam.top}"/>" id="WC_CompareZoneDisplayf_inputs_4a"/>
+		<input type="hidden" name="catentryId" value="" id="WC_CompareZoneDisplayf_inputs_5"/>
+		<input type="hidden" name="catentryId" value="" id="WC_CompareZoneDisplayf_inputs_6"/>
+		<input type="hidden" name="catentryId" value="" id="WC_CompareZoneDisplayf_inputs_7"/>
+		<input type="hidden" name="catentryId" value="" id="WC_CompareZoneDisplayf_inputs_8"/>
+		<input type="hidden" name="clearMsg" value="<fmt:message key='${compareDisplayKey}' bundle='${storeText}'/>" id="WC_CompareZoneDisplayf_inputs_9"/>
+		<div dojoType="dojo.dnd.Target" jsId="compareZone" id="compareZone" class="contentarea" accept="item, product, package, bundle">
+			<div id="compareDropZoneImg" class="items" style="padding: 5px;">
+  			      <fmt:message key='${compareDisplayKey}' bundle='${storeText}'/>
+				<div id="WC_CompareZoneDisplayf_div_2">&nbsp;</div>
+			</div>
+		</div>
+	
+		
+	</form>
+	<div class="compare_content_bottom" id="WC_CompareZoneDisplayf_div_3"></div>
+	<div class="footerbuttons" id="WC_CompareZoneDisplayf_div_4">
+		 <div align="center" class="compareClass" id="WC_CompareZoneDisplayf_div_5">
+		 		<span class="secondary_button button_fit" id="WC_CompareZoneDisplayf_div_6">
+					<span class="button_container">
+						<span class="button_bg">
+							<span class="button_top">
+								<span class="button_bottom">   
+									<a href="JavaScript: compareProductJS.clear();" class="button_text" id="WC_CompareZoneDisplayf_links_1_1"><fmt:message key='COMPARE_CLEAR' bundle='${storeText}'/></a>
+								</span>
+							</span>
+						</span>
+					</span>
+				</span>
+				
+				<span class="secondary_button button_fit" id="WC_CompareZoneDisplayf_div_8">
+					<span class="button_container">
+						<span class="button_bg">
+							<span class="button_top">
+								<span class="button_bottom">   
+									<a href="JavaScript: compareProductJS.compareProducts();" class="button_text" id="WC_CompareZoneDisplayf_links_2_1"><fmt:message key='COMPARE_BUTTON' bundle='${storeText}'/></a>
+								</span>
+							</span>
+						</span>
+					</span>
+				</span>
+				<br clear="all" />
+		</div>
+	</div>
+	<div class="compare_bottom" id="WC_CompareZoneDisplayf_div_10"></div>
+
+<!-- END CompareZoneDisplay.jspf-->

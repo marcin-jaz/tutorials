@@ -1,0 +1,10 @@
+/*
+Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+								
+				Portions Copyright IBM Corp., 2009-2014.
+*/
+CKEDITOR.plugins.setLang( 'pastetext', 'zh-tw', {
+	button	: "當作純文字貼上",
+	title	: "當作純文字貼上"
+});

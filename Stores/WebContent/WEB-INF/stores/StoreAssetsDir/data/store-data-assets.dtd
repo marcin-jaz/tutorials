@@ -1,0 +1,38 @@
+<!--********************************************************************-->
+<!--  Licensed Materials - Property of IBM                              -->
+<!--                                                                    -->
+<!--  WebSphere Commerce                                                -->
+<!--                                                                    -->
+<!--  (c) Copyright IBM Corp. 2006                                      -->
+<!--                                                                    -->
+<!--  US Government Users Restricted Rights - Use, duplication or       -->
+<!--  disclosure restricted by GSA ADP Schedule Contract with IBM Corp. -->
+<!--                                                                    -->
+<!--********************************************************************-->
+
+<!ENTITY % wcs.dtd SYSTEM "wcs.dtd">
+%wcs.dtd;
+
+<!ENTITY % ForeignKeys.dtd SYSTEM "ForeignKeys.dtd">
+%ForeignKeys.dtd;
+
+<!-- Access control datagroup -->
+<!ENTITY accesscontrol.xml SYSTEM "accesscontrol.xml">
+<!ENTITY store-references.xml SYSTEM "store-references.xml">
+
+<!ENTITY MadisonsMobileWebActivities.xml SYSTEM "MadisonsMobileWebActivities.xml">
+
+<!ENTITY attachments.xml SYSTEM "attachments.xml">
+<!ENTITY de_DE_attachments.xml SYSTEM "de_DE/attachments.xml">
+<!ENTITY en_US_attachments.xml SYSTEM "en_US/attachments.xml">
+<!ENTITY es_ES_attachments.xml SYSTEM "es_ES/attachments.xml">
+<!ENTITY fr_FR_attachments.xml SYSTEM "fr_FR/attachments.xml">
+<!ENTITY it_IT_attachments.xml SYSTEM "it_IT/attachments.xml">
+<!ENTITY ja_JP_attachments.xml SYSTEM "ja_JP/attachments.xml">
+<!ENTITY ko_KR_attachments.xml SYSTEM "ko_KR/attachments.xml">
+<!ENTITY pl_PL_attachments.xml SYSTEM "pl_PL/attachments.xml">
+<!ENTITY pt_BR_attachments.xml SYSTEM "pt_BR/attachments.xml">
+<!ENTITY ro_RO_attachments.xml SYSTEM "ro_RO/attachments.xml">
+<!ENTITY ru_RU_attachments.xml SYSTEM "ru_RU/attachments.xml">
+<!ENTITY zh_CN_attachments.xml SYSTEM "zh_CN/attachments.xml">
+<!ENTITY zh_TW_attachments.xml SYSTEM "zh_TW/attachments.xml">

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<GridObjectProperties definitionName="plmWidgetProperties_IntelligentOfferWidget">
+		<PropertyPane>
+			<!-- ================= -->
+			<!-- Widget Properties -->
+			<!-- ================= -->
+			<PropertyGroup name="widgetProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetPropertiesPrompt}">
+				<PropertyInputText name="${plmPageLayoutResources.widgetNamePrompt}" propertyName="widgetName"
+					promptText="${plmPageLayoutResources.widgetNamePrompt}" extendedHelpText="${plmPageLayoutResources.extendedHelpText_intelligentOfferWidgetWidgetName}"/>
+				<PropertyRadioGroup propertyName="xWidgetProp_widgetOrientation" promptText="${plmPageLayoutResources.intelligentOfferWidgetWidgetOrientationPrompt}" 
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_intelligentOfferWidgetWidgetOrientation}"/>
+				<PropertyGroup name="pageSizeGroup" collapsable="false">
+					<EnablementCondition conditionId="intelligentOfferWidgetOrientationConditionPageSize" propertyName="xWidgetProp_widgetOrientation" enablementValue="vertical" />
+					<PropertyStepper propertyName="xWidgetProp_pageSize" minimumValue="1"
+						promptText="${plmPageLayoutResources.intelligentOfferWidgetMaxProductsToDisplay}"
+						extendedHelpText="${plmPageLayoutResources.extendedHelpText_intelligentOfferWidgetMaxProductsToDisplay}"/>
+				</PropertyGroup>
+				<PropertyGroup name="pageDisplayReferenceGroup" collapsable="false">
+					<EnablementCondition conditionId="intelligentOfferWidgetOrientationConditionDisplayPref" propertyName="xWidgetProp_widgetOrientation" enablementValue="horizontal"/>				
+					<PropertyCombobox propertyName="xWidgetProp_displayPreference" promptText="${plmPageLayoutResources.intelligentOfferWidgetDisplayPreferencesPrompt}" />
+				</PropertyGroup>
+				
+				<PropertyCheckbox propertyName="xWidgetProp_showFeed" text="${plmPageLayoutResources.intelligentOfferWidgetShowFeed}" 
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_intelligentOfferWidgetShowFeed}"/>
+			</PropertyGroup>
+			
+			<!-- ============== -->
+			<!-- Widget Content -->
+			<!-- ============== -->
+			<PropertyGroup name="contentProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetContentPrompt}">
+				<!-- Use a web activity to populate the widget -->
+				<PropertyGroup collapsable="false" name="widgetUseWebactivity">
+					<!-- Property group for widget default content of local page layout -->
+					<PropertyGroup collapsable="false" name="widgetLocalWebActivity">
+						<EnablementCondition checkObjectDefinition="true" conditionId="layoutCondition"
+							enablementValue="PageLayout" propertyName="objectType" parentProperty="true"/>
+						<PropertyChildListEditor
+							listDefinitionName="plmActivityGrid"
+							name="plmActivityGrid"
+							objectTypes="ActivityReference,InheritedActivityReference"
+							promptText="${plmPageLayoutResources.webActivitySelection}"
+							allowCreateReferencedPrimary="true"
+							extendedHelpText="${plmPageLayoutResources.intelligentOfferWidgetWebActivityToolTip}"
+							helpLinkURL="concepts/csbactdispintelofferrec.htm"
+							validatorTypes="noWebActivitySelected">
+							<NewMarketingObjectHandler package="mkt" objectType="Coremetrics" focusComponentPath="path/displayCoremetricsRecommendation" focusComponentProperty="delivery"/>
+						</PropertyChildListEditor>
+					</PropertyGroup>
+					
+					<!-- Property group for widget default content of inherited page layout -->
+					<PropertyGroup collapsable="false" name="widgetWebActivityInherited">
+						<EnablementCondition checkObjectDefinition="true" conditionId="inheritedLayoutCondition"
+							enablementValue="InheritedPageLayout" propertyName="objectType" parentProperty="true"/>
+						<PropertyChildListEditor
+							listDefinitionName="plmActivityGrid"
+							name="plmInheritedActivityGrid"
+							objectTypes="InheritedActivityInheritedReference"
+							promptText="${plmPageLayoutResources.webActivitySelection}"
+							allowCreateReferencedPrimary="true"
+							displayObjectStoreName="true"
+							extendedHelpText="${plmPageLayoutResources.intelligentOfferWidgetWebActivityInheritedToolTip}"
+							helpLinkURL="concepts/csbactdispintelofferrec.htm"
+							validatorTypes="noWebActivitySelected">
+						</PropertyChildListEditor>
+						<PropertyChildListEditor
+							listDefinitionName="plmActivityGrid"
+							name="plmLocalActivityGrid"
+							objectTypes="ActivityReference,InheritedActivityReference"
+							promptText="${plmPageLayoutResources.webActivitySelection}"
+							allowCreateReferencedPrimary="true"
+							displayStoreName="true"
+							extendedHelpText="${plmPageLayoutResources.intelligentOfferWidgetWebActivityToolTip}"
+							helpLinkURL="concepts/csbactdispintelofferrec.htm"
+							validatorTypes="noWebActivitySelected">
+							<NewMarketingObjectHandler package="mkt" objectType="Coremetrics" focusComponentPath="path/displayCoremetricsRecommendation" focusComponentProperty="delivery"/>
+						</PropertyChildListEditor>
+					</PropertyGroup>
+				</PropertyGroup>
+			</PropertyGroup>
+		</PropertyPane>
+	</GridObjectProperties>
+
+</Definitions>

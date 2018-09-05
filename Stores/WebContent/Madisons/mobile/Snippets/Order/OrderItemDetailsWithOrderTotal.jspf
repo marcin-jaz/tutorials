@@ -1,0 +1,53 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%-- 
+  *****
+  * This JSP snippet displays the order item details along with the order total for a particular order. 
+  * This snippet is used by the OrderDetailDisplay jsp page
+  *****
+--%>
+
+<!-- BEGIN OrderItemDetailsWithOrderTotal.jspf -->
+
+<c:forEach var="orderItem" items="${order.orderItem}" varStatus="status">
+	<wcbase:useBean id="catEntry" classname="com.ibm.commerce.catalog.beans.CatalogEntryDataBean" scope="request">
+		<c:set property="catalogEntryID" value="${orderItem.catalogEntryIdentifier.uniqueID}" target="${catEntry}" />
+	</wcbase:useBean>
+
+	<!-- get the formatted qty for this item -->
+	<fmt:formatNumber var="itemQty" value="${orderItem.quantity.value}" type="number" maxFractionDigits="0"/>
+	<ul>
+		<li><h4>${catEntry.description.name}</h4></li>
+		<li>Price: <fmt:formatNumber value="${orderItem.orderItemAmount.unitPrice.price.value}" type="currency" 
+				maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></li>
+		<li>Quantity: ${itemQty}</li>
+	</ul>
+	<c:remove var="catEntry"/>
+</c:forEach>
+
+<ul>
+	<li>Order subtotal: <fmt:formatNumber value="${order.orderAmount.totalProductPrice.value}" type="currency" 
+		maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></li>
+	<li>Discount adjustments: <fmt:formatNumber value="${order.orderAmount.totalAdjustment.value}" type="currency" 
+		maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></li>
+	<li>Tax: <fmt:formatNumber value="${order.orderAmount.totalSalesTax.value}" type="currency" 
+		maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></li>
+	<li>Shipping: <fmt:formatNumber value="${order.orderAmount.totalShippingCharge.value}" type="currency" 
+		maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></li>
+</ul>
+<div class="order_total">Order Total: <fmt:formatNumber value="${order.orderAmount.grandTotal.value}" type="currency" 
+	maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></div>
+	
+<!-- END OrderItemDetailsWithOrderTotal.jspf -->

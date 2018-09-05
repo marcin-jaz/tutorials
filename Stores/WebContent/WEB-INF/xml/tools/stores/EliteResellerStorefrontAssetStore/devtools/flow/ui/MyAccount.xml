@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+
+	<panel id="MyAccountPanel" title="MyAccountPanel.title" description="MyAccountPanel.description" display-priority="5" />
+	
+	<option-group id="accountParticipantRole.checkbox" title="accountParticipantRole.checkboxEnable.title" type="checkbox" display-priority="1" panel="MyAccountPanel" >	
+		<option id="accountParticipantRole.checkboxEnable"
+			label="accountParticipantRole.checkboxEnable.label"
+			enables-features="accountParticipantRole" 
+		/>
+	</option-group>
+		
+</display>

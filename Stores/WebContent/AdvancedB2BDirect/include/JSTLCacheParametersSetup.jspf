@@ -1,0 +1,61 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2001, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%-- 
+  *****
+  * This JSP fragment sets up variables used as parameters passed into JSP pages that enable caching on those pages.
+  * This file is used by JSP pages that use JSTL.
+  *****
+--%>
+
+<%-- Determine roles played by user to hide/show functionality on pages --%>
+<wcbase:useBean id="userRegistrationDataBean" classname="com.ibm.commerce.user.beans.UserRegistrationDataBean" scope="request"/>
+<c:forEach items="${userRegistrationDataBean.rolesInActiveOrganizationAndAncestors}" var="role">
+	<c:choose >
+		<c:when test="${role == -1}">
+			<c:set var="bSiteAdmin" value="true"/>
+		</c:when>
+		<c:when test="${role == -4}">
+			<c:set var="bSeller" value="true"/>
+		</c:when>
+		<c:when test="${role == -20}">
+			<c:set var="bSellerAdmin" value="true"/>
+		</c:when>
+		<c:when test="${role == -21}">
+			<c:set var="bBuyerAdmin" value="true"/>
+		</c:when>
+		<c:when test="${role == -22}">
+			<c:set var="bBuyerApprover" value="true"/>
+		</c:when>
+		<c:when test="${role == -24}">
+			<c:set var="bBuyerBuySide" value="true"/>
+		</c:when>
+	</c:choose>
+</c:forEach>
+
+<%-- Determine livehelp status to hide/show functionality on pages --%>
+<wcbase:useBean id="liveHelpShopperConfiguration" classname="com.ibm.commerce.collaboration.livehelp.beans.LiveHelpShopperConfiguration" scope="page"/>
+<c:set var="liveHelp" value="${liveHelpShopperConfiguration.enabled}"/>
+
+<c:if test="${bBuyerBuySide == true}">
+	<c:set var="rfqLinkDisplayed" value="true"/>
+</c:if>
+<c:if test="${(bBuyerBuySide == true) && ((bBuyerApprover == true) || (bBuyerAdmin == true))}">
+	<c:set var="displayApproverLink" value="true"/>
+</c:if>
+<c:if test="bSellerAdmin == true) || bSiteAdmin == true) || (bBuyerAdmin == true))}">
+	<c:set var="bAdmin" value="true"/>
+</c:if>

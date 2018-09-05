@@ -1,0 +1,37 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%-- 
+  *****
+  * This snippet will displays the browse departments present in the mobile store home page
+  *****
+--%>
+
+<!-- BEGIN BrowseDepartments.jspf -->
+
+<div id="browse_departments" class="content_box"> 
+	<div class="heading_container"> 
+		<h2><fmt:message key="STORE_OPT_BROWSE_PRODUCTS" bundle="${storeText}"/></h2> 
+		<div class="clear_float"></div> 
+	</div> 
+	<%out.flush();%>			
+	<c:import url="${jspStoreDir}mobile/ShoppingArea/CatalogSection/CategorySubsection/TopCategoriesDisplay.jsp">
+		<c:param name="storeId" value="${WCParam.storeId}"/>
+		<c:param name="catalogId" value="${catalogId}"/>
+		<c:param name="langId" value="${WCParam.langId}"/>
+	</c:import>
+	<%out.flush();%>
+</div> 
+
+<!-- END BrowseDepartments.jspf -->

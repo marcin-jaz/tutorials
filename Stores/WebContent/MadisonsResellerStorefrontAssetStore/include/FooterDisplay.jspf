@@ -1,0 +1,44 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2001, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%-- 
+  *****
+  * This JSP fragment is used to make CachedFooterDisplay.jsp cachable.  The parameters passed into
+  * CachedFooterDisplay.jsp are defined as a key in the cachespec.xml file.
+  *****
+--%>
+
+<!-- BEGIN FooterDisplay.jspf -->
+		
+<%-- on the generic error page, the storeId can't be retrieved from WCParam. 
+Try to use the storeId stored in session first --%>
+<c:if test="${empty storeId }">
+	<c:set var="storeId" value="${WCParam.storeId}"/>
+</c:if>
+<% out.flush(); %>
+<c:import url="${jspStoreDir}${StyleDir}CachedFooterDisplay.jsp">
+	<c:param name="storeId" value="${storeId}" />
+	<c:param name="catalogId" value="${catalogId}" />
+	<c:param name="langId" value="${langId}" />
+	<c:param name="userType" value="${userType}" />
+	<c:param name="userState" value="${userState}" />
+	<c:param name="liveHelp" value="${liveHelp}" />
+	<c:param name="rfqLinkDisplayed" value="${rfqLinkDisplayed}" />
+	<c:param name="displayApproverLink" value="${displayApproverLink}" />
+</c:import>
+<% out.flush(); %>
+
+<!-- END FooterDisplay.jspf -->

@@ -1,0 +1,39 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%--
+  *****
+  * This JSP page constructs the day drop-down
+  * selection box for RFQ JSP pages. 
+  *  
+  * Required parameters:
+  * - select_name - name of select control
+  * - default_option - default value
+  * - selected_val - day selected
+  * 
+  *****
+--%>
+
+<!--SELECT DAY-->
+<SELECT name="<c:out value="${select_name}"/>" class="select" id="WC_SelectDay_Select_1">
+	<option value=""><c:out value="${default_option}" /></option>
+	<c:forTokens var="day"
+		items="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31"
+		delims=",">
+		<OPTION value="<c:out value="${day}"/>" <c:if test="${selected_val eq day}"><c:out value="selected='selected'" /></c:if>><c:out	value="${day}" /></OPTION>
+	</c:forTokens>
+</SELECT>
+<!--END SELECT DAY-->

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE store-front SYSTEM "StoreFront.dtd">
+<store-front>
+    <store-front-images>
+        <image id="logo" max-height="50" max-width="150"/>
+        <image id="banner" max-height="50" max-width="815"/>
+    </store-front-images>
+
+    <store-front-text>
+    
+    
+         <!-- ShoppingArea/ShopcartSection/OrderItemDisplay.jsp-->
+         <page>
+               <label>
+                      <message key="ShopCart" resource="storetext_dynamic_labels"/>
+               </label>
+               <description>
+                      <message key="ShopCart_Text" resource="storetext_dynamic_labels"/>
+               </description>                 
+               <content>
+                      <message key="ShopCart_Text" resource="storetext_dynamic"/>
+               </content>
+               <location file="tools/stores/$storeDir$/text/preview/$locale$/Preview_ShopCart.html" />
+        </page>       
+
+
+ 	      <!-- ShoppingArea/CheckoutSection/StandardCheckoutSubsection/OrderConfirmationDisplay.jsp -->
+        <page>
+       		<label>
+        		<message key="Order_Receipt" resource="storetext_dynamic_labels"/>
+        	</label>
+        	<description>
+        		<message key="Order_Receipt_Text" resource="storetext_dynamic_labels"/>
+        	</description>          	
+  	     	<content>
+        		<message key="ORDER_RECEIPT" resource="storetext_dynamic"/>
+        	</content>
+         	<location file="tools/stores/$storeDir$/text/preview/$locale$/Preview_OrderConfirmation.html" />
+        </page>       	        
+
+              
+    </store-front-text>
+
+</store-front>

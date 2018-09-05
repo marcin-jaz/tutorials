@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("ibmmenuhelpmessage","el",{keystrokeForContextMenu:"Πατήστε Ctrl + δεξί κουμπί του ποντικιού για περισσότερες επιλογές",keystrokeForContextMenuMac:"Πατήστε Cmd + δεξί κουμπί του ποντικιού για περισσότερες επιλογές"});

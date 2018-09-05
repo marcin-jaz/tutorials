@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+    <!---	
+    	This definition displays a list of local layout location page references:
+    	{@link LayoutLocationContentPageReference}
+    	{@link LayoutLocationInheritedContentPageReference}
+    	{@link LayoutLocationCatalogGroupPageReference}
+    	{@link LayoutLocationInheritedCatalogGroupPageReference}
+    	{@link LayoutLocationCatalogEntryPageReference}
+    	{@link LayoutLocationInheritedCatalogEntryPageReference}
+	-->
+	<PropertyChildListEditor definitionName="PageLayoutLocationList" listDefinitionName="plmPageLayoutLocationGrid" name="pageLayoutLocationList" 
+		promptText="${plmPageLayoutResources.page_location}"
+		extendedHelpText="${plmPageLayoutResources.extendedHelpText_pageLayoutLocationList}"
+		objectTypes="LayoutLocationContentPageReference,LayoutLocationInheritedContentPageReference,LayoutLocationCatalogGroupPageReference,LayoutLocationInheritedCatalogGroupPageReference,LayoutLocationCatalogEntryPageReference,LayoutLocationInheritedCatalogEntryPageReference"
+		hideEditColumnAction="true"/>
+
+    <!---	
+    	This definition displays a list of inherited layout location page references:
+    	{@link InheritedLayoutLocationInheritedContentPageReference}
+    	{@link InheritedLayoutLocationInheritedCatalogGroupPageReference}
+    	{@link InheritedLayoutLocationInheritedCatalogEntryPageReference}
+	-->
+	<PropertyChildListEditor definitionName="InheritedPageLayoutLocationList" listDefinitionName="plmPageLayoutLocationGrid" name="pageLayoutInheritedLocationList"
+		promptText="${plmPageLayoutResources.page_location}"
+		extendedHelpText="${plmPageLayoutResources.extendedHelpText_pageLayoutLocationList}"
+		objectTypes="InheritedLayoutLocationInheritedContentPageReference,InheritedLayoutLocationInheritedCatalogGroupPageReference,InheritedLayoutLocationInheritedCatalogEntryPageReference"
+		hideEditColumnAction="true"/>
+	
+    <!---	
+    	This definition displays the contents and characteristics of a list of layout location page references.
+	-->
+	<ObjectGrid definitionName="plmPageLayoutLocationGrid" preferenceKey="plmPageLayoutLocationGrid">
+        <GridText editable="false" name="pageId" objectPath="PageAlias" propertyName="pageId" text="${plmPageLayoutResources.layoutPageLocationList_uniqueID}" visible="false" width="100"/>			
+        <GridIconTypeImage name="typeIcon" objectPath="PageAlias" propertyName="null" required="true" text="${plmPageLayoutResources.pageType_ColumnHeader}" visible="true" width="60"/>
+		<GridStoreName name="store" objectPath="PageAlias" width="250"/>
+	   	<GridText editable="false" name="pageName" visible="true" required="true" text="${plmPageLayoutResources.pageName_ColumnHeader}" width="200">
+			<GridCellDescriptor objectType="LayoutLocationCatalogGroupPageReferenceAlias" name="catalogGroupPage" objectPath="PageAlias" propertyName="identifier"/>
+			<GridCellDescriptor objectType="LayoutLocationCatalogEntryPageReferenceAlias" name="catalogEntryPage" objectPath="PageAlias" propertyName="partnumber"/>
+			<GridCellDescriptor objectType="LayoutLocationContentPageReferenceAlias" name="contentPage" objectPath="PageAlias" propertyName="name"/>
+		</GridText>
+		<GridText editable="false" name="objectName" text="${plmPageLayoutResources.name_ColumnHeader}" visible="false" width="250">
+			<GridCellDescriptor objectType="LayoutLocationCatalogGroupPageReferenceAlias" name="catalogGroupPage" objectPath="PageAlias" propertyName="name"/>
+			<GridCellDescriptor objectType="LayoutLocationCatalogEntryPageReferenceAlias" name="catalogEntryPage" objectPath="PageAlias" propertyName="name"/>
+		</GridText>
+
+		<!--
+			Drop down list for option of what sub pages the layout should be propagated. For content and catalog entry page, this drop down can not be edit (always show "This page only") 
+		 -->
+		<GridColumn enableFilter="true" name="applyToSubPage" text="${plmPageLayoutResources.layoutPageLocationList_applyThisTo}" visible="true" width="250">
+			<GridComboBoxCellDescriptor objectType="LayoutLocationCatalogGroupPageReferenceAlias" name="catalogGroupPage" propertyName="applyToSubPage"/>
+			<GridComboBoxCellDescriptor objectType="LayoutLocationCatalogEntryPageReferenceAlias" name="catalogEntryPage" editable="false" propertyName="applyToSubPage"/>
+			<GridComboBoxCellDescriptor objectType="LayoutLocationContentPageReferenceAlias" name="contentPage" editable="false" propertyName="applyToSubPage"/>
+		</GridColumn>
+		
+		
+	</ObjectGrid>
+	
+    <!---	
+    	This definition displays a list of local layout search terms:
+    	{@link LayoutSearchTerm}
+	-->
+	<PropertyChildListEditor definitionName="PageLayoutSearchTermList" listDefinitionName="plmPageLayoutSearchTermGrid" name="pageLayoutSearchTermList" 
+		promptText="${plmPageLayoutResources.searchTerm_location}"
+		extendedHelpText="${plmPageLayoutResources.extendedHelpText_pageLayoutSearchTermList}"
+		helpLinkText="${foundationResources.helpDefaultLinkText}"
+		helpLinkURL="concepts/cpzsearchterm.htm"
+		newButtonHelpText="${plmPageLayoutResources.newSearchTerm}"
+		objectTypes="LayoutSearchTerm"/>
+
+    <!---	
+    	This definition displays a list of inherited layout search terms:
+    	{@link LayoutInheritedSearchTerm}
+	-->
+	<PropertyChildListEditor definitionName="PageLayoutInheritedSearchTermList" listDefinitionName="plmPageLayoutSearchTermGrid" name="pageLayoutInheritedSearchTermList" 
+		promptText="${plmPageLayoutResources.searchTerm_location}"
+		extendedHelpText="${plmPageLayoutResources.extendedHelpText_pageLayoutSearchTermList}"
+		helpLinkText="${foundationResources.helpDefaultLinkText}"
+		helpLinkURL="concepts/cpzsearchterm.htm"
+		newButtonHelpText="${plmPageLayoutResources.newSearchTerm}"
+		objectTypes="LayoutInheritedSearchTerm"/>
+
+    <!---	
+    	This definition displays the contents and characteristics of a list of layout search terms.
+	-->
+	<ObjectGrid definitionName="plmPageLayoutSearchTermGrid" preferenceKey="plmPageLayoutSearchTermGrid">
+		<GridText editable="true" name="searchTerm" propertyName="searchTerm" required="true" text="${plmPageLayoutResources.searchTerm_ColumnHeader}" visible="true" width="250"/>
+	</ObjectGrid>
+	
+</Definitions>

@@ -1,0 +1,75 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<!-- BEGIN CommonJSToInclude.jspf -->
+
+<script type="text/javascript">
+var absoluteURL = "<c:out value="${absoluteUrl}"/>";
+var imageDirectoryPath = "<c:out value="${jspStoreImgDir}"/>";
+var styleDirectoryPath = "<c:out value="${vfileColor}"/>";
+
+//Summary: Returns the absolute URL to use for prefixing any Ajax URL call.
+//Description: Dojo does not handle the case where the parameters in the URL are delimeted by the "/" forward slash. Therefore, in order to
+//             workaround the issue, all AJAX requests must be done using absolute URLs rather than relative.
+//Returns: The absolute URL to use for prefixing any Ajax URL call.
+function getAbsoluteURL()
+{
+	if (absoluteURL != "") {
+		var currentURL = document.URL;
+		var currentProtocol = "";
+	
+		if (currentURL.indexOf("://") != -1) {
+			currentProtocol = currentURL.substring(0, currentURL.indexOf("://"));
+		}
+		
+		var savedProtocol = "";
+		if (absoluteURL.indexOf("://") != -1) {
+			savedProtocol = absoluteURL.substring(0, absoluteURL.indexOf("://"));
+		}
+		
+		if (currentProtocol != savedProtocol) {
+			absoluteURL = currentProtocol + absoluteURL.substring(absoluteURL.indexOf("://"));
+		}
+	}
+	
+	return absoluteURL;
+}
+//Summary: Returns the path pointing to the shared image directory.
+//Description: In order to get the image directory path in any javascript file, this function can be used.
+//Returns: The path to reference images.
+function getImageDirectoryPath()
+{
+	return imageDirectoryPath;
+}
+//Summary: Returns the path pointing to the directory containing color-dependant image files.
+//Description: In order to get the directory containing color-dependant image files in any javascript file, this function can be used.
+//Returns: The path to reference color-dependant image files.
+function getStyleDirectoryPath()
+{
+	return styleDirectoryPath;
+}
+</script>
+
+<script type="text/javascript" src="<c:out value="${jsAssetsDir}javascript/ServicesEventMapping.js"/>"></script>
+<script type="text/javascript" src="<c:out value="${jsAssetsDir}javascript/CommonContextsDeclarations.js"/>"></script>
+<script type="text/javascript" src="<c:out value="${jsAssetsDir}javascript/CommonControllersDeclaration.js"/>"></script>
+<script type="text/javascript">
+  dojo.addOnLoad(function() {
+		CommonContextsJS.setCommonParameters('<c:out value='${WCParam.langId}'/>','<c:out value='${WCParam.storeId}'/>','<c:out value='${WCParam.catalogId}'/>');
+		CommonControllersDeclarationJS.setCommonParameters('<c:out value='${WCParam.langId}'/>','<c:out value='${WCParam.storeId}'/>','<c:out value='${WCParam.catalogId}'/>');
+		CommonControllersDeclarationJS.setControllerURL('MiniShoppingCartController', getAbsoluteURL()+'AjaxQuickCartDisplay?storeId=<c:out value="${WCParam.storeId}"/>&catalogId=<c:out value="${WCParam.catalogId}"/>&langId=<c:out value="${WCParam.langId}"/>');
+	});
+</script>
+<!-- END CommonJSToInclude.jspf -->
+
+

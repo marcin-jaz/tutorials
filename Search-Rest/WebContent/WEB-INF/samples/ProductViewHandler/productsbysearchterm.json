@@ -1,0 +1,578 @@
+{
+	"catalogEntryView": [
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Hermitage Collection",
+			"name": "Hermitage Ruched Bodice Cocktail Dress",
+			"parentCatalogGroupID": "10006",
+			"partNumber": "AuroraWMDRS-1",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "100.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/10001",
+			"shortDescription": "Strapless cocktail dress with ruched bodice",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/womens_dresses_160x160\/WD_028_a_red.jpg",
+			"uniqueID": "10001"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Versatil",
+			"name": "Versatil Empire Waist Sundress",
+			"parentCatalogGroupID": "10006",
+			"partNumber": "AuroraWMDRS-2",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "50.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/10002",
+			"shortDescription": "Empire waist sundress with flower print and frilly sleeves",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/womens_dresses_160x160\/WD_015_a_teal.jpg",
+			"uniqueID": "10002"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Luigi Valenti",
+			"name": "Luigi Valenti Empire Waist Slip Dress",
+			"parentCatalogGroupID": "10006",
+			"partNumber": "AuroraWMDRS-3",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "100.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/10003",
+			"shortDescription": "Empire waist slip dress with a V-neck and long flared sleeves",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/womens_dresses_160x160\/WD_026_a_red.jpg",
+			"uniqueID": "10003"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Hermitage Collection",
+			"name": "Hermitage Pencil Dress",
+			"parentCatalogGroupID": "10006",
+			"partNumber": "AuroraWMDRS-4",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "250.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/10004",
+			"shortDescription": "Pencil dress with fabric detailing and three-quarter sleeve",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/womens_dresses_160x160\/WD_007_a_white.jpg",
+			"uniqueID": "10004"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Albini",
+			"name": "Albini Straight Cocktail Dress",
+			"parentCatalogGroupID": "10006",
+			"partNumber": "AuroraWMDRS-5",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "250.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/10005",
+			"shortDescription": "Straight cocktail dress with round neck and sequence work",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/womens_dresses_160x160\/WD_003_a_silver.jpg",
+			"uniqueID": "10005"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Luigi Valenti",
+			"name": "Luigi Valenti Strapless Cocktail Dress",
+			"parentCatalogGroupID": "10006",
+			"partNumber": "AuroraWMDRS-6",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "100.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/10006",
+			"shortDescription": "Strapless cocktail dress with appliqued roses and tassels at the hem",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/womens_dresses_160x160\/WD_006_a_purple.jpg",
+			"uniqueID": "10006"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Albini",
+			"name": "Albini Sleeveless Slip Dress",
+			"parentCatalogGroupID": "10006",
+			"partNumber": "AuroraWMDRS-7",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "50.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/10007",
+			"shortDescription": "V-necked casual slip dress with spaghetti straps and flowery print",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/womens_dresses_160x160\/WD_001_a_blue.jpg",
+			"uniqueID": "10007"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Luigi Valenti",
+			"name": "Luigi Valenti Sleeveless Slip Dress",
+			"parentCatalogGroupID": "10006",
+			"partNumber": "AuroraWMDRS-8",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "50.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/10008",
+			"shortDescription": "Halter V-necked  dress with layered skirt",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/womens_dresses_160x160\/WD_030_a_brown.jpg",
+			"uniqueID": "10008"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Albini",
+			"name": "Albini A-line Cotton Dress",
+			"parentCatalogGroupID": "10006",
+			"partNumber": "AuroraWMDRS-9",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "50.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/10009",
+			"shortDescription": "Double-color casual short sleeve dress with soft collar",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/womens_dresses_160x160\/WD_005_a_blue.jpg",
+			"uniqueID": "10009"
+		},
+		{
+			"buyable": "true",
+			"catalogEntryTypeCode": "ProductBean",
+			"manufacturer": "Gusso",
+			"name": "Gusso Casual Strapless Dress",
+			"parentCatalogGroupID": "10006",
+			"partNumber": "AuroraWMDRS-10",
+			"price": [
+				{
+					"currency": "USD",
+					"description": "I",
+					"usage": "Offer",
+					"value": "50.0"
+				}
+			],
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byId\/10010",
+			"shortDescription": "Strapless slip dress with layered skirt",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/womens_dresses_160x160\/WD_010_a_black.jpg",
+			"uniqueID": "10010"
+		}
+	],
+	"facetView": [
+		{
+			"entry": [
+				{
+					"count": "13",
+					"extendedData": {
+						"uniqueId": "-100276117105103105328697108101110116105"
+					},
+					"label": "Luigi Valenti",
+					"value": "mfName_ntk_cs%3A%22Luigi+Valenti%22"
+				},
+				{
+					"count": "12",
+					"extendedData": {
+						"uniqueId": "-10026510898105110105"
+					},
+					"label": "Albini",
+					"value": "mfName_ntk_cs%3A%22Albini%22"
+				},
+				{
+					"count": "11",
+					"extendedData": {
+						"uniqueId": "-10027210111410910511697103101326711110810810199116105111110"
+					},
+					"label": "Hermitage Collection",
+					"value": "mfName_ntk_cs%3A%22Hermitage+Collection%22"
+				},
+				{
+					"count": "10",
+					"extendedData": {
+						"uniqueId": "-100271117115115111"
+					},
+					"label": "Gusso",
+					"value": "mfName_ntk_cs%3A%22Gusso%22"
+				},
+				{
+					"count": "10",
+					"extendedData": {
+						"uniqueId": "-10028610111411597116105108"
+					},
+					"label": "Versatil",
+					"value": "mfName_ntk_cs%3A%22Versatil%22"
+				},
+				{
+					"count": "3",
+					"extendedData": {
+						"uniqueId": "-100276101111"
+					},
+					"label": "Leo",
+					"value": "mfName_ntk_cs%3A%22Leo%22"
+				},
+				{
+					"count": "2",
+					"extendedData": {
+						"uniqueId": "-10026611111411597116105"
+					},
+					"label": "Borsati",
+					"value": "mfName_ntk_cs%3A%22Borsati%22"
+				},
+				{
+					"count": "1",
+					"extendedData": {
+						"uniqueId": "-100277101115111"
+					},
+					"label": "Meso",
+					"value": "mfName_ntk_cs%3A%22Meso%22"
+				}
+			],
+			"extendedData": {
+				"allValuesReturned": "false",
+				"allowMultipleValueSelection": "false",
+				"displaySequence": "0.0",
+				"displayable": "1",
+				"facet_id": "-1000",
+				"fdesc": "The manufacturer",
+				"fname": "Brand",
+				"groupId": "0",
+				"group_id": "0",
+				"keyword_search": "1",
+				"max_display": "20",
+				"maximumValuesToDisplay": "20",
+				"propertyname": "facet",
+				"propertyvalue": "mfName_ntk_cs",
+				"selection": "0",
+				"sortorder": "0",
+				"srchattr_id": "-1002",
+				"srchattridentifier": "_cat.ManufacturerName",
+				"storeent_id": "0",
+				"zero_display": "0"
+			},
+			"name": "ManufacturerName",
+			"value": "mfName_ntk_cs"
+		},
+		{
+			"entry": [
+				{
+					"count": "62",
+					"extendedData": {
+						"uniqueId": "10001"
+					},
+					"label": "Apparel",
+					"value": "10001"
+				},
+				{
+					"count": "42",
+					"extendedData": {
+						"parentIds": "10001",
+						"uniqueId": "10003"
+					},
+					"label": "Women",
+					"value": "10003"
+				},
+				{
+					"count": "39",
+					"extendedData": {
+						"parentIds": "10001_10003",
+						"uniqueId": "10006"
+					},
+					"label": "Dresses",
+					"value": "10006"
+				},
+				{
+					"count": "13",
+					"extendedData": {
+						"parentIds": "10001",
+						"uniqueId": "10002"
+					},
+					"label": "Men",
+					"value": "10002"
+				},
+				{
+					"count": "7",
+					"extendedData": {
+						"parentIds": "10001",
+						"uniqueId": "10005"
+					},
+					"label": "Girls",
+					"value": "10005"
+				},
+				{
+					"count": "7",
+					"extendedData": {
+						"parentIds": "10001_10005",
+						"uniqueId": "10022"
+					},
+					"label": "Apparel\/Girls\/Skirts",
+					"value": "10022"
+				},
+				{
+					"count": "5",
+					"extendedData": {
+						"parentIds": "10001_10002",
+						"uniqueId": "10015"
+					},
+					"label": "Shirts",
+					"value": "10015"
+				},
+				{
+					"count": "4",
+					"extendedData": {
+						"parentIds": "10001_10002",
+						"uniqueId": "10019"
+					},
+					"label": "Apparel\/Men\/Shoes",
+					"value": "10019"
+				},
+				{
+					"count": "3",
+					"extendedData": {
+						"parentIds": "10001_10003",
+						"uniqueId": "10008"
+					},
+					"label": "Sweaters",
+					"value": "10008"
+				},
+				{
+					"count": "2",
+					"extendedData": {
+						"parentIds": "10001_10002",
+						"uniqueId": "10017"
+					},
+					"label": "Apparel\/Men\/Pants",
+					"value": "10017"
+				},
+				{
+					"count": "2",
+					"extendedData": {
+						"parentIds": "10001_10002",
+						"uniqueId": "10018"
+					},
+					"label": "Apparel\/Men\/Accessories",
+					"value": "10018"
+				},
+				{
+					"count": "0",
+					"extendedData": {
+						"parentIds": "10001",
+						"uniqueId": "10004"
+					},
+					"label": "Boys",
+					"value": "10004"
+				},
+				{
+					"count": "0",
+					"extendedData": {
+						"parentIds": "10001_10003",
+						"uniqueId": "10007"
+					},
+					"label": "Blouses",
+					"value": "10007"
+				},
+				{
+					"count": "0",
+					"extendedData": {
+						"parentIds": "10001_10003",
+						"uniqueId": "10009"
+					},
+					"label": "Apparel\/Women\/Skirts",
+					"value": "10009"
+				},
+				{
+					"count": "0",
+					"extendedData": {
+						"parentIds": "10001_10003",
+						"uniqueId": "10010"
+					},
+					"label": "Apparel\/Women\/Pants",
+					"value": "10010"
+				},
+				{
+					"count": "0",
+					"extendedData": {
+						"parentIds": "10001_10003",
+						"uniqueId": "10011"
+					},
+					"label": "Apparel\/Women\/Shoes",
+					"value": "10011"
+				},
+				{
+					"count": "0",
+					"extendedData": {
+						"parentIds": "10001_10003",
+						"uniqueId": "10012"
+					},
+					"label": "Handbags",
+					"value": "10012"
+				},
+				{
+					"count": "0",
+					"extendedData": {
+						"parentIds": "10001_10003",
+						"uniqueId": "10013"
+					},
+					"label": "Apparel\/Women\/Accessories",
+					"value": "10013"
+				},
+				{
+					"count": "0",
+					"extendedData": {
+						"parentIds": "10001_10002",
+						"uniqueId": "10014"
+					},
+					"label": "Jackets",
+					"value": "10014"
+				},
+				{
+					"count": "0",
+					"extendedData": {
+						"parentIds": "10001_10002",
+						"uniqueId": "10016"
+					},
+					"label": "Suits",
+					"value": "10016"
+				}
+			],
+			"extendedData": {
+				"allValuesReturned": "false",
+				"allowMultipleValueSelection": "false",
+				"displaySequence": "0.0",
+				"displayable": "1",
+				"facet_id": "-1001",
+				"fdesc": "The category",
+				"fname": "Category",
+				"groupId": "0",
+				"group_id": "0",
+				"keyword_search": "1",
+				"max_display": "20",
+				"maximumValuesToDisplay": "20",
+				"propertyname": "facet",
+				"propertyvalue": "parentCatgroup_id_search",
+				"selection": "0",
+				"sortorder": "0",
+				"srchattr_id": "-1013",
+				"srchattridentifier": "_cat.ParentCatalogGroup",
+				"storeent_id": "0",
+				"zero_display": "0"
+			},
+			"name": "ParentCatalogGroup",
+			"value": "parentCatgroup_id_search"
+		},
+		{
+			"entry": [
+				{
+					"count": 51,
+					"extendedData": {
+						"uniqueId": "4012342324948481253249484841"
+					},
+					"label": "({* 100} 100)",
+					"value": "price_USD%3A%28%7B*+100%7D+100%29"
+				},
+				{
+					"count": 2,
+					"extendedData": {
+						"uniqueId": "40123494848325048481253250484841"
+					},
+					"label": "({100 200} 200)",
+					"value": "price_USD%3A%28%7B100+200%7D+200%29"
+				},
+				{
+					"count": 9,
+					"extendedData": {
+						"uniqueId": "40123504848325148481253251484841"
+					},
+					"label": "({200 300} 300)",
+					"value": "price_USD%3A%28%7B200+300%7D+300%29"
+				},
+				{
+					"count": 0,
+					"extendedData": {
+						"uniqueId": "40123514848325248481253252484841"
+					},
+					"label": "({300 400} 400)",
+					"value": "price_USD%3A%28%7B300+400%7D+400%29"
+				},
+				{
+					"count": 0,
+					"extendedData": {
+						"uniqueId": "40123524848325348481253253484841"
+					},
+					"label": "({400 500} 500)",
+					"value": "price_USD%3A%28%7B400+500%7D+500%29"
+				},
+				{
+					"count": 0,
+					"extendedData": {
+						"uniqueId": "40123534848324212541"
+					},
+					"label": "({500 *})",
+					"value": "price_USD%3A%28%7B500+*%7D%29"
+				}
+			],
+			"name": "OfferPrice_USD",
+			"value": "price_USD"
+		}
+	],
+	"metaData": {
+		"price": "1"
+	},
+	"recordSetComplete": "false",
+	"recordSetCount": 10,
+	"recordSetStartNumber": 0,
+	"recordSetTotal": 62,
+	"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/bySearchTerm\/dresses",
+	"resourceName": "productview"
+}

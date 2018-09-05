@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2010, 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+	<!---
+		This search is used to find {@link SalesCatalogGroup} and {@link InheritedSalesCatalogGroup}.
+		The search retrieves objects that match the search term passed in.
+		The required search parameters are
+			<ul>
+			<li>searchText
+			</ul>		
+		The search term text is compared with the values of the following sales catalog group properties:
+			<ul>
+			<li>code
+			<li>name
+			</ul>
+			
+			headerText="${catalogResources.UtilityPaneHeaderText)"
+			
+			
+	-->
+	<SearchDefinition definitionName="FindSalesCategories"
+		searchType="FindSalesCategories"
+		displayName="${catalogResources.findSalesCatalogCategoriesSearchDefinition_DisplayName}"
+		objectTypeDisplayName="${catalogResources.salesCategory_DisplayName}"
+		icon="salesCatalogGroupIcon"
+		listDefinitionName="catSalesCategorySearchGrid"
+		listTitle="${catalogResources.salesCategorySearchTitle}"
+		utilitiesListDefinitionName="catCategoryUtilitiesSearchGrid"		
+		tooltip="${catalogResources.searchSalesCategoriesTooltip}"
+		helpLink="tasks/tpn_topsalescatalog.htm">
+		
+		<SearchService name="findSalesCategories" url="/cmc/FindAllSalesCategories">
+			<ServiceParam name="storeId"/>
+		</SearchService>
+	</SearchDefinition>
+</Definitions>

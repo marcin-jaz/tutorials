@@ -1,0 +1,29 @@
+{
+	"suggestionView": [
+		{
+			"entry": [
+				{
+					"name": "Help at AuroraESite",
+					"path": "en\/auroraesite\/help"
+				},
+				{
+					"name": "Return Policy for AuroraESite",
+					"path": "en\/auroraesite\/return-policy"
+				},
+				{
+					"name": "About Us for AuroraESite",
+					"path": "en\/auroraesite\/corporate-info"
+				},
+				{
+					"name": "Site Map for AuroraESite",
+					"path": "en\/auroraesite\/sitemap"
+				},
+				{
+					"name": "About the Dress Designer",
+					"path": "en\/auroraesite\/apparel-designer"
+				}
+			],
+			"identifier": "Articles"
+		}
+	]
+}

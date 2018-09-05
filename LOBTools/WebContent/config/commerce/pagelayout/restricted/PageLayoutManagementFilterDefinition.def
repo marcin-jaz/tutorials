@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions> 
+
+	<ObjectTypeFilter definitionName="plmLayoutsFilter" 
+		displayName="${plmPageLayoutResources.filter_layouts}"
+		filterType="LayoutsFilter"
+		objectTypes="StorePageLayoutsTop,LayoutFolder,InheritedLayoutFolder,LayoutFolderReference,InheritedLayoutFolderReference"/>
+	
+	<ObjectTypeFilter definitionName="plmStorePagesFilter"
+	 	displayName="${plmPageLayoutResources.filter_storePages}"
+	 	filterType="StorePagesFilter"
+	 	objectTypes="ContentPagesTop,CatalogGroupBrowsingPage,InheritedCatalogGroupBrowsingPage,PageLayoutCatalog,InheritedPageLayoutCatalog,ChildCatalogGroupBrowsingPage,ChildCatalogEntryBrowsingPage,
+	 				PageLayoutSalesCatalog,InheritedPageLayoutSalesCatalog,SharedCatalogGroupBrowsingPage,SharedInheritedCatalogGroupBrowsingPage,ContentPageFolder,InheritedContentPageFolder,
+	 				ContentPageFolderReference,InheritedContentPageFolderReference,ContentPageFolderItemReference,ContentPageFolderInheritedItemReference,InheritedContentPageFolderInheritedItemReference"/>
+	
+	<ObjectTypeFilter definitionName="plmStorePagesAndLayoutsFilter"
+	 	displayName="${plmPageLayoutResources.filter_storePages_Layouts}"
+	 	filterType="StorePagesAndLayoutsFilter"
+	 	objectTypes="ContentPagesTop,CatalogGroupBrowsingPage,InheritedCatalogGroupBrowsingPage,PageLayoutCatalog,InheritedPageLayoutCatalog,ChildCatalogGroupBrowsingPage,ChildCatalogEntryBrowsingPage,PageLayoutSalesCatalog,
+			InheritedPageLayoutSalesCatalog,SharedCatalogGroupBrowsingPage,SharedInheritedCatalogGroupBrowsingPage,StorePageLayoutsTop,ContentPageLayoutsTop,
+	 		LayoutFolder,InheritedLayoutFolder,LayoutFolderReference,InheritedLayoutFolderReference,ContentPageFolder,InheritedContentPageFolder,ContentPageFolderReference,InheritedContentPageFolderReference,
+			ContentPageFolderItemReference,ContentPageFolderInheritedItemReference,InheritedContentPageFolderInheritedItemReference"/>
+
+</Definitions>

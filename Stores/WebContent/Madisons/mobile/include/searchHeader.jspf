@@ -1,0 +1,36 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%-- 
+  *****
+  * This snippet will display the search section below the store header
+  *****
+--%>
+
+<!-- BEGIN searchHeader.jspf -->
+
+<div id="info_bar">
+	<form action="mCatalogSearchResultView" method="get" id="search">
+		<fieldset>
+			<div><label for="product_search"><fmt:message key="SEARCH_HEADER_SEARCH" bundle="${storeText}"/></label></div>
+			<input type="hidden" name="storeId" value="${WCParam.storeId}" />
+			<input type="hidden" name="catalogId" value="${catalogId}" />
+			<input type="hidden" name="resultCatEntryType" value="2" />
+			<input type="text" id="product_search" name="searchTerm" /> 
+			<input type="submit" name="product_search_submit" value="<fmt:message key="SEARCH_HEADER_SEARCH_GO" bundle="${storeText}"/>" />		
+		</fieldset>
+	</form>
+</div>			  
+
+<!-- END searchHeader.jspf -->

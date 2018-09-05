@@ -1,0 +1,9 @@
+
+<%@ include file="../SnippetEnvironmentSetup.jspf"%>
+
+<%-- Load the resource bundles for Order component --%>
+<fmt:setLocale value="${CommandContext.locale}" />
+<fmt:setBundle basename="${snippetJspStoreDir}/Snippets/Order/OrderJSPCodeSnippetText" var="orderText" />
+
+
+

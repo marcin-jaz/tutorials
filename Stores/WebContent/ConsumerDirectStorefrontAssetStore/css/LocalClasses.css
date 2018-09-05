@@ -1,0 +1,76 @@
+/**
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright IBM Corp. 2006
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+
+/*	*************************************************
+ *	LocalClasses
+ *
+ *	used in:	logon.html
+ *			forgot.html
+ *			ShoppingCartTD_example.html
+ *
+ *	This files contains stlyes required by the logon/
+ 	forgot HTML files
+ *	**************************************************/
+ 
+ BODY.localClass	{ font-family: Verdana; font-size: 13px;}
+.centerSection    { padding-left: 5px;
+		        padding-right: 50px; }
+
+TABLE.introTable { 
+	background: #FFFFFF;
+	spacing: 0px;
+	padding: 0px;
+	height: 300px;
+	width: 100%;
+	border-top: solid thick #dddddd;
+	border-bottom: solid thick #dddddd;
+	}
+TABLE.introTable TD.centerSectionTitle {
+	padding-left: 5px;
+	font-family: sans-serif;
+	font-size: 18px;
+	text-style: bold;
+	border: solid thin #cccccc;
+	}
+TABLE.introTable TD {
+	padding-left: 5px;
+	font-family: sans-serif;
+	font-size: 13px;
+	border-left: solid thin #cccccc;
+	border-right: solid thin #cccccc;
+}
+FORM 			{margin-top: 5px; }
+SELECT.logon 	{border: solid thin #A34F4F; width: 140px;}
+INPUT.logon 	{border: solid thin #A34F4F; width: 140px;}
+INPUT.submit 	{text-style: bold;
+			 margin-top: 5px;
+			 border: solid thin #A34F4F; 
+			 background-color: #E9D2D2;
+			 width: 60px;}
+
+INPUT.forgot 	{border: solid thin #6F589B; width: 140px;}
+INPUT.forgotSubmit 	{text-style: bold;
+			 margin-top: 15px;
+			 border: solid thin #6F589B; 
+			 background-color: #E6E0F0; 
+			 width: 150px;}
+
+.miniText	{font-family: arial;
+		 font-size: 9pt;
+		 color: #232323;
+		 font-weight: bold;
+		 padding-top: 0px;
+		 padding-bottom: 0px;
+		 margin-top: 0px;
+		 margin-bottom: 0px;}

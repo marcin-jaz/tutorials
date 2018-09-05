@@ -1,0 +1,48 @@
+{
+	"catalogGroupView": [
+		{
+			"childCatalogGroupID": [
+				"10001_10024_0.00000",
+				"10001_10025_0.00000",
+				"10001_10026_0.00000"
+			],
+			"fullImage": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/category\/Boys.jpg",
+			"identifier": "Boys",
+			"name": "Boys",
+			"parentCatalogGroupID": "10001",
+			"productsURL": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byCategory\/10004",
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/categoryview\/byId\/10004",
+			"shortDescription": "boys",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/category\/Boys.jpg",
+			"uniqueID": "10004"
+		},
+		{
+			"childCatalogGroupID": [
+				"10001_10020_0.00000",
+				"10001_10021_0.00000",
+				"10001_10022_0.00000",
+				"10001_10023_0.00000"
+			],
+			"fullImage": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/category\/Girls.jpg",
+			"identifier": "Girls",
+			"name": "Girls",
+			"parentCatalogGroupID": "10001",
+			"productsURL": "http:\/\/localhost:80\/search\/resources\/store\/10001\/productview\/byCategory\/10005",
+			"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/categoryview\/byId\/10005",
+			"shortDescription": "Girls",
+			"storeID": "10001",
+			"thumbnail": "\/wcsstore\/Aurora\/images\/catalog\/apparel\/women\/category\/Girls.jpg",
+			"uniqueID": "10005"
+		}
+	],
+	"metaData": {
+		"price": "1"
+	},
+	"recordSetComplete": "true",
+	"recordSetCount": 2,
+	"recordSetStartNumber": 0,
+	"recordSetTotal": 2,
+	"resourceId": "http:\/\/localhost:80\/search\/resources\/store\/10001\/categoryview\/byIds",
+	"resourceName": "categoryview"
+}

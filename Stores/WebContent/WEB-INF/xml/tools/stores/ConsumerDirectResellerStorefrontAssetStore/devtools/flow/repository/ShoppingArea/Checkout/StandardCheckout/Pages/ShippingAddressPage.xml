@@ -1,0 +1,39 @@
+<!DOCTYPE repository-entries SYSTEM "../../../../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<page-components>
+	<virtual-page id="ShippingAddressPage"/>
+
+	<virtual-page-interface id="ShippingAddressPage.i1" virtual-page-id="ShippingAddressPage">
+		<entry-port id="ShippingAddressPage.i1.e1" type="EntryPortType1"/>
+		<exit-port id="ShippingAddressPage.i1.xNext" type="ExitPortType1"/>
+	</virtual-page-interface>
+
+	<!-- SingleShippingAddressPage Implementation -->
+	<simple-implementation id="SingleShippingAddressPage.i1.impl" url="SingleShippingAddressView" virtual-page-interface-id="ShippingAddressPage.i1">
+		<component-interface id="SingleShippingAddressPage.i1.impl.ci1" interface="ActualSingleShippingAddressPage.i1"/>
+		<exit-port-map id="SingleShippingAddressPage.i1.impl.xpm1" interface-exit-port="ShippingAddressPage.i1.xNext" component-exit-ports="ActualSingleShippingAddressPage.i1.xNext"/>
+	</simple-implementation>
+
+	<actual-page id="ActualSingleShippingAddressPage" file="SingleShippingAddressDisplay.jsp"/>
+
+	<actual-page-interface id="ActualSingleShippingAddressPage.i1" actual-page-id="ActualSingleShippingAddressPage">
+		<exit-port id="ActualSingleShippingAddressPage.i1.xNext" type="ExitPortType1"/>
+	</actual-page-interface>
+
+	<!-- MultipleShippingAddressPage Implementation -->
+	<simple-implementation id="MultipleShippingAddressPage.i1.impl" url="MultipleShippingAddressView" virtual-page-interface-id="ShippingAddressPage.i1">
+		<component-interface id="MultipleShippingAddressPage.i1.impl.ci1" interface="ActualMultipleShippingAddressPage.i1"/>
+		<exit-port-map id="MultipleShippingAddressPage.i1.impl.xpm1" interface-exit-port="ShippingAddressPage.i1.xNext" component-exit-ports="ActualMultipleShippingAddressPage.i1.xNext"/>
+	</simple-implementation>
+
+	<actual-page id="ActualMultipleShippingAddressPage" file="MultipleShippingAddressDisplay.jsp"/>
+
+	<actual-page-interface id="ActualMultipleShippingAddressPage.i1" actual-page-id="ActualMultipleShippingAddressPage">
+		<exit-port id="ActualMultipleShippingAddressPage.i1.xNext" type="ExitPortType1"/>
+	</actual-page-interface>
+
+
+</page-components>
+</components>
+</repository-entries>

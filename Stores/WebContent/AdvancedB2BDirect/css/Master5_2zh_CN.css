@@ -1,0 +1,342 @@
+/**
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright IBM Corp. 2006
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+
+/****************************************
+ * Master5_2.css						*
+ * Style 5 - color 2   (green)			*
+ * class Styles used in B2B Pages  		*
+ ****************************************/
+
+/*****************************/
+/* HTML Tag style definition */
+
+UNKNOWN 	{	FONT-SIZE: 10pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica }
+
+/* Body class Styles */
+BODY 		{	FONT-SIZE: 10pt; COLOR: black  ; FONT-FAMILY: Verdana,  Arial, Helvetica; PADDING-RIGHT: 0px; PADDING-LEFT: 0px;  PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px;}
+BODY.noMargin {   MARGIN-LEFT:  0px; MARGIN-RIGHT:  0px; MARGINWIDTH: 0px; MARGINHEIGHT: 0px;background-image: url(../images/colors/color26/background.gif);}
+H1 			{	FONT-SIZE: 12pt; COLOR: #2F5324; FONT-FAMILY: Verdana,  Arial, Helvetica; FONT-WEIGHT: bold;   }
+TH 			{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica }
+/* Body class Styles */
+
+/* A class Styles */
+A 			{	FONT-SIZE: 10pt; FONT-FAMILY: Verdana,  Arial, Helvetica}
+A.nav 		{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none}
+A.nav:hover {	FONT-SIZE: 10pt; COLOR: #bccbdb; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none}
+A.search	{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: underline}
+A.button {background-image: url(../images/colors/color26/button_back.gif); border: solid 1px #777777; font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #2F5424; text-decoration:none; padding-left:6px; padding-right:6px; padding-top:1px; padding-bottom:3px; text-align: center; height:20px;}
+A.button:hover {background-image: url(../images/colors/color26/button_back2.gif); border: solid 1px #777777; font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #2F5424; text-decoration:none; padding-left:6px; padding-right:6px; padding-top:1px; padding-bottom:3px; text-align: center; height:20px;}
+/* A class Styles */
+
+		
+
+STRONG 		{	FONT-WEIGHT: bold;   }
+I 			{	FONT-STYLE: italic; }
+P 			{	FONT-SIZE: 10pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica}
+SELECT 		{	FONT-SIZE:  8pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica}
+INPUT 		{	FONT-SIZE:  8pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica}
+OPTION 		{	FONT-SIZE:  8pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica}
+HEADER 		{	FONT-SIZE:  8pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none}
+
+
+/* Span class Styles */
+SPAN.reqd{	FONT-FAMILY: Verdana; COLOR: #ea2b2b; FONT_SIZE: 2pt;	}
+
+/* TABLE class Styles */
+TABLE.noBorder		{	BORDER-STYLE: none; BORDER-COLLAPSE: collapse; }
+TABLE.noBorderWide	{	BORDER-STYLE: none; BORDER-COLLAPSE: collapse; WIDTH: 100%; }
+
+/* TD class Styles */
+TD 			{	FONT-SIZE: 10pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica }
+TD.header 	{	FONT-SIZE: 10pt; COLOR: #2F5324; FONT-FAMILY: Verdana; PADDING-LEFT: 3px; FONT-WEIGHT: bold;   }
+TD.buttontext{	FONT-SIZE:  9pt; COLOR: white  ; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif; FONT-WEIGHT: bold;    BACKGROUND-COLOR: #ea2b2b; TEXT-DECORATION: none}
+TD.pixel 	{	FONT-SIZE:  1px; LINE-HEIGHT: 0px;}
+TD.content 	{	FONT-SIZE: 10pt; COLOR: black  ; FONT-FAMILY: Verdana; MARGIN-TOP: 10pt;  MARGIN-LEFT: 10pt;}
+TD.subtitle{	COLOR: #b7d9ff;	BACKGROUND-COLOR: #394959; FONT-WEIGHT: bold;	}
+TD.colHeader{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana; FONT-WEIGHT: bold; }
+TD.price 	{	FONT-SIZE:  9pt; COLOR: #32404f; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: right;}
+
+/*End HTML Tag Style definition */
+/********************************/
+
+/*Begin style specific classes*/
+.headercontainer {
+	padding: 0px;
+	width: 100%;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	display:table;
+}
+.sidebarcontainer {
+	padding: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	margin-left: 0px;
+	width:0px;
+	display:table;
+	height: 100%;
+}
+.contentcontainer {
+	padding: 0px;
+	width: 100%;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	display:table;
+	vertical-align: top;
+}
+.headsupcontainer {
+	padding: 0px;
+	width: 300px;
+	overflow : hidden;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	display:table;
+	vertical-align: top;
+}
+.footercontainer {
+	padding: 0px;
+	width: 100%;
+	overflow : hidden;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	display:table;
+	/*height: 400px;*/
+}
+.sitecontainer {
+	padding: 0px;
+	height: 100%;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	margin-right: 0px;
+	margin-left: 0px;
+	display:table;
+}
+.logotile {background-image: url(../images/colors/color26/logo_tile.gif); height:57px;}
+.buttontile {background-image: url(../images/colors/color26/menu_bk1.gif); height:28px;}
+.greyline {line-height: 1px; height: 1px; background-color: #B3B3B3;}
+.greyline2 {line-height: 1px; height: 1px; background-color: #373738;}
+.greyline3 {line-height: 1px; height: 1px; background-color: #777777;}
+.greyline4 {line-height: 1px; width: 1px; background-color: #777777;}
+.logoff {width: 60px; padding-right:10px; padding-top:10px;}
+A.menubutton {background-image: url(../images/colors/color26/menu_bk1.gif); font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #2F5424; text-decoration: none; padding-top: 5px; padding-left:6px; padding-right:6px; white-space: nowrap; display: block; height:28px;}
+A.menubutton:hover {background-image: url(../images/colors/color26/menu_bk2.gif); display: block; color: black;}
+.bannertile {background-image: url(../images/colors/color26/banner_tile.gif);}
+.tenpx {padding-left:5px;padding-top: 1px;}
+input.search {font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #003E79; border: solid 1px #777777;}
+input.sku {font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #003E79; border: solid 1px #777777;}
+.skubut {padding-left:5px; padding-top: 2px; padding-right: 10px;white-space: nowrap;}
+.skutext {font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black;padding-left:6px; padding-top: 5px;white-space: nowrap;}
+.skupx {padding-left:5px;padding-top: 2px;}
+.searchtile2 {background-image: url(../images/colors/color26/search_tile.gif); height:28px;}
+.searchpx {padding-left:5px;padding-top: 2px;}
+.srchbut {padding-left:5px; padding-top: 2px; padding-right: 10px;}
+.logbut {padding-left:5px; padding-top: 6px; padding-right: 10px;}
+.searchbut {padding-left:10px; padding-top: 2px; padding-right: 10px;}
+.gtile {background-image: url(../images/colors/color26/graphic_line.gif); height:9px;}
+.greybackground {background-color: #E6E7E7;}
+.shadow {background-image: url(../images/colors/color26/shadow.gif); line-height: 3px; height:3px;}
+.contentspc {padding-left:5px;padding-top: 5px;padding-bottom:5px; padding-right:5px;}
+.content {font: 11px Verdana , Geneva, Arial, Helvetica, sans-serif; color: black; width: 100%;border:1px solid white;}
+.content2 {font: 11px Verdana , Geneva, Arial, Helvetica, sans-serif; color: black;padding-left:5px;padding-top: 5px;padding-bottom:5px; padding-right:5px; background-color: #F9FAFB; width: 100%;}
+.ptitle {font: 11px Verdana , Geneva, Arial, Helvetica, sans-serif; color: white; width: 100%;background-image: url(../images/colors/color26/p_title_bk.gif);height:18px;padding-left: 5px;border: 1px solid #01305C;}
+.ptitletext {font: 11px Verdana , Geneva, Arial, Helvetica, sans-serif; color: white; width: 100%;}
+SPAN.header_welcome {
+	font-size: 11px;
+	color: #666666;
+}
+
+/*End style specific classes*/
+
+/*Begin common portlet and logon classes*/
+TD.c_topline {background-image: url(../images/c_top_side.gif);}
+TD.c_leftline {background-image: url(../images/c_left_side.gif);}
+TD.c_rightline {background-image: url(../images/c_right_side.gif);}
+TD.c_botline {background-image: url(../images/c_bot_side.gif);}
+TD.white {background-color: white;}
+TD.header_logon_state {text-align: right; padding-right: 5px; width: 100%;}
+
+TD.portlet {padding: 0px 4px 8px 1px;}
+TD.portlet_main {font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color:black;padding: 4px 4px 4px 4px;}
+TD.portlet_title {font: bold 11px Verdana; color:white; background-image: url(../images/p_header_bk.gif);}
+TD.portlet_title_nobg {font: bold 11px Verdana; color:white;}
+TD.portlet_content {font: 11px Verdana;}
+TD.portlet_colHeader{font: bold 11px Verdana; color:white;}
+TD.portlet_maximize {TEXT-ALIGN: right; padding: 0px 8px 0px 0px;}
+TD.portlet_price{FONT-SIZE: 11px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #32404f; TEXT-ALIGN: right;}
+TD.portlet_discountPrice{FONT-SIZE: 11px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: purple; TEXT-ALIGN: right;}
+A.portlet_content {font: 11px Verdana;}
+A.portlet_button {background-image: url(../images/colors/color26/button_back.gif); border: solid 1px #777777; font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #2F5424; text-decoration:none; padding-left:6px; padding-right:6px; padding-top:1px; padding-bottom:3px; text-align: center; height:20px;}
+A.portlet_button:hover {background-image: url(../images/colors/color26/button_back2.gif); border: solid 1px #777777; font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #2F5424; text-decoration:none; padding-left:6px; padding-right:6px; padding-top:1px; padding-bottom:3px; text-align: center; height:20px;}
+TR.blue_header {background-color: #1F5287;}
+TD.portlet_shadow {background-image: url(../images/portlet_shadow.gif);}
+A.garbage {vertical-align: top;background-image: url(../images/garbage.gif);width:16px; height: 16px;background-repeat: no-repeat; text-decoration: none;}
+A.garbage:hover {vertical-align: top;background-image: url(../images/garbage2.gif);width:16px; height: 16px;background-repeat: no-repeat;}
+A.copy {vertical-align: top;background-image: url(../images/copy_icon1.gif);width:16px; height: 16px;background-repeat: no-repeat; text-decoration: none;}
+A.copy:hover {vertical-align: top;background-image: url(../images/copy_icon2.gif);width:16px; height: 16px;background-repeat: no-repeat;}
+
+TD.logonLogo {background-color:#FFFFFF;}
+
+BODY.logon {MARGIN-LEFT:  0px; MARGIN-RIGHT:  0px; MARGINWIDTH: 0px; MARGINHEIGHT: 0px; background-color: #2F5324; padding-top: 100px; padding-bottom: 50px;}
+TD.logonwhite {background-color: white; padding-left:8px; padding-top:5px;padding-right:8px;}
+TD.logontitle {font: bold 16px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #2F5324;}
+SPAN.logontitle {font: bolder 15px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #A6A4A4;}
+TD.logonheading {font:  13px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black; padding-top: 4px; padding-bottom: 2px;}
+TD.logonspacing {padding-left:13px; padding-top:4px;}
+input.logon {border: 1px solid #2F5324; background-color:#DFEFDA;}
+select.logon {border: 1px solid #2F5324; background-color:#DFEFDA;}
+A.logon {font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #003D77;}
+hr.logon {border: 1px solid #BDBDBD; height:1px;line-height:1px;}
+TD.logontxt {font:  11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black; padding-top: 3px; padding-bottom: 1px;}
+.logonbackgrnd {background-image: url(../images/colors/color26/logon_backgrnd.gif);}
+TD.button {padding-bottom:12px;}
+/*End common portlet and logon classes*/
+
+/* General Class Styles */
+.title		{	FONT-SIZE: 17pt; COLOR: #32404f ;FONT-FAMLY: Verdana	}
+.smallText	{	FONT-SIZE: -1pt; COLOR: #ffffff ;FONT-FAMILY: Verdana;  }
+.amount		{ 	FONT-SIZE: 8pt; FONT-FAMILY: Arial, Helvetica, Verdana;  TEXT-ALIGN: right;	}
+.summary	{	FONT-SIZE: 8pt;	}
+.bgColor 	{	BACKGROUND-COLOR: #2F5324;	}
+.cellBG_1	{	BACKGROUND-COLOR: #ffffff; }
+.cellBG_2	{	BACKGROUND-COLOR: #DFEFDA; }
+.warning	{	COLOR: red;	}
+
+
+/****************************************
+ * delta from Snippet.css
+ * classes to be used in snippets
+ ****************************************/
+
+/* Button link styles */
+a.button {background-image: url(../images/colors/color26/button_back.gif); border: solid 1px #777777; font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #003e79; text-decoration:none; padding-left:6px; padding-right:6px; padding-top:1px; padding-bottom:3px; text-align: center; height:20px;}
+a.button:hover {background-image: url(../images/colors/color26/button_back2.gif); border: solid 1px #777777; font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #003e79; text-decoration:none; padding-left:6px; padding-right:6px; padding-top:1px; padding-bottom:3px; text-align: center; height:20px;}
+
+/* TD class styles */
+th.colHeader	{font-size: 10pt; color: #ffffff; font-family: verdana; font-weight: bold;}
+td.price 		{font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif; text-align: right;}
+td.listPrice	{font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif; text-align: right; text-decoration: line-through;}
+td.offerPrice	{font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif; text-align: right;}
+td.discountPrice{font-size:  9pt; color: purple; font-family: arial, helvetica, sans-serif; text-align: right;}
+
+/* This class is used to bold regular text */
+strong 		{	font-weight: bold;}
+
+/* The following classes format how currency is displayed */
+.price		{	font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif;}
+.listPrice	{	font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif; text-decoration: line-through;}
+.offerPrice	{	font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif;}
+.discountPrice{	font-size:  9pt; color: purple; font-family: arial, helvetica, sans-serif;}
+
+/* This class is used to format text for discounts */
+.discount	{	font-size:  10pt; color: purple; font-family: arial, helvetica, sans-serif;}
+
+/* This class is used to format product names */
+.productName{	font-size:  10pt; color: #32404f; font-family: arial, helvetica, sans-serif;}
+
+/* Class to highlight a required field on a form */
+.required	{	font-family: verdana; color: #ea2b2b; FONT_SIZE: 2pt;}
+.strongRedText {	font-family: verdana; color: #ea2b2b; FONT_SIZE: 2pt;}
+
+/* Class to highlight an error message */
+.error		{	color: red;}
+
+/* The background color of a table and alternating row background colors */
+.bgColor 	{	background-color: #007D48;}
+.cellBG_1	{	background-color: #ffffff;}
+.cellBG_2	{	background-color: #80FFC9;}
+
+/* This class is used for the section heading */
+.heading {font-family: verdana, arial, helvetica, sans-serif;font-size: 11pt;font-weight: bold;text-align: left;color: #333333;padding: 0px;margin: 0px;}
+
+/* This class is used for the section sub-heading */
+.subHeading {font-family: verdana, arial, helvetica, sans-serif;font-size: 10pt;font-weight: bold;text-align: left;color: #666666;padding: 0px;margin: 0px;}
+
+/* Breadcrumb trail for checkout pages */
+a.chkout_done {color: black; text-decoration:}
+td.chkout {font: bold 11px Verdana; color: #C6C6C6; padding-right: 7px;}
+td.chkout_active {font: bold 11px Verdana; color:#950000;}
+td.divider {width: 1px;}
+
+/* Darwyn: added for compatability with new catalog and checkout pages */
+H1 {font-family: Times, Arial,sans-serif; font-size: 20px; color: #3E6918;line-height:40px;font-weight: normal;padding:0px; margin:0px;}
+H2 {font-family: verdana, arial, helvetica, sans-serif;font-size: 12px;font-weight: bold;text-align: left;color: #3E6918;line-height:24px; padding:0px; margin:0px;}
+
+a.chkout_done:hover {color:#043982;}
+
+	/* content classes start */
+	
+	#content {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#444444;}
+	.c_back {background-color:white;padding: 10px 0px 10px 0px;}
+	.c_headings {color:#3E6918; font-size: 11px;font-weight:bold;padding-bottom:6px;padding-top:10px;}
+	.c_line {width:100%; background-image :url(../images/colors/color26/c_line.gif);line-height:8px;margin:0px;font-size:2px;background-repeat: repeat-x;}
+	.c_large_img {width:245px;vertical-align:top;}
+	.c_flash {padding-top:10px; padding-bottom:13px;}
+	.c_homepage_cat {border:solid 1px #abaaaa;}
+	.c_homepage_cat_txt {font-family: Verdana, Arial,sans-serif; font-size: 13px; color:#444444;font-weight:bold; padding-left:6px; height:20px; text-transform: uppercase;}
+	.c_home_txt_blue {font-family: Verdana, Arial,sans-serif; font-size: 15px; color:#3E6918;font-weight:bold;}
+	.c_home_txt_black {font-family: Verdana, Arial,sans-serif; font-size: 15px; color:#444444;}
+	.c_select_yr_mnth {width:110px;}
+	
+	/* content classes end */
+	/* subNav classes start */
+	
+	#subNav {width:135px;padding-right:20px;vertical-align:top;}
+	.sn_heading {font-family: Times, Arial,sans-serif; font-size: 20px; color: #444444;line-height:40px;}
+	.sn_off {height:20px; border-top:solid 1px #929499;}
+	.sn_on {height:20px; border-top:solid 1px #929499;background-color:#E4E4E5;}
+	.sn_link {font-family: Verdana, Arial,sans-serif; font-size: 11px; font-weight:bold; color:#444444;text-decoration:none;height:100%;width:100%;padding-top:3px;display:block;}
+	.sn_link:hover {background-color:#3E6918;text-decoration:none;color:#E9E9E9;}
+	
+	
+	/* subNav classes end */
+	/* table classes start */
+	
+	#table {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#444444;}
+	.t_hd_rght {text-align : right; width:100%;}
+	.t_hd_cntr {text-align : center; width:100%;}
+	
+	.t_img_view {text-align : center; width:120px;display:block;padding-top:12px;padding-bottom:10px;vertical-align:top;}
+	.t_detail_view {display:block;padding-top:12px;padding-bottom:10px;vertical-align:top;}
+	.t_space {padding-bottom: 8px;text-align : center;}
+	.t_img_border { border:solid 1px #929499;}
+	.t_empty_cell {width:14px}
+
+	.t_row_img {padding-top:10px;padding-bottom:10px;vertical-align:top;}
+	.t_row_detail {padding:6px;vertical-align:top;width:230px;}
+	.t_txt_detail {font-size: 11px;}
+	.t_row_price {padding-top:6px;padding-bottom:6px;vertical-align:top;width:95px;display:block}
+	.t_button_space {padding-top:5px;display:block}
+	.t_line {border-bottom:solid 1px #929499;font-size:1px;}
+	.t_rght_space {padding-right:5px;}
+	
+	/* table classes end */
+	/* page scrolling widget start*/
+	
+	.ps_align {text-align:right;border-right:solid 1px #929499; border-bottom:solid 1px #929499;border-top:solid 1px #929499;padding:0px; margin: 0px;}
+	.ps_pad {padding-left:4px;}
+	.ps_view {padding-right:5px;background-color:white; }
+	.ps_input {font-family: Verdana, Arial,sans-serif; font-size: 11px; color:#444444; border: solid 1px #929499;height: 16px; padding-top:0px;margin-right:0px;border-top:solid 1px #929499;padding:0px; margin: 0px;}
+	.ps_text {font-family: Verdana, Arial,sans-serif; font-size: 9px; color:#444444;padding-left:4px;}
+
+	/* page scrolling widget end*/
+	

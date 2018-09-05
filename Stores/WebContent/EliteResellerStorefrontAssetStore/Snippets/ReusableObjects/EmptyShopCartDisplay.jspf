@@ -1,0 +1,34 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<!-- BEGIN EmptyShopCartDisplay.jspf-->
+
+<div class="left" id="WC_EmptyShopCartDisplayf_div_1">
+<c:if test="${currentPage == null || (currentPage != 'pendingOrderPage')}">
+	<p class="emptyShopCartHeader"><fmt:message key="CURRENT_ORDER_EMPTY" bundle="${storeText}"/></p>
+	
+	
+	<fmt:message key="CART_EMPTY" bundle="${storeText}"/>
+	
+</c:if>
+<c:if test="${currentPage != null || (currentPage == 'pendingOrderPage')}">
+	<p class="emptyShopCartHeader"><fmt:message key="PENDING_ORDER_EMPTY" bundle="${storeText}"/></p>
+	
+</c:if>
+</div>
+
+<br clear="all" />
+
+
+<!-- END EmptyShopCartDisplay.jspf-->

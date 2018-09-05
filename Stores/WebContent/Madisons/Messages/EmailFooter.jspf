@@ -1,0 +1,35 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%-- 
+  *****
+  *	This JSPF page shows the footer of the e-mail send to the customer with the store home page link.
+  *****
+--%>
+<!-- BEGIN EmailFooter.jspf -->
+
+ <tr>
+	<td colspan="3" bgcolor="#edf5fc" width="792" height="25" style="border-bottom: 1px solid #c9d3de; border-left: 1px solid #c9d3de; border-right: 1px solid #c9d3de;">
+		<table border="0" cellpadding="0" cellspacing="0" style="margin-left: 12px;">
+			<c:url var="madisonStoreURL" value="StoreView">
+				<c:param name="langId" value="${langId}" />
+				<c:param name="storeId" value="${storeId}" />
+				<c:param name="catalogId" value="${catalogId}" />
+			</c:url>
+			<tr>
+				<td width="792" height="25"><a href="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/servlet/${madisonStoreURL}" title="www.${storeName}.com" style="font-family: Verdana, Arial; font-size: 11px; color: #2692d1; font-weight: bold;">www.${storeName}.com</a></td>
+			</tr>
+		</table>
+	</td>
+</tr>
+ <!-- END EmailFooter.jspf -->

@@ -1,0 +1,129 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<library>
+	
+	<!---
+		@keywords private
+		Layout page and rule assignments summary viewer.
+	-->
+	<class name="plmGridLayoutSummaryViewer" extends="wcfGridDisplaySummaryViewer">
+		
+		<!---
+			Summary parameters for each line in the summary.
+		-->
+		<wcfFlowSummaryParam name="contentPage" objectPath="LayoutLocationContentPageReferenceAlias/ContentPageAlias" propertyName="name" loadChildren="true"/>
+		<wcfFlowSummaryParam name="catentryPage" objectPath="LayoutLocationCatalogEntryPageReferenceAlias/CatalogEntryBrowsingPageAlias" propertyName="partnumber" loadChildren="true"/>
+		<wcfFlowSummaryParam name="categoryPage" objectPath="LayoutLocationCatalogGroupPageReferenceAlias/CatalogGroupBrowsingPageAlias" propertyName="identifier" loadChildren="true"/>
+		<wcfFlowSummaryParam name="categoryPagePropagate" objectPath="LayoutLocationCatalogGroupPageReferenceAlias" propertyName="applyToSubPage" loadChildren="true"/>
+		<wcfFlowSummaryParam name="searchtermRule" objectPath="LayoutSearchTermsAlias" propertyName="searchTerm" loadChildren="true"/>
+		
+		<!---
+			Register all resources used to create the summary lines so that
+			CMC UI language changes will update the summary line fixed text.
+		-->
+		<handler name="oninit">
+			<![CDATA[
+			this.updateDisplaySummaryDel.register(plmPageLayoutResources.contentPage, "onstring");
+			this.updateDisplaySummaryDel.register(plmPageLayoutResources.categoryPage, "onstring");
+			this.updateDisplaySummaryDel.register(plmPageLayoutResources.catentryPage, "onstring");
+			this.updateDisplaySummaryDel.register(plmPageLayoutResources.searchtermRule, "onstring");
+			this.updateDisplaySummaryDel.register(plmPageLayoutResources.summaryItem, "onstring");
+			this.updateDisplaySummaryDel.register(plmPageLayoutResources.summaryItemAndSubcategories, "onstring");
+			]]>
+		</handler>
+		
+		<!---
+			Updates the summary text. This method is called when the defined properties on the
+			object have changed or when the object's child objects are updated.
+			
+			@param Object e An object passed by the OpenLaszlo event system. This value should be ignored.
+		-->
+		<method name="updateDisplaySummary" args="e=null">
+			<![CDATA[
+			var text=[];
+			
+			// Category page summary
+			var values = this.getValuesList("categoryPage");
+			var propagate = this.getValuesList("categoryPagePropagate");
+			if (values.length > 0) {
+				var names = "";
+				for(var j = 0; j < values.length; j++) {
+					var item = wcfStringUtil.escapeText(values[j]);
+					if (propagate[j]=="ThisPageAndSubCategory") {
+						names += plmPageLayoutResources.replaceValues("summaryItemAndSubcategories", [item]);
+					} else if (propagate[j]=="ThisPage") {
+						names += plmPageLayoutResources.replaceValues("summaryItem", [item]);
+					}else  {
+				 		var key = "summaryItemAll".concat(propagate[j], "SubPages");
+						names += plmPageLayoutResources.replaceValues(key, [item]);
+					}
+					if (j != (values.length - 1) ) {
+						names += ", ";
+					}
+				}
+				names = plmPageLayoutResources.replaceValues("categoryPage", [names]);
+				text.push(names);
+			}
+			
+			// Catentry page summary
+			values = this.getValuesList("catentryPage");
+			if (values.length > 0) {
+				var names = "";
+				for(var j = 0; j < values.length; j++) {
+					var item = wcfStringUtil.escapeText(values[j]);
+					names += plmPageLayoutResources.replaceValues("summaryItem", [item]);
+					if (j != (values.length - 1) ) {
+						names += ", ";
+					}
+				}
+				names = plmPageLayoutResources.replaceValues("catentryPage", [names]);
+				text.push(names);
+			}
+			
+			// Content page summary
+			values = this.getValuesList("contentPage");
+			if (values.length > 0) {
+				var names = "";
+				for(var j = 0; j < values.length; j++) {
+					var item = wcfStringUtil.escapeText(values[j]);
+					names += plmPageLayoutResources.replaceValues("summaryItem", [item]);
+					if (j != (values.length - 1) ) {
+						names += ", ";
+					}
+				}
+				names = plmPageLayoutResources.replaceValues("contentPage", [names]);
+				text.push(names);
+			}
+			
+			// Search term summary
+			values = this.getValuesList("searchtermRule");
+			if (values.length > 0) {
+				var names = "";
+				for(var j = 0; j < values.length; j++) {
+					var item = wcfStringUtil.escapeText(values[j]);
+					names += plmPageLayoutResources.replaceValues("summaryItem", [item]);
+					if (j != (values.length - 1) ) {
+						names += ", ";
+					}
+				}
+				names = plmPageLayoutResources.replaceValues("searchtermRule", [names]);
+				text.push(names);
+			}
+			
+			this.setSummaryText(text);
+			]]>
+		</method>
+	</class>
+</library>

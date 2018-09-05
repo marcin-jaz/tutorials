@@ -1,0 +1,520 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<library>
+	<!---
+		<p>A service that will return the URL and input parameters for a punch-out application
+		that will be used to edit a model object property.
+		Once the punch-out URL and input parameters have been retrieved from the punch-out
+		edit service, then the punch-out URL will be launched in a modal browser window.
+		When the application is complete the response must be set using JavaScript into
+		window.returnValue before closing the window. 
+		
+		<p>A punch-out edit service may only be declared as an immediate child of an instance of wcfPropertyDefinition.
+		
+		<p>A punch-out edit service must return the punch-out URL and zero or more input parameters that will be posted to that
+		URL.
+		
+		<p>Service parameters can be defined by declaring instances of
+		{@link wcfServiceParam} as children of the wcfPunchOutEditService instance.
+		
+		<p>The punch-out edit service can expect an implicit parameter named "cmcPath". The "cmcPath"
+		parameter is the URL prefix for Management Center actions and can be used to compose callback
+		URLs that will be passed to the punch-out application.
+		
+		<p>The punch-out edit service can expect an implicit parameter named "locale". This "locale" parameter is
+		the preferred locale of the business user.
+		
+		<p>The following example demonstrates the declaration of a punch-out service.
+		
+		@START_CODE
+		<PunchOutEditService url="GetAttachmentPathPunchOutURL">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="content" propertyName="path"/>
+		</PunchOutEditService>
+		@END_CODE
+
+		<p>The successful response from a punch-out edit service must be an XML document
+		that has "object" as the name of the root element. There must be at least
+		one child element with the name "punchOutURL". The value of the "punchOutURL"
+		element will be used as the punch-out application URL. Additional child
+		elements can be included which will be posted as parameters to the punch-out application URL.
+		
+		<p>The following sample demonstrates the expected format for a successful response from
+		the punch-out edit service.
+		
+		@START_CODE
+		<object>
+			<punchOutURL>https://mycmshost/findContent</punchOutURL>
+			<link>/cmsContentURL</link>
+			<locale>en_US</locale>
+			<url>https://wchost:8000/lobtools/cmc/SetAttachmentPathPunchOutReturnValue</url>
+		</object>
+		@END_CODE
+
+		<p>If an exception occurs while processing a punch-out edit service, the response must be an XML document that
+		has a root element named "errors". The "errors" element must include one child element named "exception".
+		The "exception" element includes a message suitable for display to the user. The following example demonstrates
+		a valid error response for a populate new object service.
+
+		@START_CODE
+		<errors>
+			<exception>You do not have the required access rights to perform this operation.</exception>
+		</errors>
+		@END_CODE
+
+		<p>When the punch-out application is ready to return control to Management Center, the application
+		must use window.close() to close the window. If there is a return value, then the application
+		must set window.returnValue before closing the window.
+
+		<p>The successful return value from a punch-out application must be an XML document
+		that has "object" or "parent" as the name of the root element. The child elements
+		include the new property values and embedded child objects. If the response element is
+		"object", then the response is applied to the current object. If the response element is
+		"parent", then the response is applied to the parent of the current object.
+		
+		<p>Property elements returned from a punch-out application may optionally include a "dirty" attribute.
+		If the value is set to "true", then the framework will accept the new values as changed property values.
+
+		<p>Object elements returned from a punch-out application may optionally include a "new" attribute.
+		If the value is set to "true", then the framework will create the objects as new objects.
+		
+		<p>The following sample demonstrates the expected format
+		for a successful return value from a punch-out application.
+		
+		@START_CODE
+		<object>
+			<path dirty="true">/cmsContentURL</path>
+		</object>
+		@END_CODE
+
+		<p>A single instance of {@link wcfEnablementCondition} can be declared as a child of a punch out edit service. If
+		the enablement condition evaluates to false, then punch-out editing will not be available.</p>
+	-->
+	<class name="wcfPunchOutEditService" extends="wcfService" getService="true">
+		<!---
+			Identifier for this punch-out edit service.
+		-->
+		<attribute name="punchOutEditServiceId" type="string" value="${null}"/>
+		<!---
+			Display name for this punch-out edit service.
+		-->
+		<attribute name="displayName" type="string" value="${null}"/>
+		<!---
+			Indicates that an attempt will be made to save the business object associated with this
+			service when the service completes successfully. The default is false.
+		-->
+		<attribute name="saveOnSuccess" type="boolean" value="false"/>
+		<!---
+			The window name that will be used for the punch-out dialog.
+			The default is "PunchOutDialogWindow".
+		-->
+		<attribute name="windowName" type="string" value="PunchOutDialogWindow"/>
+		<!---
+			The height in pixels of the punch-out window.
+			The default is 600.
+		-->
+		<attribute name="windowHeight" type="number" value="600"/>
+		<!---
+			The width in pixels of the punch-out window.
+			The default is 840.
+		-->
+		<attribute name="windowWidth" type="number" value="840"/>
+		<!---
+			Comma separated list of sibling object types to delete
+			before parsing a "parent" punch-out edit response.
+		-->
+		<attribute name="deleteSiblingObjectTypes" type="string" value="${null}"/>
+		<!---
+			@keywords private
+			The object associated with the punch-out call.
+		-->
+		<attribute name="o" value="${null}"/>
+
+		<!--- @keywords private -->
+		<method name="init">
+			<![CDATA[
+			super.init();			
+			var services = parent["punchOutEditServices"];
+			if (!services) {
+				services = [];
+				parent.punchOutEditServices = services;
+			}
+			services.push(this);
+			var url = new LzURL(lz.Browser.getLoadURL());
+			var cmcPath = url.protocol
+							+ "://"
+							+ url.host
+							+ ((url.port != null && url.port != "") ? (":" + url.port) : "")
+							+ (global["serviceContextRoot"] ? global["serviceContextRoot"] : "/lobtools");
+			new lz.wcfServiceParam(this, {
+				name: "cmcPath",
+				value: cmcPath
+			});
+			new lz.wcfServiceParam(this, {
+				name: "propertyName",
+				value: this.parent.propertyName
+			});
+			new lz.wcfServiceParam(this, {
+				name: "objectType",
+				checkObjectDefinition: true,
+				propertyName: "objectType"
+			});
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			Parse the specified data element and invoke the punch-out. The first element
+			in the <object> element must be named <punchOutURL> and will be used as the punch-out
+			URL. Additional elements will be posted as parameters to that URL.
+			@param wcfModelObject o: the model object
+			@param XML dataElement: "object" data element
+			@param number reqIdentifier: the request identifier associated with the dataset that returned this data
+		-->
+		<method name="parseObject" args="requestParent,dataElement,reqIdentifier">
+			<![CDATA[
+			if (this.o == null) {
+				var parameters = {};
+				var nodes = dataElement.childNodes;
+				var url = null;
+				var inputs = "";
+				for (var i = 0; i < nodes.length; i++) {
+					var node = nodes[i];
+					var parameterName = node.nodeName;
+					var value = wcfXMLUtil.getNodeValue(node);
+					if (parameterName == "punchOutURL") {
+						url = value;
+					}
+					else {
+						value = decodeURIComponent(value);
+						inputs += "<input type=\"hidden\" name=\"" + parameterName + "\" value=\"" + value + "\">";
+					}
+				}
+				if (url != null) {
+					this.launchPunchOutDialog(requestParent, url, inputs);
+				}
+				else {
+					wcfLogger.log("com.ibm.commerce.lobtools.foundation.service", "SEVERE", "wcfPunchOutEditService", "parseObject", "The punch out edit service did not return punchOutURL. url: " + this.url);
+				}
+            }
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			This method launches the punch-out dialog with the specified URL and input parameters.
+			
+			@param wcfModelObject o: the object on which the punch out edit is being performed
+			@param string url: the punch out URL
+			@param string inputs: the form inputs that will be posted to the URL
+		-->
+		<method name="launchPunchOutDialog" args="o,url,inputs">
+			<![CDATA[
+			this.o = o;
+			this.o.incrementReferenceCount();
+			if (!this.punchOutCompleteDel) {
+				this.punchOutCompleteDel = new lz.Delegate(this, "punchOutComplete");
+			}
+			this.punchOutCompleteDel.register(canvas, "oncallbackvalue");
+			var newWindowArguments = new Object();
+			newWindowArguments.content = "<form action=\"" + url + "\" method=\"POST\">" + inputs + "</form>";
+			var newWindowObj = new Object();
+			newWindowObj.URL = "PunchOutDialog";
+			newWindowObj.windowName = this.windowName;
+			newWindowObj.windowArguments = newWindowArguments;
+			newWindowObj.windowWidth = this.windowWidth;
+			newWindowObj.windowHeight = this.windowHeight;
+			callJSFunction("launchModalDialog", newWindowObj);
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			This method is invoked when the punch-out dialog is closed.
+			
+			@param string responseData: response from the punch-out service
+		-->
+		<method name="punchOutComplete" args="responseData">
+			<![CDATA[
+			this.punchOutCompleteDel.unregisterAll();
+			if (this.o != null) {
+				if (responseData != null && responseData.length > 0) {
+					var dataXML = wcfXMLUtil.parseXML(responseData);
+					if (wcfLogger.enabled) {
+						wcfLogger.log("com.ibm.commerce.lobtools.foundation.service", "INFO", "wcfPunchOutEditService", "punchOutComplete", "resonseData " + responseData);
+					}
+					try {
+						this.handlePunchOutResponse(dataXML);
+					}
+					catch (e) {
+						wcfLogger.log("com.ibm.commerce.lobtools.foundation.service", "SEVERE", "wcfPunchOutEditService", "punchOutComplete", "handlePunchOutResponse failed, exception thrown: " + e.toString() + "; url: " + this.url);
+					}
+				}
+				this.o.decrementReferenceCount();
+				this.o = null;
+			}
+			]]>
+		</method>
+
+		<!---
+			@keywords private
+			This method handles the punch out response.
+			
+			@param xml e: an XML document
+		-->		
+		<method name="handlePunchOutResponse" args="e">
+			<![CDATA[
+			if (wcfLogger.enabled) {
+				wcfLogger.entering("com.ibm.commerce.lobtools.foundation.service", "wcfPunchOutEditService", "handlePunchOutResponse(e)", [e]);				
+			}
+			if (e != null) {
+				if (e.nodeName == "object") {
+					this.parsePunchOutResponseObject({
+						o: this.o,
+						e: e
+					});
+				}
+				else if (e.nodeName == "parent") {
+					if (this.o.parentObject != null) {
+						var childObject = this.o;
+						var childObjectDefinition = childObject.objectDefinition;
+						var loadChildrenTriggered = false;
+						while (childObject.parentObject != null && !loadChildrenTriggered) {
+							var services = childObject.parentObject.getChildrenServices;
+							if (services && services.length > 0) {
+								for (var i = 0; i < services.length; i++) {
+									if (services[i].matchesObjectDefinitions(childObject.parentObject.objectDefinition, [childObjectDefinition])) {
+										if (!this.parsePunchOutResponseObjectDel) {
+											this.parsePunchOutResponseObjectDel = new lz.Delegate(this, "parsePunchOutResponseObject");
+										}
+										wcfLoadChildrenActionHandler.triggerAction(childObject.parentObject, [childObjectDefinition], this.parsePunchOutResponseObjectDel, {
+											o: this.o.parentObject,
+											e: e
+										});	
+										loadChildrenTriggered = true;
+									}
+								}
+							}
+							childObject = childObject.parentObject;
+							childObjectDefinition = childObject.objectDefinition;
+						}
+						if (!loadChildrenTriggered) {
+							this.parsePunchOutResponseObject({
+								o: this.o.parentObject,
+								e: e
+							});
+						}
+					}
+					else {
+						wcfLogger.log("com.ibm.commerce.lobtools.foundation.service", "SEVERE", "wcfPunchOutEditService", "handlePunchOutResponse", "The response from the punch out editing has specified \"parent\" parsing but the current object is not a child object. url: " + this.url);
+					}
+				}
+				else if (e.nodeName == "errors") {
+					var nodes = e.childNodes;
+					for (var i = 0; i < nodes.length; i++) {
+						var node = nodes[i];
+						var message = wcfXMLUtil.getNodeValue(node);
+						if (node.nodeName == "exception") {
+							var code = node.attributes["code"];
+							messageLogger.logException(code, message);
+						}
+					}
+				}
+			}
+			if (wcfLogger.enabled) {
+				wcfLogger.exiting("com.ibm.commerce.lobtools.foundation.service", "wcfPunchOutEditService", "handlePunchOutResponse");
+			}
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			This method handles the successful punch out response.
+			The element is parsed and applied to the specified object and if saveOnSuccess is
+			set to true, then the object is saved.
+			@param Object args arguments object with two properties o and e which are the model object and the XML response document
+		-->		
+		<method name="parsePunchOutResponseObject" args="args">
+			<![CDATA[
+			if (this.deleteSiblingObjectTypes != null && args.e.nodeName == "parent") { 
+				var deleteTypes = wcfStringUtil.splitAndTrim(this.deleteSiblingObjectTypes, ",");
+				for (var i = 0; i < deleteTypes.length; i++) {
+					var deleteObjects = args.o.getObjects(deleteTypes[i]);
+					for (var j = 0; j < deleteObjects.length; j++) {
+						deleteObjects[j].deleteObject();
+					}
+				}
+				args.o.updateChildObjects(true);
+			}
+			args.o.parseDataElement(args.e);
+			if (args.e.nodeName == "parent") {
+				args.o.updateChildObjects(true);
+			}
+			if (this.saveOnSuccess && args.o.openGroupObject != null) {
+				args.o.openGroupObject.saveObject();
+			}
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			Returns true if this punch out edit service is enabled for the specified
+			model object by evaluating the associated {@link wcfEnablementCondition} object.
+			
+			@param wcfModelObject o: the model object against which the enablement condition will be evaluated
+			@param lz.Delegate del: optional delegate
+			@return boolean: true if the navigation list is enabled
+		-->
+		<method name="isEnabled" args="o,del=null">
+			<![CDATA[
+			var enabled = true;
+			if (this["enablementCondition"]) {
+				if (del != null) {
+					this.enablementCondition.registerDelegate(o, del);
+				}
+				enabled = this.enablementCondition.isEnabled(o);
+			}
+			return enabled;
+			]]>
+		</method>
+	</class>
+	
+	<!---
+		@keywords private
+		Punch-out edit service selection dialog. This dialog presents the user with a list of enabled punch-out
+		services that can be selected by the user.
+	-->
+	<wcfDialog name="wcfPunchOutEditDialog">
+		<!---
+			The wcfModelProperty that is being edited.
+		-->
+		<attribute name="property" value="null"/>
+		<!---
+			Array of punch-out service buttons.
+		-->
+		<attribute name="punchOutEditServiceButtons" value="${[]}"/>
+		<!---
+			Array of buttons available for reuse.
+		-->
+		<attribute name="availableButtons" value="${[]}"/>
+
+		<!---
+			Open the punch-out edit dialog.
+			@param wcfModelProperty property property being edited
+		-->
+		<method name="openPunchOutEditDialog" args="property">
+			<![CDATA[
+			this.openWindow();
+			this.property = property;
+			var services = this.property.propertyDefinition.punchOutEditServices;
+			for (var i = 0; i < services.length; i++) {
+				var service = services[i];
+				if (service.isEnabled(this.property.o)) {
+					var punchOutEditServiceButton = null;
+					if (this.availableButtons.length > 0) {
+						punchOutEditServiceButton = this.availableButtons.shift();
+						punchOutEditServiceButton.setAttribute("text", service.displayName);
+						punchOutEditServiceButton.setAttribute("service", service);
+						punchOutEditServiceButton.setAttribute("visible", true);
+					}
+					else {
+						punchOutEditServiceButton = new lz.wcfPunchOutEditServiceButton(this.viewButtons.punchOutEditServiceButtons, {
+							text: service.displayName,
+							service: service,
+							visible: true,
+							punchOutEditDialog: this
+						});
+					}
+					this.punchOutEditServiceButtons.push(punchOutEditServiceButton);
+				}
+			}
+			this.questionArea.setAttribute("text", this.property.propertyDefinition.punchOutEditDialogQuestion);
+			]]>
+		</method>
+		
+		<!---
+			Set the focus to the first service button.
+		-->
+		<method name="setInitialFocus" args="e=null">
+			<![CDATA[
+			if (this.punchOutEditServiceButtons.length > 0) {
+				lz.Focus.setFocus(this.punchOutEditServiceButtons[0]);
+			}
+			else {
+				lz.Focus.setFocus(this.viewButtons.cancelButton);
+			}
+			]]>
+		</method>
+		
+		<!---
+			Close add action dialog.
+		-->
+		<method name="closeWindow">
+			<![CDATA[
+			while (this.punchOutEditServiceButtons.length > 0) {
+				var punchOutEditServiceButton = this.punchOutEditServiceButtons.pop();
+				punchOutEditServiceButton.setAttribute("visible", false);
+				punchOutEditServiceButton.setAttribute("text", "");	
+				punchOutEditServiceButton.setAttribute("service", null);
+				this.availableButtons.unshift(punchOutEditServiceButton);
+			}
+			this.property = null;
+			super.closeWindow();
+			]]>
+		</method>
+
+		<!---
+			This method is called when the user selects the service.
+		-->
+		<method name="submitService" args="service">
+			<![CDATA[
+			service.doRequest(this.property.o);
+			]]>
+		</method>
+
+		<simplelayout spacing="10" axis="x"/>
+		<view name="infoIcon" resource="dialogQuestionIcon"/>		
+		<text name="questionArea" multiline="true" width="400" />
+		
+		<view placement="footer" name="viewButtons">
+			<simplelayout axis="x"/>
+			<view name="punchOutEditServiceButtons">
+				<simplelayout axis="x"/>
+			</view>
+			<wcfButton name="cancelButton" text="${foundationResources.simpleDialogCancel.string}" onclick="parent.parent.closeWindow();" visible="true" />
+		</view>
+	</wcfDialog>
+	
+	<!---
+		@keywords private
+		This class defines the punch-out edit service button.
+	-->
+	<class name="wcfPunchOutEditServiceButton" extends="wcfButton">
+		<!---
+			The punch-out edit dialog.
+		-->
+		<attribute name="punchOutEditDialog" value="null"/>
+		<!---
+			The punch-out edit service.
+		-->
+		<attribute name="service" value="null"/>
+		
+		<handler name="onclick">
+			<![CDATA[
+			this.punchOutEditDialog.submitService(this.service);
+			this.punchOutEditDialog.closeWindow();
+			]]>
+		</handler>
+	</class>
+</library>

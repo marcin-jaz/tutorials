@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2010, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>    
+ 
+ 	<BusinessObjectEditor
+ 		browseUtilityFilterTypes="MasterCatalog,MasterCategories,DefaultCatalog,SalesCategoriesWithDynamic,AttributeDictionary,AttributeDictionaryAttributes,AttachmentResourceFilter,ManagedContentsFilter,ConfigModelFilter,AllCatalogs"
+ 		definitionName="catCatalogManagement"
+ 		displayName="${shellResourceBundle.catalogManagementDisplayName}"
+ 		explorerFilterTypes="MasterCatalogExplorer,MasterCategoriesExplorer,SalesCategoriesExplorer,AttributeDictionaryExplorer"
+ 		gettingStartedPageClass="wcfCatalogGettingStartedPage"
+ 		helpLink="concepts/cpncatalogstool.htm"> 
+ 		   
+		<!-- Filter definitions for main filters in explorer view-->
+		<ObjectTypeFilter baseDefinitionName="catMasterCatalogExplorerFilter"/>
+		<ObjectTypeFilter baseDefinitionName="catMasterCatalogGroupsExplorerFilter" isDefault="true"/>
+		<ObjectTypeFilter baseDefinitionName="catSalesCatalogGroupsExplorerFilter"/>	
+
+		<!-- Filter definitions for main filters in explorer view without catalog import-->
+		<ObjectTypeFilter baseDefinitionName="catMasterCatalogExplorerWithoutCatalogImportFilter"/>
+		<ObjectTypeFilter baseDefinitionName="catMasterCatalogGroupsExplorerWithoutCatalogImportFilter" isDefault="true"/>
+		<ObjectTypeFilter baseDefinitionName="catSalesCatalogGroupsExplorerWithoutCatalogImportFilter"/>	
+		
+		<!-- Filter definitions for main filters in other places, like utility view-->
+		<ObjectTypeFilter baseDefinitionName="catMasterCatalogFilter"/>
+		<ObjectTypeFilter baseDefinitionName="catMasterCatalogGroupsFilter" isDefault="true"/>
+		<ObjectTypeFilter baseDefinitionName="catSalesCatalogGroupsFilter"/>
+		<ObjectTypeFilter baseDefinitionName="catSalesCatalogGroupsFilterWithDynamic"/>
+		<ObjectTypeFilter baseDefinitionName="catAttributeDictionaryFilterExplorer"/>
+		<ObjectTypeFilter baseDefinitionName="catAttributeDictionaryWithCatalogImportFilterExplorer"/>
+		<ObjectTypeFilter baseDefinitionName="catAttributeDictionaryFilter"/>
+		<ObjectTypeFilter baseDefinitionName="catAttributeDictionaryAttributesFilter"/>
+		<ObjectTypeFilter baseDefinitionName="attManagedContentsFilter"/>
+		<ObjectTypeFilter baseDefinitionName="attAttachmentResourceFilter"/>
+		<ObjectTypeFilter baseDefinitionName="catConfigModelFilter"/>
+		<ObjectTypeFilter baseDefinitionName="catAllCatalogsFilter"/>
+		
+		<!-- Catalog Organizational Objects -->
+		<OrganizationalObjectDefinition baseDefinitionName="UnassignedCatalogEntries"/>
+		
+		<!-- Catalog Top Objects -->
+		<TopObjectDefinition baseDefinitionName="catCatalogTopObjectDefinition"/>
+		<!--  Organizational objects -->
+		<OrganizationalObjectDefinition baseDefinitionName="AllCatalogImportsTop"/>
+		<OrganizationalObjectDefinition baseDefinitionName="AllAttributeFoldersTop"/>
+
+		<!-- Catalog Primary Objects -->
+		<PrimaryObjectDefinition baseDefinitionName="Catalog"/>
+		<PrimaryObjectDefinition baseDefinitionName="CatalogGroup" creatable="true"/>
+		<PrimaryObjectDefinition baseDefinitionName="CatalogGroupSKU" creatable="true" searchType="FindSKUs"/>
+		<PrimaryObjectDefinition baseDefinitionName="ProductSKU" creatable="true" searchType="FindSKUs"/>
+		<PrimaryObjectDefinition baseDefinitionName="Product" creatable="true" searchType="FindProducts"/>
+		<PrimaryObjectDefinition baseDefinitionName="Bundle" creatable="true" searchType="FindBundles"/>
+		<PrimaryObjectDefinition baseDefinitionName="Kit" creatable="true" searchType="FindKits"/>
+		<PrimaryObjectDefinition baseDefinitionName="PredefinedDKit" creatable="true" searchType="FindPDKs"/>
+		<PrimaryObjectDefinition baseDefinitionName="SalesCatalog" creatable="true"/>
+		<PrimaryObjectDefinition baseDefinitionName="SalesCatalogGroup" creatable="true" searchType="FindSalesCategories"/>
+		<PrimaryObjectDefinition baseDefinitionName="DynamicSalesCatalogGroup" creatable="true" searchType="FindDynamicSalesCategories"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedDynamicSalesCatalogGroup" searchType="FindDynamicSalesCategories"/>
+
+		<!-- Primary Objects for attribute folders -->              
+		<PrimaryObjectDefinition baseDefinitionName="AttributeFolder" creatable="true"/>              
+		<PrimaryObjectDefinition baseDefinitionName="InheritedAttributeFolder"/>
+				
+		<OrganizationalObjectDefinition baseDefinitionName="ManyToManyMerchandisingAssociation"/>
+		
+		<!-- Catalog Primary Objects -->
+		<PrimaryObjectDefinition baseDefinitionName="CatalogImport" creatable="true"/>
+		<PrimaryObjectDefinition baseDefinitionName="IntelligentOfferImportsTop"/>
+		<PrimaryObjectDefinition baseDefinitionName="AttributeDictionary"/>
+		<PrimaryObjectDefinition baseDefinitionName="AttributeDictionaryAttributeWithAssignedValues" creatable="true" searchType="FindAttributes"/>
+		<PrimaryObjectDefinition baseDefinitionName="AttributeDictionaryAttributeWithAllowedValues" creatable="true" searchType="FindAttributes"/>
+		<OrganizationalObjectDefinition baseDefinitionName="catManyToManyAttributeAssignment"/>
+
+		<PrimaryObjectDefinition baseDefinitionName="InheritedCatalog"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedCatalogGroup"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedCatalogGroupSKU" searchType="FindSKUs"/>		
+		<PrimaryObjectDefinition baseDefinitionName="InheritedProductSKU" searchType="FindSKUs"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedProduct" searchType="FindProducts"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedBundle" searchType="FindBundles"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedKit" searchType="FindKits"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedPredefinedDKit" searchType="FindPDKs"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedSalesCatalog"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedSalesCatalogGroup" searchType="FindSalesCategories"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedAttributeDictionary"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedAttributeDictionaryAttributeWithAssignedValues"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedAttributeDictionaryAttributeWithAllowedValues"/>
+		<PrimaryObjectDefinition baseDefinitionName="SearchTermAssociations"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedSearchTermAssociations"/>
+		<PrimaryObjectDefinition baseDefinitionName="DefaultCatalog"/>
+		<PrimaryObjectDefinition baseDefinitionName="CatalogGroupFacet"/>
+		
+		<OrganizationalObjectDefinition baseDefinitionName="catManyToManySalesCategoryAssignment"/>
+		
+		<!-- Catalog Search Definitions -->
+		<SearchDefinition baseDefinitionName="FindAllCatalogEntries" displayName="${catalogResources.findAllCatalogEntriesSearchDefinition_DisplayName}" isDefault="true"/>
+		<SearchDefinition baseDefinitionName="FindAllCatalogEntriesExceptSKUs"/>
+		<SearchDefinition baseDefinitionName="FindCategories"/>
+		<SearchDefinition baseDefinitionName="FindSalesCategories"/>
+		<SearchDefinition baseDefinitionName="FindDynamicSalesCategories"/>
+		<SearchDefinition baseDefinitionName="FindProducts"/>
+		<SearchDefinition baseDefinitionName="FindSKUs"/>
+		<SearchDefinition baseDefinitionName="FindBundles"/>
+		<SearchDefinition baseDefinitionName="FindKits"/>
+		<SearchDefinition baseDefinitionName="FindPDKs"/>
+		<SearchDefinition baseDefinitionName="FindAttributes"/>
+		<SearchDefinition baseDefinitionName="FindConfigModels"/>
+		<SearchDefinition baseDefinitionName="FindCatalogs"/>
+		<SearchDefinition baseDefinitionName="FindSearchTermAssociations"/>
+		<SearchDefinition baseDefinitionName="FindDefaultCatalog"/>
+		
+	</BusinessObjectEditor>
+</Definitions>

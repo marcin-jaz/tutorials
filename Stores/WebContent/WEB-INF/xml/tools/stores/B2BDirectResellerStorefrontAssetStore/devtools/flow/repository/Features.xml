@@ -1,0 +1,228 @@
+<!DOCTYPE repository-entries SYSTEM "../dtd/repository/Repository.dtd">
+<repository-entries>
+  <features>
+    <feature id="Site.i1.impl1.f" enables="Site.i1.impl1" always-enabled="yes"/>
+  
+    <feature id="customerCare"/>
+    <feature id="catalogSearch"/>
+    <feature id="ProductQuantity"/>
+    <feature id="QuickOrder"/>
+    <feature id="RequisitionList"/>
+    <feature id="RFQ"/>
+    <feature id="auctions"/>
+    <feature id="MultipleActiveOrders"/>
+    <feature id="trackOrderStatus"/>
+    <feature id="ScheduleOrder"/>
+    <feature id="FutureOrders"/>
+    <feature id="ExpeditedOrders"/>
+    <feature id="MultipleReleases"/>
+    <feature id="ShippingInstructions"/>
+    <feature id="ShippingChargeType"/>
+    
+    <!-- Feature for heads up display -->
+    <feature id="headsUpDisplay"/>
+    <feature id="HUDminiCurrentOrderDisplay"/>
+    <feature id="HUDminiUserAccountDisplay"/>
+    <feature id="HUDminiTopCategoriesDisplay"/>
+    <feature id="HUDminiRequisitionListDisplay"/>
+    <feature id="HUDminiOrdersWaitingApprovalDisplay"/>
+    <feature id="HUDminiOrdersPreviouslyProcessedDisplay"/>
+    <feature id="HUDminiOrdersScheduledDisplay"/>
+    <feature id="HUDminiEMarketingSpotDisplay"/>
+    <!--  Feature Added to Enable AccountParticipant Role for Buyer-->
+	<feature id="accountParticipantRole"/>
+    <feature id="HUDminiOrganizationIdDisplay"/>
+    <!--  Feature Added to Enable Organization-Contracts -->
+    <feature id="HUDminiOrganizationContractsDisplay"/>
+    
+    <feature id="CustomLogo"/>
+    <feature id="vfile.logo.jpg.f" enables="vfile.logo.jpg"/>
+    <feature id="vfile.logo.gif.f" enables="vfile.logo.gif"/>
+    
+    <feature id="CustomBanner"/>
+    <feature id="vfile.banner.jpg.f" enables="vfile.banner.jpg"/>
+    <feature id="vfile.banner.gif.f" enables="vfile.banner.gif"/>
+
+	<!-- Features for style  -->
+	<feature id="Style.f.1" enables="StyleDir.i1.impl1"/>
+	<feature id="Style.f.2" enables="StyleDir.i1.impl2"/>
+	<feature id="Style.f.3" enables="StyleDir.i1.impl3"/>
+	<feature id="Style.f.4" enables="StyleDir.i1.impl4"/>
+	<feature id="Style.f.5" enables="StyleDir.i1.impl5"/>
+	<feature id="Style.f.6" enables="StyleDir.i1.impl6"/>
+			
+	<!-- Features for stylesheets and image directories-->
+	<feature id="Color.f.1" enables="vfile.style1.css vfile.color1.dir"/>
+	<feature id="Color.f.2" enables="vfile.style2.css vfile.color2.dir"/>
+	<feature id="Color.f.3" enables="vfile.style3.css vfile.color3.dir"/>
+	<feature id="Color.f.4" enables="vfile.style4.css vfile.color4.dir"/>
+	<feature id="Color.f.5" enables="vfile.style5.css vfile.color5.dir"/>
+	<feature id="Color.f.6" enables="vfile.style6.css vfile.color6.dir"/>
+	<feature id="Color.f.7" enables="vfile.style7.css vfile.color7.dir"/>
+	<feature id="Color.f.8" enables="vfile.style8.css vfile.color8.dir"/>
+	<feature id="Color.f.9" enables="vfile.style9.css vfile.color9.dir"/>
+	<feature id="Color.f.10" enables="vfile.style10.css vfile.color10.dir"/>
+	<feature id="Color.f.11" enables="vfile.style11.css vfile.color11.dir"/>
+	<feature id="Color.f.12" enables="vfile.style12.css vfile.color12.dir"/>
+	<feature id="Color.f.13" enables="vfile.style13.css vfile.color13.dir"/>
+	<feature id="Color.f.14" enables="vfile.style14.css vfile.color14.dir"/>
+	<feature id="Color.f.15" enables="vfile.style15.css vfile.color15.dir"/>
+	<feature id="Color.f.16" enables="vfile.style16.css vfile.color16.dir"/>
+	<feature id="Color.f.17" enables="vfile.style17.css vfile.color17.dir"/>
+	<feature id="Color.f.18" enables="vfile.style18.css vfile.color18.dir"/>
+	<feature id="Color.f.19" enables="vfile.style19.css vfile.color19.dir"/>
+	<feature id="Color.f.20" enables="vfile.style20.css vfile.color20.dir"/>
+	<feature id="Color.f.21" enables="vfile.style21.css vfile.color21.dir"/>
+	<feature id="Color.f.22" enables="vfile.style22.css vfile.color22.dir"/>
+	<feature id="Color.f.23" enables="vfile.style23.css vfile.color23.dir"/>
+	<feature id="Color.f.24" enables="vfile.style24.css vfile.color24.dir"/>
+	<feature id="Color.f.25" enables="vfile.style25.css vfile.color25.dir"/>
+	<feature id="Color.f.26" enables="vfile.style26.css vfile.color26.dir"/>
+	<feature id="Color.f.27" enables="vfile.style27.css vfile.color27.dir"/>
+	<feature id="Color.f.28" enables="vfile.style28.css vfile.color28.dir"/>
+	<feature id="Color.f.29" enables="vfile.style29.css vfile.color29.dir"/>
+	<feature id="Color.f.30" enables="vfile.style30.css vfile.color30.dir"/>
+
+	<!-- Features for banners -->
+	<feature id="Banner.f.1" enables="vfile.selectedBanner1.img"/>
+	<feature id="Banner.f.2" enables="vfile.selectedBanner2.img"/>
+	<feature id="Banner.f.3" enables="vfile.selectedBanner3.img"/>
+	<feature id="Banner.f.4" enables="vfile.selectedBanner4.img"/>
+	<feature id="Banner.f.5" enables="vfile.selectedBanner5.img"/>
+	<feature id="Banner.f.6" enables="vfile.selectedBanner6.img"/>
+	<feature id="Banner.f.7" enables="vfile.selectedBanner7.img"/>
+	<feature id="Banner.f.8" enables="vfile.selectedBanner8.img"/>
+	<feature id="Banner.f.9" enables="vfile.selectedBanner9.img"/>
+	<feature id="Banner.f.10" enables="vfile.selectedBanner10.img"/>
+	<feature id="Banner.f.11" enables="vfile.selectedBanner11.img"/>
+	<feature id="Banner.f.12" enables="vfile.selectedBanner12.img"/>
+	<feature id="Banner.f.13" enables="vfile.selectedBanner13.img"/>
+	<feature id="Banner.f.14" enables="vfile.selectedBanner14.img"/>
+	<feature id="Banner.f.15" enables="vfile.selectedBanner15.img"/>
+	<feature id="Banner.f.16" enables="vfile.selectedBanner16.img"/>
+	<feature id="Banner.f.17" enables="vfile.selectedBanner17.img"/>
+  <feature id="Banner.f.18" enables="vfile.selectedBanner18.img"/>
+    
+  <feature id="Banner.f.25" enables="vfile.selectedBanner25.img"/> 
+  <feature id="Banner.f.26" enables="vfile.selectedBanner26.img"/>
+  <feature id="Banner.f.27" enables="vfile.selectedBanner27.img"/>
+  <feature id="Banner.f.28" enables="vfile.selectedBanner28.img"/>
+  <feature id="Banner.f.29" enables="vfile.selectedBanner29.img"/>
+	<feature id="Banner.f.30" enables="vfile.selectedBanner30.img"/>
+	<feature id="Banner.f.31" enables="vfile.selectedBanner31.img"/>
+	<feature id="Banner.f.32" enables="vfile.selectedBanner32.img"/>
+	<feature id="Banner.f.33" enables="vfile.selectedBanner33.img"/>
+  <feature id="Banner.f.34" enables="vfile.selectedBanner34.img"/>
+  <feature id="Banner.f.35" enables="vfile.selectedBanner35.img"/>
+	<feature id="Banner.f.36" enables="vfile.selectedBanner36.img"/>
+	<feature id="Banner.f.37" enables="vfile.selectedBanner37.img"/>
+  <feature id="Banner.f.38" enables="vfile.selectedBanner38.img"/>
+	<feature id="Banner.f.39" enables="vfile.selectedBanner39.img"/>
+	<feature id="Banner.f.40" enables="vfile.selectedBanner40.img"/>
+	<feature id="Banner.f.41" enables="vfile.selectedBanner41.img"/>
+	<feature id="Banner.f.42" enables="vfile.selectedBanner42.img"/>
+	<feature id="Banner.f.43" enables="vfile.selectedBanner43.img"/>
+  <feature id="Banner.f.44" enables="vfile.selectedBanner44.img"/>
+  <feature id="Banner.f.45" enables="vfile.selectedBanner45.img"/> 
+  <feature id="Banner.f.46" enables="vfile.selectedBanner46.img"/>
+  <feature id="Banner.f.47" enables="vfile.selectedBanner47.img"/>
+  <feature id="Banner.f.48" enables="vfile.selectedBanner48.img"/>
+  <feature id="Banner.f.49" enables="vfile.selectedBanner49.img"/>
+	<feature id="Banner.f.50" enables="vfile.selectedBanner50.img"/>
+	<feature id="Banner.f.51" enables="vfile.selectedBanner51.img"/>
+	<feature id="Banner.f.52" enables="vfile.selectedBanner52.img"/>
+	<feature id="Banner.f.53" enables="vfile.selectedBanner53.img"/>
+  <feature id="Banner.f.54" enables="vfile.selectedBanner54.img"/>
+  <feature id="Banner.f.55" enables="vfile.selectedBanner55.img"/>
+	<feature id="Banner.f.56" enables="vfile.selectedBanner56.img"/>
+	<feature id="Banner.f.57" enables="vfile.selectedBanner57.img"/>
+  <feature id="Banner.f.58" enables="vfile.selectedBanner58.img"/>
+	<feature id="Banner.f.59" enables="vfile.selectedBanner59.img"/>
+	<feature id="Banner.f.60" enables="vfile.selectedBanner60.img"/>
+	
+	<feature id="Banner.f.61" enables="vfile.selectedBanner61.img"/>
+	<feature id="Banner.f.62" enables="vfile.selectedBanner62.img"/>
+	<feature id="Banner.f.63" enables="vfile.selectedBanner63.img"/>
+  <feature id="Banner.f.64" enables="vfile.selectedBanner64.img"/>
+  <feature id="Banner.f.65" enables="vfile.selectedBanner65.img"/>
+	<feature id="Banner.f.66" enables="vfile.selectedBanner66.img"/>
+	<feature id="Banner.f.67" enables="vfile.selectedBanner67.img"/>
+  <feature id="Banner.f.68" enables="vfile.selectedBanner68.img"/>
+	<feature id="Banner.f.69" enables="vfile.selectedBanner69.img"/>
+	<feature id="Banner.f.70" enables="vfile.selectedBanner70.img"/>
+	<feature id="Banner.f.71" enables="vfile.selectedBanner71.img"/>
+	<feature id="Banner.f.72" enables="vfile.selectedBanner72.img"/>
+	<feature id="Banner.f.73" enables="vfile.selectedBanner73.img"/>
+  <feature id="Banner.f.74" enables="vfile.selectedBanner74.img"/>
+  <feature id="Banner.f.75" enables="vfile.selectedBanner75.img"/> 
+  <feature id="Banner.f.76" enables="vfile.selectedBanner76.img"/>
+  <feature id="Banner.f.77" enables="vfile.selectedBanner77.img"/>
+  <feature id="Banner.f.78" enables="vfile.selectedBanner78.img"/>
+  <feature id="Banner.f.79" enables="vfile.selectedBanner79.img"/>
+	<feature id="Banner.f.80" enables="vfile.selectedBanner80.img"/>
+	<feature id="Banner.f.81" enables="vfile.selectedBanner81.img"/>
+	<feature id="Banner.f.82" enables="vfile.selectedBanner82.img"/>
+	<feature id="Banner.f.83" enables="vfile.selectedBanner83.img"/>
+  <feature id="Banner.f.84" enables="vfile.selectedBanner84.img"/>
+  <feature id="Banner.f.85" enables="vfile.selectedBanner85.img"/>
+	<feature id="Banner.f.86" enables="vfile.selectedBanner86.img"/>
+	<feature id="Banner.f.87" enables="vfile.selectedBanner87.img"/>
+  <feature id="Banner.f.88" enables="vfile.selectedBanner88.img"/>
+	<feature id="Banner.f.89" enables="vfile.selectedBanner89.img"/>
+	<feature id="Banner.f.90" enables="vfile.selectedBanner90.img"/>
+	<feature id="Banner.f.91" enables="vfile.selectedBanner91.img"/>
+	<feature id="Banner.f.92" enables="vfile.selectedBanner92.img"/>
+	<feature id="Banner.f.93" enables="vfile.selectedBanner93.img"/>
+  <feature id="Banner.f.94" enables="vfile.selectedBanner94.img"/>
+  <feature id="Banner.f.95" enables="vfile.selectedBanner95.img"/>
+	<feature id="Banner.f.96" enables="vfile.selectedBanner96.img"/>
+	
+	<feature id="Banner.f.97" enables="vfile.selectedBanner97.img"/>
+	<feature id="Banner.f.98" enables="vfile.selectedBanner98.img"/>
+	<feature id="Banner.f.99" enables="vfile.selectedBanner99.img"/>
+  <feature id="Banner.f.100" enables="vfile.selectedBanner100.img"/>
+  <feature id="Banner.f.101" enables="vfile.selectedBanner101.img"/>
+	<feature id="Banner.f.102" enables="vfile.selectedBanner102.img"/>
+	<feature id="Banner.f.103" enables="vfile.selectedBanner103.img"/>
+  <feature id="Banner.f.104" enables="vfile.selectedBanner104.img"/>
+	<feature id="Banner.f.105" enables="vfile.selectedBanner105.img"/>
+	<feature id="Banner.f.106" enables="vfile.selectedBanner106.img"/>
+	<feature id="Banner.f.107" enables="vfile.selectedBanner107.img"/>
+	<feature id="Banner.f.108" enables="vfile.selectedBanner108.img"/>
+	<feature id="Banner.f.109" enables="vfile.selectedBanner109.img"/>
+  <feature id="Banner.f.110" enables="vfile.selectedBanner110.img"/>
+  <feature id="Banner.f.111" enables="vfile.selectedBanner111.img"/> 
+  <feature id="Banner.f.112" enables="vfile.selectedBanner112.img"/>
+  <feature id="Banner.f.113" enables="vfile.selectedBanner113.img"/>
+  <feature id="Banner.f.114" enables="vfile.selectedBanner114.img"/>
+  <feature id="Banner.f.115" enables="vfile.selectedBanner115.img"/>
+	<feature id="Banner.f.116" enables="vfile.selectedBanner116.img"/>
+	<feature id="Banner.f.117" enables="vfile.selectedBanner117.img"/>
+	<feature id="Banner.f.118" enables="vfile.selectedBanner118.img"/>
+	<feature id="Banner.f.119" enables="vfile.selectedBanner119.img"/>
+  <feature id="Banner.f.120" enables="vfile.selectedBanner120.img"/>
+  <feature id="Banner.f.121" enables="vfile.selectedBanner121.img"/>
+	<feature id="Banner.f.122" enables="vfile.selectedBanner122.img"/>
+	<feature id="Banner.f.123" enables="vfile.selectedBanner123.img"/>
+  <feature id="Banner.f.124" enables="vfile.selectedBanner124.img"/>
+	<feature id="Banner.f.125" enables="vfile.selectedBanner125.img"/>
+	<feature id="Banner.f.126" enables="vfile.selectedBanner126.img"/>
+	<feature id="Banner.f.127" enables="vfile.selectedBanner127.img"/>
+	<feature id="Banner.f.128" enables="vfile.selectedBanner128.img"/>
+	<feature id="Banner.f.129" enables="vfile.selectedBanner129.img"/>
+  <feature id="Banner.f.130" enables="vfile.selectedBanner130.img"/>
+  <feature id="Banner.f.131" enables="vfile.selectedBanner131.img"/>
+	<feature id="Banner.f.132" enables="vfile.selectedBanner132.img"/>
+    	
+  <!-- Features for logon banners -->
+  <feature id="LogonBanner.f.1" enables="vfile.selectedLogonBanner1.img"/>
+  <feature id="LogonBanner.f.2" enables="vfile.selectedLogonBanner2.img"/>
+  <feature id="LogonBanner.f.3" enables="vfile.selectedLogonBanner3.img"/>
+  <feature id="LogonBanner.f.4" enables="vfile.selectedLogonBanner4.img"/>
+  <feature id="LogonBanner.f.5" enables="vfile.selectedLogonBanner5.img"/>
+  <feature id="LogonBanner.f.6" enables="vfile.selectedLogonBanner6.img"/>
+  <feature id="LogonBanner.f.7" enables="vfile.selectedLogonBanner7.img"/>
+       
+  </features>
+</repository-entries>
+

@@ -1,0 +1,5 @@
+"Brewmaster","Brewmaster"
+"User Manual","Manual do Usußrio"
+"Page 1 of 1","Pßgina 1 de 1"
+"Congratulations on your purchase of Coffee\nMaker/Grinder 3000 ù the latest and greatest in\ncoffeemaking!!!   ","ParabÚns pela sua aquisişÒo da Cafeteira/Moedor\nde CafÚ 3000 ù a maior e melhor novidade em\npreparo de cafÚ!!!   "
+"Coffee Maker/Grinder 3000","Cafeteira/Moedor 3000"

@@ -1,0 +1,464 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2007, 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<library>
+
+	<!--- @keywords private -->
+	<class name="wcfGettingStartedPage" width="100%" height="100%" visible="false"  >
+	
+		<!--- @keywords private -->
+		<attribute name="displayName" type="string" value="${shellResourceBundle.applicationMenuGettingStarted.string}"/>
+
+		<!--- @keywords private -->
+		<attribute name="mainWidth" value="${Math.max((this.content.innerContent.width), 900)}"/>
+	
+		<!--- @keywords private -->
+		<attribute name="featureWidth" value="${Math.floor(mainWidth/3)}"/>
+		
+		<!--- @keywords private -->
+		<attribute name="featureTextWidth" value="${featureWidth - 150}"/>
+		
+		<!---
+			@keywords private
+			This attribute indicates that this view currently has registered shortcut keys.
+		-->
+		<attribute name="keysRegistered" type="boolean" value="false"/>
+		
+		<!--- @keywords private -->
+		<method name="handleUserClose">
+			<![CDATA[
+			this.savePreferences("false");
+			]]>
+		</method>
+
+		<!--- @keywords private -->
+		<method name="handleUserOpen">
+			<![CDATA[
+			this.savePreferences("true");
+			]]>
+		</method>
+		
+		<!--- @keywords private -->
+		<method name="savePreferences" args="opened">
+			<![CDATA[
+			preferenceManager.setPreference("CMCGettingStartedPage", opened);
+			]]>
+		</method>
+
+		<!--- @keywords private -->
+		<method name="init">
+			<![CDATA[
+			this.pageDownDel = new lz.Delegate(this, "pageDown");
+			this.pageUpDel = new lz.Delegate(this, "pageUp");
+			this.checkFocusDel = new lz.Delegate(this, "checkFocus");
+			super.init();
+			]]>
+		</method>
+		
+		<!--- @keywords private -->
+		<method name="destroy">
+			<![CDATA[
+			this.pageDownDel.unregisterAll();
+			delete this.pageDownDel;						
+			this.pageUpDel.unregisterAll();
+			delete this.pageUpDel;
+			this.checkFocusDel.unregisterAll();
+			delete this.checkFocusDel;
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+		-->
+		<handler name="onactive">
+			<![CDATA[
+			if (this.active) {
+				this.registerShortcutKeys();
+				this.checkFocusDel.unregisterAll();
+				this.checkFocusDel.register(lz.Focus, "onfocus");
+			}
+			else {
+				this.unregisterShortcutKeys();
+				this.checkFocusDel.unregisterAll();
+			}
+			]]>
+		</handler>
+
+		<!---
+			@keywords private
+			This method registers the shortcut keys. 
+		-->
+		<method name="registerShortcutKeys">
+			<![CDATA[
+			if (!this.keysRegistered) {
+				this.keysRegistered = true;
+				lz.Keys.callOnKeyCombo(this.pageDownDel, ["Pagedown"]);
+				lz.Keys.callOnKeyCombo(this.pageUpDel, ["Pageup"]);
+			}
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			This method unregisters the shortcut keys. 
+		-->
+		<method name="unregisterShortcutKeys">
+			<![CDATA[
+			if (this.keysRegistered) {
+				this.keysRegistered = false;
+				lz.Keys.removeKeyComboCall(this.pageDownDel, ["Pagedown"]);
+				lz.Keys.removeKeyComboCall(this.pageUpDel, ["Pageup"]);
+			}
+			]]>
+		</method>
+		<!---
+			@keywords private
+			This method scrolls the getting started page down one page
+		-->
+		<method name="pageDown" args="e=null">
+			<![CDATA[
+			if(wcfViewUtil.containedInModalView(this)) {
+				this.content.innerContent.vScroll.step(20);
+			}
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			This method scrolls the getting started page up one page.
+		-->
+		<method name="pageUp" args="e=null">
+			<![CDATA[
+			if(wcfViewUtil.containedInModalView(this)) {
+				this.content.innerContent.vScroll.step(-20);
+			}
+			]]>
+		</method>
+		
+		<!---
+			Check focus and auto scroll if needed.
+		-->
+		<method name="checkFocus" args="e=null">
+			<![CDATA[
+			var focusedView = lz.Focus.getFocus();
+			var containsFocus = wcfViewUtil.containsView(this, focusedView);
+			if (containsFocus) {
+				var vScrollStepsize = this.content.innerContent.vScroll.stepsize;
+				var hScrollStepsize = this.content.innerContent.hScroll.stepsize;
+				var y = focusedView.getAttributeRelative("y", this.content.innerContent.clipView);
+				var x = focusedView.getAttributeRelative("x", this.content.innerContent.clipView);
+				var clipViewHeight = this.content.innerContent.clipView.height;
+				var clipViewWidth = this.content.innerContent.clipView.width;
+				if (y < 0) { // move up
+					var space = y / vScrollStepsize;
+					this.content.innerContent.vScroll.step(space);
+				}
+				if (y + focusedView.height > clipViewHeight) { // move down
+					var space = (y + focusedView.height - clipViewHeight) / vScrollStepsize;
+					this.content.innerContent.vScroll.step(space);		
+				}
+				if (x < 0) { // move left
+					var space = x / hScrollStepsize;
+					this.content.innerContent.hScroll.step(space);
+				}
+				if (x + focusedView.width > clipViewWidth) { // move right
+					var space = (x + focusedView.width - clipViewWidth) / hScrollStepsize;
+					this.content.innerContent.hScroll.step(space);		
+				}
+			}
+			]]>
+		</method>		
+		
+		<simplelayout axis="y" />
+		<view name="barView" resource="gsBg_toolbar_getstart" stretches="width" width="${parent.width}" />
+		<view name="content" bgcolor="0x5272cc" x="5" width="${parent.width - 11}" height ="${parent.height - 17}" >
+			<view name="innerContent" bgcolor="white" x="1" y="1" width="${parent.width - 2}" height="${parent.height - 2}"  >
+				<view name="clipView" width="${parent.width}" height="${parent.hScroll.visible? parent.height - parent.hScroll.height : parent.height}" clip="true" >
+					<view name="gsView" fontsize="12" >
+						<simplelayout axis="x" spacing="30"/>
+						<view name="ManagementCenterView" stretches="width" width="${classroot.featureWidth * 2 - 15}" >
+						<simplelayout axis="y" />
+						<view height="20" />
+						<view name="mainView" x="25" >
+							<view name="borderAndBackground" width="${classroot.featureWidth * 2 - 40}" height="${parent.mainContentView.height + 70}" >
+								<view name="border" width="${parent.width}" height="${parent.height}">
+									<stableborderlayout axis="y" />
+									<view name="top" width="${parent.width}">
+										<stableborderlayout axis="x"/>
+										<view resource="gsProductTourTopLeft" />
+										<view resource="gsProductTourTopMiddle" stretches="width" />
+										<view resource="gsProductTourTopRight" />
+									</view>
+									<view name="middle" width="${parent.width}" >
+										<stableborderlayout axis="x"/>
+										<view resource="gsProductTourMiddleLeft" stretches="height" height="${parent.parent.height - parent.parent.top.height - parent.parent.bottom.height}"/>
+										<view resource="gsProductTourCenter" stretches="both" height="${parent.parent.height - parent.parent.top.height - parent.parent.bottom.height}"/>
+										<view resource="gsProductTourMiddleRight" stretches="height" height="${parent.parent.height - parent.parent.top.height - parent.parent.bottom.height}"/>
+									</view>
+									<view name="bottom" width="${parent.width}">
+										<stableborderlayout axis="x"/>
+										<view resource="gsProductTourBottomLeft" />
+										<view resource="gsProductTourBottomMiddle" stretches="width" />
+										<view resource="gsProductTourBottomRight" />
+									</view>
+								</view>
+								<view name="background" x="18" y="18" width="${parent.width - 36 }" height="${parent.height - 36 }" clip="true" >
+									<view y="-150" resource="gsMainBg"/>
+								</view>
+							</view>
+							<view x="30" y="30" name="mainContentView" >
+								<simplelayout axis="x" spacing="15" />
+								<wcfVideoButton name="gsFeatureVideoThumb" resource="gsFeatureVideoThumb" videoLink="demo/ProductTour/ProductTour.html?noframes=true" width="200" height="150" />
+								<view >
+									<simplelayout axis="y" />
+									<view height="3"/>
+									<text text="${shellResourceBundle.gsWelcomeTitle2.string}" width="${classroot.featureWidth * 2 - 330}" multiline="true" fontsize="21" thickness="150"/>
+									<view height="3"/>
+									<text text="${shellResourceBundle.gsWelcomeTitle3.string}" width="${classroot.featureWidth * 2 - 330}" multiline="true"/>
+									<view height="15"/>
+									<text text="${shellResourceBundle.gsWelcomeTitle4.string}" />
+									<view height="10"/>
+									<view >
+										<simplelayout axis="x" spacing="1" />
+										<view width="${(classroot.featureWidth - 180 > 280 )? 280 : classroot.featureWidth - 180}">
+											<simplelayout axis="y" />
+											<text multiline="true" text="${shellResourceBundle.gsWelcomeTitle5.string}" width="${parent.width}"/>
+											<text multiline="true" text="${shellResourceBundle.gsWelcomeTitle6.string}" width="${parent.width}"/>
+											<text multiline="true" text="${shellResourceBundle.gsWelcomeTitle7.string}" width="${parent.width}"/>
+										</view>
+										<view width="40"/>
+										<view width="${(classroot.featureWidth - 180 > 280 )? 280 : classroot.featureWidth - 180}" >
+											<simplelayout axis="y" />
+											<text multiline="true" text="${shellResourceBundle.gsWelcomeTitle8.string}" width="${parent.width}"/>
+											<text multiline="true" text="${shellResourceBundle.gsWelcomeTitle9.string}" width="${parent.width}"/>
+										</view>
+									</view>
+									<view height="15" />
+									<view resource="gsReadMore" stretches="height">
+									<simplelayout/>
+									<view height="2" />
+									<wcfHelpLinkText name="gsLearnMore" helpLink="concepts/ctfcmc.htm" text="${shellResourceBundle.gsLearnMore.string}" width="${parent.width - 8}" fgcolor="white" textalign="center" />
+									</view>
+								</view>
+							</view>
+						</view>
+						<view height="20" />
+						<view name="featureView" x="35">
+							<simplelayout axis="y" spacing="20"/>
+							<view name="firstRow" >
+								<simplelayout axis="x" spacing="30"/>
+								<view name="composerView" width="${classroot.featureWidth - 55}" x="10">
+									<simplelayout axis="y" spacing="10" />
+									<text x="10" text="${shellResourceBundle.gsPageComposerTitle1.string}" fontsize="18" />
+									<view name="pageLayouts" x="10" >
+										<simplelayout axis="x" spacing="15" />
+										<wcfVideoButton name="gsVideoThumb" resource="gsVideoThumb" videoLink="demo/PageComp/PageComp.html?noframes=true" yoffset="3"/>
+										<view>
+											<simplelayout/>
+											<text text="${shellResourceBundle.gsPageComposerTitle2.string}" />
+											<text width="${classroot.featureTextWidth}" multiline="true" text="${shellResourceBundle.gsPageComposerTitle3.string}" />
+											<wcfHelpLinkText name="gsLearnMore" helpLink="concepts/cpzpagecompover.htm" width="${classroot.featureTextWidth}" text="${shellResourceBundle.gsLearnMore.string}"/>
+										</view>
+									</view>
+								</view>
+								<view name="promotionView" width="${classroot.featureWidth - 55}">
+									<simplelayout axis="y" spacing="10" />
+									<text x="10" text="${shellResourceBundle.gsPromotionsTitle1.string}" fontsize="18" />
+									<view name="storePromotions" x="10" >
+										<simplelayout axis="x" spacing="15" />
+										<wcfVideoButton name="gsVideoThumb" resource="gsVideoThumb" videoLink="demo/Promotions/Promotions.html?noframes=true" yoffset="3"/>
+										<view>
+											<simplelayout/>
+											<text text="${shellResourceBundle.gsPromotionsTitle2.string}" />
+											<text width="${classroot.featureTextWidth}" multiline="true" text="${shellResourceBundle.gsPromotionsTitle3.string}" />
+											<wcfHelpLinkText name="gsLearnMore" helpLink="concepts/cprover.htm" width="${classroot.featureTextWidth}" text="${shellResourceBundle.gsLearnMore.string}"/>
+										</view>
+									</view>
+								</view>
+							</view>
+							<view name="secondRow" >
+								<simplelayout axis="x" spacing="30"/>
+								<view name="CatalogView" width="${classroot.featureWidth - 55}" x="10">
+									<simplelayout axis="y" spacing="10" />
+									<text x="10" text="${shellResourceBundle.gsCatalogsTitle1.string}" fontsize="18" />
+									<view name="productEnrichment" x="10" >
+										<simplelayout axis="x" spacing="15" />
+										<wcfVideoButton name="gsVideoThumb" resource="gsVideoThumb" videoLink="demo/MerchandisingAssociation/MerchandisingAssociations.html?noframes=true" yoffset="3"/>
+										<view>
+											<simplelayout/>
+											<text text="${shellResourceBundle.gsCatalogsTitle2.string}" />
+											<text width="${classroot.featureTextWidth}" multiline="true" text="${shellResourceBundle.gsCatalogsTitle3.string}" />
+											<wcfHelpLinkText name="gsLearnMore" helpLink="tasks/tpnchpro.htm" width="${classroot.featureTextWidth}" text="${shellResourceBundle.gsLearnMore.string}"/>
+										</view>
+									</view>
+									<view height="10" />
+									<view name="productPlacement" x="10" >
+										<simplelayout axis="x" spacing="15" />
+										<wcfVideoButton name="gsVideoThumb" resource="gsVideoThumb" videoLink="demo/SalesCatalog/SalesCatalog.html?noframes=true" yoffset="3"/>
+										<view>
+											<simplelayout/>
+											<text text="${shellResourceBundle.gsCatalogsTitle4.string}" />
+											<text width="${classroot.featureTextWidth}" multiline="true" text="${shellResourceBundle.gsCatalogsTitle5.string}" />
+											<wcfHelpLinkText name="gsLearnMore" helpLink="concepts/cscsales.htm" width="${classroot.featureTextWidth}" text="${shellResourceBundle.gsLearnMore.string}"/>
+										</view>
+									</view>
+								</view>
+								<view name="MarketingView" width="${classroot.featureWidth - 55}">
+									<simplelayout axis="y" spacing="10" />
+									<text x="10" text="${shellResourceBundle.gsMarketingTitle1.string}" fontsize="18" />
+									<view name="targetedAd" x="10" >
+										<simplelayout axis="x" spacing="15" />
+										<wcfVideoButton name="gsVideoThumb" resource="gsVideoThumb" videoLink="demo/WebIntro/WebIntro.html?noframes=true" yoffset="3"/>
+										<view>
+											<simplelayout/>
+											<text text="${shellResourceBundle.gsMarketingTitle2.string}" />
+											<text width="${classroot.featureTextWidth}" multiline="true" text="${shellResourceBundle.gsMarketingTitle3.string}" />
+											<wcfHelpLinkText name="gsLearnMore" helpLink="concepts/csbwebacts.htm" width="${classroot.featureTextWidth}" text="${shellResourceBundle.gsLearnMore.string}"/>
+										</view>
+									</view>
+									<view height="10" />
+									<view name="behavioralMarketing" x="10" >
+										<simplelayout axis="x" spacing="15" />
+										<wcfVideoButton name="gsVideoThumb" resource="gsVideoThumb" videoLink="demo/DialogIntro/DialogIntro.html?noframes=true" yoffset="3"/>
+										<view>
+											<simplelayout/>
+											<text text="${shellResourceBundle.gsMarketingTitle4.string}" />
+											<text width="${classroot.featureTextWidth}" multiline="true" text="${shellResourceBundle.gsMarketingTitle5.string}" />
+											<wcfHelpLinkText name="gsLearnMore" helpLink="concepts/csbdiaacts.htm" width="${classroot.featureTextWidth}" text="${shellResourceBundle.gsLearnMore.string}"/>
+										</view>
+									</view>
+									<view height="10" />
+									<view  name="abTesting" x="10" >
+										<simplelayout axis="x" spacing="15" />
+										<wcfVideoButton name="gsVideoThumb" resource="gsVideoThumb" videoLink="demo/Experiment/Experiment.html?noframes=true" yoffset="3"/>
+										<view>
+											<simplelayout/>
+											<text text="${shellResourceBundle.gsMarketingTitle6.string}" />
+											<text width="${classroot.featureTextWidth}" multiline="true" text="${shellResourceBundle.gsMarketingTitle7.string}" />
+											<wcfHelpLinkText name="gsLearnMore" helpLink="concepts/csbexpoverview.htm" width="${classroot.featureTextWidth}" text="${shellResourceBundle.gsLearnMore.string}"/>
+										</view>
+									</view>
+									<view height="10" />
+								</view>
+							</view>						
+						</view>
+					</view>
+					<view name="resourceView" stretches="width" width="${classroot.featureWidth - 15 }" height="${parent.ManagementCenterView.height > this.content.height + 20 ? (parent.ManagementCenterView.height > classroot.content.innerContent.height ? parent.ManagementCenterView.height: classroot.content.innerContent.height) : (this.content.height + 20  > classroot.content.innerContent.height ? this.content.height + 20 : classroot.content.innerContent.height) }" bgcolor="#E0E0E0">
+						<view resource="gsPartnerColShadow" stretches="height" />
+						<view name="content" x="20" y="20">
+							<simplelayout axis="y" spacing="5" />
+							<text x="15" text="${shellResourceBundle.gsResourcesTitle1.string}" fontsize="21" />
+							<view name="paternerSolutions" x="10" width="${classroot.featureWidth - 90}" yoffset="20" >
+								<view width="${parent.width}" height="${parent.paternerContentView.height}">
+									<stableborderlayout axis="y" />
+									<view name="top" width="${classroot.featureWidth - 90}">
+										<stableborderlayout axis="x"/>
+										<view resource="gsPartnerTopLeft" />
+										<view resource="gsPartnerTopMiddle" stretches="width" />
+										<view resource="gsPartnerTopRight" />
+									</view>
+									<view name="middle" width="${classroot.featureWidth - 90}" >
+										<stableborderlayout axis="x"/>
+										<view resource="gsPartnerMiddleLeft" stretches="height" height="${parent.parent.height - parent.parent.top.height - parent.parent.bottom.height}"/>
+										<view resource="gsPartnerCenter" stretches="both" height="${parent.parent.height - parent.parent.top.height - parent.parent.bottom.height}"/>
+										<view resource="gsPartnerMiddleRight" stretches="height" height="${parent.parent.height - parent.parent.top.height - parent.parent.bottom.height}"/>
+									</view>
+									<view name="bottom" width="${classroot.featureWidth - 90}">
+										<stableborderlayout axis="x"/>
+										<view resource="gsPartnerBottomLeft" />
+										<view resource="gsPartnerBottomMiddle" stretches="width" />
+										<view resource="gsPartnerBottomRight" />
+									</view>
+								</view>
+								<view name="paternerContentView" width="${classroot.featureWidth - 90}">
+									<simplelayout spacing="10"/>
+									<view height="45" />
+									<wcfHelpLinkText underlineOnMouseOver="true" x="20" name="partnerSolutions" helpLinkTopicPath="/topic/com.ibm.commerce.admin.doc/" helpLink="concepts/cwnISVsummary.htm" width="${classroot.featureWidth - 130}" text="${shellResourceBundle.gsResourcesTitle2.string}" fontsize="18" fgcolor="#003399"/>
+									<text x="20" multiline="true" width="${classroot.featureWidth - 130}" text="${shellResourceBundle.gsResourcesTitle3.string}" />
+									<view height="25" />
+								</view>
+							</view>
+							<view height="3" />
+							<view name="onlineHelp">
+								<simplelayout/>
+								<wcfHelpLinkText underlineOnMouseOver="true" x="30" name="onlineHelp" helpLink="concepts/ctfcmc.htm" width="${classroot.featureWidth - 130}" text="${shellResourceBundle.gsResourcesTitle4.string}" fontsize="18" fgcolor="#003399"/>
+								<view height="5" />
+								<text x="30" multiline="true" width="${classroot.featureWidth - 130}" text="${shellResourceBundle.gsResourcesTitle5.string}" />
+							</view>
+							<view height="20" />
+							<view name="faq">
+								<simplelayout/>
+								<wcfHelpLinkText underlineOnMouseOver="true" x="30" name="faq" helpLink="refs/rtfcmc_faq.htm" width="${classroot.featureWidth - 130}" text="${shellResourceBundle.gsResourcesTitle6.string}" fontsize="18" fgcolor="#003399"/>
+								<view height="5" />
+								<text x="30" multiline="true" width="${classroot.featureWidth - 130}" text="${shellResourceBundle.gsResourcesTitle7.string}" />
+							</view>
+							<view height="20" />
+							<view name="education">
+								<simplelayout/>
+								<wcfHelpLinkText underlineOnMouseOver="true" x="30" name="education" helpLinkTopicPath="/topic/com.ibm.iea.wcs/" helpLink="plugin_coverpage.html" width="${classroot.featureWidth - 130}" text="${shellResourceBundle.gsResourcesTitle8.string}" fontsize="18" fgcolor="#003399"/>
+								<view height="5" />
+								<text x="30" multiline="true" width="${classroot.featureWidth - 130}" text="${shellResourceBundle.gsResourcesTitle9.string}" />
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+
+
+				<view name="gsVScrollBottom" bgcolor="white"
+					x="${classroot.content.innerContent.vScroll.x}"
+					y="${classroot.content.innerContent.vScroll.y + classroot.content.innerContent.vScroll.height}"
+					height="${classroot.content.innerContent.hScroll.height}"
+					width="${classroot.content.innerContent.vScroll.width}"
+					visible="${classroot.content.innerContent.vScroll.visible &amp;&amp; classroot.content.innerContent.hScroll.visible}" />
+						
+				<wcfVerticalScrollbar name="vScroll" scrolltarget="parent.clipView.gsView"
+						x="${parent.clipView.x + parent.clipView.width - this.width}"
+						y="${parent.clipView.y}"
+						height="${parent.clipView.height + 1}"
+						visible="${this.scrollable}" />
+						
+				<wcfHorizontalScrollbar name="hScroll" scrolltarget="parent.clipView.gsView"
+						x="${parent.clipView.x}"
+						y="${parent.clipView.y + parent.clipView.height}"
+						width="${parent.clipView.width + 1}"
+						visible="${this.scrollable}" />
+			</view>
+		</view>
+	</class>
+	
+	<!---
+		@keywords private
+		
+		This class implements the buttons in Management Center getting started videos.
+	-->
+	<class name="wcfVideoButton" extends="wcfFocusableBaseButton" doesenter="true" >
+		<wcfTooltip name="videoInfo" 
+				text="${shellResourceBundle.gsPlayVideo.string}" 
+				extendedText="${shellResourceBundle.gsPlayVideo.string}" />
+				
+		<!--- @keywords private -->
+		<attribute name="videoLink" type="string" />
+	
+		<!--- @keywords private -->
+		<handler name="onclick">
+			<![CDATA[
+			if (this.videoLink != "") {
+				helpManager.openVideoLink(this.videoLink);
+			}
+			]]>
+		</handler>
+	</class>
+	
+</library>

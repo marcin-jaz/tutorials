@@ -1,0 +1,259 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<library>
+	<!-- Custom client action to archive promotion objects. -->
+	<class name="proArchivePromotionClientAction" extends="wcfClientAction" 
+			allowMultipleSelection="true">
+		
+		<!---
+			Archive the promotion client objects.
+			
+			@param wcfModelObject[] objects A list of selected promotion objects to be archived.
+		-->	
+		<method name="performAction" args="objects">
+			<![CDATA[
+				if (objects && objects.length > 0) {
+					var objectsDirty = false;
+					for (var i = 0; i < objects.length; i++) {
+						var o = objects[i];
+						if (o.isOpenGroupDirty(true)) {
+							objectsDirty = true;
+							break;
+						}
+					}
+					
+					if (!objectsDirty) {
+						if (objects.length == 1) {
+							proArchivePromotionConfirmationDialog.openArchivePromotionConfirmationDialog(objects[0]);
+						} else {
+							proMultipleArchivePromotionConfirmationDialog.openMultipleArchivePromotionConfirmationDialog(objects);
+						}
+					} else {
+						wcfClientActionUnsavedDialog.openClientActionUnsavedDialog(this);
+					}
+				}
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			Returns true if the context is not read only.
+			
+			@param wcfModelObject o: the object on which you want to perform this client action
+			@return boolean: true if the client action is enabled
+		-->
+		<method name="isEnabled" args="o">
+			<![CDATA[
+			var enabled = super.isEnabled(o);
+			if (enabled && o.model.oEditor.respectWorkspaceContext) {
+				var readOnlyModeContextValue = wcfContextUtil.findContextValue(null, "readOnlyMode");				
+				enabled = (readOnlyModeContextValue.value != "true");
+			}
+			if (enabled && o.isContextReadOnly()) {
+				enabled = false;
+			}
+			return enabled;
+			]]>
+		</method>
+	</class>
+	
+	<!---
+		The promotion archive confirmation dialog. This dialog is used to prompt the user to archive a promotion object before archiving it.
+	-->
+	<wcfAlertDialog id="proArchivePromotionConfirmationDialog" showOK="false" showYes="true" showNo="true">
+		
+		<!-- 
+			Business Object Editor of the promotion object to be archived
+		 -->
+		<attribute name="oEditor" value="null"/>
+		
+		<!--
+			 The Promotion Object to be archived
+		-->
+		<attribute name="object" value="null"/>
+		
+		<!---
+			Confirm that the specified promotion object can be archived.
+			@param wcfModelObject object: the promotion object to be archived
+		-->
+		<method name="openArchivePromotionConfirmationDialog" args="object">
+			<![CDATA[
+			this.openWindow();
+			this.object = object;
+			this.oEditor = object.model.oEditor;
+			this.setAttribute("promptText", promotionResources.replaceValues("archiveConfirmationDialogText", [object.objectDisplayName]));
+			]]>
+		</method>
+		
+		<!---
+			Set the focus to Yes button
+		-->
+		<method name="setInitialFocus" args="e=null">
+			<![CDATA[
+			lz.Focus.setFocus(this.viewButtons.yesBtn);
+			]]>
+		</method>
+		
+		<!---
+			Restore focus after close.
+		-->
+		<method name="restoreFocus">
+			<![CDATA[
+			super.restoreFocus();
+			if (lz.Focus.getFocus() == null) {
+				this.oEditor.restoreFocus();
+			}
+			]]>
+		</method>
+		
+		<!---
+			Close the dialog.
+		-->
+		<method name="closeWindow">
+			<![CDATA[
+			super.closeWindow();
+			this.oEditor = null;
+			this.object = null;
+			]]>
+		</method>
+		
+	    <!---
+	    	Archive the promotion object upon user's confirmation.
+	    -->
+		<method name="handleYes">
+			<![CDATA[
+			if (wcfEventTimer.enabled) wcfEventTimer.start("proArchivePromotionConfirmationDialog handleYes");
+			var o = this.object;
+			if (wcfEventTimer.enabled) wcfEventTimer.appendMsg(o.objectDisplayName);
+			proArchivePromotionService.doRequest(o);
+			if (wcfEventTimer.enabled) wcfEventTimer.end();
+			]]>
+		</method>
+	</wcfAlertDialog>
+	
+	<!---
+		The promotion archive confirmation dialog for multi-select. 
+		This dialog is used to prompt the user to archive a list of promotion objects before archiving it.
+		@param wcfModelObject objects: a list of promotion objects to be archived
+	-->
+	<wcfListAlert id="proMultipleArchivePromotionConfirmationDialog" showOK="false" showYes="true" showNo="true"
+		promptText="${promotionResources.archiveMultipleConfirmationDialogText.string}">
+		
+		<!--- 
+			A list of promotion objects that are to be archived. 
+		 -->
+		<attribute name="objects" value="null"/>
+		
+		<!-- 
+			Business Object Editor of the promotion object to be archived
+		 -->
+		<attribute name="oEditor" value="null"/>
+		
+		<!---
+			Confirm that the specified promotion objects can be archived in the case of a multi-select.
+			@param array objects: an array of promotion objects to be archived
+		 -->
+		<method name="openMultipleArchivePromotionConfirmationDialog" args="objects">
+			<![CDATA[
+			this.objects = objects;
+			this.oEditor = objects[0].model.oEditor;
+			this.openListAlertDialog(this.objects);
+			]]>
+		</method>
+		
+		<!---
+			Restore focus after close.
+		-->
+		<method name="restoreFocus">
+			<![CDATA[
+			super.restoreFocus();
+			if (lz.Focus.getFocus() == null) {
+				this.oEditor.restoreFocus();
+			}
+			]]>
+		</method>
+		
+		<!---
+			Close multiple delete confirmation dialog.
+		-->
+		<method name="closeWindow">
+			<![CDATA[
+			super.closeWindow();
+			this.objects = null;
+			this.oEditor = null;
+			]]>
+		</method>
+		
+	    <!---
+	    	Archive the promotion objects upon user's confirmation.
+	    -->
+		<method name="handleYes">
+			<![CDATA[
+			if (wcfEventTimer.enabled) wcfEventTimer.start("proMultipleArchivePromotionConfirmationDialog handleYes");
+			for (var i = 0; i < this.objects.length; i++) {
+				var o = this.objects[i];
+				if (wcfEventTimer.enabled) wcfEventTimer.appendMsg(o.objectDisplayName);
+				proArchivePromotionService.doRequest(o);
+			}
+			if (wcfEventTimer.enabled) wcfEventTimer.end();
+			]]>
+		</method>
+		
+	</wcfListAlert>
+	
+	<!-- Archive Promotion Service -->
+	<wcfService id="proArchivePromotionService"
+		url="/cmc/ArchivePromotion"
+		transactionService="true">
+
+		<!---
+			The display name for this service.
+		-->
+		<attribute name="displayName" type="string" value="${promotionResources.promotionList_archive_displayName.string}"/>
+		
+		<!--
+			The parameters for this service. 
+		-->
+		<wcfServiceParam name="storeId" parameterName="storeId">
+			<wcfEnablementCondition checkObjectDefinition="true" conditionId="promotionCondition" enablementValue="Promotion" propertyName="objectType"/>
+		</wcfServiceParam>
+		<wcfServiceParam name="parentStoreId" parameterName="storeId" propertyName="objectStoreId">
+			<wcfEnablementCondition checkObjectDefinition="true" conditionId="promotionCondition" enablementValue="InheritedPromotion" propertyName="objectType"/>
+		</wcfServiceParam>
+		<wcfServiceParam name="promotionId" propertyName="promotionId"/>
+		
+		<!---
+			@keywords private
+			This method is called when this custom service completed successfully.
+			If you want to perform additional logic after the service has completed,
+			override this method.
+			
+			@param wcfModelObject requestParent: the object on which this custom service was performed
+		-->
+		<method name="handleServiceSuccess" args="requestParent">
+			<![CDATA[
+				super.handleServiceSuccess(requestParent);
+				var msg;
+				var messageType = "customServiceSuccessful" + "_" + this.displayName + "_" + requestParent.openGroupObject.objectDefinition.displayName;
+				var msgCount = 1 + wcfServiceTransactionUtil.getTransactionEventMessageCount(requestParent.transaction, messageType);
+				if (msgCount == 1) {
+					msg = foundationResources.replaceValues("customServiceSuccessful", [this.displayName, requestParent.openGroupObject.objectDefinition.displayName, requestParent.openGroupObject.objectDisplayName]);
+				}else{
+					msg = foundationResources.replaceValues("multiCustomServiceSuccessful", [this.displayName, msgCount, requestParent.openGroupObject.objectDefinition.displayName]);
+				}
+				wcfServiceTransactionUtil.setTransactionEventMessage(requestParent.transaction, messageType, msg); 
+			]]>
+		</method>
+	</wcfService>
+</library>

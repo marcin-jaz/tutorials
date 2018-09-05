@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<struts-config>
+<!-- Forwards for mobile commerce pages-->
+<global-forwards>
+
+<!-- Main StoreView redirect to mobile commerce, deviceID=-11 -->
+<forward name="StoreView/10051/-11" path="/mobile/mobileHome.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+
+<forward name="mStoreView/10051" path="/mobile/mobileHome.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mIndex/10051" path="/mobile/mobileHome.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mTopCategoriesDisplayView/10051" path="/mobile/ShoppingArea/CatalogSection/CategorySubsection/TopCategoriesDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mCategoriesDisplayView/10051" path="/mobile/ShoppingArea/CatalogSection/CategorySubsection/CategoriesDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mProductDisplayView/10051" path="/mobile/ShoppingArea/CatalogSection/CatalogEntrySubsection/ProductDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mCatalogSearchResultView/10051" className="com.ibm.commerce.struts.ECActionForward" path="/mobile/ShoppingArea/CatalogSection/SearchSubsection/CatalogSearchResultDisplay.jsp">
+</forward>
+<forward name="mInterestListDisplay/10051" path="/mobile/UserArea/AccountSection/ServiceSection/InterestItemListSubsection/WishListDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mAddToProdCompare/10051" path="/mobile/ShoppingArea/CatalogSection/CatalogEntrySubsection/AddToProductCompare.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mProductCompareResultView/10051" path="/mobile/ShoppingArea/CatalogSection/CatalogEntrySubsection/ProductCompareResultGridDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mRemoveFromProdCompare/10051" path="/mobile/ShoppingArea/CatalogSection/CatalogEntrySubsection/RemoveFromProductCompare.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="MobileLogonForm/10051" path="/mobile/UserArea/AccountSection/LogonSubsection/logon.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="MobileUserRegistrationAddForm/10051" path="/mobile/UserArea/AccountSection/RegistrationSubsection/UserRegistrationAddForm.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="MobileUserRegistrationUpdate/10051" path="/mobile/UserArea/AccountSection/RegistrationSubsection/UserRegistrationUpdate.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mMyAccountDisplay/10051" path="/mobile/UserArea/AccountSection/MyAccountDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mOrderHistory/10051" path="/mobile/ShoppingArea/OrderSection/OrderHistory.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mStoreLocatorView/10051" path="/mobile/StoreLocatorArea/StoreLocator.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mStoreLocatorSearchView/10051" path="/mobile/StoreLocatorArea/StoreLocatorSearch.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mStoreLocatorResultView/10051" path="/mobile/StoreLocatorArea/StoreLocatorResults.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mStoreDetailView/10051" path="/mobile/StoreLocatorArea/StoreDetails.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mStoreMapView/10051" path="/mobile/StoreLocatorArea/StoreMap.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mSelectedStoreListView/10051" path="/mobile/StoreLocatorArea/SelectedStoreList.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mAddToStoreList/10051" path="/mobile/StoreLocatorArea/AddToStoreList.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mRemoveFromStoreList/10051" path="/mobile/StoreLocatorArea/RemoveFromStoreList.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mSaveStoreSelection/10051" path="/mobile/StoreLocatorArea/SaveStoreSelection.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mInStoreAvailabilityDetailsView/10051" path="/mobile/StoreLocatorArea/InStoreAvailabilityDetails.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mOrderDetails/10051" path="/mobile/ShoppingArea/OrderSection/OrderDetails.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mOrderItemDisplay/10051" path="/mobile/ShoppingArea/ShopcartSection/OrderItemDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mOrderBillingDetails/10051" path="/mobile/ShoppingArea/CheckoutSection/OrderBillingDetails.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mOrderBillingAddressSelection/10051" path="/mobile/ShoppingArea/CheckoutSection/OrderBillingAddressSelection.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mOrderPaymentDetails/10051" path="/mobile/ShoppingArea/CheckoutSection/OrderPaymentDetails.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mCheckoutLogon/10051" path="/mobile/UserArea/AccountSection/LogonSubsection/CheckoutLogon.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mEmailWishlistDisplay/10051" path="/mobile/UserArea/AccountSection/ServiceSection/InterestItemListSubsection/EmailWishlist.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mSendWishListMessage/10051" path="/mobile/UserArea/AccountSection/ServiceSection/InterestItemListSubsection/EmailWishListConfirmationDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mContactUs/10051" path="/mobile/StoreInfoArea/ContactUsDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mPrivacyPolicy/10051" path="/mobile/StoreInfoArea/PrivacyDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mLanguageCurrencyDisplay/10051" path="/mobile/UserArea/LanguageCurrencyDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mResetPassword/10051" path="/mobile/UserArea/AccountSection/PasswordSubsection/PasswordResetForm.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mResetPasswordDisplay/10051" path="/mobile/UserArea/AccountSection/PasswordSubsection/PasswordResetDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mMySubscriptionDisplay/10051" path="/mobile/UserArea/AccountSection/RegistrationSubsection/MySubscriptionDisplayForm.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mAdvancedSearchDisplay/10051" path="/mobile/ShoppingArea/CatalogSection/SearchSubsection/CatalogSearchForm.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mOrderShippingBillingSummaryView/10051" path="/mobile/ShoppingArea/OrderSection/OrderSummaryDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="mOrderShippingBillingConfirmationView/10051" path="/mobile/ShoppingArea/OrderSection/OrderConfirmationDisplay.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+
+<!-- Error pages for mobile commerce, deviceID=-11 -->
+
+<forward name="ChangePassword/10051/-11" path="/mobile/UserArea/AccountSection/PasswordSubsection/PasswordUpdateForm.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="ReLogonFormView/10051/-11" path="/mobile/UserArea/AccountSection/LogonSubsection/UserTimeoutView.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="RememberMeLogonFormView/10051/-11" path="/mobile/UserArea/AccountSection/LogonSubsection/logon.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="AccessControlErrorView/10051/-11" path="/mobile/GenericError.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="GenericApplicationError/10051/-11" path="/mobile/GenericError.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="GenericSystemError/10051/-11" path="/mobile/GenericError.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="PreviewExclusionView/10051/-11" path="/mobile/GenericError.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="OrderProcessErrorView/10051/-11" path="/mobile/GenericError.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="RLBadPartNumberErrorView/10051/-11" path="/mobile/GenericError.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="RLInvalidInputErrorView/10051/-11" path="/mobile/GenericError.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="CookieErrorView/10051/-11" path="/mobile/GenericError.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="InactiveActivityTokenErrorView/10051/-11" path="/mobile/UserArea/AccountSection/LogonSubsection/UserTimeoutView.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="ProhibitedCharacterErrorView/10051/-11" path="/mobile/GenericError.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+<forward name="CrossSiteRequestForgeryErrorView/10051/-11" path="/mobile/GenericError.jsp" className="com.ibm.commerce.struts.ECActionForward">
+</forward>
+
+</global-forwards>
+
+<!-- Actions mappings for  mobile commerce pages-->
+<action-mappings type="com.ibm.commerce.struts.ECActionMapping">
+<action path="/mStoreView" type="com.ibm.commerce.struts.BaseAction">
+		 <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mIndex" type="com.ibm.commerce.struts.BaseAction">
+		 <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mTopCategoriesDisplayView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mCategoriesDisplayView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mProductDisplayView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mCatalogSearchResultView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mInterestListDisplay" type="com.ibm.commerce.struts.BaseAction">
+</action>
+<action path="/mAddToProdCompare" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mProductCompareResultView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mRemoveFromProdCompare" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/MobileLogonForm" type="com.ibm.commerce.struts.BaseAction">
+</action>
+<action path="/MobileUserRegistrationAddForm" type="com.ibm.commerce.struts.BaseAction">
+</action>
+<action path="/MobileUserRegistrationUpdate" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="https" value="0:1"/>
+</action>
+<action path="/mMyAccountDisplay" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mOrderHistory" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="https" value="0:1"/>
+</action>
+<action path="/mStoreLocatorView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mStoreLocatorSearchView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mStoreLocatorResultView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mStoreDetailView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mStoreMapView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mSelectedStoreListView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mAddToStoreList" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mRemoveFromStoreList" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mSaveStoreSelection" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mInStoreAvailabilityDetailsView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mOrderDetails" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="https" value="0:1"/>
+</action>
+<action path="/mOrderItemDisplay" type="com.ibm.commerce.struts.BaseAction">
+</action>
+<action path="/mOrderBillingDetails" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="https" value="0:1"/>
+</action>
+<action path="/mOrderBillingAddressSelection" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="https" value="0:1"/>
+</action>
+<action path="/mOrderPaymentDetails" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="https" value="0:1"/>
+</action>
+<action path="/mCheckoutLogon" type="com.ibm.commerce.struts.BaseAction">
+</action>
+<action path="/mEmailWishlistDisplay" type="com.ibm.commerce.struts.BaseAction">
+</action>
+<action path="/mSendWishListMessage" type="com.ibm.commerce.struts.BaseAction">
+</action>
+<action path="/mContactUs" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mPrivacyPolicy" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mLanguageCurrencyDisplay" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mResetPassword" type="com.ibm.commerce.struts.BaseAction">
+</action>
+<action path="/mResetPasswordDisplay" type="com.ibm.commerce.struts.BaseAction">
+</action>
+<action path="/mMySubscriptionDisplay" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="https" value="0:1"/>
+</action>
+<action path="/mAdvancedSearchDisplay" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mOrderShippingBillingConfirmationView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="https" value="0:1"/>
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+<action path="/mOrderShippingBillingSummaryView" type="com.ibm.commerce.struts.BaseAction">
+		  <set-property property="https" value="0:1"/>
+		  <set-property property="credentialsAccepted" value="0:P"/>
+</action>
+</action-mappings>
+</struts-config>

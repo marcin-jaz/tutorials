@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("pastefromword","ar",{confirmCleanup:"يبدو أن النص الذي تريد لصقه تم نسخه من Word. هل تريد مسحه قبل اللصق؟",error:"ليس ممكنا مسح البيانات التي تم لصقها لحدوث خطأ داخلي",title:"لصق خاص",toolbar:"لصق خاص"});

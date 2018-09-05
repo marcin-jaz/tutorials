@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<BusinessObjectEditor definitionName="plmPageComposer"
+		displayName="${shellResourceBundle.pageComposerDisplayName}"
+		browseUtilityFilterTypes="StorePagesFilter,LayoutsFilter,AttachmentResourceFilter,MarketingFilter,MasterCatalog,MasterCategories,SalesCategoriesWithDynamic,ManagedContentsFilter,AttributeAttributeDictionaryFilter"
+		explorerFilterTypes="StorePagesAndLayoutsFilter,StorePagesFilter,LayoutsFilter"
+		multipleInputLanguages="true"
+		gettingStartedPageClass="plmPageLayoutGettingStartedPage"
+		helpLink="concepts/cpzpagecomptool.htm">
+			
+		<!-- Filters -->
+		<ObjectTypeFilter baseDefinitionName="plmStorePagesAndLayoutsFilter" isDefault="true"/>
+		<ObjectTypeFilter baseDefinitionName="plmStorePagesFilter"/>
+		<ObjectTypeFilter baseDefinitionName="plmLayoutsFilter"/>
+		<ObjectTypeFilter baseDefinitionName="mktMarketingExplorerWithoutSearchFilter"/>
+		<ObjectTypeFilter baseDefinitionName="mktMarketingExplorerWithSearchFilter"/>
+		<ObjectTypeFilter baseDefinitionName="catMasterCatalogGroupsFilter"/>
+		<ObjectTypeFilter baseDefinitionName="catMasterCatalogFilter"/>
+		<ObjectTypeFilter baseDefinitionName="catSalesCatalogGroupsAllowStorefrontAssetStoreFilter"/>
+		<ObjectTypeFilter baseDefinitionName="catSalesCatalogGroupsFilterWithDynamic"/>
+		<ObjectTypeFilter baseDefinitionName="attManagedContentsFilter"/>
+		<ObjectTypeFilter baseDefinitionName="attAttachmentResourceFilter"/>
+		<ObjectTypeFilter baseDefinitionName="mktAttributeAttributeDictionaryFilter"/>
+				
+
+		<!-- Page Layout Organizational Objects -->
+		<TopObjectDefinition baseDefinitionName="plmPageLayoutTopObjectDefinition"/>
+		<OrganizationalObjectDefinition baseDefinitionName="ContentPagesTop"/>
+		<OrganizationalObjectDefinition baseDefinitionName="StorePageLayoutsTop"/>
+		
+		<!-- Page Layout Primary objects -->
+		<PrimaryObjectDefinition baseDefinitionName="PageLayout"/>
+				
+		<!-- Content Pages Primary objects -->
+		<PrimaryObjectDefinition baseDefinitionName="ContentPage"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedContentPage"/>
+		
+		<!-- Catalog Page Primary Objects -->
+		<PrimaryObjectDefinition baseDefinitionName="PageLayoutCatalog"/>
+		<PrimaryObjectDefinition baseDefinitionName="CatalogGroupBrowsingPage"/>
+		<PrimaryObjectDefinition baseDefinitionName="CatalogGroupSKUBrowsingPage"/>	
+		<PrimaryObjectDefinition baseDefinitionName="ProductBrowsingPage"/>
+		<PrimaryObjectDefinition baseDefinitionName="BundleBrowsingPage"/>
+		<PrimaryObjectDefinition baseDefinitionName="KitBrowsingPage"/> 
+		<PrimaryObjectDefinition baseDefinitionName="DynamicKitBrowsingPage"/> 
+		<PrimaryObjectDefinition baseDefinitionName="PredDynaKitBrowsingPage"/> 
+		<PrimaryObjectDefinition baseDefinitionName="ProductSKUBrowsingPage"/>
+		<PrimaryObjectDefinition baseDefinitionName="PageLayoutSalesCatalog" />
+
+		<PrimaryObjectDefinition baseDefinitionName="InheritedPageLayoutCatalog"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedCatalogGroupBrowsingPage"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedCatalogGroupSKUBrowsingPage"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedProductBrowsingPage"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedBundleBrowsingPage"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedKitBrowsingPage"/> 
+		<PrimaryObjectDefinition baseDefinitionName="InheritedDynamicKitBrowsingPage"/> 
+		<PrimaryObjectDefinition baseDefinitionName="InheritedPredDynaKitBrowsingPage"/> 
+		<PrimaryObjectDefinition baseDefinitionName="InheritedProductSKUBrowsingPage"/>
+		<PrimaryObjectDefinition baseDefinitionName="InheritedPageLayoutSalesCatalog"/>
+		
+		<!-- Primary Objects for folders -->              
+		<PrimaryObjectDefinition baseDefinitionName="LayoutFolder"/>              
+		<PrimaryObjectDefinition baseDefinitionName="InheritedLayoutFolder"/>
+		<PrimaryObjectDefinition baseDefinitionName="ContentPageFolder"/>              
+		<PrimaryObjectDefinition baseDefinitionName="InheritedContentPageFolder"/>
+		
+		<!-- Page Layout Search Definitions -->
+		<SearchDefinition baseDefinitionName="FindStorePageLayouts" isDefault="true"/>
+		
+		<!-- Content page Search Definitions -->
+		<SearchDefinition baseDefinitionName="FindContentPages"/>
+
+		<!-- Catalog page Search Definitions -->
+		<SearchDefinition baseDefinitionName="FindCategoryBrowsingPages"/>			
+		<SearchDefinition baseDefinitionName="FindCatalogEntryBrowsingPages"/>
+
+	</BusinessObjectEditor>
+	
+</Definitions>

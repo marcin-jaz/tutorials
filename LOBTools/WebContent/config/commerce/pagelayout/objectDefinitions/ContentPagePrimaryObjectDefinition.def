@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<PrimaryObjectDefinition definitionName="plmBaseContentPagePrimaryObjectDefinition" 
+		isBaseDefinition="true"
+		displayNameProperty="name" 
+		idProperty="pageId"
+		searchType="FindContentPages"
+		propertiesDefinitionName="plmContentPageProperties" 
+		objectGroups="ContentPageAlias, PageAlias"
+		newDisplayName="${plmPageLayoutResources.contentPage_newDisplayName}"
+		displayName="${plmPageLayoutResources.contentPage_DisplayName}"
+		newObjectMenuItemText="${plmPageLayoutResources.action_new_content_page}"
+		writeUsage="IBM_ManagePageComposerTool">
+
+		<PropertyDefinition displayName="${plmPageLayoutResources.pageNamePrompt}" maximumSize="254" propertyName="name" type="string" required="true"/>
+		<PropertyDefinition propertyName="urlConfigurable" copyProtected="true"/>
+
+		<ChildObjectDefinition baseDefinitionName="plmContentPageBaseSeoAttributes"/>
+		<ChildObjectDefinition baseDefinitionName="plmInheritedContentPageBaseSeoAttributes"/>
+		<ChildObjectDefinition baseDefinitionName="plmContentPageBaseSeoURL"/>		
+		<ChildObjectDefinition baseDefinitionName="plmInheritedContentPageBaseSeoURL"/>
+
+		
+		<!---  
+			Retrieves the {@link plmContentPageBaseSeoAttributes}, and
+			{@link plmContentPageBaseSeoURL} child objects for a Content Page.
+		-->
+		<GetChildrenService objectTypes="ContentPageBaseSeoAttributes,InheritedContentPageBaseSeoAttributes,ContentPageBaseSeoURL,InheritedContentPageBaseSeoURL"
+			url="/cmc/GetContentPageSeoProperties">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="contentPageId" propertyName="pageId"/>
+			<ServiceParam name="defaultLanguageId"/>
+		</GetChildrenService>     
+	
+		<!--- Retrieves the {@link PageLayout page layouts} assigned to this content page. -->
+		<GetReferencesService primaryObjectTypes="PageLayout, InheritedPageLayout" referenceObjectTypes="LayoutLocationPageReferenceAlias" 
+			url="/cmc/GetPageLayoutByPage">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="assetStoreId"/>
+			<ServiceParam name="objectStoreId" propertyName="objectStoreId"/>
+			<ServiceParam name="pageId" propertyName="pageId"/>
+			<ServiceParam name="pageGroup" propertyName="pageGroup"/>
+		</GetReferencesService>
+		
+		<!--- Retrieves the {@link ContentPageFolder folders} for this content page. -->
+		<GetReferencesService primaryObjectTypes="ContentPageFolder,InheritedContentPageFolder" referenceObjectTypes="ContentPageFolderItemReference,ContentPageFolderInheritedItemReference,InheritedContentPageFolderInheritedItemReference" url="/cmc/GetFolderReferences">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="referenceId" propertyName="pageId"/>
+			<ServiceParam name="objectStoreId" parameterName="objectStoreId" propertyName="objectStoreId" />
+			<ServiceParam name="folderObjectType" value="ContentPageFolder"/>
+			<ServiceParam name="folderItemType" value="PageType"/>
+		</GetReferencesService>
+		
+		<!--
+			Refresh Service to refresh this page . Calling this will
+			fetch the content page's details again from the server.
+		-->
+		<RefreshService url="/cmc/GetContentPageById"> 
+			<ServiceParam name="storeId"/> 
+			<ServiceParam name="assetStoreId"/>
+			<ServiceParam name="contentPageId" propertyName="pageId"/> 
+		</RefreshService>
+		
+		<!--- This navigation list definition is used to display the layout assignments underneath content page. -->	
+		<NavigationListDefinition name="ContentPageAssignmentChildList"
+			displayName="${plmPageLayoutResources.navigation_layoutAssignmentListPrompt}"
+		 	isDefault="true"
+		 	listDefinitionName="plmPageLayoutReferenceList" 
+		 	toolbarIcon="listToolbarIcon"
+		 	listTitle="${plmPageLayoutResources.navigation_layoutAssignmentPrompt}" />
+		
+		<!--- This navigation list definition is used to display the layout assignments underneath content page as a calendar view. -->
+		<NavigationListDefinition name="ContentPagePageAssignmentGanttChildList"
+			displayName="${plmPageLayoutResources.pageLayoutsGanttChartMenuTitle}"
+		 	listDefinitionName="plmPageLayoutGanttReferenceList" 
+		 	listTitle="${plmPageLayoutResources.pageLayoutsGanttChartTitle}"
+		 	toolbarIcon="ganttChartToolbarIcon" />	
+		
+		<!---  
+			Retrieves the SEO URL for content page.
+		-->				
+		<GetPreviewURLService url="/cmc/GetContentPagePreviewUrl">
+			<ServiceParam name="storeId" />
+			<ServiceParam name="pageUsage" value="StaticPages"/>
+			<ServiceParam name="contentPageId" propertyName="pageId" />
+		</GetPreviewURLService>	
+		
+		
+		<DeleteService url="/cmc/DeleteContentPage">
+			<ServiceParam name="storeId" propertyName="objectStoreId"/>
+			<ServiceParam name="pageId" propertyName="pageId" />
+		</DeleteService>
+		
+		<UpdateService url="/cmc/UpdateContentPage">
+			<ServiceParam name="storeId" propertyName="objectStoreId"/>
+			<ServiceParam name="pageId" propertyName="pageId" />
+			<ServiceParam name="pageName" parameterName="name" propertyName="name" />
+		</UpdateService>
+				
+		<!--- Default Values -->    
+	    <Xml name="template">
+	      	<pageGroup>Content</pageGroup>
+	      	<urlConfigurable>true</urlConfigurable>
+	    </Xml>   
+	    
+	    <!---  
+	    	New layout client action.  
+	    -->
+		<CreateNewLayoutClientAction displayName="${plmPageLayoutResources.action_new_page_layout}" package="plm" />
+	</PrimaryObjectDefinition>
+	
+	<!---		
+		This definition represents the primary object definition describing a Content Page as a business object.
+	-->
+    <PrimaryObjectDefinition definitionName="ContentPage"
+    	baseDefinitionName="plmBaseContentPagePrimaryObjectDefinition"
+     	creatable="true" 
+     	objectType="ContentPage"
+     	headerIcon="storePageHeaderIcon"
+		icon="storePageIcon">
+
+		<CreateService url="/cmc/CreateContentPage">
+			<ServiceParam name="storeId"/>
+		</CreateService>
+	</PrimaryObjectDefinition>
+
+	<!---		
+		This definition represents the primary object definition describing an Inherited Content Page as a business object.
+	-->
+    <PrimaryObjectDefinition definitionName="InheritedContentPage"
+    	baseDefinitionName="plmBaseContentPagePrimaryObjectDefinition"
+     	objectType="InheritedContentPage"
+     	creatable="false"
+	    headerIcon="inheritedStorePageHeaderIcon" 
+	    icon="inheritedStorePageIcon"
+		compatibleObjectTypes="ContentPage">	
+	</PrimaryObjectDefinition>
+
+ 	<ChildObjectDefinition definitionName="plmContentPageBaseSeoAttributes" 
+ 		baseDefinitionName="plmBaseContentPageSeoAttributes" 
+ 		objectType="ContentPageBaseSeoAttributes">
+		<TrueEnablementCondition/>
+	</ChildObjectDefinition>
+	
+	<ChildObjectDefinition definitionName="plmInheritedContentPageBaseSeoAttributes" 
+		baseDefinitionName="plmBaseContentPageSeoAttributes" 
+		creatable="false"
+		objectType="InheritedContentPageBaseSeoAttributes"
+		copyProtected="true">
+		<EnablementCondition checkHasAccessRight="true" conditionId="accessRightCondition" enablementValue="true"/>
+	</ChildObjectDefinition>
+
+	<ChildObjectDefinition definitionName="plmBaseContentPageSeoAttributes" 
+		isBaseDefinition="true" 
+		releaseWhenClosed="false" 
+		singleInstance="true">
+		<ChildObjectDefinition baseDefinitionName="plmContentPageSeoAttributes"/>
+	</ChildObjectDefinition>
+
+	<ChildObjectDefinition definitionName="plmContentPageSeoAttributes" 
+		idProperty="languageId" 
+		objectType="ContentPageSeoAttributes" 
+		languageSensitive="true" 
+		releaseWhenClosed="false">
+		<!--- 
+			Create service for updating the Search Engine Optimization (SEO) properties for a content page.
+		-->
+		<CreateService url="/cmc/CreateContentPageSeoAttributes">
+			<ServiceParam name="storeId" >
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="ContentPageBaseSeoAttributes" propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="objectStoreId" parameterName="storeId" parentProperty="true" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="InheritedContentPageBaseSeoAttributes"  propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="seoStoreId1" parameterName="seoStoreId" contextName="storeId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="ContentPageBaseSeoAttributes" propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="seoStoreId2" parameterName="seoStoreId" parentProperty="true" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="InheritedContentPageBaseSeoAttributes"  propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam> 
+			<ServiceParam name="pageId" parentProperty="true" />
+			<ServiceParam name="seoProLanguageId" propertyName="languageId" />
+			<ServiceParam name="pageType" value="Content"/>
+		</CreateService>
+		
+		<!--- 
+			Update service for updating the Search Engine Optimization (SEO) properties for a content page.
+			SEO properties can be updated/deleted in the same service call.
+		-->
+		<UpdateService url="/cmc/UpdateContentPageSeoAttributes">
+			<ServiceParam name="storeId" >
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="ContentPageBaseSeoAttributes" propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="objectStoreId" parameterName="storeId" parentProperty="true" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="InheritedContentPageBaseSeoAttributes"  propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="seoStoreId1" parameterName="seoStoreId" contextName="storeId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="ContentPageBaseSeoAttributes" propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="seoStoreId2" parameterName="seoStoreId" parentProperty="true" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="InheritedContentPageBaseSeoAttributes"  propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="pageId" parentProperty="true"/>
+			<ServiceParam name="seoProLanguageId" propertyName="languageId" />
+			<ServiceParam name="seo_title" sendEmpty="false" optional="true" propertyName="seo_title"/>
+			<ServiceParam name="seo_metadesc" sendEmpty="false" optional="true" propertyName="seo_metadesc"/>
+			<ServiceParam name="seo_metakeyword" sendEmpty="false" optional="true" propertyName="seo_metakeyword"/>
+		</UpdateService>
+			
+			
+		<!--- This property definition represents the custom title of the content page. --> 
+		<PropertyDefinition displayName="${plmPageLayoutResources.seoTitlePrompt}" maximumSize="254" propertyName="seo_title" type="string"/>
+		<!--- This property definition represents the custom meta description of the content page. -->
+		<PropertyDefinition displayName="${plmPageLayoutResources.seoMetaDescPrompt}" maximumSize="1024" propertyName="seo_metadesc" type="string"/>
+		<!--- This property definition represents the custom meta keyword of the content page. -->
+		<PropertyDefinition displayName="${plmPageLayoutResources.seoMetaKeywordPrompt}" maximumSize="254" propertyName="seo_metakeyword" type="string"/>
+		
+	    <!--- Default Values -->    
+	    <Xml name="template">
+	      	<seo_useTitleDefault>0</seo_useTitleDefault>
+			<seo_useMetaDescDefault>0</seo_useMetaDescDefault>	
+			<seo_useMetaKeywordDefault>0</seo_useMetaKeywordDefault>	
+	    </Xml>            
+	</ChildObjectDefinition>	
+	
+	<ChildObjectDefinition definitionName="plmBaseContentPageSeoURL" 
+		isBaseDefinition="true" 
+		releaseWhenClosed="false" 
+		singleInstance="true" 
+		copyProtected="true">
+		<ChildObjectDefinition baseDefinitionName="plmContentPageSeoURL"/>
+	</ChildObjectDefinition>
+
+    <ChildObjectDefinition definitionName="plmContentPageBaseSeoURL" 
+    	baseDefinitionName="plmBaseContentPageSeoURL" 
+    	objectType="ContentPageBaseSeoURL">
+		<TrueEnablementCondition/>
+	</ChildObjectDefinition>
+	
+	<ChildObjectDefinition definitionName="plmInheritedContentPageBaseSeoURL" 
+		baseDefinitionName="plmBaseContentPageSeoURL" 
+		creatable="false"
+		objectType="InheritedContentPageBaseSeoURL">
+		<EnablementCondition checkHasAccessRight="true" conditionId="accessRightCondition" enablementValue="true"/>
+	</ChildObjectDefinition>
+	
+	<ChildObjectDefinition definitionName="plmContentPageSeoURL" 
+		idProperty="languageId" 
+		objectType="ContentPageSeoURL" 
+		languageSensitive="true" 
+		releaseWhenClosed="false">
+		<!--- 
+			Create service for updating the Search Engine Optimization (SEO) URL keyword for a content page.
+		-->
+		<CreateService url="/cmc/CreateContentPageSeoURL">
+			<ServiceParam name="storeId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="ContentPageBaseSeoURL" propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="objectStoreId" parameterName="storeId" parentProperty="true" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="InheritedContentPageBaseSeoURL"  propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="seoStoreId1" parameterName="seoStoreId" contextName="storeId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="ContentPageBaseSeoURL" propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="seoStoreId2" parameterName="seoStoreId" parentProperty="true" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="InheritedContentPageBaseSeoURL"  propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="pageId" parentProperty="true" />
+			<ServiceParam name="seoURLLanguageId" propertyName="languageId" />
+			<ServiceParam name="usage" value="StaticPages"/>
+			<ServiceParam name="seo_urlkeyword" propertyName="seo_urlkeyword" optional="true" sendEmpty="false"/>
+		</CreateService>
+        
+		<!--- 
+			Update service for updating the Search Engine Optimization (SEO) URL keyword for a content page.
+		-->
+		<UpdateService url="/cmc/UpdateContentPageSeoURL">
+			<ServiceParam name="storeId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="ContentPageBaseSeoURL" propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="objectStoreId" parameterName="storeId" parentProperty="true" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="InheritedContentPageBaseSeoURL"  propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="seoStoreId1" parameterName="seoStoreId" contextName="storeId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="ContentPageBaseSeoURL" propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="seoStoreId2" parameterName="seoStoreId" parentProperty="true" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="objectTypeCondition" enablementValue="InheritedContentPageBaseSeoURL"  propertyName="objectType" parentProperty="true" resolvePrimaryParent="false"/>
+			</ServiceParam>
+			<ServiceParam name="pageId" parentProperty="true" />
+			<ServiceParam name="seoURLLanguageId" propertyName="languageId" />
+			<ServiceParam name="usage" value="StaticPages"/>
+		</UpdateService>
+        
+        <!--- This property definition represents the desktop URL keyword for the content page. -->
+        <PropertyDefinition displayName="${plmPageLayoutResources.seoDesktopUrlPrompt}" maximumSize="254" propertyName="seo_urlkeyword" type="string">
+        	<RequiredPropertyValidator validatorId="urlRequiredValidatorId">
+				<EnablementAndCondition>
+					<EnablementCondition parentProperty="true" propertyName="urlConfigurable" enablementValue="true"/>
+					<EnablementOrCondition>
+						<EnablementCondition checkObjectDefinition="true" conditionId="parentObjectTypeCondition" parentProperty="true" propertyName="objectType" resolvePrimaryParent="false" enablementValue="InheritedContentPageBaseSeoURL"/>
+						<EnablementCondition checkObjectDefinition="true" conditionId="primaryParentObjectTypeCondition" parentProperty="true" propertyName="objectType" enablementValue="ContentPage"/>
+					</EnablementOrCondition>
+				</EnablementAndCondition>
+			</RequiredPropertyValidator>
+         	<PropertyStringValidator validatorId="seoDesktopUrlStringValidator" invalidCharacters="&amp;?=#/_ ~+%,.&apos;&quot;"/>
+        </PropertyDefinition>
+	</ChildObjectDefinition>
+</Definitions>

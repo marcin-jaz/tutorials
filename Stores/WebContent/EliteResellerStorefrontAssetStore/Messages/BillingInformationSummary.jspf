@@ -1,0 +1,133 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%-- 
+  *****
+  *	This JSPF page shows the Billing information summary for an order like number of payment methods, billing address and billing method and it's details.
+  *****
+--%>
+
+
+<tr>
+	<td colspan="3" bgcolor="#e9eaea" width="594" valign="top" style="border-top: 1px solid #c9c9c9; border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9;font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold; font-size: 4px;">&nbsp;</td>
+</tr>
+<tr>
+	<td colspan="3" bgcolor="#e9eaea" width="594" valign="top" style="border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9; font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold;"><div style="margin-left: 12px;"><fmt:message key="MO_BILLINGINFO" bundle="${storeText}"/></div></td>
+</tr>
+<tr>
+	<td colspan="3" bgcolor="#e9eaea" width="594" valign="top" style="border-bottom: 1px solid #c9c9c9; border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9;font-family: Verdana, Arial; font-size: 11px; color: #404040; font-weight: bold; font-size: 4px;">&nbsp;</td>
+</tr>
+<tr>
+	<td colspan="3" style="border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9; font-size: 11px;">&nbsp;</td>
+</tr>
+<tr>
+
+<c:set var="knownProtocolData" value="account,expire_month,expire_year,cc_cvc,check_routing_number" />
+<wcf:getData type="com.ibm.commerce.member.facade.datatypes.PersonType" var="person" expressionBuilder="findCurrentPerson">
+	<wcf:param name="accessProfile" value="IBM_All" />
+</wcf:getData>
+<c:set var="personAddresses" value="${person.addressBook}"/>
+<c:set var="numberOfPaymentMethods" value="${fn:length(order.orderPaymentInfo.paymentInstruction)}"/>
+	<td width="12" style="border-left: 1px solid #c9c9c9;"></td>
+	<td width="570" valign="top" style="font-family: Verdana, Arial; font-size: 11px; color: #404040;">		
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<c:if test="${numberOfPaymentMethods > 1}">
+				<!-- Payment method number (payment1, payment2...) will be shown only if there are more than 1 payments..-->
+				<td width="190" style="font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top">
+					<b><fmt:message key="PAYMENT_CAPS" bundle="${storeText}"/></b>
+				</td>
+				</c:if>
+				<td width="190" style="font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top">
+					<b><fmt:message key="BILL_BILLING_ADDRESS_CAPS" bundle="${storeText}"/></b>
+				</td>
+				<td width="190" style="font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top">
+					<b><fmt:message key="BILL_BILLING_METHOD_CAPS" bundle="${storeText}"/></b>
+				</td>
+			</tr>
+			<tr>
+				<td width="570" colspan="4" style="font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top"><img alt="" src="<c:out value="${jspStoreImgDir}images/dotted_border.gif"/>" width="570" height="1"  /></td>
+			</tr>
+			<c:forEach var="paymentInstance" items="${order.orderPaymentInfo.paymentInstruction}" varStatus="paymentCount">
+				<tr>
+					<c:if test="${numberOfPaymentMethods > 1}">
+						<td valign="top" style="font-family: Verdana, Arial; font-size: 11px;">
+							<fmt:message key="PAYMENT" bundle="${storeText}"/> <span><c:out value="${paymentCount.count}"/></span>
+						</td>
+					</c:if>
+					<td style="font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top">
+						<div>
+							<c:set var="billingAddressId" value=""/>
+							<c:forEach var="protocolData" items="${paymentInstance.protocolData}">
+								<c:if test="${protocolData.name eq 'billing_address_id'}">
+									<c:set var="billingAddressId" value="${protocolData.value}"/>
+								</c:if>
+							</c:forEach>
+							<c:if test="${!empty billingAddressId}">
+								<c:set var="shownAddress" value="false"/>
+								<c:set var="contact" value="${person.contactInfo}"/>
+								<c:if test="${contact.contactInfoIdentifier.uniqueID eq billingAddressId}" >
+									<c:choose><c:when test="${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName eq  profileShippingNickname}"><fmt:message key="QC_DEFAULT_SHIPPING" bundle="${storeText}"/></c:when>
+									<c:when test="${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName eq  profileBillingNickname}"><fmt:message key="QC_DEFAULT_BILLING" bundle="${storeText}"/></c:when>
+									<c:otherwise>${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName}</c:otherwise></c:choose><br/>
+									<!-- This value is equal to value in struts-config-ext.xml for view Name AjaxAddressDisplayView -->
+									<c:import url="${jspStoreDir}Snippets/Member/Address/AddressDisplay.jsp">
+										<c:param name="addressId" value= "${billingAddressId}"/>
+										<c:param name="email" value="${sendEmail}"/>
+									</c:import>
+									<c:set var="shownAddress" value="true"/>
+								</c:if>
+								<c:if test="${!shownAddress}">
+									<c:forEach items="${personAddresses.contact}" var="contact">
+										<c:if test="${contact.contactInfoIdentifier.uniqueID eq billingAddressId}" >
+											<c:choose><c:when test="${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName eq  profileShippingNickname}"><fmt:message key="QC_DEFAULT_SHIPPING" bundle="${storeText}"/></c:when>
+											<c:when test="${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName eq  profileBillingNickname}"><fmt:message key="QC_DEFAULT_BILLING" bundle="${storeText}"/></c:when>
+											<c:otherwise>${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName}</c:otherwise></c:choose>
+											<c:import url="${jspStoreDir}Snippets/Member/Address/AddressDisplay.jsp">
+												<c:param name="addressId" value= "${billingAddressId}"/>
+												<c:param name="email" value="${sendEmail}"/>
+											</c:import>
+											<c:set var="shownAddress" value="true"/>
+										</c:if>
+									</c:forEach>
+								</c:if>
+								<c:if test="${!shownAddress}">
+									<%@ include file="../Snippets/ReusableObjects/AddressDisplayByParams.jspf"%> 
+								</c:if>
+							</c:if>
+						</div>
+						<br />
+					</td>
+					<td style="font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top">
+						<div>
+							<c:out value="${paymentInstance.paymentMethod.description.value}"/><br />
+							<c:forEach var="protocolData" items="${paymentInstance.protocolData}">
+								<c:if test="${fn:contains(knownProtocolData,protocolData.name) && !empty protocolData.value}">
+									<fmt:message key="${protocolData.name}" bundle="${storeText}"/><c:out value="${protocolData.value}"/><br />
+								</c:if>
+							</c:forEach>
+							<fmt:message key="AMOUNT" bundle="${storeText}"/>:<fmt:formatNumber value="${paymentInstance.amount.value}" type="currency" maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/><br />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="570" colspan="4" style="font-family: Verdana, Arial; font-size: 11px; color: #404040;" valign="top"><img alt="" src="<c:out value="${jspStoreImgDir}images/dotted_border.gif"/>" width="570" height="1" /></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</td>
+	<td width="12" style="border-right: 1px solid #c9c9c9;"></td>
+</tr>
+<tr>
+	<td colspan="3" style="border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9; font-size: 11px;">&nbsp;</td>
+</tr>

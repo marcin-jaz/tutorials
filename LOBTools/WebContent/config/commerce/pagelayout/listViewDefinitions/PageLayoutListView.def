@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<Definitions>
+	<ObjectGrid definitionName="plmPageLayoutGrid" preferenceKey="plmPageLayoutGrid">
+		<GridIconTypeImage name="typeIcon" enableFilter="true" required="true" text="${plmPageLayoutResources.pageLayoutType_ColumnHeader}" width="80"/>
+		<GridStoreName name="store"/>
+		<GridPropertyImage name="deviceTypeIcon" enableFilter="true" propertyName="deviceClass" text="${plmPageLayoutResources.deviceType_ColumnHeader}" visible="false" width="90"/>
+		<GridPageLayout package="plm" name="layoutView"  propertyName="name" sortable="false" text="${plmPageLayoutResources.pageLayoutThumbnail_ColumnHeader}" visible="true" width="90"/>
+		<GridStepper alignment="right" datatype="number" editable="true" maximumValue="1000" minimumValue="0" name="priority" propertyName="priority" text="${plmPageLayoutResources.priority_ColumnHeader}" width="65"/>
+		<GridText editable="false" name="pageLayoutName" propertyName="name" text="${plmPageLayoutResources.pageLayoutName_ColumnHeader}" visible="true" width="170"/>
+		<GridDisplaySummary name="pagesAndRulesSummary" text="${plmPageLayoutResources.summaryColumnTitle}" cellViewerClass="plmGridLayoutSummaryViewer" visible="true" width="200"/>
+		<GridDateTime editable="true" name="startDate" propertyName="startDate" required="false" text="${plmPageLayoutResources.pageLayoutAssociationStartDate_ColumnHeader}" visible="true"/>
+		<GridDateTime editable="true" endOfDay="true" name="endDate" propertyName="endDate" required="false" text="${plmPageLayoutResources.pageLayoutAssociationEndDate_ColumnHeader}" visible="true"/>
+		<GridText editable="false" name="pageLayoutId" propertyName="pageLayoutId" text="${plmPageLayoutResources.pageLayoutUniqueID_ColumnHeader}" visible="false" width="90"/>
+	</ObjectGrid>
+
+	<ObjectGrid definitionName="plmPageLayoutBrowseGrid" preferenceKey="plmPageLayoutBrowseGrid">
+		<GridIconTypeImage name="typeIcon" required="true" text="${plmPageLayoutResources.pageLayoutType_ColumnHeader}" width="80"/>
+		<GridPropertyImage name="deviceTypeIcon" enableFilter="true" propertyName="deviceClass" text="${plmPageLayoutResources.deviceType_ColumnHeader}" visible="false" width="90"/>
+		<GridPageLayout package="plm" name="layoutView"  propertyName="name" sortable="false" text="${plmPageLayoutResources.pageLayoutThumbnail_ColumnHeader}" visible="true" width="90"/>
+		<GridDisplayName name="pageLayoutName" text="${plmPageLayoutResources.pageLayoutName_BrowseView_ColumnHeader}" visible="true" width="170"/>
+		<GridDisplaySummary name="pagesAndRulesSummary" text="${plmPageLayoutResources.summaryColumnTitle}" cellViewerClass="plmGridLayoutSummaryViewer" visible="false" width="200"/>
+		<GridDateTime editable="false" name="startDate" propertyName="startDate" required="false" text="${plmPageLayoutResources.pageLayoutAssociationStartDate_ColumnHeader}" visible="false"/>
+		<GridDateTime editable="false" endOfDay="true" name="endDate" propertyName="endDate" required="false" text="${plmPageLayoutResources.pageLayoutAssociationEndDate_ColumnHeader}" visible="false"/>
+	</ObjectGrid>
+
+	<ObjectGrid definitionName="plmPageLayoutWidgetGrid" preferenceKey="plmPageLayoutWidgetGrid" displaySelectedObjectDetails="true">
+		<GridSlotSelector package="plm" name="slot" visible="true" propertyName="slotIdentifier" editable="true" text="${plmPageLayoutResources.slotPrompt}" required="true" width="100" />
+		<GridNumeric editable="true" name="sequence" numDecimalPlaces="1" propertyName="sequence" text="${plmPageLayoutResources.sequencePrompt}" visible="true" width="130"/>  
+		<GridText editable="false" name="widgetName" propertyName="widgetName" text="${plmPageLayoutResources.widgetNameColumnPrompt}" visible="true" width="170"/>
+		<GridComboBox editable="false" name="widget" propertyName="widgetDefId" text="${plmPageLayoutResources.widgetPrompt}" visible="true" width="300"/>
+	</ObjectGrid>
+
+	<!--- This Gantt grid displays the contents and characteristics of a {@link PageLayout}, {@link InheritedPageLayout} calendar view. -->
+	<GanttGrid definitionName="plmPageLayoutGanttGrid" endDatePropertyName="endDate" preferenceKey="plmPageLayoutGanttGrid" startDatePropertyName="startDate" showHorizontalScrollbar="true">
+		<GridIconTypeImage name="typeIcon" enableFilter="true" required="true" text="${plmPageLayoutResources.pageLayoutType_ColumnHeader}" visible="true" width="80"/>
+		<GridStoreName name="store" visible="false"/>
+		<GridPropertyImage name="deviceTypeIcon" enableFilter="true" propertyName="deviceClass" text="${plmPageLayoutResources.deviceType_ColumnHeader}" visible="false" width="90"/>
+		<GridPageLayout package="plm" name="layoutView"  propertyName="name" sortable="false" text="${plmPageLayoutResources.pageLayoutThumbnail_ColumnHeader}" visible="true" width="90"/>
+		<GridStepper alignment="right" datatype="number" editable="true" maximumValue="1000" minimumValue="0" name="priority" propertyName="priority" text="${plmPageLayoutResources.priority_ColumnHeader}" width="65"/>
+		<GridText editable="false" name="pageLayoutName" propertyName="name" text="${plmPageLayoutResources.pageLayoutName_ColumnHeader}" visible="true" width="170"/>
+		<GridDisplaySummary name="pagesAndRulesSummary" text="${plmPageLayoutResources.summaryColumnTitle}" cellViewerClass="plmGridLayoutSummaryViewer" visible="false" width="200"/>
+       	<GridDateTime editable="true" name="startDate" propertyName="startDate" required="false" text="${plmPageLayoutResources.pageLayoutAssociationStartDate_ColumnHeader}" visible="false"/>
+		<GridDateTime editable="true" endOfDay="true" name="endDate" propertyName="endDate" required="false" text="${plmPageLayoutResources.pageLayoutAssociationEndDate_ColumnHeader}" visible="false"/>
+		<GridText editable="false" name="pageLayoutId" propertyName="pageLayoutId" text="${plmPageLayoutResources.pageLayoutUniqueID_ColumnHeader}" visible="false" width="90"/>
+	</GanttGrid>
+
+	<ChildListEditor definitionName="plmLayoutChildList"
+		listDefinitionName="plmPageLayoutGrid" objectTypes="PageLayout, InheritedPageLayout" />
+
+	<ChildListEditor definitionName="plmPageLayoutGanttChartEditor" listDefinitionName="plmPageLayoutGanttGrid" 
+		objectTypes="PageLayout, InheritedPageLayout"/>
+		
+	<NavigationListDefinition definitionName="plmPageLayoutGridChildList"
+		displayName="${plmPageLayoutResources.navigation_layoutAssignmentPrompt}" isDefault="true"
+		listTitle="${plmPageLayoutResources.pageLayoutsListTitle}"
+		listDefinitionName="plmLayoutChildList" toolbarIcon="listToolbarIcon" />		    
+
+	<NavigationListDefinition definitionName="plmPageLayoutGanttChartChildList" 
+		displayName="${plmPageLayoutResources.pageLayoutsGanttChartMenuTitle}" listDefinitionName="plmPageLayoutGanttChartEditor" 
+		listTitle="${plmPageLayoutResources.pageLayoutsGanttChartTitle}" toolbarIcon="ganttChartToolbarIcon"/>
+		
+</Definitions>

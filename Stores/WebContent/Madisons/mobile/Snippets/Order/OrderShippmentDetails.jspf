@@ -1,0 +1,47 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%-- 
+  *****
+  * This JSP snippet displays the order shippment details for a particular order. 
+  * This snippet is used by the OrderDetailDisplay jsp page
+  *****
+--%>
+
+<!-- BEGIN OrderShippmentDetails.jspf -->
+
+<h4>Shipping Address:</h4>
+<ul>
+	<c:set var="contact" value="${order.orderItem[0].orderItemShippingInfo.shippingAddress}" />				
+	<c:if test="${!empty contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName}">
+		<li>
+			<p><c:out value="${contact.contactInfoIdentifier.externalIdentifier.contactInfoNickName}"/></p>
+		</li>
+	</c:if>
+	<li>
+		<%-- Display shiping address of the order --%>	
+		<%@ include file="../../Snippets/ReusableObjects/AddressDisplay.jspf"%>
+	</li>
+</ul>
+						
+<h4>Shipping Method:</h4>
+<ul>
+	<li>${order.orderItem[0].orderItemShippingInfo.shippingMode.description.value}</li>
+</ul>
+<h4>Status:</h4>
+<ul>
+	<li><fmt:message key="MO_OrderStatus_${order.orderStatus.status}" bundle="${storeText}"/></li>
+</ul>
+
+<!-- END OrderShippmentDetails.jspf -->

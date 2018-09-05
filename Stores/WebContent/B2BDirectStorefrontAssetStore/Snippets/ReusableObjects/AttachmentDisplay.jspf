@@ -1,0 +1,312 @@
+ <%--
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2004, 2005
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*---------------------------------------------------------------------
+//* The sample contained herein is provided to you "AS IS".
+//*
+//* It is furnished by IBM as a simple example and has not been  
+//* thoroughly tested
+//* under all conditions.  IBM, therefore, cannot guarantee its 
+//* reliability, serviceability or functionality.  
+//*
+//* This sample may include the names of individuals, companies, brands 
+//* and products in order to illustrate concepts as completely as 
+//* possible.  All of these names
+//* are fictitious and any similarity to the names and addresses used by 
+//* actual persons 
+//* or business enterprises is entirely coincidental.
+//*---------------------------------------------------------------------
+//*
+--%>
+
+<%--
+  *****
+  *  
+  * This JSP snippet is used to display the product attachment
+  *
+  * Parameters
+  * - id  
+  * The unique id to the cell generated
+  * -URL
+  * The click URL if any
+  * -iconImagePath (optional)
+  * The location from where to serve the icon images used to represent the usage of an attachment.
+  * If this is not specified, the location used is defined by AttachmentDataBean.getObjectPath().
+  * This is useful when you are using a Catalog Asset Store.  The attachments are served from the catalog
+  * asset directory ; but the icon images are served from the store directory.
+  * -useFullURL
+  * The boolean value indicating if a full URL should be used instead of a relative one.  This is needed 
+  * when we use attachments in email campaign.  The default is false.
+  *
+  * Along with AttachmentDataBean and other image specific attributes
+  * 
+  *
+  * This is an example of how this file could be included into a page:
+  *		<c:set var="id" value="${status.count}" />		
+  *		<c:set var="AttachmentDataBean" value="${catalog_AttachBean}" />
+  *		<c:set var="URL" value="${url}" />
+  *     <c:set var="useFullURL" value="true" />
+  *		<%@ include file="AttachmentDisplay.jspf" %> 
+  *
+  *****
+--%>
+
+<!-- BEGIN AttachmentDisplay.jspf -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%--
+	***
+	*	Determine if to show the description and name.
+	* 	If parameter is not passed from the calling JSP, default value will be true.
+	*	Also detemine other information related to the image.  
+	*	
+	***
+	--%>
+
+
+<c:set var="catalog_NameDisp">
+	<c:out value="${showName}" default="true" />
+</c:set>
+<c:set var="catalog_ShowDesc">
+	<c:out value="${showShortDescription}" default="true" />
+</c:set>
+<c:set var="attachHeight">
+	<c:out value="${height}" />
+</c:set>
+<c:set var="attachWidth">
+	<c:out value="${width}" />
+</c:set>
+<c:set var="attachBorder">
+	<c:out value="${border}" />
+</c:set>
+<c:set var="attachControls">
+	<c:out value="${controls}" />
+</c:set>
+<c:set var="prependFullURL">
+	<c:out value="${useFullURL}" default="false" />
+</c:set>
+
+<%--
+  ***
+  * Host name of the URL that is used to point to the shared image directory.  Use this variable to reference images.
+  ***
+--%>
+<c:set var="hostPath" value="" />
+<c:if test="${prependFullURL}">
+   <c:set value="${pageContext.request.scheme}://${pageContext.request.serverName}" var="hostPath" />
+</c:if>
+
+<%--
+  ***
+  * Set the storeImagePath variable for the location fromwhere to server the icon images for the usages.
+  ***
+--%>
+<c:forEach items="${AttachmentDataBean.attachmentAssets}" var="AttachmentAssetDataBean"   > 
+<c:set var="storeImagePath" value="${AttachmentAssetDataBean.objectPath}" />
+<c:if test="${!empty iconImagePath}">
+   <c:set var="storeImagePath" value="${iconImagePath}" />
+</c:if>
+ 
+<%--
+	***
+	*	Variable to hold first Part of mime type: mimePart.
+    *   Variable to hold the mime type: mimeType.
+	*
+	***
+--%>
+<c:set var="mimePart" />
+<c:set var="mimeType" />
+
+<%--
+	***
+    *   Determine the mimeType.
+	*	Determine the first part of the Mime Type.
+    *   An empty mimePart indicates a URL type attachment. 
+	*
+	***
+--%>
+<c:set var="mimeType" value="${AttachmentAssetDataBean.mimeType}" />
+<c:forTokens items="${AttachmentAssetDataBean.mimeType}" delims="/"
+	var="mimePartFromType" end="0">
+	<c:set var="mimePart" value="${mimePartFromType}" />
+</c:forTokens>
+
+<c:set var="attachmentAssetPath" value="${AttachmentAssetDataBean.attachmentAssetPath}" />
+<c:if test="${fn:startsWith(attachmentPath, 'http:')}" />
+
+
+<c:set var="MimeStatus" value="0" />
+
+<%--
+		*
+		* The following block is used to generate the image tag for the attachment assests based on the mime type. 
+		* The image specific attributes like height,width etc .. are used if can be passed ( for images).
+		* 
+		*
+	 	--%>
+
+<c:choose>
+	<c:when test="${(mimePart eq 'image') || (mimePart eq 'images')}">
+		<td id="Catalog_Attachment_TableCell_1_<c:out value='${id}' />"
+			align="Center" valign="top">
+			<c:choose>
+				<c:when test="${!empty URL}">
+					<a href="<c:out value="${hostPath}"/><c:out value="${URL}"/>"
+						name="WC_AttachmentDisplay_Link_1_<c:out value="${status.count}" />"
+						id="WC_AttachmentDisplay_Link_1_<c:out value="${status.count}" />">
+					<img
+						src='<c:out value="${hostPath}"/><c:out value="${AttachmentAssetDataBean.objectPath}${AttachmentAssetDataBean.attachmentAssetPath}"/>'
+						alt='<c:out value="${AttachmentDataBean.shortDescription}"/>'
+						<c:if test="${not empty attachHeight}">
+										height="<c:out value='${attachHeight}' />"
+						</c:if>
+						<c:if test="${not empty attachWidth}">
+									width="<c:out value='${attachWidth}' />"
+						</c:if>
+						<c:if test="${not empty attachControls}">
+									border="<c:out value='${attachControls}' />" 
+						</c:if>
+						<c:if test="${not empty attachBorder}">
+								controls="<c:out value='${attachBorder}' />"
+						</c:if> />
+					</a>
+				</c:when>
+				<c:otherwise>
+					<c:choose>
+						<c:when test="${fn:startsWith(attachmentAssetPath, 'http:') || fn:startsWith(attachmentAssetPath, 'https:')}" >
+							<img
+								src='<c:out value="${AttachmentAssetDataBean.attachmentAssetPath}"/>'
+								alt='<c:out value="${AttachmentDataBean.shortDescription}"/>'
+								<c:if test="${not empty attachHeight}">
+										height="<c:out value='${attachHeight}' />"
+								</c:if>
+								<c:if test="${not empty attachWidth}">
+										width="<c:out value='${attachWidth}' />"
+								</c:if>
+								<c:if test="${not empty attachControls}">
+										border="<c:out value='${attachControls}' />" 
+								</c:if>
+								<c:if test="${not empty attachBorder}">
+										controls="<c:out value='${attachBorder}' />"
+								</c:if> />
+						</c:when>
+						<c:otherwise>
+							<img
+								src='<c:out value="${hostPath}"/><c:out value="${AttachmentAssetDataBean.objectPath}${AttachmentAssetDataBean.attachmentAssetPath}"/>'
+								alt='<c:out value="${AttachmentDataBean.shortDescription}"/>'
+								<c:if test="${not empty attachHeight}">
+										height="<c:out value='${attachHeight}' />"
+								</c:if>
+								<c:if test="${not empty attachWidth}">
+										width="<c:out value='${attachWidth}' />"
+								</c:if>
+								<c:if test="${not empty attachControls}">
+										border="<c:out value='${attachControls}' />" 
+								</c:if>
+								<c:if test="${not empty attachBorder}">
+										controls="<c:out value='${attachBorder}' />"
+								</c:if> />
+						</c:otherwise>
+					</c:choose>
+				</c:otherwise>
+			</c:choose>
+	</c:when>
+	<c:when
+		test="${(mimePart eq 'application') || (mimePart eq 'applications') || ( mimePart eq 'text') 							
+							||( mimePart eq 'textyv' ) 	|| ( mimePart eq 'video') || ( mimePart eq 'audio')	|| 
+							( mimePart eq 'model')}">
+        <c:choose>
+           <c:when test="${(mimeType eq 'application/x-shockwave-flash')}" >
+		      <td id="Catalog_Attachment_TableCell_2_<c:out value='${id}' />" align="Center" valign="top">
+							<object data="<c:out value="${hostPath}"/><c:out value='${AttachmentAssetDataBean.objectPath}${AttachmentAssetDataBean.attachmentAssetPath}' />"
+								<c:if test="${not empty attachWidth}">
+									width="<c:out value='${attachWidth}' />"
+								</c:if>
+								<c:if test="${not empty attachHeight}">
+										height="<c:out value='${attachHeight}' />"
+								</c:if>
+								type="application/x-shockwave-flash">
+								<param name="movie" value="<c:out value="${hostPath}"/><c:out value='${AttachmentAssetDataBean.objectPath}${AttachmentAssetDataBean.attachmentAssetPath}' />" />
+								<param name="quality" value="high"/>
+								<param name="bgcolor" value="#FFFFFF"/>
+								<param name="pluginurl" value="http://www.macromedia.com/go/getflashplayer"/>
+								<param name="id" value="Catalog_Attachment_Flash_<c:out value='${id}' />"/>
+							</object>
+		      </td>
+           </c:when>
+           <c:otherwise>
+		      <c:set var="MimeStatus" value="1" />
+		      <td id="Catalog_Attachment_TableCell_3_<c:out value='${id}' />"
+			     align="left" valign="top"><a
+			     href="<c:out value="${hostPath}"/><c:out value='${AttachmentAssetDataBean.objectPath}${AttachmentAssetDataBean.attachmentAssetPath}' />"
+			     target="_blank" id="WC_AttachmentDisplayf_links_1"> <img
+			     src='<c:out value="${hostPath}${jspStoreImgDir}${AttachmentDataBean.usageDataBean.image}"/>'
+			     alt='<c:out value="${AttachmentDataBean.shortDescription}"/>'
+			     align="left" /> </a>&nbsp;
+           </c:otherwise>
+        </c:choose>
+	</c:when> 
+    <c:when test="${empty mimePart}">
+    <c:set var="http" value=""/>
+		<c:if test='${ fn:indexOf(AttachmentAssetDataBean.attachmentAssetPath,"://") == -1 }'>
+			<c:set var="http" value="http://"/>
+		</c:if>
+		<td id="Catalog_Attachment_TableCell_4_<c:out value='${id}' />"
+			align="left" valign="top">
+            <a href="<c:out value='${http}${AttachmentAssetDataBean.attachmentAssetPath}' />" target="_new" id="WC_AttachmentDisplayf_links_2"> 
+               <c:out value="${AttachmentAssetDataBean.attachmentAssetPath}"/>
+			</a>&nbsp;
+	</c:when>
+	<c:when test="${(mimePart eq 'uri')}">
+		<td id="Catalog_Attachment_TableCell_5_<c:out value='${id}' />"
+			align="Center" valign="top"><fmt:bundle
+			basename="web.ReusableObjects.AttachmentDisplay">
+			<fmt:message key="MoreInfo" />
+		</fmt:bundle> <a
+			href="<c:out value='${AttachmentAssetDataBean.objectPath}${AttachmentAssetDataBean.attachmentAssetPath}' />"
+			target="_blank" id="WC_AttachmentDisplayf_links_3"> <c:out value="${AttachmentDataBean.name}" /> </a> <c:set
+			var="MimeStatus" value="2" />
+	</c:when>
+	<c:otherwise>
+		<td id="Catalog_Attachment_TableCell_6_<c:out value='${id}' />"
+			align="Center" valign="top"><fmt:bundle
+			basename="web.ReusableObjects.AttachmentDisplay">
+			<fmt:message key="UnknownAttachmentType" />
+		</fmt:bundle> <c:set var="MimeStatus" value="3" />
+	</c:otherwise>
+</c:choose>
+
+
+<%--
+		*
+		* The Name and Short Decsription of the attachment assests are displayed based on the parameters
+		* passed. 
+		*
+	 	--%>
+
+<c:if test="${catalog_NameDisp}">
+	<c:if test="${MimeStatus != 1}">
+		<br />
+	</c:if>
+	<span class="text"> <c:out value="${AttachmentDataBean.name}" /> </span>
+</c:if>
+
+<c:if test="${catalog_ShowDesc}">
+	<br />
+	<c:out value="${AttachmentDataBean.shortDescription}" />
+</c:if>
+
+</td>
+
+ </c:forEach>
+<!-- END AttachmentDisplay.jspf -->

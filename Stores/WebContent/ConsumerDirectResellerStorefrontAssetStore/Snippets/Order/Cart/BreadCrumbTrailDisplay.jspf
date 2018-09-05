@@ -1,0 +1,118 @@
+<%-- 
+  *****
+  * This page is a JSP fragment that will display the Bread Crumb Trail during the checkout flow
+  * Required Parameters:
+  * bctCurrentPage -- used to tell the trail what page you are on.  On each page of your flow, set it to one of the following values:
+  *		'ShoppingCart'
+  *		'ShippingAddress'
+  *		'ShippingMethod'
+  *		'OrderSubmit'
+  *
+  * Immediately below this line we include the file BreadCrumbTrailSetup.jspf.
+  * In this file you will need to set up the following:
+  * ShoppingCartURL -- a c:url var which is the url for the shopping cart
+  * ShippingAddressURL -- a c:url var which is the url for the shipping address page
+  * ShippingMethodURL -- a c:url var which is the url for the shipping method page
+  * 
+  *****
+--%>
+<%@ include file="../BreadCrumbTrailSetup.jspf" %>
+
+<!-- JSP File Name:  BreadCrumbTrailDisplay.jspf -->
+<table cellpadding="0" cellspacing="0" class="t_table" id="WC_BreadCrumbTrailDisplay_Table_1">
+	<tr>
+		<td id="WC_BreadCrumbTrailDisplay_TableCell_1">
+			<table cellpadding="0" cellspacing="0" border="0" id="WC_BreadCrumbTrailDisplay_Table_2">
+				<tr>
+		<c:choose>
+			<c:when test="${bctCurrentPage == 'ShoppingCart'}">
+				<td class="chkout_active" id="WC_BreadCrumbTrailDisplay_TableCell_2">
+					<fmt:message key="BCT_SHOPPING" bundle="${storeText}"/>
+				</td>
+			</c:when>
+			<c:otherwise>
+				<td id="WC_BreadCrumbTrailDisplay_TableCell_3">
+					<a href="<c:out value="${ShoppingCartURL}"/>" class="chkout_done" id="WC_BreadCrumbTrailDisplay_Link_1">
+						<fmt:message key="BCT_SHOPPING" bundle="${storeText}"/>
+					</a>
+				</td>
+			</c:otherwise>
+		</c:choose>
+
+		<td class="divider" id="WC_BreadCrumbTrailDisplay_TableCell_4"><img src="<c:out value="${jspStoreImgDir}"/>images/brdcrm_divider.gif" alt="" width="30" height="11" border="0"/></td>
+
+		<c:choose>
+			<c:when test="${bctCurrentPage == 'ShoppingCart'}">
+				<td class="chkout" id="WC_BreadCrumbTrailDisplay_TableCell_5">
+					<fmt:message key="BCT_SHIPPING" bundle="${storeText}"/>
+				</td>
+			</c:when>
+			<c:when test="${bctCurrentPage == 'ShippingAddress'}">
+				<td class="chkout_active" id="WC_BreadCrumbTrailDisplay_TableCell_6">
+					<fmt:message key="BCT_SHIPPING" bundle="${storeText}"/>
+				</td>
+			</c:when>
+			<c:otherwise>
+				<td id="WC_BreadCrumbTrailDisplay_TableCell_7">
+					<c:set var="ShippingAddressFlowURL" value="${WCParam.ShippingURL}" />
+					<c:if test="${empty ShippingAddressFlowURL}">
+						<c:set var="ShippingAddressFlowURL" value="SingleShippingAddressView" />
+					</c:if>
+					<c:url var="ShippingAddressURL" value="${ShippingAddressFlowURL}"> 
+						<c:param name="storeId" value="${WCParam.storeId}" />
+						<c:param name="catalogId" value="${WCParam.catalogId}" />  
+						<c:param name="orderId" value="${WCParam.orderId}" />
+					</c:url>
+					<a href="<c:out value="${ShippingAddressURL}"/>" class="chkout_done" id="WC_BreadCrumbTrailDisplay_Link_2">
+						<fmt:message key="BCT_SHIPPING" bundle="${storeText}"/>
+					</a>
+				</td>
+			</c:otherwise>
+		</c:choose>
+
+		<td class="divider" id="WC_BreadCrumbTrailDisplay_TableCell_8"><img src="<c:out value="${jspStoreImgDir}"/>images/brdcrm_divider.gif" alt="" width="30" height="11" border="0"/></td>
+
+		<c:choose>
+			<c:when test="${bctCurrentPage == 'ShoppingCart' || bctCurrentPage == 'ShippingAddress'}">
+				<td class="chkout" id="WC_BreadCrumbTrailDisplay_TableCell_9">
+					<fmt:message key="BCT_SHIPMETHOD" bundle="${storeText}"/>
+				</td>
+			</c:when>
+			<c:when test="${bctCurrentPage == 'ShippingMethod'}">
+				<td class="chkout_active" id="WC_BreadCrumbTrailDisplay_TableCell_10">
+					<fmt:message key="BCT_SHIPMETHOD" bundle="${storeText}"/>
+				</td>
+			</c:when>
+			<c:otherwise>
+				<td id="WC_BreadCrumbTrailDisplay_TableCell_11">
+					<a href="<c:out value="${ShippingMethodURL}"/>" class="chkout_done" id="WC_BreadCrumbTrailDisplay_Link_3">
+						<fmt:message key="BCT_SHIPMETHOD" bundle="${storeText}"/>
+					</a>
+				</td>
+			</c:otherwise>
+		</c:choose>
+
+		<td class="divider" id="WC_BreadCrumbTrailDisplay_TableCell_12"><img src="<c:out value="${jspStoreImgDir}"/>images/brdcrm_divider.gif" alt="" width="30" height="11" border="0"/></td>
+
+		<c:choose>
+			<c:when test="${bctCurrentPage == 'OrderSubmit'}">
+				<td class="chkout_active" id="WC_BreadCrumbTrailDisplay_TableCell_13">
+					<fmt:message key="BCT_ORDERSUMMARY" bundle="${storeText}"/>
+				</td>
+			</c:when>
+			<c:otherwise>
+				<td class="chkout" id="WC_BreadCrumbTrailDisplay_TableCell_14">
+					<fmt:message key="BCT_ORDERSUMMARY" bundle="${storeText}"/>
+				</td>
+			</c:otherwise>
+		</c:choose>
+		
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td class="c_line" colspan="7" id="WC_BreadCrumbTrailDisplay_TableCell_15">&nbsp;</td>
+	</tr>
+</table>
+<!-- END JSP File Name:  BreadCrumbTrailDisplay.jspf -->

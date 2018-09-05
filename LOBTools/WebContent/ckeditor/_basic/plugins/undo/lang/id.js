@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","id",{redo:"Ulangi",undo:"Batalkan"});

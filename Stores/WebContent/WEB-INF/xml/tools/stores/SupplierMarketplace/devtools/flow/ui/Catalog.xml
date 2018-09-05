@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+	<panel id="CatalogPanel" title="CatalogPanel.title" description="CatalogPanel.description" display-priority="3"/>
+
+	<option-group id="Search.checkbox" type="checkbox" display-priority="1" panel="CatalogPanel" >
+		
+		<option id="Search.checkboxEnable"
+			label="Search.checkboxEnable.label"
+			description="Search.checkboxEnable.description"
+			enables-features="catalogSearch" />
+						
+	</option-group>
+		
+	<option-group id="ProductDisplay.checkbox" type="checkbox" display-priority="2" panel="CatalogPanel" >
+		
+		<option id="ProductDisplay.checkboxEnable"
+			label="ProductDisplay.checkboxEnable.label"
+			description="ProductDisplay.checkboxEnable.description"
+			enables-features="ProductQuantity" />
+			
+	</option-group>
+
+	<option-group id="QuickOrder.checkbox" type="checkbox" display-priority="3" panel="CatalogPanel" >
+		
+		<option id="QuickOrder.checkboxEnable"
+			label="QuickOrder.checkboxEnable.label"
+			description="QuickOrder.checkboxEnable.description"
+			enables-features="QuickOrder" />
+			
+	</option-group>
+
+	<option-group id="RequisitionList.checkbox" type="checkbox" display-priority="4" panel="CatalogPanel" >
+		
+		<option id="RequisitionList.checkboxEnable"
+			label="RequisitionList.checkboxEnable.label"
+			description="RequisitionList.checkboxEnable.description"
+			enables-features="RequisitionList" />
+			
+	</option-group>
+
+	<option-group id="RFQ.checkbox" type="checkbox" display-priority="5" panel="CatalogPanel" >
+		
+		<option id="RFQ.checkboxEnable"
+			label="RFQ.checkboxEnable.label"
+			description="RFQ.checkboxEnable.description"
+			enables-features="RFQ" />
+			
+	</option-group>
+	
+	<option-group id="auctions.checkbox" type="checkbox" display-priority="6" panel="CatalogPanel" >
+		
+		<option id="auctions.checkboxEnable"
+			label="auctions.checkboxEnable.label"
+			description="auctions.checkboxEnable.description"
+			enables-features="auctions" />			
+			
+	</option-group>
+	
+</display>

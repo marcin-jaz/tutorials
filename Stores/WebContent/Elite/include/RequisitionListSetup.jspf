@@ -1,0 +1,152 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<script type="text/javascript" src="<c:out value="${jspStoreImgDir}javascript/UserArea/RequisitionListContextsDeclarations.js"/>"></script>
+<script type="text/javascript" src="<c:out value="${jspStoreImgDir}javascript/UserArea/RequisitionListControllersDeclarations.js"/>"></script>
+<script type="text/javascript" src="<c:out value="${jspStoreImgDir}javascript/UserArea/RequisitionListServicesDeclarations.js"/>"></script>
+<script type="text/javascript" src="<c:out value="${jspStoreImgDir}javascript/UserArea/RequisitionList.js"/>"></script>
+
+<!--  retrieving all the catEntryIds and Quantities from the URL -->
+<c:forEach var="parameter" items="${WCParamValues}" >
+	<c:if test="${parameter.key == 'catEntryId'}">
+		<c:set var="catEntryIDs" value="${parameter.value}"/>
+	</c:if>
+	<c:if test="${parameter.key == 'quantity'}">
+		<c:set var="quantities" value="${parameter.value}"/>
+	</c:if>
+</c:forEach>
+
+<flow:ifEnabled feature="AjaxMyAccountPage">	
+	<wcf:url var="requisitionListCreateView" value="AjaxRequisitionListCreateView" type="Ajax">
+		<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+		<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+		<wcf:param name="langId" value="${langId}" />
+		<wcf:param name="newList" value="true"/>
+		<wcf:param name="editable" value="true"/>
+		<wcf:param name="numberOfProduct" value="${WCParam.numberOfProduct}"/>		
+		
+		<c:if test="${!empty catEntryIDs && !empty quantities}">
+			<c:forEach var="catEntryID" items="${catEntryIDs}" varStatus="counter">
+				<wcf:param name="catEntryId" value="${catEntryID}"/>
+				<wcf:param name="quantity" value="${quantities[counter.index]}"/>
+			</c:forEach>
+		</c:if>
+
+		<c:if test="${!empty WCParam.previousPage}">
+			<wcf:param name="previousPage" value="${WCParam.previousPage}"/>
+		</c:if>
+		<c:if test="${!empty WCParam.orderId}">
+			<wcf:param name="orderId" value="${WCParam.orderId}"/>
+		</c:if>
+	</wcf:url>
+	<wcf:url var="requisitionListDetailView" value="AjaxRequisitionListDetailView" type="Ajax">
+		<c:if test="${!empty WCParam.requisitionListId}">
+			<wcf:param name="requisitionListId" value="${WCParam.requisitionListId}"/>
+		</c:if>
+		<wcf:param name="storeId" value="${WCParam.storeId}"/>
+		<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+		<wcf:param name="langId" value="${WCParam.langId}"/>
+		<wcf:param name="editable" value="true"/>
+	</wcf:url>
+	<wcf:url var="requisitionListDetailExternalView" value="AjaxRequisitionListCreateView" type="Ajax">
+		<wcf:param name="requisitionListId" value="${WCParam.requisitionListId}"/>
+		<wcf:param name="storeId" value="${WCParam.storeId}"/>
+		<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+		<wcf:param name="langId" value="${WCParam.langId}"/>
+		<wcf:param name="editable" value="true"/>
+	</wcf:url>		
+	<wcf:url var="requisitionListURL" value="AjaxRequisitionListDisplayView" type="Ajax">
+		<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+		<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+		<wcf:param name="langId" value="${langId}" />
+	</wcf:url>
+	<wcf:url var="requisitionListTableView" value="RequisitionListTableView" type="Ajax">
+		<wcf:param name="storeId"   value="${WCParam.storeId}"  />
+		<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+		<wcf:param name="langId" value="${langId}" />
+	</wcf:url>	
+</flow:ifEnabled>
+
+<script type="text/javascript">
+	dojo.addOnLoad(function() {
+		RequisitionList.setCommonParameters('<c:out value="${WCParam.langId}"/>','<c:out value="${WCParam.storeId}"/>','<c:out value="${WCParam.catalogId}"/>');
+
+		<fmt:message key="ERROR_REQUISITION_LIST_NAME_EMPTY" bundle="${storeText}" var="ERROR_REQUISITION_LIST_NAME_EMPTY"/>
+		<fmt:message key="ERROR_REQUISITION_LIST_SKU_EMPTY" bundle="${storeText}" var="ERROR_REQUISITION_LIST_SKU_EMPTY"/>
+		<fmt:message key="ERROR_REQUISITION_LIST_QUANTITY_EMPTY" bundle="${storeText}" var="ERROR_REQUISITION_LIST_QUANTITY_EMPTY"/>
+		<fmt:message key="REQUISITIONLIST_DELETE_SUCCESS" bundle="${storeText}" var="REQUISITIONLIST_DELETE_SUCCESS"/>
+		<fmt:message key="ERROR_REQUISITION_LIST_QUANTITY_ZERO_OR_MORE" bundle="${storeText}" var="ERROR_REQUISITION_LIST_QUANTITY_ZERO_OR_MORE"/>
+		<fmt:message key="ERROR_REQUISITION_LIST_QUANTITY_ONE_OR_MORE" bundle="${storeText}" var="ERROR_REQUISITION_LIST_QUANTITY_ONE_OR_MORE"/>
+		<fmt:message key="ERROR_REQUISITION_LIST_ITEMS_EMPTY" bundle="${storeText}" var="ERROR_REQUISITION_LIST_ITEMS_EMPTY"/>
+		<fmt:message key="REQUISITIONLIST_UPDATE_SUCCESS" bundle="${storeText}" var="REQUISITIONLIST_UPDATE_SUCCESS"/>
+		<fmt:message key="ERROR_REQUISITION_LIST_PLACE_ORDER" bundle="${storeText}" var="ERROR_REQUISITION_LIST_PLACE_ORDER"/>
+		<fmt:message key="ERROR_REQUISITION_LIST_INVALID_SKU" bundle="${storeText}" var="ERROR_REQUISITION_LIST_INVALID_SKU"/>
+		<fmt:message key="ERROR_REQUISITION_LIST_SAVE_CHANGES" bundle="${storeText}" var="ERROR_REQUISITION_LIST_SAVE_CHANGES"/>
+		<fmt:message key="REQUISITIONLIST_ADD_SUCCESS" bundle="${storeText}" var="REQUISITIONLIST_ADD_SUCCESS"/>
+        <fmt:message key="REQUISITIONLIST_ITEM_DELETE_SUCCESS" bundle="${storeText}" var="REQUISITIONLIST_ITEM_DELETE_SUCCESS"/>
+		<fmt:message key="REQUISITIONLIST_CREATE_ADD_SUCCESS" bundle="${storeText}" var="REQUISITIONLIST_CREATE_ADD_SUCCESS"/>
+		<fmt:message key="ERR_RESOLVING_SKU_REQ_LIST" bundle="${storeText}" var="ERR_RESOLVING_SKU_REQ_LIST"/>
+		
+		MessageHelper.setMessage("REQUISITION_LIST_NAME_EMPTY", <wcf:json object="${ERROR_REQUISITION_LIST_NAME_EMPTY}"/>);			
+		MessageHelper.setMessage("REQUISITION_LIST_SKU_EMPTY", <wcf:json object="${ERROR_REQUISITION_LIST_SKU_EMPTY}"/>);
+		MessageHelper.setMessage("REQUISITION_LIST_QUANTITY_EMPTY", <wcf:json object="${ERROR_REQUISITION_LIST_QUANTITY_EMPTY}"/>);
+		MessageHelper.setMessage("REQUISITIONLIST_DELETE_SUCCESS", <wcf:json object="${REQUISITIONLIST_DELETE_SUCCESS}"/>);
+		MessageHelper.setMessage("ERROR_REQUISITION_LIST_QUANTITY_ZERO_OR_MORE", <wcf:json object="${ERROR_REQUISITION_LIST_QUANTITY_ZERO_OR_MORE}"/>);
+		MessageHelper.setMessage("ERROR_REQUISITION_LIST_QUANTITY_ONE_OR_MORE", <wcf:json object="${ERROR_REQUISITION_LIST_QUANTITY_ONE_OR_MORE}"/>);
+		MessageHelper.setMessage("ERROR_REQUISITION_LIST_ITEMS_EMPTY", <wcf:json object="${ERROR_REQUISITION_LIST_ITEMS_EMPTY}"/>);
+		MessageHelper.setMessage("REQUISITIONLIST_UPDATE_SUCCESS", <wcf:json object="${REQUISITIONLIST_UPDATE_SUCCESS}"/>);		
+		MessageHelper.setMessage("ERROR_REQUISITION_LIST_PLACE_ORDER", <wcf:json object="${ERROR_REQUISITION_LIST_PLACE_ORDER}"/>);	
+		MessageHelper.setMessage("ERROR_REQUISITION_LIST_INVALID_SKU", <wcf:json object="${ERROR_REQUISITION_LIST_INVALID_SKU}"/>);
+		MessageHelper.setMessage("ERROR_REQUISITION_LIST_SAVE_CHANGES", <wcf:json object="${ERROR_REQUISITION_LIST_SAVE_CHANGES}"/>);
+		MessageHelper.setMessage("REQUISITIONLIST_ADD_SUCCESS", <wcf:json object="${REQUISITIONLIST_ADD_SUCCESS}"/>);
+		MessageHelper.setMessage("REQUISITIONLIST_ITEM_DELETE_SUCCESS", <wcf:json object="${REQUISITIONLIST_ITEM_DELETE_SUCCESS}"/>);
+		MessageHelper.setMessage("REQUISITIONLIST_CREATE_ADD_SUCCESS", <wcf:json object="${REQUISITIONLIST_CREATE_ADD_SUCCESS}"/>);
+		MessageHelper.setMessage("ERR_RESOLVING_SKU_REQ_LIST", <wcf:json object="${ERR_RESOLVING_SKU_REQ_LIST}"/>);
+
+		CommonControllersDeclarationJS.setControllerURL('RequisitionListDisplay_Controller','<c:out value="${requisitionListTableView}"/>');
+		CommonControllersDeclarationJS.setControllerURL('RequisitionListAdd_Controller','<c:out value="${requisitionListDetailView}"/>');
+	});
+</script>
+
+<%-- Check whether or not the flex flow "Ajax Add to Cart" is enabled --%>
+<flow:ifEnabled feature="AjaxMyAccountPage">
+	<script type="text/javascript">
+		dojo.addOnLoad(function() {
+			RequisitionList.setAjaxMyAccountEnabled(true);
+		});
+	</script>	
+</flow:ifEnabled>	
+<flow:ifDisabled feature="AjaxMyAccountPage">
+	<script type="text/javascript">
+		dojo.addOnLoad(function() {
+			RequisitionList.setAjaxMyAccountEnabled(false);
+		});
+	</script>	
+</flow:ifDisabled>	
+
+<flow:ifEnabled feature="AjaxMyAccountPage">	
+	<script type="text/javascript">
+			dojo.addOnLoad(function() {
+				if('<c:out value="${WCParam.page}"/>'=='createrequisitionlist'){
+					 MyAccountDisplay.loadContentFromURL('createNewRequisitionList', '${requisitionListCreateView}');
+				}
+				if('<c:out value="${WCParam.page}"/>'=='editrequisitionlist'){
+					 MyAccountDisplay.loadContentFromURL('editRequisitionList', '${requisitionListDetailView}');
+				}
+				if ('<c:out value="${WCParam.page}"/>'=='requisitionlist') {
+					 MyAccountDisplay.loadContentFromURL('showRequisitionLists', '${requisitionListURL}');				
+				}	
+			}); 
+	</script>
+</flow:ifEnabled>

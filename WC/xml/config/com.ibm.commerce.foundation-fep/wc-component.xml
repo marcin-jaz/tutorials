@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2007, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<_config:DevelopmentComponentConfiguration
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ibm.com/xmlns/prod/commerce/foundation/config ../xsd/wc-component.xsd "
+	xmlns:_config="http://www.ibm.com/xmlns/prod/commerce/foundation/config">
+	
+	
+	<_config:extendedconfiguration>
+					
+		<_config:configgrouping name="EncryptionSettings">
+			<!-- Specifies that encryption key versioning feature is enabled, thus a "new" key can be used at runtime. -->
+			<_config:property name="KeyVersioningEnabled" value="true"/>			
+		</_config:configgrouping>
+		
+		<_config:configgrouping name="REST">
+			<!-- Determines if cookies can be used for authentication while performing REST calls. -->
+			<_config:property name="AuthenticationAllowedUsingCookies" value="true"/> 
+			<!-- Determines if the REST API Discovery should be enabled. -->
+			<_config:property name="ApiDiscoveryEnabled" value="true"/> 			
+			<!-- comma separated list of URLs to query to gather the aggregate list of available APIs. -->
+			<_config:property name="ApiProviderList" value="http://localhost/wcs/resources/api,http://localhost/search/resources/api"/> 			
+
+			<!--
+				 RemoteRestRequestConnectTimeout = [number in milliseconds]
+				 
+				 Maximum wait time before connecting to the remote server for REST service calls in milliseconds.
+				 Defaults to 30 seconds.
+				 It is used only when remote REST service calls are made from the WC server.
+			 -->			
+			<_config:property name="RemoteRestRequestConnectTimeout" value="30000"/>
+
+			<!--
+				 RemoteRestRequestReadTimeout = [number in milliseconds]
+				 
+				 Maximum socket time for completing REST service requests in milliseconds.
+				 Defaults to 30 seconds.
+				 It is used only when remote REST service calls are made from the WC server.
+			 -->			
+			<_config:property name="RemoteRestRequestReadTimeout" value="30000"/>
+		</_config:configgrouping>
+		
+		<_config:configgrouping name="REST_LocalBinding">
+			<!-- Determines if Local Binding is enabled for REST requests. -->
+			<_config:property name="RESTinLocalBindingEnabled" value="true"/> 
+			<!-- Path prefix used for commerce REST local binding requests (Additional paths comma separated) -->
+			<_config:property name="RESTinLocalBindingPathPrefix" value="/wcs/resources,/wcs/previewresources"/>
+		</_config:configgrouping>
+
+	</_config:extendedconfiguration>
+	
+</_config:DevelopmentComponentConfiguration>

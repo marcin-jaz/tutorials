@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("about","id",{copy:"Hak cipta &copy; $1. Hak cipta dilindungi undang-undang.",dlgTitle:"Tentang CKEditor",help:"Periksa $1 untuk bantuan.",moreInfo:"Untuk informasi pelisensian, kunjungi situs web kami:",title:"Tentang CKEditor",userGuide:"Panduan Pengguna CKEditor"});

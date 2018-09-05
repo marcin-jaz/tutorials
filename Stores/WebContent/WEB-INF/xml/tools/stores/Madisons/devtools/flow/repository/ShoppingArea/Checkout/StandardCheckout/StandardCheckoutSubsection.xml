@@ -1,0 +1,74 @@
+<!DOCTYPE repository-entries SYSTEM "../../../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<section-components>
+
+	<section id="StandardCheckoutSubsection"/>		
+			
+	<interface id="StandardCheckoutSubsection.i1" component-id="StandardCheckoutSubsection">
+		<entry-port id="StandardCheckoutSubsection.i1.e1" type="EntryPortType1"/>
+		<entry-port id="StandardCheckoutSubsection.i1.e2" type="EntryPortType1"/>
+	</interface>
+	
+	<!-- This implementation has ATP -->
+	<implementation id="StandardCheckoutSubsection.i1.impl1" interface-id="StandardCheckoutSubsection.i1">
+		<component-interface id="StandardCheckoutSubsection.i1.impl1.ci1" interface="AllocationCheckPage.i1" always-enabled="yes"/>
+		<component-interface id="StandardCheckoutSubsection.i1.impl1.ci2" interface="BillingAddressPage.i1" always-enabled="yes"/>
+		<component-interface id="StandardCheckoutSubsection.i1.impl1.ci3" interface="OrderDisplayPendingPage.i1" always-enabled="yes"/>
+		<component-interface id="StandardCheckoutSubsection.i1.impl1.ci4" interface="ProductAvailabilityPage.i1" always-enabled="yes"/>
+		<component-interface id="StandardCheckoutSubsection.i1.impl1.ci5" interface="ShippingAddressPage.i1" always-enabled="yes"/>
+		<component-interface id="StandardCheckoutSubsection.i1.impl1.ci6" interface="ShippingMethodPage.i1" always-enabled="yes"/>
+		
+		<entry-port-map id="StandardCheckoutSubsection.i1.impl1.epm1" interface-entry-ports="StandardCheckoutSubsection.i1.e1" component-entry-port="BillingAddressPage.i1.e1"/>
+		<entry-port-map id="StandardCheckoutSubsection.i1.impl1.epm2" interface-entry-ports="StandardCheckoutSubsection.i1.e2" component-entry-port="ShippingAddressPage.i1.e1"/>
+
+		<!-- Links leaving BillingAddressPage -->
+		<link id="StandardCheckoutSubsection.i1.impl1.l1" exit-port="BillingAddressPage.i1.xNext" entry-port="ShippingAddressPage.i1.e1"/>
+
+		<!-- Links leaving OrderDisplayPendingPage -->
+		<link id="StandardCheckoutSubsection.i1.impl1.l2" exit-port="OrderDisplayPendingPage.i1.xPrevious" entry-port="ShippingMethodPage.i1.e1" always-enabled="yes"/>
+
+		<!-- Links leaving ProductAvailabilityPage -->
+		<link id="StandardCheckoutSubsection.i1.impl1.l3" exit-port="ProductAvailabilityPage.i1.xPrevious" entry-port="ShippingMethodPage.i1.e1"/>
+
+		<!-- Links leaving ShippingAddressPage -->
+		<link id="StandardCheckoutSubsection.i1.impl1.l4" exit-port="ShippingAddressPage.i1.xNext" entry-port="ShippingMethodPage.i1.e1"/>
+
+		<!-- Links leaving ShippingMethodPage -->
+		<link id="StandardCheckoutSubsection.i1.impl1.l5" exit-port="ShippingMethodPage.i1.xNext" entry-port="AllocationCheckPage.i1.e1"/>
+		<link id="StandardCheckoutSubsection.i1.impl1.l6" exit-port="ShippingMethodPage.i1.xPrevious" entry-port="ShippingAddressPage.i1.e1"/>
+
+	</implementation>
+	
+	<!-- This implementation does not have ATP or has ATP without showing date and without offering the option to split order -->
+	<implementation id="StandardCheckoutSubsection.i1.impl2" interface-id="StandardCheckoutSubsection.i1">
+		<component-interface id="StandardCheckoutSubsection.i1.impl2.ci1" interface="AllocationCheckPage.i1" always-enabled="yes"/>
+		<component-interface id="StandardCheckoutSubsection.i1.impl2.ci2" interface="BillingAddressPage.i1" always-enabled="yes"/>
+		<component-interface id="StandardCheckoutSubsection.i1.impl2.ci3" interface="OrderDisplayPendingPage.i1" always-enabled="yes"/>
+		<component-interface id="StandardCheckoutSubsection.i1.impl2.ci4" interface="ProductAvailabilityPage.i1" always-enabled="yes"/>
+		<component-interface id="StandardCheckoutSubsection.i1.impl2.ci5" interface="ShippingAddressPage.i1" always-enabled="yes"/>
+		<component-interface id="StandardCheckoutSubsection.i1.impl2.ci6" interface="ShippingMethodPage.i1" always-enabled="yes"/>
+		
+		<entry-port-map id="StandardCheckoutSubsection.i1.impl2.epm1" interface-entry-ports="StandardCheckoutSubsection.i1.e1" component-entry-port="BillingAddressPage.i1.e1"/>
+		<entry-port-map id="StandardCheckoutSubsection.i1.impl2.epm2" interface-entry-ports="StandardCheckoutSubsection.i1.e2" component-entry-port="ShippingAddressPage.i1.e1"/>
+
+		<!-- Links leaving BillingAddressPage -->
+		<link id="StandardCheckoutSubsection.i1.impl2.l1" exit-port="BillingAddressPage.i1.xNext" entry-port="ShippingAddressPage.i1.e1"/>
+
+		<!-- Links leaving OrderDisplayPendingPage -->
+		<link id="StandardCheckoutSubsection.i1.impl2.l2" exit-port="OrderDisplayPendingPage.i1.xPrevious" entry-port="ShippingMethodPage.i1.e1" always-enabled="yes"/>
+
+		<!-- Links leaving ProductAvailabilityPage -->
+		<link id="StandardCheckoutSubsection.i1.impl2.l3" exit-port="ProductAvailabilityPage.i1.xPrevious" entry-port="ShippingMethodPage.i1.e1"/>
+
+		<!-- Links leaving ShippingAddressPage -->
+		<link id="StandardCheckoutSubsection.i1.impl2.l4" exit-port="ShippingAddressPage.i1.xNext" entry-port="ShippingMethodPage.i1.e1"/>
+
+		<!-- Links leaving ShippingMethodPage -->
+		<link id="StandardCheckoutSubsection.i1.impl2.l5" exit-port="ShippingMethodPage.i1.xNext" entry-port="OrderDisplayPendingPage.i1.e1"/>
+		<link id="StandardCheckoutSubsection.i1.impl2.l6" exit-port="ShippingMethodPage.i1.xPrevious" entry-port="ShippingAddressPage.i1.e1"/>
+
+	</implementation>
+</section-components>
+</components>
+</repository-entries>

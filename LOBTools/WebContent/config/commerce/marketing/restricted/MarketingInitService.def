@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<Definitions>
+
+  	<!---
+		<p/>
+		This initialization service sets the Marketing Attachment Limit configuration enabled  
+		'attachmentLimitEnabled' attribute of <code>mktMarketingManagement</code>.
+		<p/>
+	-->
+	<InitService definitionName="mktAttachmentLimitInitService" url="/cmc/GetMarketingAttachmentLimitConfig">
+		<ServiceParam name="marketingViewRole"/>
+		<ServiceParam name="catalogViewRole"/>
+		<ServiceParam name="attachmentViewRole"/>
+		<ServiceParam name="pageComposerViewRole"/>
+	</InitService>
+	
+</Definitions>

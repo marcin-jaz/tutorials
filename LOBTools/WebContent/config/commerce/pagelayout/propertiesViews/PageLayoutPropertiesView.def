@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<ObjectProperties definitionName="plmPageLayoutProperties">
+		<PropertyTabs name="tabs">
+			<PropertyTabPane name="managePageLayout" text="${plmPageLayoutResources.group_title_manage_layout}">
+				<PropertyPane baseDefinitionName="plmManagePageLayoutTab"/>
+			</PropertyTabPane>
+			<PropertyTabPane name="managePageLayoutDesign" text="${plmPageLayoutResources.group_title_layout_design}">
+				<PropertyPane baseDefinitionName="plmManagePageLayoutDesignTab"/>
+			</PropertyTabPane>
+		</PropertyTabs>
+	</ObjectProperties>
+
+	<PropertyPane definitionName="plmManagePageLayoutTab">
+		<PropertyGroup baseDefinitionName="wcfPropertyAssetInformationGroup"/>	
+
+		<PropertyGroup groupTitle="${plmPageLayoutResources.nameAndLocation}" name="generalInfoPropGrp" open="true">
+			<PropertyInputText promptText="${plmPageLayoutResources.namePrompt}" propertyName="name" required="true"/>
+			
+			<!-- Editor to manage the parent of a page layout -->				
+			<CollectionListEditor
+				extendedHelpText="${plmPageLayoutResources.extendedHelpText_layoutFolder}"
+				listDefinitionName="plmPageLayoutFolderListDefinition"
+				name="parentCollEditorPageLayout"
+				promptText="${plmPageLayoutResources.folderPrompt}"
+				objectTypes="LayoutFolder,InheritedLayoutFolder"/>				
+		</PropertyGroup>
+		
+		<PropertyGroup groupTitle="${plmPageLayoutResources.group_title_when}" name="when" open="true">
+			<PropertyStepper extendedHelpText="${plmPageLayoutResources.extendedHelpText_pageLayoutPriority}" maximumValue="1000" minimumValue="0" promptText="${plmPageLayoutResources.priorityPrompt}" propertyName="priority"/>
+ 			<PropertyDateTimePicker extendedHelpText="${plmPageLayoutResources.extendedHelpText_pageLayoutStartDate}" promptText="${plmPageLayoutResources.pageLayoutAssociationStartDatePrompt}" propertyName="startDate"/>
+			<PropertyDateTimePicker extendedHelpText="${plmPageLayoutResources.extendedHelpText_pageLayoutEndDate}" endOfDay="true" promptText="${plmPageLayoutResources.pageLayoutAssociationEndDatePrompt}" propertyName="endDate"/>
+		</PropertyGroup>
+		<!-- 
+			Property group for page layout location assignment.
+		 -->
+		<PropertyGroup groupTitle="${plmPageLayoutResources.group_title_where}" name="layoutReferencePages" open="true">
+			<PropertyStaticText name="pageLayoutAssignmentsInstruciton" text="${plmPageLayoutResources.instruction_pageLayoutAssignments}" />
+			<HelpLinkText x="20" yoffset="16" name="pageLayoutAssignmentsMoreDetail" text="${plmPageLayoutResources.layoutWidgetAssignmentLearnMore}" helpLink="concepts/cpzassignex.htm" width="300"/>
+			<!-- 
+				Page layout location assignment for local layout. Only one child list editor for assignment in current store.
+			 -->
+			<PropertyGroup collapsable="false" name="pageLayoutLocations">
+				<EnablementCondition checkObjectDefinition="true" conditionId="layoutCondition" enablementValue="PageLayout" propertyName="objectType"/>
+				<PropertyChildListEditor baseDefinitionName="PageLayoutLocationList"/>
+			</PropertyGroup>
+			<!-- 
+				Page layout location assignment for inherited layout. One child list editor for assignment in asset store and one for assignment in esite store.
+			 -->
+			<PropertyGroup collapsable="false" name="inheritedPageLayoutLocations">
+				<EnablementCondition checkObjectDefinition="true" conditionId="inheritedLayoutCondition" enablementValue="InheritedPageLayout" propertyName="objectType"/>
+				<PropertyChildListEditor baseDefinitionName="InheritedPageLayoutLocationList"/>
+			</PropertyGroup>
+			
+			<!-- 
+				Page layout location assignment for local search terms. Only one child list editor for assignment in current store.
+			 -->
+			<PropertyGroup collapsable="false" name="pageLayoutSearchTerms">
+				<EnablementCondition checkObjectDefinition="true" conditionId="layoutCondition" enablementValue="PageLayout" propertyName="objectType"/>
+				<PropertyChildListEditor baseDefinitionName="PageLayoutSearchTermList" hideEditColumnAction="true"/>
+			</PropertyGroup>
+			<!-- 
+				Page layout location assignment for inherited layout search terms. One child list editor for assignment in asset store and one for assignment in esite store.
+			 -->
+			<PropertyGroup collapsable="false" name="inheritedPageLayoutSearchTerms">
+				<EnablementCondition checkObjectDefinition="true" conditionId="inheritedLayoutCondition" enablementValue="InheritedPageLayout" propertyName="objectType"/>
+				<PropertyChildListEditor baseDefinitionName="PageLayoutInheritedSearchTermList" hideEditColumnAction="true"/>
+			</PropertyGroup>
+			
+		</PropertyGroup>
+	</PropertyPane>
+		
+	<PropertyPane definitionName="plmManagePageLayoutDesignTab">
+		<PropertyGroup groupTitle="${plmPageLayoutResources.group_title_layout_properties}" name="title" open="true">
+			<PropertyViewLongText promptText="${plmPageLayoutResources.templateTypePrompt}" propertyName="deviceClass" />
+			<PropertyViewLongText promptText="${plmPageLayoutResources.templatePrompt}" propertyName="templateName" />
+		</PropertyGroup>
+
+		<PropertyGroup groupTitle="${plmPageLayoutResources.group_title_layout_content}" name="laytoutContent" open="true">
+			<PropertyStaticText name="instruction" text="${plmPageLayoutResources.layoutWidgetAssignmentInstruction}" />
+			<HelpLinkText x="20" yoffset="16" name="learnMore" text="${plmPageLayoutResources.layoutWidgetAssignmentLearnMore}" helpLink="concepts/cpzwidgetcont.htm" width="300"/>
+			<PageLayoutWidgetAssignmentPropertyGroup package="plm" listDefinitionName="plmPageLayoutWidgetGrid" 
+					layoutViewPromptText="${plmPageLayoutResources.thumbnail_layout_Prompt}" 
+					listEditorPromptText="${plmPageLayoutResources.slotsAndWidgetsEditorPrompt}"
+					listEditorExtendedHelpText="${plmPageLayoutResources.extendedHelpText_slotsAndWidgetsEditor}"
+					listEditornewButtonHelpText="${plmPageLayoutResources.helpText_slotsAndWidgetsEditor_newButton}"
+					listEditorNewActionDialogClass="plmNewPageLayoutWidgetDialog"
+					widgetObjectTypes="LayoutWidgetAlias">
+			</PageLayoutWidgetAssignmentPropertyGroup>
+		</PropertyGroup>
+	</PropertyPane>
+
+</Definitions>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE fsf SYSTEM "fsf.dtd">
+<fsf version="1.0">
+  <selected-features>
+    <feature id="ProductQuantity"/>
+    <feature id="RFQ"/>
+    <feature id="trackOrderStatus"/>
+    <feature id="ScheduleOrder"/>
+    <feature id="QuickOrder"/>
+    <feature id="RequisitionList"/>
+    <feature id="vfile.logo.gif.f"/>
+    <feature id="vfile.banner.gif.f"/>
+    <feature id="SelectBanner"/>
+    <feature id="LogonBanner.f.25"/>
+    <feature id="catalogSearch"/>
+    <feature id="headsUpDisplay"/>
+    <feature id="HUDminiCurrentOrderDisplay"/>
+    <feature id="HUDminiEMarketingSpotDisplay"/>
+    <feature id="Style.f.1"/>
+    <feature id="Color.f.1"/>
+    <feature id="LogonBanner.f.7"/>
+    <feature id="Banner.f.1"/>
+    <feature id="MultipleReleases"/>
+    <feature id="FutureOrders"/>
+    <feature id="ExpeditedOrders"/>
+    <feature id="ShippingInstructions"/>
+  </selected-features>
+</fsf>
+

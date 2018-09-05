@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<Definitions>
+	<PromotionElementObjectDefinition definitionName="proIdentifierExportToExternalMarketingSystemObjectDefinition" displayName="${promotionResources.promotion_newPromotionExportToExternalMarketingSystem}" objectType="Identifier_ExportToExternalMarketingSystem" isTopElement="true" package="pro" singleInstance="true">
+	
+		<CreateService baseDefinitionName="proPromotionElementCreateService"/>
+		<UpdateService baseDefinitionName="proPromotionElementUpdateService"/>
+		
+		<PropertyDefinition propertyName="elementType">
+			<PropertyValue value="IncludeExportToExternalMarketingSystemIdentifier"/>
+		</PropertyDefinition>
+		
+		<Xml name="template">
+			<elementType>IncludeExportToExternalMarketingSystemIdentifier</elementType>
+			<ExportToExternalMarketingSystem>0</ExportToExternalMarketingSystem>
+		</Xml>
+	</PromotionElementObjectDefinition>
+</Definitions>

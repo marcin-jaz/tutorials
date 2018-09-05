@@ -1,0 +1,400 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<Definitions>
+
+	<PropertyGroup definitionName="plmManageCatalogEntrySeoAttributes" displayObjectStoreName="false" displayStoreName="true">
+		<!-- Property Group: Contains the URL keyword and full URL for the catalog entry page -->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoUrlSection">
+				<EnablementAndCondition conditionId="localObjectTypesAndStoreCondition">
+						<EnablementOrCondition baseDefinitionName="plmCatalogEntryEnablement"/>
+						<EnablementOrCondition conditionId="storeFrontAssetStoreTypeCondition" baseDefinitionName="plmStoreFrontAssetCatalogStoreEnablement" negate="true"/>
+				</EnablementAndCondition>
+				<PropertyUrlPreview name="desktopUrlKeyword" extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoDesktopUrl}" objectPath="CatalogEntryBaseSeoURL/CatalogEntrySeoURL" package="cat" promptText="${catalogResources.seoDesktopUrlPrompt}" propertyName="seo_urlkeyword"/>
+		</PropertyGroup>	  
+		
+		<!-- Property Group: Contains the URL keyword and full URL for the catalog entry page at StoreFrontAssetStore-->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoStoreFrontAssetStoreUrlSection">
+				<EnablementAndCondition conditionId="localObjectTypesAndStoreCondition">
+						<EnablementOrCondition baseDefinitionName="plmCatalogEntryEnablement"/>
+						<EnablementOrCondition conditionId="storeFrontAssetStoreTypeCondition" baseDefinitionName="plmStoreFrontAssetCatalogStoreEnablement" />
+				</EnablementAndCondition>
+				<PropertyUrlPreview name="desktopUrlKeyword" extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoDesktopUrl}" objectPath="InheritedCatalogEntryBaseSeoURL/CatalogEntrySeoURL" package="cat" promptText="${catalogResources.seoDesktopUrlPrompt}" propertyName="seo_urlkeyword"/>
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the URL keyword and full URL for the catalog entry page (for eSites) -->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoESitesUrlSection">
+				<EnablementAndCondition conditionId="inheritedObjectTypesAndStoreCondition">
+						<EnablementOrCondition baseDefinitionName="plmInheritedCatalogEntryEnablement"/>
+						<EnablementOrCondition conditionId="storeTypeCondition">
+							<EnablementCondition conditionId="b2cEsiteCondition" contextName="storeType" enablementValue="MHS"/>
+							<EnablementCondition conditionId="b2bEsiteCondition" contextName="storeType" enablementValue="BMH"/>
+						</EnablementOrCondition>
+				</EnablementAndCondition>
+				<PropertyUrlPreview name="desktopUrlKeyword1" extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoDesktopUrlEsite}" objectPath="CatalogEntryBaseSeoURL/CatalogEntrySeoURL" package="cat" promptText="${catalogResources.seoDesktopUrlPrompt}" propertyName="seo_urlkeyword"/>
+		</PropertyGroup>	
+		
+	    <!-- Property Group: Contains the title of the catalog entry page -->
+	    <PropertyGroup collapsable="false" displayGrouping="false" name="seoTMDSection">
+			<EnablementAndCondition conditionId="localObjectTypesAndStoreCondition">
+					<EnablementOrCondition baseDefinitionName="plmCatalogEntryEnablement"/>
+					<EnablementOrCondition conditionId="storeFrontAssetStoreTypeCondition" baseDefinitionName="plmStoreFrontAssetCatalogStoreEnablement" negate="true"/>
+			</EnablementAndCondition>	    
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoTitleSection">
+				<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoTitle}" objectPath="CatalogEntryBaseSeoAttributes/CatalogEntrySeoAttributes"
+						promptText="${plmPageLayoutResources.seoTitlePrompt}" propertyName="seo_useTitleDefault">
+					<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templatetitle"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_title"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the meta description of the catalog entry page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaDescSection">
+				<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoMetaDesc}" objectPath="CatalogEntryBaseSeoAttributes/CatalogEntrySeoAttributes"
+						promptText="${plmPageLayoutResources.seoMetaDescPrompt}" propertyName="seo_useMetaDescDefault">
+					<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templatemetadesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_metadesc" multiline="true"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the image alt text of the catalog entry page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoImageAltTextSection">
+				<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoImageAltDesc}" objectPath="CatalogEntryBaseSeoAttributes/CatalogEntrySeoAttributes"
+						promptText="${plmPageLayoutResources.seoImageDescPrompt}" propertyName="seo_useImageAltDescDefault">
+					<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templateimagealtdesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_imagealtdesc"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+		</PropertyGroup>
+		
+		 <!-- Property Group: Contains the title of the catalog entry page at Store Front Asset Store -->
+	    <PropertyGroup collapsable="false" displayGrouping="false" name="seoStoreFrontAssetStoreTMDSection">
+			<EnablementAndCondition conditionId="localObjectTypesAndStoreCondition">
+					<EnablementOrCondition baseDefinitionName="plmCatalogEntryEnablement"/>
+					<EnablementOrCondition conditionId="storeFrontAssetStoreTypeCondition" baseDefinitionName="plmStoreFrontAssetCatalogStoreEnablement"/>
+			</EnablementAndCondition>	    
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoTitleSection">
+				<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoTitle}" objectPath="InheritedCatalogEntryBaseSeoAttributes/CatalogEntrySeoAttributes"
+						promptText="${plmPageLayoutResources.seoTitlePrompt}" propertyName="seo_useTitleDefault">
+					<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templatetitle"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_title"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the meta description of the catalog entry page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaDescSection">
+				<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoMetaDesc}" objectPath="InheritedCatalogEntryBaseSeoAttributes/CatalogEntrySeoAttributes"
+						promptText="${plmPageLayoutResources.seoMetaDescPrompt}" propertyName="seo_useMetaDescDefault">
+					<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templatemetadesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_metadesc" multiline="true"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the image alt text of the catalog entry page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoImageAltTextSection">
+				<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoImageAltDesc}" objectPath="InheritedCatalogEntryBaseSeoAttributes/CatalogEntrySeoAttributes"
+						promptText="${plmPageLayoutResources.seoImageDescPrompt}" propertyName="seo_useImageAltDescDefault">
+					<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templateimagealtdesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_imagealtdesc"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the title of the catalog entry page at Esite Store -->
+	    <PropertyGroup collapsable="false" displayGrouping="false" name="seoEsitesTMDSection">
+			<EnablementAndCondition conditionId="inheritedObjectTypesAndStoreCondition">
+					<EnablementOrCondition baseDefinitionName="plmInheritedCatalogEntryEnablement"/>
+					<EnablementOrCondition conditionId="storeTypeCondition">
+						<EnablementCondition conditionId="b2cEsiteCondition" contextName="storeType" enablementValue="MHS"/>
+						<EnablementCondition conditionId="b2bEsiteCondition" contextName="storeType" enablementValue="BMH"/>
+					</EnablementOrCondition>
+			</EnablementAndCondition>  
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoTitleSection">
+				<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoTitleEsite}" objectPath="CatalogEntryBaseSeoAttributes/CatalogEntrySeoAttributes"
+						promptText="${plmPageLayoutResources.seoTitlePrompt}" propertyName="seo_useTitleDefault">
+					<RadioButtonDescriptor value="0" text="${catalogResources.seoDefaultTitleOptionEsiteStorePrompt}" name="seo_templatetitle"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideTitleOptionEsiteStorePrompt}" editorPropertyName="seo_title"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the meta description of the catalog entry page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaDescSection">
+				<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoMetaDescEsite}" objectPath="CatalogEntryBaseSeoAttributes/CatalogEntrySeoAttributes"
+						promptText="${plmPageLayoutResources.seoMetaDescPrompt}" propertyName="seo_useMetaDescDefault">
+					<RadioButtonDescriptor value="0" text="${catalogResources.seoDefaultDescOptionEsiteStorePrompt}" name="seo_templatemetadesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideDescOptionEsiteStorePrompt}" editorPropertyName="seo_metadesc" multiline="true"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the image alt text of the catalog entry page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoImageAltTextSection">
+				<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoImageAltDescEsite}" objectPath="CatalogEntryBaseSeoAttributes/CatalogEntrySeoAttributes"
+						promptText="${plmPageLayoutResources.seoImageDescPrompt}" propertyName="seo_useImageAltDescDefault">
+					<RadioButtonDescriptor value="0" text="${catalogResources.seoDefaultImageOptionEsiteStorePrompt}" name="seo_templateimagealtdesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideImageOptionEsiteStorePrompt}" editorPropertyName="seo_imagealtdesc"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+		</PropertyGroup>		
+	</PropertyGroup>
+	
+	<PropertyGroup definitionName="plmManageInheritedCatalogEntrySeoAttributes" displayObjectStoreName="true" displayStoreName="false">
+		<EnablementAndCondition conditionId="inheritedObjectTypesAndStoreCondition">
+				<EnablementCondition conditionId="seoEnabledCondition" contextName="seoEnabled" enablementValue="true"/>
+				<EnablementOrCondition baseDefinitionName="plmInheritedCatalogEntryEnablement"/>
+				<EnablementOrCondition conditionId="storeTypeCondition">
+					<EnablementCondition conditionId="b2cEsiteCondition" contextName="storeType" enablementValue="MHS"/>
+					<EnablementCondition conditionId="b2bEsiteCondition" contextName="storeType" enablementValue="BMH"/>
+				</EnablementOrCondition>
+		</EnablementAndCondition>
+		
+		<!-- Property Group: Contains the URL keyword and full URL for the catalog entry page -->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoUrlSection">
+				<PropertyUrlPreview name="desktopUrlKeyword" extendedHelpText="${catalogResources.extendedHelpText_seoDesktopUrl}" objectPath="InheritedCatalogEntryBaseSeoURL/CatalogEntrySeoURL" package="cat" promptText="${catalogResources.seoDesktopUrlPrompt}" propertyName="seo_urlkeyword"/>
+		</PropertyGroup>	  
+
+	    <!-- Property Group: Contains the title of the catalog entry page -->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoTitleSection">
+			<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoTitle}" objectPath="InheritedCatalogEntryBaseSeoAttributes/CatalogEntrySeoAttributes"
+					promptText="${plmPageLayoutResources.seoTitlePrompt}" propertyName="seo_useTitleDefault">
+				<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templatetitle"/>
+				<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_title"/>
+			</PropertyRadioGroup>
+		</PropertyGroup>
+
+		<!-- Property Group: Contains the meta description of the catalog entry page --> 
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaDescSection">
+			<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoMetaDesc}" objectPath="InheritedCatalogEntryBaseSeoAttributes/CatalogEntrySeoAttributes"
+					promptText="${plmPageLayoutResources.seoMetaDescPrompt}" propertyName="seo_useMetaDescDefault">
+				<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templatemetadesc"/>
+				<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_metadesc" multiline="true"/>
+			</PropertyRadioGroup>
+		</PropertyGroup>
+
+		<!-- Property Group: Contains the image alt text of the catalog entry page --> 
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoImageAltTextSection">
+			<PropertyRadioGroup extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoImageAltDesc}" objectPath="InheritedCatalogEntryBaseSeoAttributes/CatalogEntrySeoAttributes"
+					promptText="${plmPageLayoutResources.seoImageDescPrompt}" propertyName="seo_useImageAltDescDefault">
+				<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templateimagealtdesc"/>
+				<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_imagealtdesc"/>
+			</PropertyRadioGroup>
+		</PropertyGroup>
+	</PropertyGroup>
+	
+	<PropertyGroup definitionName="plmManageCatalogGroupSeoAttributes" displayObjectStoreName="false" displayStoreName="true">
+		<!-- Property Group: Contains the URL keyword and full URL for the catalog group page -->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoUrlSection">
+			<EnablementAndCondition conditionId="localObjectTypesAndNonStoreFrontAssetStoreCondition" baseDefinitionName="plmLocalCatalogObjectTypesAndNonStoreFrontAssetStoreEnablement" />
+			<PropertyUrlPreview name="desktopUrlKeyword" extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoDesktopUrl_Category}" objectPath="CatalogGroupBaseSeoURL/CatalogGroupSeoURL" package="cat" promptText="${catalogResources.seoDesktopUrlPrompt}" propertyName="seo_urlkeyword"/>
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the URL keyword and full URL for the catalog group page for StoreFrontAssetStore-->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoStoreFrontAssetUrlSection">
+			<EnablementAndCondition conditionId="storeFrontAssetObjectTypesAndStoreCondition" baseDefinitionName="plmStoreFrontAssetCatalogObjectTypesAndStoreEnablement" />
+			<PropertyUrlPreview name="desktopUrlKeyword" extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoDesktopUrl_Category}" objectPath="InheritedCatalogGroupBaseSeoURL/CatalogGroupSeoURL" package="cat" promptText="${catalogResources.seoDesktopUrlPrompt}" propertyName="seo_urlkeyword"/>
+		</PropertyGroup>	  	  
+		
+		<!-- Property Group: Contains the URL keyword and full URL for the catalog group page (for eSites) -->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoESitesUrlSection">
+				<EnablementAndCondition conditionId="inheritedObjectTypesAndStoreCondition" baseDefinitionName="plmInheritedCatalogObjectTypesAndStoreEnablement" />
+				<PropertyUrlPreview name="desktopUrlKeyword1" extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoDesktopUrlEsite_Category}" objectPath="CatalogGroupBaseSeoURL/CatalogGroupSeoURL" package="cat" promptText="${catalogResources.seoDesktopUrlPrompt}" propertyName="seo_urlkeyword"/>
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the title of the catalog group page -->
+		<PropertyGroup collapsable="false" displayGrouping="false" name="seoTMDSection">
+			<EnablementAndCondition conditionId="localObjectTypesAndNonStoreFrontAssetStoreCondition" baseDefinitionName="plmLocalCatalogObjectTypesAndNonStoreFrontAssetStoreEnablement" />
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoTitleSection">
+				<PropertyRadioGroup extendedHelpText="${catalogResources.extendedHelpText_seoTitle}" objectPath="CatalogGroupBaseSeoAttributes/CatalogGroupSeoAttributes"
+						promptText="${catalogResources.seoTitlePrompt}" propertyName="seo_useTitleDefault">
+					<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templatetitle"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_title"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the meta description of the catalog group page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaDescSection">
+				<PropertyRadioGroup extendedHelpText="${catalogResources.extendedHelpText_seoMetaDesc_Category}" objectPath="CatalogGroupBaseSeoAttributes/CatalogGroupSeoAttributes"
+						promptText="${catalogResources.seoMetaDescPrompt}" propertyName="seo_useMetaDescDefault">
+					<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templatemetadesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_metadesc" multiline="true"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the image alt text of the catalog group page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoImageAltTextSection">
+				<PropertyRadioGroup extendedHelpText="${catalogResources.extendedHelpText_seoImageAltDesc}" objectPath="CatalogGroupBaseSeoAttributes/CatalogGroupSeoAttributes"
+						promptText="${catalogResources.seoImageDescPrompt}" propertyName="seo_useImageAltDescDefault">
+					<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templateimagealtdesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_imagealtdesc"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the title of the catalog group page for Store Front Asset Store -->
+		<PropertyGroup collapsable="false" displayGrouping="false" name="seoStoreFrontAssetTMDSection">
+			<EnablementAndCondition conditionId="storeFrontAssetObjectTypesAndStoreCondition" baseDefinitionName="plmStoreFrontAssetCatalogObjectTypesAndStoreEnablement" />
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoTitleSection">
+				<PropertyRadioGroup extendedHelpText="${catalogResources.extendedHelpText_seoTitle}" objectPath="InheritedCatalogGroupBaseSeoAttributes/CatalogGroupSeoAttributes"
+						promptText="${catalogResources.seoTitlePrompt}" propertyName="seo_useTitleDefault">
+					<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templatetitle"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_title"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the meta description of the catalog group page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaDescSection">
+				<PropertyRadioGroup extendedHelpText="${catalogResources.extendedHelpText_seoMetaDesc_Category}" objectPath="InheritedCatalogGroupBaseSeoAttributes/CatalogGroupSeoAttributes"
+						promptText="${catalogResources.seoMetaDescPrompt}" propertyName="seo_useMetaDescDefault">
+					<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templatemetadesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_metadesc" multiline="true"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the image alt text of the catalog group page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoImageAltTextSection">
+				<PropertyRadioGroup extendedHelpText="${catalogResources.extendedHelpText_seoImageAltDesc}" objectPath="InheritedCatalogGroupBaseSeoAttributes/CatalogGroupSeoAttributes"
+						promptText="${catalogResources.seoImageDescPrompt}" propertyName="seo_useImageAltDescDefault">
+					<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templateimagealtdesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_imagealtdesc"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the title of the catalog group page for ESite Store -->
+		<PropertyGroup collapsable="false" displayGrouping="false" name="seoEsitesTMDSection">
+			<EnablementAndCondition conditionId="inheritedObjectTypesAndStoreCondition" baseDefinitionName="plmInheritedCatalogObjectTypesAndStoreEnablement" />
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoTitleSection">
+				<PropertyRadioGroup extendedHelpText="${catalogResources.extendedHelpText_seoTitleEsite}" objectPath="CatalogGroupBaseSeoAttributes/CatalogGroupSeoAttributes"
+						promptText="${catalogResources.seoTitlePrompt}" propertyName="seo_useTitleDefault">
+					<RadioButtonDescriptor value="0" text="${catalogResources.seoDefaultTitleOptionEsiteStorePrompt}" name="seo_templatetitle"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideTitleOptionEsiteStorePrompt}" editorPropertyName="seo_title"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the meta description of the catalog group page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaDescSection">
+				<PropertyRadioGroup extendedHelpText="${catalogResources.extendedHelpText_seoMetaDescEsite_Category}" objectPath="CatalogGroupBaseSeoAttributes/CatalogGroupSeoAttributes"
+						promptText="${catalogResources.seoMetaDescPrompt}" propertyName="seo_useMetaDescDefault">
+					<RadioButtonDescriptor value="0" text="${catalogResources.seoDefaultDescOptionEsiteStorePrompt}" name="seo_templatemetadesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideDescOptionEsiteStorePrompt}" editorPropertyName="seo_metadesc" multiline="true"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+			
+			<!-- Property Group: Contains the image alt text of the catalog group page --> 
+			<PropertyGroup collapsable="false" displayGrouping="true" name="seoImageAltTextSection">
+				<PropertyRadioGroup extendedHelpText="${catalogResources.extendedHelpText_seoImageAltDescEsite}" objectPath="CatalogGroupBaseSeoAttributes/CatalogGroupSeoAttributes"
+						promptText="${catalogResources.seoImageDescPrompt}" propertyName="seo_useImageAltDescDefault">
+					<RadioButtonDescriptor value="0" text="${catalogResources.seoDefaultImageOptionEsiteStorePrompt}" name="seo_templateimagealtdesc"/>
+					<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideImageOptionEsiteStorePrompt}" editorPropertyName="seo_imagealtdesc"/>
+				</PropertyRadioGroup>
+			</PropertyGroup>
+		</PropertyGroup>		
+	</PropertyGroup>	
+
+	<PropertyGroup definitionName="plmManageInheritedCatalogGroupSeoAttributes" displayObjectStoreName="true" displayStoreName="false">
+		<EnablementAndCondition conditionId="inheritedObjectTypesAndStoreCondition">
+			<EnablementCondition conditionId="seoEnabledCondition" contextName="seoEnabled" enablementValue="true"/>
+			<EnablementAndCondition conditionId="inheritedObjectTypesAndStoreCondition" baseDefinitionName="plmInheritedCatalogObjectTypesAndStoreEnablement" />
+		</EnablementAndCondition>
+		<!-- Property Group: Contains the URL keyword and full URL for the catalog group page -->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoUrlSection">
+				<PropertyUrlPreview name="desktopUrlKeyword" extendedHelpText="${plmPageLayoutResources.extendedHelpText_seoDesktopUrl_Category}" objectPath="InheritedCatalogGroupBaseSeoURL/CatalogGroupSeoURL" package="cat" promptText="${catalogResources.seoDesktopUrlPrompt}" propertyName="seo_urlkeyword"/>	
+		</PropertyGroup>	  
+		
+		<!-- Property Group: Contains the title of the catalog group page -->
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoTitleSection">
+			<PropertyRadioGroup extendedHelpText="${catalogResources.extendedHelpText_seoTitle}" objectPath="InheritedCatalogGroupBaseSeoAttributes/CatalogGroupSeoAttributes"
+					promptText="${catalogResources.seoTitlePrompt}" propertyName="seo_useTitleDefault">
+				<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templatetitle"/>
+				<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_title"/>
+			</PropertyRadioGroup>
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the meta description of the catalog group page --> 
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoMetaDescSection">
+			<PropertyRadioGroup extendedHelpText="${catalogResources.extendedHelpText_seoMetaDesc_Category}" objectPath="InheritedCatalogGroupBaseSeoAttributes/CatalogGroupSeoAttributes"
+					promptText="${catalogResources.seoMetaDescPrompt}" propertyName="seo_useMetaDescDefault">
+				<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templatemetadesc"/>
+				<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_metadesc" multiline="true"/>
+			</PropertyRadioGroup>
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the image alt text of the catalog group page --> 
+		<PropertyGroup collapsable="false" displayGrouping="true" name="seoImageAltTextSection">
+			<PropertyRadioGroup extendedHelpText="${catalogResources.extendedHelpText_seoImageAltDesc}" objectPath="InheritedCatalogGroupBaseSeoAttributes/CatalogGroupSeoAttributes"
+					promptText="${catalogResources.seoImageDescPrompt}" propertyName="seo_useImageAltDescDefault">
+				<RadioButtonWithPropertyViewerDescriptor value="0" text="${catalogResources.seoDefaultOptionPrompt}" viewerPropertyName="seo_templateimagealtdesc"/>
+				<RadioButtonWithInputTextDescriptor value="1" text="${catalogResources.seoOverrideOptionPrompt}" editorPropertyName="seo_imagealtdesc"/>
+			</PropertyRadioGroup>
+		</PropertyGroup>
+	</PropertyGroup>
+
+	<!-- ======== Enablement condition ========== -->	
+	
+	<EnablementAndCondition conditionId="storeFrontAssetStoreObjectTypesAndStoreCondition" definitionName="plmStoreFrontAssetCatalogObjectTypesAndStoreEnablement" >
+		<EnablementCondition checkObjectDefinition="true" conditionId="catalogGroupBrowsingPageCondition" enablementValue="CatalogGroupBrowsingPage" propertyName="objectType"/>
+		<EnablementOrCondition conditionId="storeFrontAssetStoreTypeCondition" baseDefinitionName="plmStoreFrontAssetCatalogStoreEnablement" />
+	</EnablementAndCondition>
+	
+	<EnablementAndCondition conditionId="localObjectTypesAndNonStoreFrontAssetStoreCondition" definitionName="plmLocalCatalogObjectTypesAndNonStoreFrontAssetStoreEnablement" >
+		<EnablementCondition checkObjectDefinition="true" conditionId="catalogGroupBrowsingPageCondition" enablementValue="CatalogGroupBrowsingPage" propertyName="objectType"/>
+		<EnablementOrCondition conditionId="storeFrontAssetStoreTypeCondition" baseDefinitionName="plmStoreFrontAssetCatalogStoreEnablement" negate="true"/>
+	</EnablementAndCondition>
+	
+	<EnablementAndCondition conditionId="inheritedObjectTypesAndStoreCondition" definitionName="plmInheritedCatalogObjectTypesAndStoreEnablement" >
+		<EnablementCondition checkObjectDefinition="true" conditionId="inheritedCategoryBrowsingPageCondition" enablementValue="InheritedCatalogGroupBrowsingPage" propertyName="objectType"/>
+		<EnablementOrCondition conditionId="inheritedStoreTypeCondition" baseDefinitionName="plmInheritedCatalogStoreEnablement" />
+	</EnablementAndCondition>
+	
+	<EnablementOrCondition conditionId="inheritedStoreTypeCondition" definitionName="plmInheritedCatalogStoreEnablement">
+		<EnablementCondition conditionId="b2cEsiteCondition" contextName="storeType" enablementValue="MHS"/>
+		<EnablementCondition conditionId="b2bEsiteCondition" contextName="storeType" enablementValue="BMH"/>
+	</EnablementOrCondition>
+
+	<EnablementOrCondition conditionId="storeFrontAssetStoreTypeCondition" definitionName="plmStoreFrontAssetCatalogStoreEnablement">
+		<EnablementCondition conditionId="storeFrontAssetStoreCondition1" contextName="storeType" enablementValue="RPS"/>
+		<EnablementCondition conditionId="storeFrontAssetStoreCondition2" contextName="storeType" enablementValue="BRP"/>
+		<EnablementCondition conditionId="storeFrontAssetStoreCondition3" contextName="storeType" enablementValue="MPS"/>
+		<EnablementCondition conditionId="storeFrontAssetStoreCondition4" contextName="storeType" enablementValue="BMP"/>
+	</EnablementOrCondition>
+	
+	<!---
+    		This is a condition to check if the object is of the type 'ProductBrowsingPage' 
+	    	OR 'BundleBrowsingPage' OR 'KitBrowsingPage' OR 'CatalogGroupBrowsingPage' OR 'CatalogGroupSKUBrowsingPage' OR 'ProductSKUBrowsingPage'.
+	-->
+ 	<EnablementOrCondition conditionId="localObjectTypesCondition" definitionName="plmCatalogEntryEnablement">
+		<EnablementCondition checkObjectDefinition="true" conditionId="productCondition" enablementValue="ProductBrowsingPage" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="bundleCondition" enablementValue="BundleBrowsingPage" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="kitCondition" enablementValue="KitBrowsingPage" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="dynamicKitCondition" enablementValue="DynamicKitBrowsingPage" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="predDynaKitCondition" enablementValue="PredDynaKitBrowsingPage" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="catalogGroupSKUCondition" enablementValue="CatalogGroupSKUBrowsingPage" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="productSKUCondition" enablementValue="ProductSKUBrowsingPage" propertyName="objectType"/>
+	</EnablementOrCondition>	          	 
+ 	
+	<!---
+	    This condition is used to check if the object is of the type 'InheritedProductBrowsingPage' 
+    	    OR 'InheritedBundleBrowsingPage' OR 'InheritedKitBrowsingPage' OR 'InheritedCatalogGroupBrowsingPage' OR 'InheritedCatalogGroupSKUBrowsingPage' 
+    	    OR 'InheritedProductSKUBrowsingPage'.
+	-->
+ 	<EnablementOrCondition conditionId="inheritedObjectTypesCondition" definitionName="plmInheritedCatalogEntryEnablement">
+		<EnablementCondition checkObjectDefinition="true" conditionId="inheritedProductCondition" enablementValue="InheritedProductBrowsingPage" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="inheritedBundleCondition" enablementValue="InheritedBundleBrowsingPage" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="inheritedKitCondition" enablementValue="InheritedKitBrowsingPage" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="inheritedDynamicKitCondition" enablementValue="InheritedDynamicKitBrowsingPage" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="inheritedPredDynaKitCondition" enablementValue="InheritedPredDynaKitBrowsingPage" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="inheritedCatalogGroupSKUCondition" enablementValue="InheritedCatalogGroupSKUBrowsingPage" propertyName="objectType"/>
+		<EnablementCondition checkObjectDefinition="true" conditionId="inheritedProductSKUCondition" enablementValue="InheritedProductSKUBrowsingPage" propertyName="objectType"/>	          	
+	</EnablementOrCondition>	
+	
+</Definitions>

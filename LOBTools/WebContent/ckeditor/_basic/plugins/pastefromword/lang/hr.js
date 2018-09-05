@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("pastefromword","hr",{confirmCleanup:"Čini se da je tekst kojeg želite zalijepiti kopiran iz Worda. Želite li ga očistiti prije lijepljenja?",error:"Nije bilo moguće očistiti zalijepljene podatke zbog interne greške",title:"Zalijepi posebno",toolbar:"Zalijepi posebno"});

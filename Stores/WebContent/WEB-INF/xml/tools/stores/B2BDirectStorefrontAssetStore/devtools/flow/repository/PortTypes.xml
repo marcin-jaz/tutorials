@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repository-entries SYSTEM "../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+	<port-types>
+	
+		<entry-port-type id="EntryPortType1"/>
+		<exit-port-type id="ExitPortType1"/>
+
+	</port-types>
+</components>
+</repository-entries>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scf SYSTEM "scf.dtd">
+<scf version="1.0">
+	<exit-ports>
+		<exit-port id="ActualOrderDisplayPendingPage.i1.xPrevious" destinationURL="MultipleShippingMethodView"/>
+		<exit-port id="ActualAddressBookFormPage.i1.xBackToCheckout" destinationURL="MultipleShippingAddressView"/>
+		<exit-port id="ActualMultipleShippingMethodPage.i1.xPrevious" destinationURL="MultipleShippingAddressView"/>
+		<exit-port id="ActualMultipleShippingAddressPage.i1.xNext" destinationURL="MultipleShippingMethodView"/>
+		<exit-port id="ActualBillingAddressPage.i1.xNext" destinationURL="MultipleShippingAddressView"/>
+		<exit-port id="ActualAddressformPage.i1.xBackToCheckout" destinationURL="MultipleShippingAddressView"/>
+	</exit-ports>
+	<features>
+		<feature id="preferredCurrency"/>
+		<feature id="preferredLanguage"/>
+		<feature id="search"/>
+		<feature id="ProductQuickView"/>
+		<feature id="ProductDnD"/>
+		<feature id="ProductCompare"/>
+		<feature id="InventoryAvailability"/>
+		<feature id="ScrollableESpot"/> 
+		<feature id="QuickOrder"/>
+		<feature id="miniShopCart"/>
+		<feature id="AjaxAddToCart"/>
+		<feature id="ScheduleOrder"/>
+		<feature id="MultipleActiveOrders"/>
+		<feature id="FutureOrders"/>
+		<feature id="ExpeditedOrders"/>
+		<feature id="ShippingChargeType"/>
+		<feature id="AjaxCheckout"/>
+		<feature id="SharedShippingBillingPage"/>
+		<feature id="MultipleShipments"/>
+		<feature id="MultipleShippingMethodPage.i1.impl.f"/>
+		<feature id="MultipleShippingAddressPage.i1.impl.f"/>
+		<feature id="StandardCheckoutSubsection.i1.impl1.f"/>
+		<feature id="promotionCode"/>
+		<feature id="promotionChoiceOfFreeGift"/>
+		<feature id="ShippingInstructions"/>
+		<feature id="TrackingStatus"/>
+    <feature id="AllowReOrder"/>
+		<feature id="AjaxMyAccountPage"/>
+		<feature id="accountParticipantRole"/>
+		<feature id="RequisitionList"/>
+		<feature id="Style.f.1"/>
+		<feature id="vfile.logo.gif.f"/>
+		<feature id="Color.f.2"/>
+	</features>
+	<file-refs>
+		<file-ref id="vfile.color" url="images/colors/color2/"/>
+		<file-ref id="vfile.logo" url="images/logo.gif"/>
+		<file-ref id="vfile.stylesheet" url="css/common1_2$locale$.css" locale-specific="yes" locales="iw_IL,ja_JP,zh_CN,ko_KR,zh_TW"/>
+		<file-ref id="vfile.stylesheetie" url="css/commonie1_2$locale$.css" locale-specific="yes" locales="iw_IL"/>
+		<file-ref id="StyleDir" url="include/styles/style1/"/>
+		<file-ref id="vfile.stylesheetprint" url="css/print.css"/>
+		<file-ref id="vfile.stylesheetie7" url="css/commonie7.css"/>
+	</file-refs>
+</scf>
+

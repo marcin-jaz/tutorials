@@ -1,0 +1,93 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+	
+<%-- 
+  *****
+  * This JSP snippet displays the order quick view navigation links (Previos/Next) at the bottom
+  * of each order details.
+  *****
+--%>
+
+<!-- BEGIN OrderQuickNavigation.jspf -->
+	
+
+<%
+String orderId = request.getParameter("orderId");
+String orderIds = (String) session.getAttribute(ORDER_IDS_KEY);
+
+if (orderId != null && orderIds != null) {
+	String prevOrderId = null;
+	String nextOrderId = null;
+	
+	String orderIdsArr[] = orderIds.split(",");
+	String currPage = "";
+	String totalPages = "";
+	for (int i = 0;i < orderIdsArr.length; i++) {
+		String ordIdStr = orderIdsArr[i];
+		long ordId1 = Long.parseLong(ordIdStr);
+		long ordId2 = Long.parseLong(orderId);
+		if (ordId1 == ordId2) {	
+			if ((i-1) >= 0) {
+				prevOrderId = orderIdsArr[(i-1)];
+			}
+			if ((i+1) < orderIdsArr.length) {
+				nextOrderId = orderIdsArr[(i+1)];
+			}	
+			currPage = "" + (i+1);
+			totalPages = "" + (orderIdsArr.length);
+		}
+	}
+	%>
+	<c:set var="nxtOrderId" value="<%= nextOrderId %>" />
+	<c:set var="prvOrderId" value="<%= prevOrderId %>" />
+	<c:set var="currPage" value="<%= currPage %>" />
+	<c:set var="totalPages" value="<%= totalPages %>" />
+	<%
+}
+%>
+
+<c:if test="${!empty prvOrderId || !empty nxtOrderId}">
+	<div class="paging_control_with_underline"> 
+		<div class="page_number">
+			<fmt:message key="PAGING" bundle="${storeText}">
+				<fmt:param value="${currPage}"/>
+				<fmt:param value="${totalPages}"/>				
+			</fmt:message>
+		</div>
+		<c:if test="${!empty prvOrderId}">
+			<span class="bullet">&#171; </span>
+
+			<wcf:url var="OrderDetailURL" value="mOrderDetails">
+				<wcf:param name="storeId" value="${WCParam.storeId}" />
+				<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+				<wcf:param name="orderId" value="${prvOrderId}" />			
+				<wcf:param name="langId" value="${langId}"/>
+			</wcf:url>
+			<a href="${fn:escapeXml(OrderDetailURL)}" title="<fmt:message key="PAGING_PREV_PAGE_TITLE" bundle="${storeText}"/>"><fmt:message key="PAGING_PREV_PAGE" bundle="${storeText}"/></a>
+		</c:if>
+		&#160;&#160;
+		<c:if test="${!empty nxtOrderId}">
+			<wcf:url var="OrderDetailURL" value="mOrderDetails">
+				<wcf:param name="storeId" value="${WCParam.storeId}" />
+				<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+				<wcf:param name="orderId" value="${nxtOrderId}" />			
+				<wcf:param name="langId" value="${langId}"/>
+			</wcf:url>
+			<a href="${fn:escapeXml(OrderDetailURL)}" title="<fmt:message key="PAGING_NEXT_PAGE_TITLE" bundle="${storeText}"/>"><fmt:message key="PAGING_NEXT_PAGE" bundle="${storeText}"/></a>
+			<span class="bullet">&#187; </span>
+		</c:if>
+	</div>	
+</c:if>
+
+<!-- END OrderQuickNavigation.jspf -->

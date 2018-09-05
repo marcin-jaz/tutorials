@@ -1,0 +1,55 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2001, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%-- 
+  *****
+  * This JSP fragment is included in content JSP pages to construct the right and bottom portion of the layout.
+  *****
+--%>
+<!-- BEGIN LayoutContainerBottom.jspf -->
+
+      <!-- /Content -->
+      	<% out.flush(); %>
+      	<c:import url="${jspStoreDir}${StyleDir}ContentContainerBottom.jsp">
+			<c:param name="frameTitle" value="${frameTitle}" />
+		</c:import>
+		<% out.flush(); %>
+      <!-- /Content Container-->
+      
+    </td>
+    
+	<c:if test="${(empty HideCIP) or (HideCIP != true)}">
+	<flow:ifEnabled feature="headsUpDisplay">
+	<td height="100%"  valign="top">
+		<!-- HUD -->
+		<%@ include file="HeadsUpDisplay.jspf"%>
+		<!-- /HUD -->
+    </td>
+    </flow:ifEnabled>
+	</c:if>
+	
+  </tr>
+  <tr> 
+    <td colspan="3"   valign="top">
+	<!-- Footer -->
+	<%@ include file="FooterDisplay.jspf"%>
+	<!-- /Footer -->
+    </td>
+  </tr>
+</table>
+<!-- /Layout enclosing table -->
+
+<!-- END LayoutContainerBottom.jspf -->

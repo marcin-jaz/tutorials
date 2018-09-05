@@ -1,0 +1,132 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2001, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%-- 
+  *****
+  * This JSP fragment sets up variables used in JSP pages that use JSTL.
+  *****
+--%>
+<!-- Start of JSTLEnvironmentSetup.jspf -->
+
+<%@ page session="false"%>
+
+<%--
+The following is commented out because these taglibs should be defined in each content JSP 
+in order to better enable code-assist in JSP editors
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://commerce.ibm.com/base" prefix="wcbase" %>
+<%@ taglib uri="flow.tld" prefix="flow" %>
+--%>
+
+<%-- 
+The following sets variables with store settings for Flexflow
+--%>
+<flow:fileRef id="vfileColor" fileId="vfile.color"/>
+<flow:fileRef id="StyleDir" fileId="StyleDir"/>
+<flow:fileRef id="vfileStylesheet" fileId="vfile.stylesheet"/>
+<flow:fileRef id="vfileLogo" fileId="vfile.logo"/>
+<flow:fileRef id="vfileBanner" fileId="vfile.banner"/>
+<flow:fileRef id="vfileSelectedBanner" fileId="vfile.selectedBanner"/>
+
+<wcbase:useBean id="sdb" classname="com.ibm.commerce.common.beans.StoreDataBean" scope="request" />
+
+<%-- These are convenience variables to use on pages --%>
+<c:set var="locale" value="${CommandContext.locale}"/>
+<c:set var="langId" value="${CommandContext.languageId}"/>
+<c:set var="storeId" value="${CommandContext.storeId}"/>
+<c:set var="catalogId" value="${WCParam.catalogId}"/>
+<c:set var="userState" value="${CommandContext.user.state}"/>
+<c:set var="userType" value="${CommandContext.user.registerType}"/>
+<c:set var="userId" value="${CommandContext.userId}"/>
+<c:if test="${(empty rfqLinkDisplayed) && (!empty param.rfqLinkDisplayed)}">
+	<c:set var="rfqLinkDisplayed" value="${param.rfqLinkDisplayed}"/>
+</c:if>
+<c:if test="${(empty displayApproverLink) && (!empty param.displayApproverLink)}">
+	<c:set var="displayApproverLink" value="${param.displayApproverLink}"/>
+</c:if>
+<c:if test="${empty liveHelp}">
+	<c:set var="liveHelp" value="${param.liveHelp}"/>
+</c:if>
+<c:if test="${(empty bAdmin) && (!empty param.bAdmin)}">
+	<c:set var="bAdmin" value="${param.bAdmin}"/>
+</c:if>
+
+
+<%-- Hosted Store specific variables --%>
+<%--
+  ***
+  * URL pointing to the hosted store home directory.  
+  * Use this to reference images that are unique to the hosted store.
+  * Do not use this variable for a store that will not be used in a hosted environment.
+  ***
+--%>
+<c:set var="storeImgDir" value="${sdb.filePath}" scope="page" />
+<%-- 
+  ***
+  * WebAsset directory of the hosted store.  Includes JSPs, HTML, Image files, etc.
+  * Use this to reference file assets that are unique to the hosted store.
+  * Do not use this variable for a store that will not be used in a hosted environment.
+  ***
+--%>
+<c:set var="storeDir" value="${sdb.jspPath}" scope="page" />
+
+
+<%-- Shared Store variables --%>
+<%--
+  ***
+  * URL pointing to the shared image directory.  
+  * Use this to reference images that are either:
+  *  a) shared across hosted stores through the hosted asset store
+  *  b) not used in a hosted environment
+  ***
+--%>
+<c:set var="jspStoreImgDir" value="${sdb.jspStoreDirFilePath}" scope="page" />
+<%-- 
+  ***
+  * WebAsset directory of the shared file directory.  Includes JSPs, HTML, Image files, etc. 
+  * Use this to reference file assets that are either:
+  *  a) shared across hosted stores through the hosted asset store
+  *  b) not used in a hosted environment
+  ***
+--%>
+<c:set var="jspStoreDir" value="/${sdb.jspStoreDir}/" scope="page" />
+
+
+
+<c:set var="fileDir" value="${sdb.filePath}" scope="page" />
+
+<%-- Name of the store --%>
+<c:set var="storeName" value="${sdb.storeEntityDescriptionDataBean.displayName}" scope="page" />
+
+<%-- Load the common bundles --%>
+<fmt:setLocale value="${CommandContext.locale}" />
+<fmt:setBundle basename="${jspStoreDir}pcdmarket" var="storeText" />
+
+<c:set property="contentType" target="${pageContext.response}">
+	<fmt:message key="ENCODESTATEMENT" bundle="${storeText}" />
+</c:set>
+
+<c:set var="ccResBundle" value="${storeText}" scope="page" />
+
+<c:choose>
+	<c:when test="${sdb.storeType eq 'SCP'}">
+		<c:set var="multiSeller" value="${true}" scope="page" />
+	</c:when>
+	<c:otherwise>
+		<c:set var="multiSeller" value="${false}" scope="page" />
+	</c:otherwise>
+</c:choose>

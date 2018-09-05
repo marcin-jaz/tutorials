@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<WidgetObjectDefinition package="plm"
+		definitionName="plmLayoutWidget_FacebookActivityWidget" 
+		baseDefinitionName="plmBaseLayoutWidget"
+		parentDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		objectType="FacebookActivityWidget"
+		gridPropertiesDefinitionName="plmWidgetProperties_FacebookActivityWidget"
+		iconPath="/images/pagelayouts/widgetIcons/facebook.png"
+		widgetDisplayGroups="AnyPage,CatalogEntryPage,CategoryPage,SearchPage"
+		helpLink="concepts/cpzwidfacebook.htm">
+
+		<CreateService baseDefinitionName="plmBaseCreateLayoutWidget" />
+		<UpdateService baseDefinitionName="plmBaseUpdateLayoutWidget" />
+
+		<Xml name="template">
+			<sequence>0</sequence>
+		</Xml>
+	</WidgetObjectDefinition>
+
+</Definitions>

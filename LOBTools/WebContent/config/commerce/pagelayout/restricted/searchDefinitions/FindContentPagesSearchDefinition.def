@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<!---
+		This search is used to find content pages available for the particular store
+	 -->
+	<SearchDefinition definitionName="FindContentPages" 
+		searchType="FindContentPages"
+		displayName="${plmPageLayoutResources.findContentPagesSearchDefinition_DisplayName}"
+		objectTypeDisplayName="${plmPageLayoutResources.contentPage_DisplayName}"
+		icon="storePageIcon"
+		listDefinitionName="plmContentPageGrid"
+		listTitle="${plmPageLayoutResources.contentPagesSearchTitle}"
+		tooltip="${plmPageLayoutResources.searchAllContentPagesTooltip}"
+		utilitiesListDefinitionName="plmUtilityContentPageSearchGrid"
+		helpLink="concepts/cpzpagecomptool.htm">
+			<SearchService name="findContentPages" url="/cmc/FindContentPages">
+				<ServiceParam name="storeId"/>
+				<ServiceParam name="assetStoreId"/>
+			</SearchService>
+	</SearchDefinition>
+	
+</Definitions>

@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("pastefromword","hu",{confirmCleanup:"A beilleszteni kívánt szöveg úgy tűnik a Word alkalmazásból származik. Tisztítja a beillesztése előtt?",error:"Belső hiba miatt nem sikerült a beillesztett adatok tisztítása",title:"Irányított beillesztés",toolbar:"Irányított beillesztés"});

@@ -1,0 +1,197 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<%--
+*****
+This object snippet displays the contents for the quick info pop-up dialog. This should be included in any 
+page where we need to show quick info pop-up dialog , and the contents are updated dynamically by AJAX calls 
+present in the CatalogEntryThumbnailDisplay.js file.
+*****
+--%>
+<!-- BEGIN CatalogEntryQuickInfoDetails.jspf-->
+ <flow:ifEnabled feature="AjaxMyAccountPage">
+	<script type="text/javascript">
+		dojo.addOnLoad(function() {
+			categoryDisplayJS.setAjaxMyAccount(true);
+		});
+	</script>
+</flow:ifEnabled>
+<flow:ifDisabled feature="AjaxMyAccountPage">
+	<script type="text/javascript">
+		dojo.addOnLoad(function() {
+			categoryDisplayJS.setAjaxMyAccount(false);
+		});
+	</script>
+</flow:ifDisabled>
+
+<flow:ifEnabled feature="RequisitionList">
+	<c:if test="${userType !='G'}">
+		<%out.flush();%>
+			<c:import url="${jspStoreDir}ShoppingArea/OrderCreationSection/RequisitionListSubsection/RequisitionListPopupDisplay.jsp">
+			</c:import>
+		<%out.flush();%>
+	</c:if>
+</flow:ifEnabled>
+ 
+<script type="text/javascript" src="<c:out value="${jsAssetsDir}javascript/CatalogArea/CatalogEntryThumbnailDisplay.js"/>"></script>
+
+<div id="second_level_category_popup_main_div">
+	<div id="second_level_category_popup" dojoType="dijit.Dialog" >
+		<div class="top_left" id="WC_CatalogEntryQuickInfoDetailsf_div_1"><img alt="" src="<c:out value="${jspStoreImgDir}" />images/trasparent.gif" /></div>
+	  <div class="top_right" id="WC_CatalogEntryQuickInfoDetailsf_div_2"><img alt="" src="<c:out value="${jspStoreImgDir}" />images/trasparent.gif" /></div>
+		<div class="header" id="popupHeader"> 
+			<div class="close" id="WC_CatalogEntryQuickInfoDetailsf_div_3">
+			    <a id="closeLink" href="javascript:hidePopup('second_level_category_popup');" onkeydown="javaScript:setbackFocus(event);" onmousedown="javaScript:setbackFocus(event);">
+			        <span onclick="javaScript:hidePopup('second_level_category_popup');" class="icon" id="WC_CatalogEntryQuickInfoDetailsf_div_4">
+			            <img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />popup_close.png" />
+			        </span>
+			        <fmt:message key="QuickInfo_Close" bundle="${storeText}"/>
+			    </a>
+			</div>
+		</div>
+		
+		<div class="bodyarea" id="WC_CatalogEntryQuickInfoDetailsf_div_5">
+		    <div class="bodycontent" id="WC_CatalogEntryQuickInfoDetailsf_div_6">
+		       <div class="title" id="WC_CatalogEntryQuickInfoDetailsf_div_7">
+					<div id="productIdQuickInfo" style="display:none"></div>		       
+			       <h2 id="productName"></h2>
+			       <h1 id="productSKUValue"></h1>
+			     </div>
+		       
+		       <div class="purchase_details" id="WC_CatalogEntryQuickInfoDetailsf_div_8">
+							<div class="purchase_price" id="productPrice"></div>
+		     			
+		     			<div class="purchase_quanitity" id="productQuantity">
+								<span>
+		   						<label for="productPopUpQty">
+										<fmt:message key="QuickInfo_Qty" bundle="${storeText}"/>: </label><input type="text" name="quantity" id="productPopUpQty" class="quantity" value="1" size="2"/>
+		   						</span>
+		   						<span class="order_button">
+		   							<flow:ifEnabled feature="AjaxAddToCart"> 
+										<span class="primary_button" id="addToCartAjaxButton">
+											<span class="button_container">
+												<span class="button_bg">
+													<span class="button_top">
+														<span class="button_bottom">   
+															<a id="addToCartLinkAjax" href="javascript:;" >
+																<fmt:message key="QuickInfo_AddToCart" bundle="${storeText}"/>
+															</a>
+														</span>
+													</span>
+												</span>	
+											</span>
+										</span>	
+									</flow:ifEnabled>
+									<flow:ifDisabled feature="AjaxAddToCart">
+										<span class="primary_button" id="addToCartButton">
+											<span class="button_container">
+												<span class="button_bg">
+													<span class="button_top">
+														<span class="button_bottom">   
+															<a id="addToCartLink" href="#" >
+																<fmt:message key="QuickInfo_AddToCart" bundle="${storeText}"/>
+															</a>
+														</span>
+													</span>
+												</span>	
+											</span>
+										</span>	
+									</flow:ifDisabled>
+		     						</span>
+		     			</div>
+		     			
+		     			<div class="clear_float" id="WC_CatalogEntryQuickInfoDetailsf_div_13"></div>
+		       </div>
+		       
+		       <div class="product_details" id="WC_CatalogEntryQuickInfoDetailsf_div_14">
+		         <div class="product_visual" id="WC_CatalogEntryQuickInfoDetailsf_div_15">
+		       		<div style='display:none;' id="baseUrlImageDir"><c:out value="${jspStoreImgDir}" /></div>
+			       	<img alt="" src="<c:out value="${jspStoreImgDir}" />images/NoImageIcon.jpg" border="0" class="product_image" id="productFullImage" />
+		         </div>
+		         
+		         <div class="product_information" id="WC_CatalogEntryQuickInfoDetailsf_div_16">
+		       			<p id="productAttributes"></p>
+		       			
+		       			<div class="product_description" id="productLongDescription"></div>
+		       			
+		       			<div class="product_description" id="productDescriptiveAttributes"></div>
+		       			
+		       			<a href="" title="<fmt:message key="QuickInfo_More" bundle="${storeText}"/>" id="productMoreInfoLink"><fmt:message key="QuickInfo_More" bundle="${storeText}"/></a>
+		       			
+		       			<p id="moreinfo"><fmt:message key="ClickMoreInfo" bundle="${storeText}"/></p>
+		       			
+		       			<p class="product_description" id="productPromotions"></p>
+		       			
+		       			<ul class="product_actions" id="productActions">
+		     					<flow:ifEnabled feature="AjaxAddToCart">
+										<flow:ifEnabled  feature="wishList">
+												<li><a href="" id="addToWishListLinkAjax"><img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />addbutton.png" border="0"/> <fmt:message key="QuickInfo_AddToList" bundle="${storeText}"/></a></li>
+										</flow:ifEnabled>
+										<flow:ifEnabled feature="ProductCompare">
+												<li><a href="" id="addToCompareLink"><img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />addbutton.png" border="0"/> <fmt:message key="QuickInfo_AddToCompare" bundle="${storeText}"/></a></li>
+										</flow:ifEnabled>
+										<flow:ifEnabled feature="AjaxCheckout">
+											<li><a href="" id="replaceCartItemAjax"><img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />addbutton.png" border="0"/> <fmt:message key="QuickInfo_REPLACEINCART" bundle="${storeText}"/></a></li>
+										</flow:ifEnabled>
+										<flow:ifDisabled feature="AjaxCheckout">
+											<li><a href="#" id="replaceCartItemNonAjax"><img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />addbutton.png" border="0"/> <fmt:message key="QuickInfo_REPLACEINCART" bundle="${storeText}"/></a></li>
+										</flow:ifDisabled>
+										<flow:ifEnabled feature="RequisitionList">
+											<c:if test="${userType !='G'}">
+												<li><a href="" id="addToNewRequisitionList"><img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />addbutton.png" border="0"/> <fmt:message key="ADD_TO_NEW_REQUISITIONLIST" bundle="${storeText}"/></a></li>
+												<li><a href="" id="addToExistingRequisitionList"><img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />addbutton.png" border="0"/> <fmt:message key="ADD_TO_EXISTING_REQUISITIONLIST" bundle="${storeText}"/></a></li>
+											</c:if>
+										</flow:ifEnabled>										
+									</flow:ifEnabled>
+									<flow:ifDisabled feature="AjaxAddToCart">
+										<flow:ifEnabled  feature="wishList">
+											<li><a id="addToWishListLink" href="#"><img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />addbutton.png" border="0"/><fmt:message key="QuickInfo_AddToList" bundle="${storeText}"/></a></li>
+										</flow:ifEnabled>
+										<flow:ifEnabled feature="ProductCompare">
+											<li><a href="" id="addToCompareLink"><img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />addbutton.png" border="0"/> <fmt:message key="QuickInfo_AddToCompare" bundle="${storeText}"/></a></li>
+										</flow:ifEnabled>
+										<flow:ifEnabled feature="AjaxCheckout">
+											<li><a href="" id="replaceCartItemAjax"><img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />addbutton.png" border="0"/> <fmt:message key="QuickInfo_REPLACEINCART" bundle="${storeText}"/></a></li>
+										</flow:ifEnabled>
+										<flow:ifDisabled feature="AjaxCheckout">
+											<li><a href="#" id="replaceCartItemNonAjax"><img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />addbutton.png" border="0"/> <fmt:message key="QuickInfo_REPLACEINCART" bundle="${storeText}"/></a></li>
+										</flow:ifDisabled>
+										<flow:ifEnabled feature="RequisitionList">
+											<c:if test="${userType !='G'}">
+												<li><a href="" id="addToNewRequisitionList"><img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />addbutton.png" border="0"/> <fmt:message key="ADD_TO_NEW_REQUISITIONLIST" bundle="${storeText}"/></a></li>
+												<li><a href="" id="addToExistingRequisitionList"><img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />addbutton.png" border="0"/> <fmt:message key="ADD_TO_EXISTING_REQUISITIONLIST" bundle="${storeText}"/></a></li>
+											</c:if>										
+										</flow:ifEnabled>										
+									</flow:ifDisabled>
+		       			</ul>
+		         </div>
+		         
+		     		 <div class="clear_float" id="WC_CatalogEntryQuickInfoDetailsf_div_17"></div>
+			<span style="display:none" id="requiredFieldText"><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></span>
+		         <span style="display:none" id="selectText"><fmt:message key="QuickInfo_Select" bundle="${storeText}"/></span>
+		       	 <span tabindex="0" id="focusConveyer" onfocus="javaScript:gobackFocus();"></span>
+	          </div>
+		       
+		    </div>
+		</div>
+		
+		<div class="footer" id="WC_CatalogEntryQuickInfoDetailsf_div_18">
+	    <div class="bot_left" id="WC_CatalogEntryQuickInfoDetailsf_div_19"></div>
+	    <div class="bot_right" id="WC_CatalogEntryQuickInfoDetailsf_div_20"></div>
+	  </div>
+	  	<!--[if lte IE 6.5]><iframe id="dropDownIFrame" scrolling="no" frameborder="0" src="<c:out value="${jspStoreImgDir}"/>images/empty.gif"></iframe><![endif]-->
+	</div>
+</div>
+<script type="text/javascript">dojo.addOnLoad(function() { parseWidget("second_level_category_popup"); } );</script>
+<!-- END CatalogEntryQuickInfoDetails.jspf-->
+

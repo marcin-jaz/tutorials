@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<!--- This definition defines the base object from which BundleBrowsingPage and InheritedBundleBrowsingPage are derived.
+	-->
+	<PrimaryObjectDefinition definitionName="plmBaseBundleBrowsingPagePrimaryObjectDefinition" 
+		baseDefinitionName="plmBaseCatalogEntryBrowsingPagePrimaryObjectDefinition"
+		isBaseDefinition="true" 
+		detailsViewHeaderText="${catalogResources.UtilityPaneHeaderText}"
+		displayName="${plmPageLayoutResources.bundlePage_DisplayName}"
+		helpLink="concepts/cpzpagecomptool.htm" >
+
+		<!--- This navigation list definition is used to display the layout assignments for this catalog entry page. -->
+		<NavigationListDefinition name="CatalogEntryBrowsingPageAssignmentChildList"
+			displayName="${plmPageLayoutResources.navigation_layoutAssignmentListPrompt}"
+		 	isDefault="true"
+		 	listDefinitionName="plmPageLayoutReferenceList" 
+		 	toolbarIcon="listToolbarIcon"
+		 	listTitle="${plmPageLayoutResources.navigation_layoutAssignmentPrompt}" />	
+
+		<!--- This navigation list definition is used to display the layout assignments for this catalog entry page as a calendar view. -->
+		<NavigationListDefinition name="CatalogEntryBrowsingPageAssignmentGanttChildList"
+			displayName="${plmPageLayoutResources.pageLayoutsGanttChartMenuTitle}"
+		 	listDefinitionName="plmPageLayoutGanttReferenceList" 
+		 	listTitle="${plmPageLayoutResources.pageLayoutsGanttChartTitle}"
+		 	toolbarIcon="ganttChartToolbarIcon" />	
+	</PrimaryObjectDefinition>
+	
+	<!---
+		This definition represents the primary object definition describing a Bundle Browsing Page as a business object.
+	-->	
+	<PrimaryObjectDefinition definitionName="BundleBrowsingPage"
+		baseDefinitionName="plmBaseBundleBrowsingPagePrimaryObjectDefinition" 
+		objectType="BundleBrowsingPage"
+	 	headerIcon="bundlePageHeaderIcon" 
+	 	icon="bundlePageIcon">
+
+	
+	</PrimaryObjectDefinition>
+
+	<!---		
+		This definition represents the primary object definition describing an Inherited Bundle Browsing Page as a business object.
+	-->		
+	<PrimaryObjectDefinition definitionName="InheritedBundleBrowsingPage"
+		baseDefinitionName="plmBaseBundleBrowsingPagePrimaryObjectDefinition"
+	 	objectType="InheritedBundleBrowsingPage"
+	   	displayName="${plmPageLayoutResources.inheritedBundlePage_DisplayName}"
+	    headerIcon="inheritedBundlePageHeaderIcon" 
+	    icon="inheritedBundlePageIcon">
+
+	</PrimaryObjectDefinition>
+</Definitions>

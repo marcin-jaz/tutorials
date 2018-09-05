@@ -1,0 +1,194 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2003, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+
+<%--
+  *****
+  * This JSP segment displays the adress section of the registration forms
+  * for the following countries/regions:
+  *  - China
+  * The display order is as follows (* means mandatory):
+  *  - country/region*
+  *  - state/province*
+  *  - city*
+  *  - address*
+  *  - zip/postal code*
+  *****
+--%>
+
+<tr>
+	<td class="logonheading" colspan="2" id="<c:out value="WC_${pageName}_AddressEntryForm_TableCell_1"/>">
+		<span class="reqd">*</span><label for="<c:out value="${paramPrefix}country"/>"><fmt:message key="Reg_Country" bundle="${storeText}"/></label>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" id="<c:out value="WC_${pageName}_AddressEntryForm_TableCell_2"/>">
+		<wcbase:useBean id="countryBean" classname="com.ibm.commerce.user.beans.CountryStateListDataBean">
+			<c:set target="${countryBean}" property="countryCode" value="${paramSource.country}"/>
+		</wcbase:useBean>
+		<select class="logon" name="<c:out value="${paramPrefix}country"/>" id="<c:out value="${paramPrefix}country"/>" onChange="javascript:loadStatesUI(<c:out value="${formName}"/>, '<c:out value="${paramPrefix}"/>')" >
+			<c:forEach var="country" items="${countryBean.countries}">
+				<option value="<c:out value="${country.code}"/>"
+					<c:if test="${country.code eq paramSource.country || country.displayName eq paramSource.country}">
+						selected="selected"
+					</c:if>
+				><c:out value="${country.displayName}"/></option>
+			</c:forEach>
+		</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="logonheading" id="<c:out value="WC_${pageName}_AddressEntryForm_TableCell_3"/>">
+		<span class="reqd">*</span><label for="<c:out value="${paramPrefix}state"/>"><fmt:message key="Reg_Province" bundle="${storeText}"/></label>
+	</td>
+	<td class="logonheading" id="<c:out value="WC_${pageName}_AddressEntryForm_TableCell_4"/>">
+		<span class="reqd">*</span><label for="<c:out value="WC_${pageName}_AddressEntryForm_FormInput_${paramPrefix}city_1"/>"><fmt:message key="Reg_City" bundle="${storeText}"/></label>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_AddressEntryForm_TableCell_5"/>">
+	<div id="<c:out value="${paramPrefix}stateDiv"/>">
+		<c:choose>
+			<c:when test="${!empty countryBean.countryCodeStates}">
+				<select class="logon" name="<c:out value="${paramPrefix}state"/>" id="<c:out value="${paramPrefix}state"/>">
+				<c:forEach var="state" items="${countryBean.countryCodeStates}">
+					<option value="<c:out value="${state.code}"/>"
+					<c:if test="${state.code eq paramSource.state || state.displayName eq paramSource.state}">
+						selected="selected"
+					</c:if>
+					><c:out value="${state.displayName}"/></option>
+				</c:forEach>
+				</select>
+			</c:when>
+			<c:otherwise>
+				<input class="logon" type="text" maxlength="40" size="25" name="<c:out value="${paramPrefix}state"/>" title="<fmt:message key="Reg_State" bundle="${storeText}"/>" value="<c:out value="${paramSource.state}"/>" id="<c:out value="${paramPrefix}state"/>"/>
+			</c:otherwise>
+		</c:choose>
+	</div>
+	</td>
+	<td id="<c:out value="WC_${pageName}_AddressEntryForm_TableCell_6"/>">
+		<input class="logon" type="text" maxlength="40" size="25" name="<c:out value="${paramPrefix}city"/>" value="<c:out value="${paramSource.city}"/>" id="<c:out value="WC_${pageName}_AddressEntryForm_FormInput_${paramPrefix}city_1"/>"/>
+	</td>
+</tr>
+
+<tr>
+	<td class="logonheading" colspan="2" id="<c:out value="WC_${pageName}_AddressEntryForm_TableCell_7"/>">
+		<span class="reqd">*</span><label for="<c:out value="WC_${pageName}_AddressEntryForm_FormInput_${paramPrefix}address1_1"/>"><fmt:message key="Reg_Addr1" bundle="${storeText}"/></label>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" id="<c:out value="WC_${pageName}_AddressEntryForm_TableCell_8"/>">
+		<input class="logon" type="text" maxlength="49" size="60" name="<c:out value="${paramPrefix}address1"/>" title="<fmt:message key="Reg_AddrLine1" bundle="${storeText}"/>" value="<c:out value="${paramSource.address1}"/>" id="<c:out value="WC_${pageName}_AddressEntryForm_FormInput_${paramPrefix}address1_1"/>"/>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" id="<c:out value="WC_${pageName}_AddressEntryForm_TableCell_9"/>">
+		<input class="logon" type="text" maxlength="49" size="60" name="<c:out value="${paramPrefix}address2"/>" title="<fmt:message key="Reg_AddrLine2" bundle="${storeText}"/>" value="<c:out value="${paramSource.address2}"/>" id="<c:out value="WC_${pageName}_AddressEntryForm_FormInput_${paramPrefix}address2_1"/>"/>
+	</td>
+</tr>
+
+<tr>
+	<td class="logonheading" colspan="2" id="<c:out value="WC_${pageName}_AddressEntryForm_TableCell_10"/>">
+		<span class="reqd">*</span><label for="<c:out value="WC_${pageName}_AddressEntryForm_FormInput_${paramPrefix}zipCode_1"/>"><fmt:message key="Reg_Zipcode" bundle="${storeText}"/></label>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" id="<c:out value="WC_${pageName}_AddressEntryForm_TableCell_11"/>">
+		<input class="logon" type="text" maxlength="30" size="25" name="<c:out value="${paramPrefix}zipCode"/>" value="<c:out value="${paramSource.zipCode}"/>" id="<c:out value="WC_${pageName}_AddressEntryForm_FormInput_${paramPrefix}zipCode_1"/>"/>
+	</td>
+</tr>
+
+<script language="javascript">
+//get the list of all countries and states available from the database.
+var countries = new Array();
+
+<c:forEach var="country" items="${countryBean.countries}">
+	countries["<c:out value="${country.code}"/>"] = new Object();
+	countries["<c:out value="${country.code}"/>"].name = "<c:out value="${country.displayName}"/>";
+	
+	<c:if test="${!empty country.states}">
+		<c:forEach var="state" items="${country.states}" varStatus="counter">
+			<c:if test="${counter.index == 0}">
+				countries["<c:out value="${country.code}"/>"].states = new Object();
+			</c:if>
+			countries["<c:out value="${country.code}"/>"].states["<c:out value="${state.code}"/>"] = "<c:out value="${state.displayName}"/>";
+		</c:forEach>
+	</c:if>
+</c:forEach>
+</script>
+
+<script language="javascript">
+// Reload the state field to be input or select depending on the data
+function loadStatesUI(form, paramPrefix)
+{
+		var currentState = form[paramPrefix + "state"].value;
+    var currentCountryCode = form[paramPrefix + "country"].value;
+    var stateDivObj = document.getElementById(paramPrefix + "stateDiv");
+		while(stateDivObj.hasChildNodes()) {
+			stateDivObj.removeChild(stateDivObj.firstChild);
+		}
+
+    if (countries[currentCountryCode].states) {
+        // switch to state list
+        stateDivObj.appendChild(createStateWithOptions(paramPrefix, currentCountryCode, currentState));
+    } else {
+        // switch to state text input
+        stateDivObj.appendChild(createState(paramPrefix, currentState));
+    }
+}
+
+// Create an input element to represent the state
+function createState(paramPrefix, currentState)
+{
+		var stateInput = document.createElement("input");
+		stateInput.setAttribute("id", paramPrefix + "state");
+		stateInput.setAttribute("name", paramPrefix + "state");
+		stateInput.setAttribute("className", "logon input");
+		stateInput.setAttribute("size", "25");
+		stateInput.setAttribute("maxlength", "40");
+		//stateInput.setAttribute("value", currentState);
+		return stateInput
+}
+
+// Create an select element to represent the state and load it with the corresponding states
+// as defined in the database
+function createStateWithOptions(paramPrefix, currentCountryCode, currentState)
+{
+		var stateSelect = document.createElement("select");
+		stateSelect.setAttribute("id", paramPrefix + "state");
+		stateSelect.setAttribute("name", paramPrefix + "state");
+		stateSelect.setAttribute("className", "logon select");
+		
+    // clear old options
+    stateSelect.options.length = 0;
+    
+    // add all states
+    for (state_code in countries[currentCountryCode].states) {
+        // add a state
+        aOption = document.createElement("option");
+        stateSelect.options.add(aOption);
+        aOption.text = countries[currentCountryCode].states[state_code];
+        aOption.value = state_code;
+
+        if (state_code == currentState || countries[currentCountryCode].states[state_code] == currentState) {
+            aOption.selected = true;
+        }
+    }
+    
+    return stateSelect;
+}
+</script>

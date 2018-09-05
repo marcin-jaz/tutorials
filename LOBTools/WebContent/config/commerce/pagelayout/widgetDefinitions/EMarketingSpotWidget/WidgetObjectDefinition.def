@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<WidgetObjectDefinition package="plm"
+		definitionName="plmLayoutWidget_EMarketingSpotWidget" 
+		baseDefinitionName="plmBaseLayoutWidget"
+		parentDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		objectType="EMarketingSpotWidget"
+		gridPropertiesDefinitionName="plmWidgetProperties_EMarketingSpotWidget"
+		iconPath="/images/pagelayouts/widgetIcons/emarketing_spot.png"
+		widgetDisplayGroups="AnyPage,CatalogEntryPage,CategoryPage,SearchPage"
+		helpLink="concepts/cpzwidespot.htm">
+
+		<PropertyDefinition propertyName="xWidgetProp_widgetOrientation">
+			<PropertyValue displayName="${plmPageLayoutResources.eMarketingSpotWidgetWidgetOrientation_Horizontal}" value="horizontal" />
+			<PropertyValue displayName="${plmPageLayoutResources.eMarketingSpotWidgetWidgetOrientation_Vertical}" value="vertical" />
+		</PropertyDefinition>
+
+		<PropertyDefinition propertyName="xWidgetProp_displayPreference">
+			<PropertyValue displayName="${plmPageLayoutResources.eMarketingSpotWidgetDisplayPreference_Style1}" value="1" />
+			<PropertyValue displayName="${plmPageLayoutResources.eMarketingSpotWidgetDisplayPreference_Style2}" value="2" />
+			<PropertyValue displayName="${plmPageLayoutResources.eMarketingSpotWidgetDisplayPreference_Style3}" value="3" />
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_pageSize" 
+			maxValue="2147483647"
+			minValue="1"
+			type="integer">
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsType">
+			<PropertyValue displayName="${plmPageLayoutResources.eMarketingSpotWidgetEmsType_Global}" value="global" />
+			<PropertyValue displayName="${plmPageLayoutResources.eMarketingSpotWidgetEmsType_Local}" value="local" />
+		</PropertyDefinition>
+		
+		<PropertyDefinition propertyName="xWidgetProp_emsName" type="string" displayName="${plmPageLayoutResources.eMarketingSpotWidgetEmsType_Local_Suffix}" required="true" maximumSize="256">
+			<EnablementCondition conditionId="emsTypeCondition" propertyName="xWidgetProp_emsType" enablementValue="local" />
+		</PropertyDefinition>
+
+		<CreateService baseDefinitionName="plmBaseCreateLayoutWidget">
+			<ServiceParam name="xWidgetProp_emsName_global" parameterName="xWidgetProp_emsName" objectPath="ChildSpot/EMarketingSpotGroup" propertyName="name" optional="true">
+				<EnablementCondition conditionId="emsTypeCondition" propertyName="xWidgetProp_emsType" enablementValue="global" />
+			</ServiceParam>
+			<ServiceParam name="xWidgetProp_emsName_local" parameterName="xWidgetProp_emsName" propertyName="xWidgetProp_emsName" optional="true" >
+				<EnablementCondition conditionId="emsTypeCondition" propertyName="xWidgetProp_emsType" enablementValue="local" />
+			</ServiceParam>		
+		</CreateService>
+
+		<UpdateService baseDefinitionName="plmBaseUpdateLayoutWidget">
+			<ServiceParam name="xWidgetProp_emsName_global" parameterName="xWidgetProp_emsName" objectPath="ChildSpot/EMarketingSpotGroup" propertyName="name" optional="true">
+				<EnablementCondition conditionId="emsTypeCondition" propertyName="xWidgetProp_emsType" enablementValue="global" />
+			</ServiceParam>
+			<ServiceParam name="xWidgetProp_emsName_local" parameterName="xWidgetProp_emsName" propertyName="xWidgetProp_emsName" optional="true" >
+				<EnablementCondition conditionId="emsTypeCondition" propertyName="xWidgetProp_emsType" enablementValue="local" />
+			</ServiceParam>		
+		</UpdateService>		
+
+		<ReferenceObjectDefinition allowDuplicates="false" allowedParentTypes="PageLayout" derivedId="true" idProperty="childEMarketingSpotId" objectGroups="ChildSpot" objectType="ChildEMarketingSpot" referencedTypes="EMarketingSpot"/>
+		<ReferenceObjectDefinition allowDuplicates="false" derivedId="true" idProperty="childEMarketingSpotId" objectGroups="ChildSpot" objectType="ChildInheritedEMarketingSpot" referencedTypes="InheritedEMarketingSpot"/>
+		
+		<RequiredChildObjectValidator errorMessage="${mktMarketingResources.noEMarketingSpotSelected}" objectPath="ChildSpot" validatorId="childObjValidator" validatorType="noEMarketingSpotSelected">
+			<EnablementCondition conditionId="emsTypeCondition" propertyName="xWidgetProp_emsType" enablementValue="global" />
+		</RequiredChildObjectValidator>
+		
+		<Xml name="template">
+			<xWidgetProp_widgetOrientation>horizontal</xWidgetProp_widgetOrientation>
+			<xWidgetProp_pageSize>4</xWidgetProp_pageSize>
+			<xWidgetProp_showFeed>false</xWidgetProp_showFeed>
+			<xWidgetProp_emsType>global</xWidgetProp_emsType>
+			<xWidgetProp_displayPreference>1</xWidgetProp_displayPreference>
+			<sequence>0</sequence>
+		</Xml>		
+	</WidgetObjectDefinition>
+	
+</Definitions>

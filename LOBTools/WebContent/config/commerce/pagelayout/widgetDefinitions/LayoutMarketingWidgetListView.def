@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<!---
+		This grid displays the default content associated with an e-Marketing Spot. It can list marketing content,
+		categories and catalog entries in the same grid.
+	-->
+	<ObjectGrid definitionName="plmMarketingDefaultContentGrid" preferenceKey="plmMarketingDefaultContentGrid">
+		<GridText alignment="right" datatype="number" editable="false" name="uniqueID" propertyName="uniqueId" objectPath="MarketingContentGroup" text="${mktMarketingResources.uniqueId}" visible="false" width="90"/>
+		<GridIconTypeImage name="type" required="true" text="${mktMarketingResources.type}" width="60"/>
+		<GridStoreName name="store" propertyName="objectStoreId" text="${mktMarketingResources.store}" width="125">
+			<GridCellDescriptor name="contentStore" objectPath="MarketingContentGroup" propertyName="objectStoreId"/>
+			<GridCellDescriptor name="categoryStore" objectPath="CatalogGroupAlias" propertyName="objectStoreId"/>
+			<GridCellDescriptor name="catentryStore" objectPath="CatalogEntry" propertyName="objectStoreId"/>
+		</GridStoreName>
+		<GridText editable="false" name="contentName" required="true" text="${mktMarketingResources.objectName}" visible="true" width="250">
+			<GridCellDescriptor name="contentName" objectPath="MarketingContentGroup" propertyName="name"/>
+			<GridCellDescriptor name="categoryName" objectPath="CatalogGroupAlias/CatalogGroupDescription" propertyName="name"/>
+			<GridCellDescriptor name="catentryName" objectPath="CatalogEntry/CatalogEntryDescription" propertyName="name"/>
+		</GridText>
+		<GridNumeric editable="false" name="orderBySequence" required="false" propertyName="sequence" visible="true" 
+			text="${mktMarketingResources.displayProduct_orderBySequence}" width="90"/>
+	</ObjectGrid>
+	
+	<ObjectGrid definitionName="plmActivityGrid" preferenceKey="plmActivityGrid">
+		<GridIconTypeImage enableFilter="true" name="type" required="true" text="${mktMarketingResources.type}" width="80"/>
+		<GridPropertyImage editable="false" enableFilter="true" name="state" propertyName="state" objectPath="WebActivityGroup" text="${mktMarketingResources.state}" visible="true" width="80"/>
+		<GridStoreName name="store" propertyName="objectStoreId" objectPath="WebActivityGroup" text="${mktMarketingResources.store}" width="125"/>
+		<GridText editable="true" name="activityName" propertyName="name" objectPath="WebActivityGroup" required="true" text="${mktMarketingResources.objectName}" visible="true" width="150"/>
+		<GridText editable="true" name="description" propertyName="description" objectPath="WebActivityGroup" text="${mktMarketingResources.description}" visible="false" width="250"/>
+		<GridDateTime editable="true" name="startdate" propertyName="startdate" objectPath="WebActivityGroup" text="${mktMarketingResources.startDateHeading}" visible="true"/>
+		<GridDateTime editable="true" endOfDay="true" name="enddate" propertyName="enddate"  objectPath="WebActivityGroup" text="${mktMarketingResources.endDateHeading}" visible="true"/>
+		<GridStepper alignment="right" datatype="number" editable="true" maximumValue="1000" minimumValue="0" name="priority" propertyName="priority" objectPath="WebActivityGroup" text="${mktMarketingResources.priority}" visible="true" width="55"/>
+		<GridCheckbox alignment="center" editable="false" name="experiment" propertyName="experimentType" objectPath="WebActivityGroup" text="${mktMarketingResources.experiment}" trueValue="Experiment" visible="false" width="100"/>
+		<GridDateTime editable="false" name="created" propertyName="created" objectPath="WebActivityGroup" text="${mktMarketingResources.created}" visible="false"/>
+		<GridDateTime editable="false" name="lastUpdated" propertyName="lastupdate" objectPath="WebActivityGroup" text="${mktMarketingResources.lastUpdated}" visible="false"/>
+		<GridText alignment="right" datatype="number" editable="false" name="uniqueID" propertyName="activityId" objectPath="WebActivityGroup" text="${mktMarketingResources.uniqueId}" visible="false" width="90"/>
+	</ObjectGrid>
+
+</Definitions>

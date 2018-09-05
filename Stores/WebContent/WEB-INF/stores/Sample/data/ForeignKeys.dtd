@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ENTITY MAR_STORE_DIR_LOWERCASE "aurorab2bstorefrontassetstore">
+<!ENTITY HOS_ORGANIZATION_DN "ou=extended sites seller organizationaurorab2besite,o=extended sites seller organization,o=root organization">
+<!ENTITY MAR_STORE_IDENTIFIER "AuroraB2BStorefrontAssetStore">
+<!ENTITY REGCUST_MBRGRPNAME "RegisteredCustomers">
+<!ENTITY CAT_ORGANIZATION_DN "ou=asset store organization,o=extended sites organization,o=root organization">
+<!ENTITY HOS_MEMBER_ID "@hosting_mbr_id">
+<!ENTITY ja_JP "-10">
+<!ENTITY USER_DN_BUYER_A_ADMIN_PART "uid=buyeraadmin,">
+<!ENTITY CAT_STORE_IDENTIFIER "Extended Sites Catalog Asset Store">
+<!ENTITY iw_IL "-11">
+<!ENTITY MAR_ORGANIZATION_DN "ou=aurorab2bstorefrontassetstore,o=extended sites organization,o=root organization">
+<!ENTITY ORGANIZATION_DN "ou=extended sites seller organizationaurorab2besite,o=extended sites seller organization,o=root organization">
+<!ENTITY CAT_MEMBER_ID "@catalog_mbr_id">
+<!ENTITY USERREG_APPROVAL_MBRGRPNAME "UserRegistrationApprovalGroup">
+<!ENTITY MAR_STORE_IDENTIFIER_LOWERCASE "aurorab2bstorefrontassetstore">
+<!ENTITY HOS_STORE_IDENTIFIER "AuroraB2BESite">
+<!ENTITY zh_CN "-7">
+<!ENTITY HOS_STORE_DIR "AuroraB2BESite">
+<!ENTITY pl_PL "-22">
+<!ENTITY tr_TR "-13">
+<!ENTITY es_ES "-5">
+<!ENTITY fr_FR "-2">
+<!ENTITY STORE_DIRECTORY_LOWERCASE "aurorab2besite">
+<!ENTITY CAT_STORE_IDENTIFIER_LOWERCASE "extended sites catalog asset store">
+<!ENTITY ko_KR "-9">
+<!ENTITY he_IL "-12">
+<!ENTITY CAT_STORE_DIR "ExtendedSitesCatalogAssetStore">
+<!ENTITY STORE_IDENTIFIER "AuroraB2BESite">
+<!ENTITY pt_BR "-6">
+<!ENTITY HOS_STORE_IDENTIFIER_LOWERCASE "aurorab2besite">
+<!ENTITY USER_DN_BUYER_B_ADMIN_PART "uid=buyerbadmin,">
+<!ENTITY HOS_STORE_DIR_LOWERCASE "aurorab2besite">
+<!ENTITY MAR_STORE_DIR "AuroraB2BStorefrontAssetStore">
+<!ENTITY STORE_DIR "AuroraB2BESite">
+<!ENTITY ar_EG "-23">
+<!ENTITY zh_TW "-8">
+<!ENTITY en_US "-1">
+<!ENTITY CAT_STORE_DIR_LOWERCASE "extendedsitescatalogassetstore">
+<!ENTITY STORE_IDENTIFIER_LOWERCASE "aurorab2besite">
+<!ENTITY ORG_DN_BUYER_A "o=buyer a organization,o=root organization">
+<!ENTITY ORG_DN_BUYER_B "o=buyer b organization,o=root organization">
+<!ENTITY ORDER_APPROVAL_MBRGRPNAME "OrderApprovalGroup">
+<!ENTITY ro_RO "-21">
+<!ENTITY ru_RU "-20">
+<!ENTITY it_IT "-4">
+<!ENTITY de_DE "-3">
+

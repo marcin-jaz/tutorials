@@ -1,0 +1,78 @@
+<%
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2001
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+%>
+
+<%@ page import="com.ibm.commerce.server.JSPResourceBundle" %>
+<%@ page session="false"%>
+<jsp:useBean id="sdb" class="com.ibm.commerce.common.beans.StoreDataBean" scope="request">
+<% com.ibm.commerce.beans.DataBeanManager.activate(sdb, request); %>
+</jsp:useBean>
+
+<%@ taglib uri="flow.tld" prefix="flow" %>
+<%@ include file="nocache.jspf" %>
+
+<%
+CommandContext cmdcontext = (CommandContext) request.getAttribute(ECConstants.EC_COMMANDCONTEXT);
+Locale locale = cmdcontext.getLocale();
+Integer lang = cmdcontext.getLanguageId();
+
+// URL pointing to the hosted store home directory.  Use this to reference images
+String storeImgDir = sdb.getFilePath();
+// URL pointing to the shared image directory.  Use this to reference images
+String jspStoreImgDir = (String) new String(sdb.getJspStoreDirFilePath());
+
+// WebAsset directory of the hosted store.  Includes JSPs, HTML, Image files...
+String storeDir = sdb.getJspPath();
+// WebAsset directory of the shared file directory.  Includes JSPs, HTML, Image files...
+String jspStoreDir = "/" + request.getAttribute(ECConstants.EC_JSP_STORE_DIR) + "/";
+
+// Name of the store
+String storeName = sdb.getDescription(cmdcontext.getLanguageId()).getDisplayName();
+
+String fileDir = jspStoreImgDir;
+String includeDir = storeDir + "include" + "/";
+
+
+// Get the StoreId that the session is in.
+String sessionStoreId = null;
+if(cmdcontext.getSessionData() != null) {
+	Integer nSessionStoreId = cmdcontext.getSessionData().getStoreId();
+	if(nSessionStoreId != null) { sessionStoreId = nSessionStoreId.toString(); }
+}
+//for code relying on a non-null sessionStoreId
+if(sessionStoreId == null) {
+	Integer nStoreId = cmdcontext.getStoreId();
+	if(nStoreId != null) { sessionStoreId = nStoreId.toString(); }
+}
+
+//ResourceBundle tooltechtext = (ResourceBundle) request.getAttribute("ResourceText");
+JSPResourceBundle tooltechtext = (JSPResourceBundle) request.getAttribute("ResourceText");
+
+if (tooltechtext == null) {
+	tooltechtext =  new JSPResourceBundle(sdb.getResourceBundle("tooltechtext"));
+	request.setAttribute("ResourceText", tooltechtext);
+}
+response.setContentType(tooltechtext.getString("ENCODESTATEMENT"));
+
+ResourceBundle ccResBundle = tooltechtext;
+
+boolean multiSeller = false;
+
+if (sdb.getStoreType().equals("SCP")) {
+	multiSeller = true;
+}
+
+%>
+

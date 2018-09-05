@@ -1,0 +1,27 @@
+
+<%
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2000, 2003, 2004
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+%>
+<%-- 
+  *****
+  * This JSP simply stores the storeId and is included from index.jsp.
+  * For a non-hosted situation, this JSP is overwritten as specified in ibm-wc-load.xml with the actual store Id.
+  * For the hosted scenario, the storeId will equal 0 and must always be passed in through the URL for example:
+  *  http://<hostname>/webapp/wcs/stores/<storedir>/StoreView?storeId=10001
+  *****
+--%>
+<%
+    String storeId="0";
+%>

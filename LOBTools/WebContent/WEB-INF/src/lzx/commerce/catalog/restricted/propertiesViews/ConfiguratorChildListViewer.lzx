@@ -1,0 +1,51 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+
+<library>		
+		
+	<!---
+		<p>
+		This class is a child list viewer which will be reloaded when the reference objects are refreshed.
+		</p>	
+	-->
+	<class name="catConfiguratorChildListViewer" extends="wcfChildListViewer">
+		<!---
+			@keywords private
+			This method sets the model object for this view to the specified object.
+			@param wcfModelObject newObject The new object
+		-->
+		<method name="setModelObject" args="newObject">
+			<![CDATA[
+			if (wcfLogger.enabled) {
+				wcfLogger.entering("com.ibm.commerce.lobtools.foundation.view", "catConfiguratorChildListViewer", "setModelObject(newObject)",[newObject]);
+			}
+			
+			if (newObject) {
+			    wcfLogger.entering("com.ibm.commerce.lobtools.foundation.view", "catConfiguratorChildListViewer", "newObject",newObject.logString());
+				this.updateModelObjectDel.register(newObject, "onreferences");
+				newObject.loadReferences();
+			}
+			
+			super.setModelObject(newObject);
+			if (wcfLogger.enabled) {
+				wcfLogger.exiting("com.ibm.commerce.lobtools.foundation.view", "catConfiguratorChildListViewer", "setModelObject(newObject)",[newObject]);
+			}
+			]]>
+		</method>
+		
+	</class>
+	
+
+</library>

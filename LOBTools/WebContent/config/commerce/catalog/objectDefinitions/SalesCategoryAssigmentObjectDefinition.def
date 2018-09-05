@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<!---
+		Organizational object definition for creating multiple catalog entries to sales categories assignments.
+	-->
+	<OrganizationalObjectDefinition
+		creatable="true"
+		definitionName="catManyToManySalesCategoryAssignment"
+		displayName="${catalogResources.manyToManySalesCategoryAssignment}"
+		icon="salesCategoryAssignmentIcon"
+		newDisplayName="${catalogResources.newManyToManySalesCategoryAssignment}"
+		headerIcon="salesCategoryAssignmentHeaderIcon"
+		objectType="ManyToManySalesCategoryAssignment"
+		openGroupTop="true"
+		propertiesDefinitionName="catSalesCategoryAssignmentPropertiesView"
+		writeUsage="IBM_ManageCatalog"
+		initializeObjectStoreId="true"
+		helpLink="tasks/tpnaddmultipr.htm">
+		
+		<ReferenceObjectDefinition baseDefinitionName="catSalesCategoryAssignmentReferenceSalesCategory"/>
+		<ReferenceObjectDefinition baseDefinitionName="catSalesCategoryAssignmentReferenceInheritedSalesCategory"/>
+		
+		<ReferenceObjectDefinition baseDefinitionName="catSalesCategoryAssignmentReferenceCatalogEntry"/>
+		
+		<SalesCategoryAssignmentsSaveHandler package="cat" allowInheritedToInherited="false"/>
+		
+		<!---
+			Validator checks:<ul>
+				<li>there is at least one target and one source and that they are not all inherited</li>
+				<li>that the maximum assignment limit is not exceeded</li>
+			</ul>
+		--> 
+		<SalesCategoryAssignmentValidator package="cat" maximumAssignments="1000" allowInheritedToInherited="false"/>
+		
+	</OrganizationalObjectDefinition>
+	
+	<!---
+		Base reference object definition for a source catalog entry.
+	-->
+	<ReferenceObjectDefinition
+		definitionName="catSalesCategoryAssignmentReferenceCatalogEntry"
+		objectType="SalesCategoryAssignmentReferenceCatalogEntry"
+		referencedTypes="Product,Bundle,Kit,CatalogGroupSKU,PredefinedDKit,InheritedProduct,InheritedBundle,InheritedKit,InheritedCatalogGroupSKU,InheritedPredefinedDKit"
+		objectGroups="SalesCategoryAssignmentReferenceCatalogEntryGroup"
+		allowDuplicates="false">
+
+		<!--- Create service to create the relationship between the sales category and catalog entry -->
+		<CreateService url="/cmc/CreateChildSalesCatalogEntry">
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="catalogId" parentProperty="true" propertyName="owningCatalog"/>
+			<ServiceParam name="parentCategoryId" parentProperty="true" propertyName="catgroupId"/>
+			<ServiceParam name="catentryId" objectPath="CatalogEntry" propertyName="catentryId"/>
+		</CreateService>
+
+		<!--- Property Definition for the sequence property. This indicates the sequence of the child catalog entry with respect to the parent sales category -->
+		<PropertyDefinition displayName="${catalogResources.catalogGroupChildSequence_DisplayName}" maxValue="9999999999" maximumSize="14" minValue="-9999999999" propertyName="sequence" required="true" type="number"/>
+
+		<!-- Default values -->    
+		<Xml name="template">
+			<sequence>0</sequence>
+		</Xml>
+		
+		<TrueEnablementCondition/>
+		
+	</ReferenceObjectDefinition>
+	
+	<!--- 
+		Reference object definition for a target local sales category.  
+	-->
+	<ReferenceObjectDefinition
+		definitionName="catSalesCategoryAssignmentReferenceSalesCategory"
+		objectType="SalesCategoryAssignmentReferenceSalesCategory"
+		objectGroups="SalesCategoryAssignmentReferenceSalesCategoryGroup"
+		referencedTypes="SalesCatalogGroup"
+		allowDuplicates="false">
+		
+		<TrueEnablementCondition/>
+	</ReferenceObjectDefinition>
+	
+	<!--- 
+		Reference object definition for a target inherited sales category.  
+	-->
+	<ReferenceObjectDefinition
+		definitionName="catSalesCategoryAssignmentReferenceInheritedSalesCategory"
+		objectType="SalesCategoryAssignmentReferenceInheritedSalesCategory"
+		objectGroups="SalesCategoryAssignmentReferenceSalesCategoryGroup"
+		referencedTypes="InheritedSalesCatalogGroup"
+		allowDuplicates="false">
+		
+		<EnablementCondition checkHasAccessRight="true" conditionId="allowCreateCondition" conditionType="childObjectCondition" enablementValue="true"/>
+	</ReferenceObjectDefinition>
+	
+</Definitions>

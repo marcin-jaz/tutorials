@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<WidgetObjectDefinition package="plm"
+		definitionName="plmLayoutWidget_PageHeadingWidget" 
+		baseDefinitionName="plmBaseLayoutWidget"
+		parentDefinitionName="plmBasePageLayoutPrimaryObjectDefinition"
+		objectType="PageHeadingWidget"
+		gridPropertiesDefinitionName="plmWidgetProperties_PageHeadingWidget"
+		iconPath="/images/pagelayouts/widgetIcons/header.png"
+		widgetDisplayGroups="CategoryPage,CatalogEntryPage"
+		helpLink="concepts/cpzwidheading.htm">
+
+		<CreateService baseDefinitionName="plmBaseCreateLayoutWidget" />
+		<UpdateService baseDefinitionName="plmBaseUpdateLayoutWidget" />	
+		
+		<Xml name="template">
+			<sequence>0</sequence>
+			<xWidgetProp_titleText></xWidgetProp_titleText>
+		</Xml>		
+	</WidgetObjectDefinition>
+
+</Definitions>

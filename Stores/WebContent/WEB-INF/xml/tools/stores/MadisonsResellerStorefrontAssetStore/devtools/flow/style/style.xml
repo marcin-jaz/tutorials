@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+       <panel id="StylePanel" />
+
+       <option-group id="StylePanelOptions" type="radio" panel="StylePanel" >
+              
+              <option id="Style.1"
+                     enables-features="Style.f.1" 
+                     enables-options="Color.1 Color.2"
+                     src="tools/stores/$storeDir$/style/styles/style1.png" 
+                     selected-by-default="true"/>
+				 </option-group>
+
+       <panel id="ColorPanel" />
+
+       <option-group id="ColorPanelOptions" type="radio" panel="ColorPanel" >
+              
+              <option id="Color.1"
+                     enables-features="Color.f.1" 
+                     src="tools/stores/$storeDir$/style/colors/color1_1.png"
+                     selected-by-default="true" />
+              <option id="Color.2"
+                     enables-features="Color.f.2"
+                     src="tools/stores/$storeDir$/style/colors/color1_2.png" />
+							
+       </option-group>
+       
+       <panel id="BannerPanel" />
+
+</display>

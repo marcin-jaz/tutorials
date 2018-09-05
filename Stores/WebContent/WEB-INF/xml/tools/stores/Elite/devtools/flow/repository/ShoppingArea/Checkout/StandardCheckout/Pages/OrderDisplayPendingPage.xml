@@ -1,0 +1,25 @@
+<!DOCTYPE repository-entries SYSTEM "../../../../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<page-components>
+	<virtual-page id="OrderDisplayPendingPage"/>
+
+	<virtual-page-interface id="OrderDisplayPendingPage.i1" virtual-page-id="OrderDisplayPendingPage">
+		<entry-port id="OrderDisplayPendingPage.i1.e1" type="EntryPortType1"/>
+		<exit-port id="OrderDisplayPendingPage.i1.xPrevious" type="ExitPortType1"/>
+	</virtual-page-interface>
+
+	<simple-implementation id="OrderDisplayPendingPage.i1.impl1" url="OrderDisplay" virtual-page-interface-id="OrderDisplayPendingPage.i1">
+		<component-interface id="OrderDisplayPendingPage.i1.impl1.ci1" interface="ActualOrderDisplayPendingPage.i1"/>
+		<exit-port-map id="OrderDisplayPendingPage.i1.impl1.xpm1" interface-exit-port="OrderDisplayPendingPage.i1.xPrevious" component-exit-ports="ActualOrderDisplayPendingPage.i1.xPrevious"/>
+	</simple-implementation>
+
+	<actual-page id="ActualOrderDisplayPendingPage" file="OrderSubmitForm.jsp"/>
+
+	<actual-page-interface id="ActualOrderDisplayPendingPage.i1" actual-page-id="ActualOrderDisplayPendingPage">
+		<exit-port id="ActualOrderDisplayPendingPage.i1.xPrevious" type="ExitPortType1"/>
+	</actual-page-interface>
+
+</page-components>
+</components>
+</repository-entries>

@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Class-Path: Foundation-Core-FEP.jar 
+ Foundation-Core.jar 
+ Catalog-Server-FEP.jar 
+ Enablement-BaseComponentsLogic.jar 
+ Foundation-Server-FEP.jar 
+ Foundation-Server.jar 
+ Foundation-DataImport.jar 
+ Foundation-Extension-FEP.jar 
+ Foundation-Extension.jar 
+ Search-Solr-Core.jar
+

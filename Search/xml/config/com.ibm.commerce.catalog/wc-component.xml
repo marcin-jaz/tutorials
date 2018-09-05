@@ -1,0 +1,1272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<_config:DevelopmentComponentConfiguration
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ibm.com/xmlns/prod/commerce/foundation/config ../xsd/wc-component.xsd "
+	xmlns:_config="http://www.ibm.com/xmlns/prod/commerce/foundation/config">
+
+	<_config:database name="com.ibm.commerce.foundation.server.services.search.datasource" />
+		
+	<_config:dataservice dataMediatorType="JDBC" metadataClass="com.ibm.commerce.foundation.server.services.rest.search.config.solr.SolrRESTSearchMetadata">
+	</_config:dataservice>
+	
+	<_config:valuemappingservice>
+	
+		<!-- 
+			A value mapping service to resolve the relationship configuration between external and
+			internal keys of business objects.  The purpose of this service is to retrieve value
+			mapping between external and internal values of business objects.  
+		 -->
+		
+		<!-- 
+			URL parameter name => SearchCriteria internal control parameter name
+			
+			This SearchControlParameterMapping mapping is for defining the relationship between
+			REST URL parameters and their corresponding internal name used in the SearchCriteria object.
+			These control parameters in the SearchCriteria object will later be used in the expression
+			providers for processing.
+		 -->
+		<_config:valuemapping externalName="SearchControlParameterMapping" internalName="SearchControlParameterMapping">
+			<_config:valuemap externalValue="searchType"                   internalValue="_wcf.search.type" />
+			<_config:valuemap externalValue="searchSource"                 internalValue="_wcf.search.source" />
+			<_config:valuemap externalValue="orderBy"                      internalValue="_wcf.search.sort" />
+			<_config:valuemap externalValue="pageNumber"                   internalValue="_wcf.search.page.number" />
+			<_config:valuemap externalValue="pageSize"                     internalValue="_wcf.search.page.size" />
+			<_config:valuemap externalValue="categoryId"                   internalValue="_wcf.search.category" />
+			<_config:valuemap externalValue="catalogId"                    internalValue="_wcf.search.catalog" />
+			<_config:valuemap externalValue="langId"                       internalValue="_wcf.search.language" />
+			<_config:valuemap externalValue="locale"                       internalValue="_wcf.search.locale" />
+			<_config:valuemap externalValue="storeId"                      internalValue="_wcf.search.store.online" />
+			<_config:valuemap externalValue="physicalStoreIds"             internalValue="_wcf.search.store.physical" />  
+			<_config:valuemap externalValue="contractId"                   internalValue="_wcf.search.contract" />
+			<_config:valuemap externalValue="currency"                     internalValue="_wcf.search.currency" />
+			<_config:valuemap externalValue="returnFields"                 internalValue="_wcf.search.internal.response.fields" />
+			<_config:valuemap externalValue="responseFormat"               internalValue="_wcf.search.internal.response.format" />
+			<_config:valuemap externalValue="responseTemplate"             internalValue="_wcf.search.internal.response.template" />
+			<_config:valuemap externalValue="facet"                        internalValue="_wcf.search.facet" />
+			<_config:valuemap externalValue="facetLimit"                   internalValue="_wcf.search.facet.field.limit" />
+			<_config:valuemap externalValue="minPrice"                     internalValue="_wcf.search.price.minimum" />
+			<_config:valuemap externalValue="maxPrice"                     internalValue="_wcf.search.price.maximum" />
+			<_config:valuemap externalValue="manufacturer"                 internalValue="_wcf.search.manufacturer" />
+			<_config:valuemap externalValue="filterFacet"                  internalValue="_wcf.search.exclude.facet" />
+			<_config:valuemap externalValue="depthAndLimit"                internalValue="_wcf.search.category.limitSubCategories" />
+			<_config:valuemap externalValue="originalSearchTerm"           internalValue="_wcf.search.originalterm"/>
+			<_config:valuemap externalValue="priceMode"                    internalValue="_wcf.search.price" />
+			<_config:valuemap externalValue="checkEntitlement"             internalValue="_wcf.search.checkEntitlement" />
+			<_config:valuemap externalValue="forUserId"                    internalValue="_wcf.search.runAsId" />
+            <_config:valuemap externalValue="readSchema"                   internalValue="_wcf.search.internal.workspace.schema" />
+            <_config:valuemap externalValue="hostingContractId"            internalValue="_wcf.search.hostcontract" />
+		    <_config:valuemap externalValue="filterTerm"                   internalValue="_wcf.search.exclude.term" />
+		    <_config:valuemap externalValue="filterType"                   internalValue="_wcf.search.exclude.type" />
+		    <_config:valuemap externalValue="profileName"                  internalValue="_wcf.search.profile" />
+		    <_config:valuemap externalValue="searchTerm"                   internalValue="_wcf.search.term" />
+		    <_config:valuemap externalValue="attachmentFilter"             internalValue="_wcf.search.attachment.filter" />
+		    <_config:valuemap externalValue="partNumber"                   internalValue="_wcf.search.partnumber" />
+		    <_config:valuemap externalValue="categoryIdentifier"           internalValue="_wcf.search.category.identifier" />
+		    <_config:valuemap externalValue="associationType"              internalValue="_wcf.search.association.type" />
+		     <_config:valuemap externalValue="maxSlop" 					   internalValue="_wcf.search.edismax.maxSlop" />		    
+		    <_config:valuemap externalValue="minMatch" 					   internalValue="_wcf.search.edismax.mm" />
+		</_config:valuemapping>
+
+		<!--
+			Custom index field name => ProductView REST response UserData field name 
+		
+			This CatalogEntryUserDataFieldNameMapping mapping is for defining the mapping from a custom index field
+			name used in the CatalogEntry search index to the field name used in the UserData area in the REST response.
+			
+			For example,
+			
+				<_config:valuemap externalValue="response_field_label" internalValue="my_index_field_name" />
+			
+			The name of the index field name can be a dynamic field and this name pattern must end with "*".
+			There is a restriction when using for dynamic fields - only one dynamic field that matches the
+			given name pattern will be mapped.
+			
+			For example,
+			
+				<_config:valuemap externalValue="response_field_label" internalValue="my_index_*" />
+				
+			Note: SolrRESTSearchCatalogEntryViewUserDataQueryPostprocessor must be added to the end of
+			      the query section of the search profile in order to activate this configuration.
+			      In addition, make sure the custom index field is also defined in the result section of
+			      the search profile so that this custom index field can be returned from Solr.
+		 -->
+		<_config:valuemapping externalName="CatalogEntryUserDataFieldNameMapping" internalName="CatalogEntryUserDataFieldNameMapping">
+		</_config:valuemapping>
+
+		<!--
+			Custom index field name => CategoryView REST response field name 
+		
+			This CatalogGroupUserDataFieldNameMapping mapping is for defining the mapping from a custom index field
+			name used in the CatalogGroup search index to the field name used in the UserData area in the REST response.
+			
+			For example,
+			
+				<_config:valuemap externalValue="response_field_label" internalValue="my_index_field_name" />
+			
+			The name of the index field name can be a dynamic field and this name pattern must end with "*".
+			There is a restriction when using for dynamic fields - only one dynamic field that matches the
+			given name pattern will be mapped.
+			
+			For example,
+			
+				<_config:valuemap externalValue="response_field_label" internalValue="my_index_*" />
+
+			Note: SolrRESTSearchCatalogGroupViewUserDataQueryPostprocessor must be added to the end of
+			      the query section of the search profile in order to activate this configuration.
+			      In addition, make sure the custom index field is also defined in the result section of
+			      the search profile so that this custom index field can be returned from Solr.
+		 -->		
+		<_config:valuemapping externalName="CatalogGroupUserDataFieldNameMapping" internalName="CatalogGroupUserDataFieldNameMapping">
+		</_config:valuemapping>
+		
+		<!--
+			IMPORTANT NOTICE - DO NOT MODIFY
+			
+			The following value mapping configuration is for IBM internal use only.  Modifying existing values may
+			result in affecting certain product feature to malfunction.
+		 -->
+		 
+		<!-- 
+			returnField URL parameter value => Search index field name
+
+			This SearchIndexReturnFieldMapping mapping is for defining the relationship between
+			return field name used in REST URL parameter, returnFields, and their corresponding internal
+			index field name in the search index.
+			
+			Note: the external name must be unique across all search indexes.
+		 -->
+		<_config:valuemapping externalName="SearchIndexReturnFieldMapping" internalName="SearchIndexReturnFieldMapping">
+			<!-- CatalogEntry search index -->
+			<_config:valuemap externalValue="productId"                    internalValue="catentry_id" />
+			<_config:valuemap externalValue="productType"                  internalValue="catenttype_id_ntk_cs" />
+			<_config:valuemap externalValue="buyable"                      internalValue="buyable" />
+			<_config:valuemap externalValue="published"                    internalValue="published" />
+			<_config:valuemap externalValue="name"                         internalValue="name" />
+			<_config:valuemap externalValue="shortDescription"             internalValue="shortDescription" />
+			<_config:valuemap externalValue="longDescription"              internalValue="longDescription" />
+			<_config:valuemap externalValue="keyword"                      internalValue="keyword" />
+			<_config:valuemap externalValue="thumbnail"                    internalValue="thumbnail" />
+			<_config:valuemap externalValue="fullImage"                    internalValue="fullImage" />
+			<_config:valuemap externalValue="manufacturer"                 internalValue="mfName_ntk" />
+			<_config:valuemap externalValue="partNumber"                   internalValue="partNumber_ntk" />
+			<_config:valuemap externalValue="parentCategoryId"             internalValue="parentCatgroup_id_facet" />
+			<_config:valuemap externalValue="parentProductId"              internalValue="parentCatentry_id" />
+			<_config:valuemap externalValue="childProductId"               internalValue="childCatentry_id" />
+			<_config:valuemap externalValue="catalogId"                    internalValue="catalog_id" />
+			<_config:valuemap externalValue="sequence"                     internalValue="sequence_*" />
+			<_config:valuemap externalValue="price"                        internalValue="price_*" />
+			<_config:valuemap externalValue="listprice"                    internalValue="listprice_*" />
+			<_config:valuemap externalValue="storeId"                      internalValue="storeent_id" />
+			<!-- CatalogGroup search index -->
+			<_config:valuemap externalValue="categoryId"                   internalValue="catgroup_id" />
+			<_config:valuemap externalValue="categoryIdentifier"           internalValue="identifier_ntk" />
+			<_config:valuemap externalValue="categoryName"                 internalValue="name" />
+			<_config:valuemap externalValue="categoryShortDescription"     internalValue="shortDescription" />
+			<_config:valuemap externalValue="categorySequence"             internalValue="sequence_*" />
+			<!-- Unstructured search index -->
+			<_config:valuemap externalValue="attachmentId"                 internalValue="attachmentrel_id" />
+			<_config:valuemap externalValue="contentName"                  internalValue="name" />
+			<_config:valuemap externalValue="contentPath"                  internalValue="path" />
+			<_config:valuemap externalValue="mimetype"                     internalValue="mimetype" />
+			<_config:valuemap externalValue="contentShortDescription"      internalValue="shortdesc" />
+		</_config:valuemapping>
+		
+		<!-- 
+			The following mappings are kept for backward compatibility purposes with BOD based service response.
+			These mappings are used by the expression providers.
+			
+			XPath <=> Search index field name
+		 -->
+		<!-- 
+			This XPathToCatalogEntryFieldNameMapping mapping is for defining the mapping from an XPath
+			to its corresponding internal index field name used in the CatalogEntry search index.
+			
+			An internal value "MASK" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToCatalogEntryFieldNameMapping" internalName="XPathToCatalogEntryFieldNameMapping">
+			<_config:valuemap externalValue="CatalogEntryView"                   internalValue="MASK" />
+			<_config:valuemap externalValue="CatalogEntryView/UniqueID"          internalValue="catentry_id" />
+			<_config:valuemap externalValue="CatalogEntryView/CatalogEntryTypeCode"   internalValue="catenttype_id_ntk_cs" />
+			<_config:valuemap externalValue="CatalogEntryView/Buyable"           internalValue="buyable" />
+			<_config:valuemap externalValue="CatalogEntryView/DisallowRecurringOrder" internalValue="disallowRecOrder" />
+			<_config:valuemap externalValue="CatalogEntryView/SubscriptionTypeCode"   internalValue="subscripType" />
+			<_config:valuemap externalValue="CatalogEntryView/Name"              internalValue="name" />
+			<_config:valuemap externalValue="CatalogEntryView/ShortDescription"  internalValue="shortDescription" />
+			<_config:valuemap externalValue="CatalogEntryView/LongDescription"   internalValue="longDescription" />
+			<_config:valuemap externalValue="CatalogEntryView/Keyword"           internalValue="keyword" />
+			<_config:valuemap externalValue="CatalogEntryView/Thumbnail"         internalValue="thumbnail" />
+			<_config:valuemap externalValue="CatalogEntryView/FullImage"         internalValue="fullImage" />
+			<_config:valuemap externalValue="CatalogEntryView/Manufacturer"      internalValue="mfName_ntk" />
+			<_config:valuemap externalValue="CatalogEntryView/PartNumber"        internalValue="partNumber_ntk" />
+			<_config:valuemap externalValue="CatalogEntryView/StoreID"           internalValue="storeent_id" />
+			<_config:valuemap externalValue="CatalogEntryView/Price/Value[(Currency='*')]" internalValue="price_*" />
+			<_config:valuemap externalValue="CatalogEntryView/Price/Value[(Currency='*') AND (../PriceUsage='Display')]" internalValue="listprice_*" />
+			<_config:valuemap externalValue="CatalogEntryView/Sequence"          internalValue="sequence_*" />
+			<_config:valuemap externalValue="CatalogEntryView/CatalogGroupID"    internalValue="parentCatgroup_id_search" />
+			<_config:valuemap externalValue="CatalogEntryView/ParentCatalogGroupID"   internalValue="parentCatgroup_id_facet" />
+			<_config:valuemap externalValue="CatalogEntryView/ParentCatalogEntryID"   internalValue="parentCatentry_id" />
+			<_config:valuemap externalValue="CatalogEntryView/ChildCatalogEntryID"    internalValue="childCatentry_id" />
+			<_config:valuemap externalValue="CatalogEntryView/CatalogID"         internalValue="catalog_id" />
+			<_config:valuemap externalValue="CatalogEntryView/Published"         internalValue="published" />
+		</_config:valuemapping>
+
+		<!-- 
+			The following mappings are kept for backward compatibility purposes with REST based service response.
+			
+			XPath <=> Search index field name
+		 -->
+		<!-- 
+			This XPathToCatalogEntryViewBODResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields used in the CatalogEntry search.
+			
+			An internal value "MASK" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToCatalogEntryViewBODResponseFieldNameMapping" internalName="XPathToCatalogEntryViewBODResponseFieldNameMapping">
+			<_config:valuemap externalValue="catalogEntryView" 					internalValue="catalogEntryView" />
+			<_config:valuemap externalValue="sKUs" 								internalValue="skus" />
+			<_config:valuemap externalValue="uniqueID" 							internalValue="catentry_id" />
+			<_config:valuemap externalValue="partNumber" 						internalValue="partNumber_ntk" />
+			<_config:valuemap externalValue="thumbnail" 						internalValue="thumbnail" />
+			<_config:valuemap externalValue="fullImage" 						internalValue="fullImage" />
+			<_config:valuemap externalValue="shortDescription" 					internalValue="shortDescription" />
+			<_config:valuemap externalValue="longDescription" 					internalValue="longDescription" />
+			<_config:valuemap externalValue="manufacturer" 						internalValue="mfName_ntk" />
+			<_config:valuemap externalValue="keyword" 							internalValue="keyword" />
+			<_config:valuemap externalValue="hasSingleSKU" 						internalValue="hasSingleSKU" />
+			<_config:valuemap externalValue="singleSKUCatalogEntryID" 			internalValue="singleSKUCatalogEntryID" />
+			<_config:valuemap externalValue="storeID" 							internalValue="storeent_id" />
+			<_config:valuemap externalValue="parentCatalogGroupID" 				internalValue="parentCatgroup_id_facet" />
+			<_config:valuemap externalValue="parentCatalogEntryID" 				internalValue="parentCatentry_id" />
+			<_config:valuemap externalValue="metaData" 							internalValue="metaData" />
+			<_config:valuemap externalValue="userData" 							internalValue="userData" />
+			<_config:valuemap externalValue="numberOfSKUs" 						internalValue="numberOfSKUs" />
+			<_config:valuemap externalValue="merchandisingAssociations" 		internalValue="merchandisingAssociations" />
+			<_config:valuemap externalValue="subscriptionTypeCode" 				internalValue="subscripType" />
+			<_config:valuemap externalValue="dynamicKitURL" 					internalValue="dkURL" />
+			<_config:valuemap externalValue="dynamicKitDefaultConfiguration" 	internalValue="dkDefaultConfiguration" />
+			<_config:valuemap externalValue="dynamicKitDefaultConfigurationComplete" internalValue="isDKPreConfigured" />
+			<_config:valuemap externalValue="dynamicKitModelReference" 			internalValue="dkModelReference" />
+			<_config:valuemap externalValue="parentDynamicKitModelReference" 			internalValue="parentDKModelRef" />
+			<_config:valuemap externalValue="dynamicKitConfigurable" 			internalValue="dkConfigurable" />	
+			<_config:valuemap externalValue="parentDynamicKitConfigurable" 			internalValue="parentDKConfigurable" />
+			<_config:valuemap externalValue="dynamicKitOrgCode" 				internalValue="codeMapping" />
+			<_config:valuemap externalValue="dynamicKitConfigurationDate" 		internalValue="configurationDate" />
+			<_config:valuemap externalValue="title" 							internalValue="title" />
+			<_config:valuemap externalValue="metaDescription" 					internalValue="metaDescription" />
+			<_config:valuemap externalValue="metaKeyword" 						internalValue="metaKeyword" />
+			<_config:valuemap externalValue="fullImageAltDescription" 			internalValue="fullImageAltDescription" />
+			<_config:valuemap externalValue="buyable" 							internalValue="buyable" />
+			<_config:valuemap externalValue="catalogEntryTypeCode" 				internalValue="catenttype_id_ntk_cs" />
+			<_config:valuemap externalValue="disallowRecurringOrder" 			internalValue="disallowRecOrder" />
+			<_config:valuemap externalValue="resourceId" 						internalValue="resourceId" />
+			<_config:valuemap externalValue="name" 								internalValue="name" />
+			<_config:valuemap externalValue="buyable" 							internalValue="buyable" />
+			<_config:valuemap externalValue="published" 						internalValue="published" />
+			<_config:valuemap externalValue="sequence" 							internalValue="sequence_*" />
+			<_config:valuemap externalValue="catalogGroupID" 					internalValue="parentCatgroup_id_search" />			
+			<_config:valuemap externalValue="catalogID" 						internalValue="catalog_id" />
+			<_config:valuemap externalValue="startDate" 						internalValue="startdate" />
+			<_config:valuemap externalValue="endDate" 						internalValue="enddate" />
+		</_config:valuemapping>
+
+		<!-- 
+			Search index field name => ProductView REST response field name
+			
+			This XPathToCatalogEntryViewResponseFieldNameMapping mapping is for defining the mapping from the search
+			index field name to its corresponding search response field name.
+			
+			An internal value "MASK" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToCatalogEntryViewResponseFieldNameMapping" internalName="XPathToCatalogEntryViewResponseFieldNameMapping">
+			<_config:valuemap externalValue="CatalogEntryView" 		internalValue="catalogEntryView" />
+			<_config:valuemap externalValue="SKUs" 					internalValue="skus" />
+			<_config:valuemap externalValue="buyable" 				internalValue="buyable" />
+			<_config:valuemap externalValue="disallowRecOrder" 		internalValue="disallowRecOrder" />
+			<_config:valuemap externalValue="fullImage" 			internalValue="fullImage" />
+			<_config:valuemap externalValue="fullImageAltDescription" 	internalValue="fullImageAltDescription" />
+			<_config:valuemap externalValue="hasSingleSKU" 				internalValue="hasSingleSKU" />
+			<_config:valuemap externalValue="singleSKUCatalogEntryID" 	internalValue="singleSKUCatalogEntryID" />
+			<_config:valuemap externalValue="longDescription" 		internalValue="longDescription" />
+			<_config:valuemap externalValue="manufacturer" 			internalValue="mfName_ntk" />
+			<_config:valuemap externalValue="metaDescription" 		internalValue="metaDescription" />
+			<_config:valuemap externalValue="metaKeyword" 			internalValue="metaKeyword" />
+			<_config:valuemap externalValue="name" 					internalValue="name" />
+			<_config:valuemap externalValue="numberOfSKUs" 			internalValue="numberOfSKUs" />
+			<_config:valuemap externalValue="parentCategoryID" 		internalValue="parentCatgroup_id_facet" />
+			<_config:valuemap externalValue="partNumber" 			internalValue="partNumber_ntk" />
+			<_config:valuemap externalValue="catalogEntryTypeCode" 	internalValue="catenttype_id_ntk_cs" />
+			<_config:valuemap externalValue="shortDescription" 		internalValue="shortDescription" />
+			<_config:valuemap externalValue="storeID" 				internalValue="storeent_id" />
+			<_config:valuemap externalValue="subscriptionType" 		internalValue="subscripType" />
+			<_config:valuemap externalValue="thumbnail" 			internalValue="thumbnail" />
+			<_config:valuemap externalValue="title" 				internalValue="title" />
+			<_config:valuemap externalValue="uniqueID" 				internalValue="catentry_id" />
+			<_config:valuemap externalValue="resourceId" 			internalValue="resourceId" />			
+			<_config:valuemap externalValue="published" 			internalValue="published" />
+			<_config:valuemap externalValue="keyword" 				internalValue="keyword" />
+			<_config:valuemap externalValue="sequence" 				internalValue="sequence_*" />
+			<_config:valuemap externalValue="catalogGroupID" 		internalValue="parentCatgroup_id_search" />
+			<_config:valuemap externalValue="parentCatalogEntryID" 	internalValue="parentCatentry_id" />			
+			<_config:valuemap externalValue="catalogID" 			internalValue="catalog_id" />
+			<_config:valuemap externalValue="dynamicKitURL" 					internalValue="dkURL" />
+			<_config:valuemap externalValue="dynamicKitDefaultConfiguration" 	internalValue="dkDefaultConfiguration" />
+			<_config:valuemap externalValue="dynamicKitDefaultConfigurationComplete" internalValue="isDKPreConfigured" />
+			<_config:valuemap externalValue="dynamicKitModelReference" 			internalValue="dkModelReference" />
+			<_config:valuemap externalValue="parentDynamicKitModelReference" 			internalValue="parentDKModelRef" />
+			<_config:valuemap externalValue="dynamicKitConfigurable" 			internalValue="dkConfigurable" />	
+			<_config:valuemap externalValue="parentDynamicKitConfigurable" 			internalValue="parentDKConfigurable" />
+			<_config:valuemap externalValue="startDate" 						internalValue="startdate" />
+			<_config:valuemap externalValue="endDate" 						internalValue="enddate" />		
+		</_config:valuemapping>
+		
+		<!-- 
+			This XPathToPriceBODResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields for the price section used in the CatalogEntry search.
+		 -->
+		<_config:valuemapping externalName="XPathToPriceBODResponseFieldNameMapping" internalName="XPathToPriceBODResponseFieldNameMapping">
+			<_config:valuemap externalValue="price" 			internalValue="price" />
+			<_config:valuemap externalValue="value" 			internalValue="value" />
+			<_config:valuemap externalValue="currency" 			internalValue="currency" />
+			<_config:valuemap externalValue="description" 		internalValue="description" />
+			<_config:valuemap externalValue="usage" 			internalValue="usage" />
+		</_config:valuemapping>
+
+		<!-- 
+			This XPathToPriceResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields for the price section used in the CatalogEntry search.
+		 -->
+		<_config:valuemapping externalName="XPathToPriceResponseFieldNameMapping" internalName="XPathToPriceResponseFieldNameMapping">
+			<_config:valuemap externalValue="Price" 			internalValue="price" />
+			<_config:valuemap externalValue="priceValue" 		internalValue="value" />
+			<_config:valuemap externalValue="priceCurrency" 	internalValue="currency" />
+			<_config:valuemap externalValue="priceDescription" 	internalValue="description" />
+			<_config:valuemap externalValue="priceUsage" 		internalValue="usage" />
+		</_config:valuemapping>
+
+		<!-- 
+			This XPathToAttachmentsBODResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields for the attachments section used in the CatalogEntry search.
+			
+			An internal value "Attachments" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToAttachmentsBODResponseFieldNameMapping" internalName="XPathToAttachmentsBODResponseFieldNameMapping">
+			<_config:valuemap externalValue="attachments" 			internalValue="attachments" />
+			<_config:valuemap externalValue="attachmentAssetID" 	internalValue="attachment_id" />
+			<_config:valuemap externalValue="attachmentAssetPath" 	internalValue="path" />
+			<_config:valuemap externalValue="identifier" 			internalValue="identifier" />
+			<_config:valuemap externalValue="usage" 				internalValue="rulename" />
+			<_config:valuemap externalValue="mimeType" 				internalValue="mimetype" />
+			<_config:valuemap externalValue="shortdesc" 			internalValue="shortdesc" />
+			<_config:valuemap externalValue="longdesc" 				internalValue="longdesc" />
+			<_config:valuemap externalValue="name" 					internalValue="name" />
+			<_config:valuemap externalValue="image" 				internalValue="image" />
+			<_config:valuemap externalValue="userData" 				internalValue="userData" />
+		</_config:valuemapping>
+
+		<!-- 
+			This XPathToAttachmentsResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields for the attachments section used in the CatalogEntry search.
+			
+			An internal value "Attachments" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToAttachmentsResponseFieldNameMapping" internalName="XPathToAttachmentsResponseFieldNameMapping">
+			<_config:valuemap externalValue="Attachments" 		internalValue="attachments" />
+			<_config:valuemap externalValue="ID" 				internalValue="attachment_id" />
+			<_config:valuemap externalValue="path" 				internalValue="path" />
+			<_config:valuemap externalValue="identifier" 		internalValue="identifier" />
+			<_config:valuemap externalValue="usage" 			internalValue="rulename" />
+			<_config:valuemap externalValue="mimeType" 			internalValue="mimetype" />
+			<_config:valuemap externalValue="shortdesc" 		internalValue="shortdesc" />
+			<_config:valuemap externalValue="longdesc" 			internalValue="longdesc" />
+			<_config:valuemap externalValue="name" 				internalValue="name" />
+			<_config:valuemap externalValue="image" 			internalValue="image" />
+			<_config:valuemap externalValue="metaData" 			internalValue="metaData" />
+			<_config:valuemap externalValue="userData" 			internalValue="userData" />
+		</_config:valuemapping>
+
+		<!-- 
+			This XPathToAttributesBODResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields for the attributes section used in the CatalogEntry search.
+			
+			An internal value "Attributes" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToAttributesBODResponseFieldNameMapping" internalName="XPathToAttributesBODResponseFieldNameMapping">
+			<_config:valuemap externalValue="attributes"        internalValue="ad_attribute" />
+			<_config:valuemap externalValue="uniqueID" 			internalValue="attr_id" />
+			<_config:valuemap externalValue="usage" 			internalValue="usage" />			
+			<_config:valuemap externalValue="identifier" 		internalValue="identifier" />
+			<_config:valuemap externalValue="sequence" 			internalValue="sequence" />
+			<_config:valuemap externalValue="name" 				internalValue="name" />										
+			<_config:valuemap externalValue="comparable" 		internalValue="comparable" />
+			<_config:valuemap externalValue="displayable" 		internalValue="displayable" />
+			<_config:valuemap externalValue="searchable" 		internalValue="searchable" />
+			<_config:valuemap externalValue="facetable" 		internalValue="facetable" />
+			<_config:valuemap externalValue="storeDisplay" 		internalValue="storeDisplay" />	
+			<_config:valuemap externalValue="description" 		internalValue="description" />	
+			<_config:valuemap externalValue="dataType" 			internalValue="dataType" />
+			<_config:valuemap externalValue="userData" 			internalValue="userData" />
+			<_config:valuemap externalValue="extendedValue" 	internalValue="extendedValue" />
+		</_config:valuemapping>
+
+		<!-- 
+			This XPathToAttributesResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields for the attributes section used in the CatalogEntry search.
+			
+			An internal value "Attributes" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToAttributesResponseFieldNameMapping" internalName="XPathToAttributesResponseFieldNameMapping">
+			<_config:valuemap externalValue="Attributes"        internalValue="ad_attribute" />
+			<_config:valuemap externalValue="uniqueID" 			internalValue="attr_id" />						
+			<_config:valuemap externalValue="identifier" 		internalValue="identifier" />
+			<_config:valuemap externalValue="sequence" 			internalValue="sequence" />
+			<_config:valuemap externalValue="name" 				internalValue="name" />									
+			<_config:valuemap externalValue="comparable" 		internalValue="comparable" />
+			<_config:valuemap externalValue="displayable" 		internalValue="displayable" />
+			<_config:valuemap externalValue="searchable" 		internalValue="searchable" />
+			<_config:valuemap externalValue="facetable" 		internalValue="facetable" />
+			<_config:valuemap externalValue="storeDisplay" 		internalValue="storeDisplay" />	
+			<_config:valuemap externalValue="usage" 			internalValue="usage" />
+			<_config:valuemap externalValue="description" 		internalValue="description" />
+			<_config:valuemap externalValue="dataType" 			internalValue="dataType" />			
+			<_config:valuemap externalValue="userData" 			internalValue="userData" />	
+			<_config:valuemap externalValue="extendedValue" 	internalValue="extendedValue" />		
+		</_config:valuemapping>
+		
+		<!-- 
+			This XPathToAttributesValuesBODResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields for the attributes section used in the CatalogEntry search.
+			
+			An internal value "Attributes" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToAttributesValuesBODResponseFieldNameMapping" internalName="XPathToAttributesValuesBODResponseFieldNameMapping">
+			<_config:valuemap externalValue="values" 			internalValue="attr_values" />
+			<_config:valuemap externalValue="uniqueID" 			internalValue="attrval_id" />
+			<_config:valuemap externalValue="identifier" 		internalValue="identifier" />
+			<_config:valuemap externalValue="value" 			internalValue="value" />
+			<_config:valuemap externalValue="sequence" 			internalValue="sequence" />			
+			<_config:valuemap externalValue="image1" 			internalValue="image1" />						
+			<_config:valuemap externalValue="image1path" 		internalValue="image1path" />	
+			<_config:valuemap externalValue="unitOfMeasure" 	internalValue="extendedValue" />
+			<_config:valuemap externalValue="userData" 			internalValue="userData" />	
+		</_config:valuemapping>
+
+		<!-- 
+			This XPathToAttributesValuesResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields for the attributes section used in the CatalogEntry search.
+			
+			An internal value "Attributes" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToAttributesValuesResponseFieldNameMapping" internalName="XPathToAttributesValuesResponseFieldNameMapping">
+			<_config:valuemap externalValue="Values" 			internalValue="attr_values" />
+			<_config:valuemap externalValue="uniqueID" 			internalValue="attrval_id" />
+			<_config:valuemap externalValue="identifier" 		internalValue="identifier" />
+			<_config:valuemap externalValue="value" 			internalValue="value" />
+			<_config:valuemap externalValue="sequence" 			internalValue="sequence" />			
+			<_config:valuemap externalValue="image1" 			internalValue="image1" />						
+			<_config:valuemap externalValue="image1path" 		internalValue="image1path" />	
+			<_config:valuemap externalValue="unitOfMeasure" 	internalValue="extendedValue" />
+			<_config:valuemap externalValue="userData" 			internalValue="userData" />			
+		</_config:valuemapping>
+		
+		<!-- 
+			This XPathToComponentsBODResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields for the components section used in the CatalogEntry search.
+		 -->
+		<_config:valuemapping externalName="XPathToComponentsBODResponseFieldNameMapping" internalName="XPathToComponentsBODResponseFieldNameMapping">
+			<_config:valuemap externalValue="components" 		internalValue="components" />
+			<_config:valuemap externalValue="quantity" 			internalValue="quantity" />
+			<_config:valuemap externalValue="preConfigID" 		internalValue="preDefConfId" />
+			<_config:valuemap externalValue="preConfigCompID" 	internalValue="componentListId" />
+			<_config:valuemap externalValue="groupName" 		internalValue="groupName" />
+			<_config:valuemap externalValue="pdks" 		internalValue="pdks" />
+		</_config:valuemapping>
+
+		<!-- 
+			This XPathToComponentsResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields for the components section used in the CatalogEntry search.
+		 -->
+		<_config:valuemapping externalName="XPathToComponentsResponseFieldNameMapping" internalName="XPathToComponentsResponseFieldNameMapping">
+			<_config:valuemap externalValue="Components" 		internalValue="components" />
+			<_config:valuemap externalValue="Quantity" 			internalValue="quantity" />
+			<_config:valuemap externalValue="preConfigID" 		internalValue="preDefConfId" />
+			<_config:valuemap externalValue="preConfigCompID" 	internalValue="componentListId" />
+			<_config:valuemap externalValue="groupName" 		internalValue="groupName" />
+			<_config:valuemap externalValue="pdks" 		internalValue="pdks" />
+		</_config:valuemapping>
+		
+		<!-- 
+			This XPathToMerchandisingAssociationsBODResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields for the merchandising Associations section used in 
+			the CatalogEntry search.
+		 -->
+		<_config:valuemapping externalName="XPathToMerchandisingAssociationsBODResponseFieldNameMapping" internalName="XPathToMerchandisingAssociationsBODResponseFieldNameMapping">
+			<_config:valuemap externalValue="merchandisingAssociations" 	internalValue="merchandisingAssociations" />
+			<_config:valuemap externalValue="quantity" 						internalValue="QUANTITY" />
+			<_config:valuemap externalValue="associationType" 				internalValue="MASSOCTYPE_ID" />
+		</_config:valuemapping>
+
+		<!-- 
+			This XPathToMerchandisingAssociationsResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields for the merchandising Associations section used in 
+			the CatalogEntry search.
+		 -->
+		<_config:valuemapping externalName="XPathToMerchandisingAssociationsResponseFieldNameMapping" internalName="XPathToMerchandisingAssociationsResponseFieldNameMapping">
+			<_config:valuemap externalValue="MerchandisingAssociations" 	internalValue="merchandisingAssociations" />
+			<_config:valuemap externalValue="quantity" 						internalValue="QUANTITY" />
+			<_config:valuemap externalValue="type" 							internalValue="MASSOCTYPE_ID" />
+		</_config:valuemapping>
+		
+		<!-- 
+			This XPathToBreadCrumbTrailResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields found in in the BreadCrumbTrailEntryView section.
+			
+			An internal value "BreadCrumbTrailEntryView" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToBreadCrumbTrailResponseFieldNameMapping" internalName="XPathToBreadCrumbTrailResponseFieldNameMapping">
+			<_config:valuemap externalValue="breadCrumbTrailEntryView"       internalValue="BreadCrumbTrailEntryView" />
+			<_config:valuemap externalValue="breadCrumbTrailEntryView/label" internalValue="label" />
+			<_config:valuemap externalValue="breadCrumbTrailEntryView/type_" internalValue="type" />
+			<_config:valuemap externalValue="breadCrumbTrailEntryView/value" internalValue="value" />
+		</_config:valuemapping>
+
+		<!-- 
+			This XPathToFacetResponseFieldNameMapping mapping is for defining the mapping from internal
+			index fields to its corresponding external response fields found in in the FacetView section.
+			
+			An internal value "FacetView" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToFacetResponseFieldNameMapping" internalName="XPathToFacetResponseFieldNameMapping">
+			<_config:valuemap externalValue="facetView"                      internalValue="FacetView" />
+			<_config:valuemap externalValue="facetView/entry"                internalValue="Entry" />
+			<_config:valuemap externalValue="facetView/name"                 internalValue="name" />
+			<_config:valuemap externalValue="facetView/value"                internalValue="mfName_ntk_cs" />
+			<_config:valuemap externalValue="facetView/value"                internalValue="parentCatgroup_id_search" />
+			<_config:valuemap externalValue="facetView/value"                internalValue="price_USD" />
+		</_config:valuemapping>
+		
+		<!-- 
+			This XPathToCatalogGroupFieldNameMapping mapping is for defining the mapping from an XPath
+			to its corresponding internal index field name used in the CatalogGroup search index.
+			These mappings are used by the expression providers.
+			
+			An internal value "MASK" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToCatalogGroupFieldNameMapping" internalName="XPathToCatalogGroupFieldNameMapping">
+			<_config:valuemap externalValue="CatalogGroupView"                   internalValue="MASK" />
+			<_config:valuemap externalValue="CatalogGroupView/UniqueID"          internalValue="parentCatgroup_id_facet" />
+			<_config:valuemap externalValue="CatalogGroupView/CatalogID"         internalValue="catalog_id" />
+			<_config:valuemap externalValue="CatalogGroupView/CatalogGroupUniqueID" internalValue="catgroup_id" />
+			<_config:valuemap externalValue="CatalogGroupView/ParentCatalogGroupID" internalValue="parentCatgroup_id_facet" />
+			<_config:valuemap externalValue="CatalogGroupView/Identifier"           internalValue="identifier_ntk" />
+			<_config:valuemap externalValue="CatalogGroupView/Name"              internalValue="name" />
+			<_config:valuemap externalValue="CatalogGroupView/ShortDescription"  internalValue="shortDescription" />
+			<_config:valuemap externalValue="CatalogGroupView/LongDescription"   internalValue="longDescription" />
+			<_config:valuemap externalValue="CatalogGroupView/Thumbnail"         internalValue="thumbnail" />
+			<_config:valuemap externalValue="CatalogGroupView/FullImage"         internalValue="fullImage" />
+			<_config:valuemap externalValue="CatalogEntryView/StoreID"           internalValue="storeent_id" />
+			<_config:valuemap externalValue="CatalogEntryView/CatalogID"         internalValue="catalog_id" />
+			<_config:valuemap externalValue="CatalogEntryView/Published"                          internalValue="published" />
+		</_config:valuemapping>
+
+		<!-- 
+			Search index field name => CategoryView REST response field name
+			
+			This XPathToCategoryViewResponseFieldNameMapping mapping is for defining the mapping from the search
+			index field name to its corresponding search response field name.
+			
+			An internal value "MASK" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToCategoryViewResponseFieldNameMapping" internalName="XPathToCategoryViewResponseFieldNameMapping">
+			<_config:valuemap externalValue="CatalogGroupView" 			internalValue="catalogGroupView" />
+			<_config:valuemap externalValue="uniqueID" 					internalValue="catgroup_id" />
+			<_config:valuemap externalValue="catalogID" 				internalValue="catalog_id" />
+			<_config:valuemap externalValue="storeID" 					internalValue="storeent_id" />
+			<_config:valuemap externalValue="parentCatalogGroupID" 		internalValue="parentCatgroup_id_facet" />
+			<_config:valuemap externalValue="childCatalogGroupID" 		internalValue="childCatgroup_id" />
+			<_config:valuemap externalValue="identifier" 				internalValue="identifier_ntk" />
+			<_config:valuemap externalValue="name" 						internalValue="name" />
+			<_config:valuemap externalValue="shortDescription" 			internalValue="shortDescription" />
+			<_config:valuemap externalValue="longDescription" 			internalValue="longDescription" />
+			<_config:valuemap externalValue="thumbnail" 				internalValue="thumbnail" />
+			<_config:valuemap externalValue="fullImage" 				internalValue="fullImage" />
+			<_config:valuemap externalValue="resourceId" 				internalValue="resourceId" />
+		</_config:valuemapping>
+
+		<!-- 
+			Search index field name => CategoryView REST response field name
+			
+			This XPathToCategoryViewBODResponseFieldNameMapping mapping is for defining the mapping from the search
+			index field name to its corresponding search response field name.
+			
+			An internal value "MASK" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 -->
+		<_config:valuemapping externalName="XPathToCategoryViewBODResponseFieldNameMapping" internalName="XPathToCategoryViewBODResponseFieldNameMapping">
+			<_config:valuemap externalValue="catalogGroupView" 			internalValue="catalogGroupView" />
+			<_config:valuemap externalValue="uniqueID" 					internalValue="catgroup_id" />
+			<_config:valuemap externalValue="catalogID" 				internalValue="catalog_id" />
+			<_config:valuemap externalValue="storeID" 					internalValue="storeent_id" />
+			<_config:valuemap externalValue="parentCatalogGroupID" 		internalValue="parentCatgroup_id_facet" />
+			<_config:valuemap externalValue="childCatalogGroupID" 		internalValue="childCatgroup_id" />
+			<_config:valuemap externalValue="identifier" 				internalValue="identifier_ntk" />
+			<_config:valuemap externalValue="name" 						internalValue="name" />
+			<_config:valuemap externalValue="shortDescription" 			internalValue="shortDescription" />
+			<_config:valuemap externalValue="longDescription" 			internalValue="longDescription" />
+			<_config:valuemap externalValue="thumbnail" 				internalValue="thumbnail" />
+			<_config:valuemap externalValue="fullImage" 				internalValue="fullImage" />
+			<_config:valuemap externalValue="resourceId" 				internalValue="resourceId" />
+		</_config:valuemapping>
+
+		<!-- 
+			Search index field name => Content REST response field name
+			
+			This XPathToWebContentViewBODResponseFieldNameMapping mapping is for defining the mapping from the search
+			index field name to its corresponding search response field name.
+			
+			An internal value "MASK" is used to apply to mask out the prefix of the external value
+			to reduce the depth of the response object. The masked value will then be used as the
+			name of the label instead.
+		 --> 
+		<_config:valuemapping externalName="XPathToWebContentViewBODResponseFieldNameMapping" internalName="XPathToWebContentViewBODResponseFieldNameMapping" >
+			<_config:valuemap externalValue="webContentView" 		internalValue="webContentView" />
+			<_config:valuemap externalValue="uniqueID" 				internalValue="attachmentrel_id" />
+			<_config:valuemap externalValue="name" 					internalValue="name" />
+			<_config:valuemap externalValue="url" 					internalValue="path" />
+			<_config:valuemap externalValue="mimetype" 				internalValue="mimetype" />
+			<_config:valuemap externalValue="shortDescription" 		internalValue="shortdesc" />
+			<_config:valuemap externalValue="longDescription" 		internalValue="longdesc" />
+		</_config:valuemapping>
+		
+		<!-- 
+			Web content internal meta data.
+		 -->
+		<_config:valuemapping externalName="WebContentTypeMapping" internalName="WebContentTypeMapping">
+			<_config:valuemap externalValue="HTML"                 internalValue="text/html" />
+			<_config:valuemap externalValue="PDF"                  internalValue="application/pdf" />
+			<_config:valuemap externalValue="XML"                  internalValue="application/xml" />
+			<_config:valuemap externalValue="WORD"                 internalValue="application/msword" />
+			<_config:valuemap externalValue="PPT"                  internalValue="application/mspowerpoint" />
+			<_config:valuemap externalValue="EXCEL"                internalValue="application/msexcel" />
+		</_config:valuemapping>
+
+		<!-- 
+			Search term association internal meta data.
+		 -->
+		<_config:valuemapping externalName="STAAssociationType" internalName="STAAssociationType">
+			<_config:valuemap externalValue="Synonym"	    	internalValue="1" />
+			<_config:valuemap externalValue="AlsoSearchFor" 	internalValue="2" />
+			<_config:valuemap externalValue="SearchForInstead" 	internalValue="3" />
+			<_config:valuemap externalValue="LandingPageURL" 	internalValue="4" />
+		</_config:valuemapping>	
+		
+			<!-- 
+			This XPathToGroupingBODResponseFieldNameMapping mapping is for defining the mapping from the internal
+			grouping and hero properties to its corresponding external response properties for the groupingView section used in the CatalogEntry search.
+		 -->
+		<_config:valuemapping externalName="XPathToGroupingBODResponseFieldNameMapping" internalName="XPathToGroupingBODResponseFieldNameMapping">
+			<_config:valuemap externalValue="catalogEntryGroupView" 	internalValue="catalogEntryGroupView" />
+			<_config:valuemap externalValue="groupingProperties" 		internalValue="groupingProperties" />
+			<_config:valuemap externalValue="groupOwner" 				internalValue="groupOwner" />
+			<_config:valuemap externalValue="groupHero" 				internalValue="groupHero" />
+			<_config:valuemap externalValue="groupCount" 				internalValue="groupCount" />
+			<_config:valuemap externalValue="groupMinPriceValue" 		internalValue="groupMinPriceValue" />
+			<_config:valuemap externalValue="groupMaxPriceValue" 		internalValue="groupMaxPriceValue" />
+		</_config:valuemapping>
+						
+	</_config:valuemappingservice>
+	
+	<_config:extendedconfiguration>
+	
+		<_config:configgrouping name="LoadOnStartup">
+		
+			<!-- 
+				Defines a list of modules to be called at server start up, with the name of the property being the class name for
+				implementing the com.ibm.commerce.foundation.internal.server.services.bootstrap.LoadOnStartup interface.
+				Its value field defines whether this module should be loaded or not. 
+			  -->
+			<_config:property name="com.ibm.commerce.foundation.internal.server.services.bootstrap.SearchServiceWarmStarter" value="true" />
+			
+		</_config:configgrouping>
+		
+		<_config:configgrouping name="MultipleContracts"> 
+		
+			<!-- 
+				Defines the operation between multiple contract, if the operation is AND, then the expression among multiple contract are wrapped with '+', otherwise,
+				multiple expression will be wrapped with ' '
+			  -->
+		 	<_config:property name="operation"  value="OR"/>
+	 	
+	 	</_config:configgrouping>
+		
+		<_config:configgrouping name="SearchConfiguration">
+			
+			<!-- 
+				Server connectivity
+			  -->
+			  
+			<!-- Maximum number of indexing retries -->
+			<_config:property name="IndexingRetries" value="10" />
+			<!-- Time interval between indexing retry, unit in second -->
+			<_config:property name="IndexingRetryInterval" value="60" />
+			<!-- Data import handler timeout, unit in second -->
+			<_config:property name="IndexingTimeout" value="150" />
+			<!-- Time interval between each polling for replication status on slave servers, unit in second -->
+			<_config:property name="ReplicationPollingInterval" value="5" />
+			<!-- Connection timeout for the polling request for replication status, unit in second -->
+			<_config:property name="ReplicationPollingConnectionTimeout" value="15" />
+			
+			<!-- 
+				Search Term Association 
+			 -->
+			 
+			<!-- Maximum number of synonym expanded predicates allowed within each search operation -->
+			<_config:property name="SynonymExpansionThreshold" value="300" />
+		
+			<!-- 
+				Search rule
+			 -->
+			 
+			<!-- 
+				This configuration defines whether to allow search rule with filtering conditions to work with
+				product sequencing during category navigation.  When enabled, search rule for all keywords
+				can be used for category navigation and	products returned will be ordered according to their
+				sequence defined at that category.  Default is false.
+				
+				Limitation: because sorting override ranking at runtime, search rule with boosting and relevancy
+				ranking criteria will be ignored.  Only search rule with filtering conditions can be used with
+				product sequencing.
+				
+				Note: in order to trigger search rule for all keywords during category navigation, a search term
+				'*' should be added to the browse query request.
+			-->
+			<_config:property name="CombineFilterRuleWithProductSequencing" value="false" />
+			
+			<!-- 
+				Index synchronization
+				
+				Note: this section is deprecated and is for use with DIH indexing approach only.
+			 -->
+			 
+			<!-- Pre-processor to be executed in a multi-threaded mode -->
+			<_config:property name="MultiThreadedIndexPreprocessing" value="false" />
+			<!-- Maximum number of delta updates that can be perform without a full re-indexing -->
+			<_config:property name="DeltaIndexingThreshold" value="10000" />
+			<!-- When the number of delta updates exceeds this threshold, a warning will be 
+			     displayed at the store preview header -->
+			<_config:property name="IndexingWarningThreshold" value="1000" />
+			<!-- Maximum amount of time (in minutes) to allow a lock to be placed to an index --> 
+			<_config:property name="IndexingMaximumLockTime" value="720" />
+			<!-- Maximum amount of time (in minutes) each thread is allowed to use for indexing each core --> 
+			<_config:property name="MaximumThreadTimeForIndexing" value="-1" />
+
+			<!-- 
+				Spell correction
+			 -->
+
+			<!-- 
+				SpellCheckAccuracy
+				
+				This setting is used for defining the Solr spellcheck parameter, spellcheck.accuracy.
+				
+				This parameter defines an accuracy value to be used by the spell checking implementation to
+				decide whether a result is worthwhile or not. This is a precision that must be achieved for
+				the suggestion to be counted as proper one. The default is the value of Float.MIN_VALUE.
+			 -->
+			<_config:property name="SpellCheckAccuracy" value="0.3" />	 
+			<!-- 
+				SpellCheckMaxResultsForSuggestion
+				
+				This setting is used for defining the Solr spellcheck parameter, spellcheck.maxResultsForSuggest.
+				
+				This parameter defines the maximum number of results the query can return while still triggering
+				spelling suggestions (and collations, if using "spellcheck.collate"). Suggestions will not be
+				generated if the query returns more results than this value. When using "spellcheck.extendedResults",
+				this value is also the threshold for determining if the "correctlySpelled" flag is false.
+				
+				If "spellcheck.maxResultsForSuggest" is not specified, the default behavior is to generate
+				suggestions and to report "correctlySpelled" as "false" if at least 1 term is not in the index
+				regardless of the number of results returned. This parameter is especially useful in conjunction
+				with "spellcheck.alternativeTermCount" to generate "Did You mean?"-style suggestions for
+				low hit-count queries.
+			 -->
+			<_config:property name="SpellCheckMaxResultsForSuggestion" value="3" />
+			<!-- 
+				SpellCheckAlternativeTermCount
+				
+				This setting is used for defining the Solr spellcheck parameter, spellcheck.alternativeTermCount.
+				
+				This parameter defines the maximum number of suggestions to return for terms that exist in the index.
+				Specifying this instructs the spellchecker to try and make suggestions for every term in the query.
+				This differs from the "spellcheck.onlyMorePopular" option in that suggested terms need not be
+				"more popular".
+			 -->
+			<_config:property name="SpellCheckAlternativeTermCount" value="5" />
+			<!--
+				SpellCheckOnlyMorePopular
+				
+				This setting is used for defining the Solr spellcheck parameter, spellcheck.onlyMorePopular.
+
+				This parameter only returns suggestions that result in more hits for the query than the existing
+				query. Note that even if the given query term is correct, a more popular suggestion will be
+				returned (if one exists).
+			 -->
+			<_config:property name="SpellCheckOnlyMorePopular" value="false" />
+			<!--
+				SpellCheckMaxCollations
+				
+				This setting is used for defining the Solr spellcheck parameter, spellcheck.maxCollations.
+				
+				This parameter defines the maximum number of collations to return. Defaults to 1.
+			 -->
+			<_config:property name="SpellCheckMaxCollations" value="5" />
+			<!--
+				SpellCheckMaxCollationTries
+				
+				This setting is used for defining the Solr spellcheck parameter, spellcheck.maxCollationTries.
+				
+				This parameter defines the maximum number of collation possibilities to try before giving up.
+				Lower values ensure better performance. Higher values may be necessary to find a collation that
+				can return results. Defaults to 0 (do not check collations).
+			 -->
+			<_config:property name="SpellCheckMaxCollationTries" value="10" />
+			
+			<!-- 
+			 	Special character handling
+			 	
+				Lucene escape character list: + - && || ! ( ) { } [ ] ^ " ~ * ? : \ 
+				eDismax escape character list can be a lot smaller(i.e, + - ), however we will maintain
+				a single large Lucene character set because we share it with the filter queries which 
+				use the Lucene query syntax
+				EscapePatterns uses full characters match
+				IgnorePatterns uses regular expression match
+				StopPatterns uses regular expression match 
+	
+			Following is the sample list of Lucene query parser escape characters:
+			
+			<_config:property name="EscapePatterns" value="\,+,-,&amp;&amp;,~,||,(,),{,},[,],&quot;,^,!,:,AND,OR,NOT" />
+			
+			Following is the sample list of eDismax query parser escape characters:
+			
+			<_config:property name="EscapePatterns" value="+,-,&quot;" />
+
+			-->
+			
+			<_config:property name="EscapePatterns" value="\,+,-,&amp;&amp;,~,||,(,),{,},[,],&quot;,^,!,:,AND,OR,NOT" />
+			<_config:property name="IgnorePatterns" value="" />
+			<!-- REGULAR Expression escape .|*?+(){}[]^$\ -->
+			<_config:property name="StopPatterns" value="[\\*\\?]+,&apos;&apos;|&quot;&quot;,.*[\\~\|].*" />
+			<!--  keywords with leading wildcard characters will be updated to not contain them   -->
+		 	<_config:property name="IgnoreLeadingPatterns" value="[\\*\\?]+"/>
+			<!-- ; splits different sections. Each section related fields will be separated by , -->
+			<_config:property name="RequestFields" value="searchTerm,filterTerm,manufacturer,minPrice,maxPrice,categoryId" />
+			
+			<!-- 
+				Query function
+			 -->
+			 				 
+			  <!-- 
+			 	LimitKeywordSuggestionsToStoreAndCatalog
+			 	
+			 	This property controls whether the suggested keywords will be limited to the specified store and 
+			 	catalog [store path enabled], or the suggested keywords will originate from the entire catalog. 
+			 	Default value is false. 
+			 	
+			 	For example: spellCheck_10152_10051, where 10152 is the store ID, and 10051 is the sales catalog.
+			 	
+			 	Note: When set to true, you must also set the enabled property of the wc-conditionalCopyFieldChain 
+			 	custom copyField function defined in the CatalogEntry solrconfig.xml file to true. 
+			 	It is used to conditionally copy fields into a dynamic spellCheck field that consists of store 
+			 	and catalog IDs, and only includes the content where the specified conditions are met. The conditional
+			 	copy field function is disabled by default.			 	
+			 				 	
+			 	When set to false, the default Solr copyField statement defined in the CatalogEntry schema.xml 
+			 	file is used to copy fields into the static spellCheck field. The static spellCheck copyField 
+			 	is enabled by default.
+			 	
+			 	To optimize the indexing process, only enable one of the above copy field functions, then restart the 
+			 	search server and perform full data-import index build.		
+			 		 				 	 
+			  -->
+			 <_config:property name="LimitKeywordSuggestionsToStoreAndCatalog" value="false" />		
+			 
+			<!--
+				FilterInventoryByStoreAndFulfillmentCenter
+				
+				Formula for retrieving inventory count by physical store  using the single-value indexing design
+				Param 1: online store internal identifier
+				Param 2: physical store internal identifier
+				Param 3: range filter [%s TO %s]
+				
+				Note: this function can only be used for single-value option on Inventory index
+			 -->
+			<_config:property name="FilterInventoryByStoreAndFulfillmentCenter" value="inv_strlocqty_%s_%s:%s" />
+			<!--
+				OnlinePhysicalStoreQualifier
+				
+				A static identifier for an online store virtual physical store field name in solr index.
+				There is no actual physical store associated to an online store. 			
+				
+				Note: This property will only be needed when DOM inventory model is used. 
+			 -->
+			<_config:property name="OnlinePhysicalStoreQualifier" value="OnlineStore" />
+			<!--
+				ConvertPhysicalStoreToFulfillmentCenter
+				
+				This flag controls whether or not the identifier passed in through _wcf.search.store parameter
+				is a store location identifier and should be converted into a fulfillment center identifier to be used
+				with the inventory search index.  For example, set this option to "true" when used with non-ATP inventory
+				model, or set this option to "false" when used with DOM inventory model.
+			 -->
+			<_config:property name="ConvertPhysicalStoreToFulfillmentCenter" value="true" />
+			<!--
+				IsStoreInventorySharingConfigured
+				
+				This flag controls whether the non-ATP extended sites inventory is being shared or not. When it is set to "false",
+				the extended site store_id is being used to construct the inventory field, but when it is set to "true", the
+				configured RELATEDSTORE_ID set in the STOREREL with STRELTYP 'com.ibm.commerce.inventory ' will be used instead.
+				For example, set this option to "true" when not-ATP inventory sharing is enabled, or set this option to "false" when 
+				it is not. Default is false.
+			 -->
+			<_config:property name="IsStoreInventorySharingConfigured" value="false" />
+			
+			<!-- 
+				Facet management
+			 -->
+			 
+			<!--
+				allowedFacetPropertynames
+				
+				The allowed table SRCHATTRPROP propertyname types to be displayed and managed in the "Show Facets" feature
+				in the Commerce Managment Center.
+			 -->
+			<_config:property name="allowedFacetPropertynames" value="facet,facet-category,facet-range,facet-classicAttribute" />
+			
+			<!--
+				maximumFacetFieldsToRequest
+				
+				The maximum number of facet fields to request in the FacetHelper.  This is configurable to avoid Solr URI
+				length limit errors.
+			 -->
+			<_config:property name="maximumFacetFieldsToRequest" value="200" />
+			
+			<!--
+				displayLeafCategoriesOnly
+				
+				Display only leaf category facets of keyword search. The parent-categories will not be shown.
+			 -->
+			<_config:property name="displayLeafCategoriesOnly" value="false"/>
+			
+			<!-- 
+				categoryFacetLimitForKeywordSearch
+				
+				This configuration defines the limit value for category facets when do keyword search.
+			    For category browsing, it will use MAX_DISPLAY in FACET table to set the limit value.
+			 -->
+			<_config:property name="categoryFacetLimitForKeywordSearch" value="20"/>
+			
+			<!-- 
+				Search runtime
+			 -->
+			 
+			<!--
+				BackCompatibleKeywordSearch
+				
+				This configuration defines whether to use new relevancy keyword search function or use previous keyword search function. 
+				Attentions: if set the value to "true", please don't forget to update "EscapePatterns" values to corresponding parser.
+			-->
+			<_config:property name="BackCompatibleKeywordSearch" value="false" />
+			
+			<!--
+				QueryParameterReservedWords
+				
+				This configuration defines a list of reserved word that can be used in the <query> section of
+				each search profile.  Parameter name listed here will not be added to the SolrQuery object.
+		    -->
+		    <_config:property name="QueryParameterReservedWords" value="maxRows,MaximumSlop,MinimumMatch,checkEntitlement,DynamicKitReturnPrice,searchType,maxTimeAllowed,debug,preview,price,statistics" />
+						
+			<!--
+				ResponseTemplateDefault
+				
+				This configuration defines the default behaviour of the REST response transformation.  Defaults to 0.
+				For backward compatibility, it is recommended to use "0" so that the response data structure can closely assemble
+				to the BOD-like structure to minimize storefront migration impact.  Supported values are:
+				-1: does not use any transformation and simply return raw data
+				 0: default value and uses the noun structure as template
+				 1: uses the FEP4 REST service structure as template
+			-->
+			<_config:property name="ResponseTemplateDefault" value="0" />
+
+			<!-- 
+				The following mapping configurations are designed for use with responseTemplate option above.
+				The name of the property is a composite name that contains the responseTemplate value and the
+				resource name that the template applies to.  For example, 
+				ResponseTemplate/0/productview/BreadCrumbTrailEntryView 
+				means when responseTemplate is set to 0 that is used with BreadCrumbTrailEntryView section
+				in the resource productview, then the value of this	property will be the name of the mapper
+				to be used for transforming the search index field in the response.  
+				Note that the resource name must be in all lowercase.
+			 -->
+			<_config:property name="ResponseTemplate/0/productview/CatalogEntryView" 						value="XPathToCatalogEntryViewBODResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/1/productview/CatalogEntryView" 						value="XPathToCatalogEntryViewResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/productview/CatalogEntryView/SKUs" 					value="XPathToCatalogEntryViewBODResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/1/productview/CatalogEntryView/SKUs" 					value="XPathToCatalogEntryViewResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/productview/CatalogEntryView/Price" 					value="XPathToPriceBODResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/1/productview/CatalogEntryView/Price" 					value="XPathToPriceResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/productview/CatalogEntryView/Attributes" 			value="XPathToAttributesBODResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/1/productview/CatalogEntryView/Attributes" 			value="XPathToAttributesResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/productview/CatalogEntryView/Attributes/Values" 		value="XPathToAttributesValuesBODResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/1/productview/CatalogEntryView/Attributes/Values" 		value="XPathToAttributesValuesResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/productview/CatalogEntryView/Attachments" 			value="XPathToAttachmentsBODResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/1/productview/CatalogEntryView/Attachments" 			value="XPathToAttachmentsResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/productview/CatalogEntryView/Components" 			value="XPathToComponentsBODResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/1/productview/CatalogEntryView/Components" 			value="XPathToComponentsResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/productview/CatalogEntryView/MerchandisingAssociations" 			value="XPathToMerchandisingAssociationsBODResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/1/productview/CatalogEntryView/MerchandisingAssociations" 			value="XPathToMerchandisingAssociationsResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/productview/BreadCrumbTrailEntryView" 				value="XPathToBreadCrumbTrailResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/productview/FacetView" 								value="XPathToFacetResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/productview/CatalogEntryView/UserData" 				value="CatalogEntryUserDataFieldNameMapping" />
+			<_config:property name="ResponseTemplate/1/productview/CatalogEntryView/UserData" 				value="CatalogEntryUserDataFieldNameMapping" />
+
+			<_config:property name="ResponseTemplate/0/categoryview/CatalogGroupView" 						value="XPathToCategoryViewBODResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/1/categoryview/CatalogGroupView" 						value="XPathToCategoryViewResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/categoryview/CatalogGroupView/UserData" 				value="CatalogGroupUserDataFieldNameMapping" />
+			<_config:property name="ResponseTemplate/1/categoryview/CatalogGroupView/UserData" 				value="CatalogGroupUserDataFieldNameMapping" />
+
+			<_config:property name="ResponseTemplate/0/sitecontent/WebContentView" 							value="XPathToWebContentViewBODResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/sitecontent/CatalogEntryView" 						value="XPathToCatalogEntryViewBODResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/sitecontent/CatalogGroupView" 						value="XPathToCategoryViewBODResponseFieldNameMapping" />
+			
+			<_config:property name="ResponseTemplate/0/sitecontent/BreadCrumbTrailEntryView" 				value="XPathToBreadCrumbTrailResponseFieldNameMapping" />
+			<_config:property name="ResponseTemplate/0/sitecontent/FacetView" 								value="XPathToFacetResponseFieldNameMapping" />
+			
+			<!-- This configuration defines whether to enable publish support for description override. -->
+			<_config:property name="EnablePublishOverride" value="false" />
+			
+			<!--
+				DisplayPublishedOnly
+				
+				This configuration allows only products from published categories to be displayed
+				in the keyword search result when deep category un-publish feature is enabled.
+				Default is false.
+				
+				Note: deep category un-published is not enabled by default and this configuration
+				      has no effect when the deep category un-published feature is disabled.
+			 -->
+			<_config:property name="DisplayPublishedOnly" value="false" />
+			
+			<!--
+				DisplayEntryWithNoName
+				
+				This configuration allows product entries with no name to be displayed.
+				Default is true.
+			 -->
+			<_config:property name="DisplayEntryWithNoName" value="true" />
+			
+			<!--
+				DisplayGroupWithNoName
+				
+				This configuration allows category with no name to be displayed.
+				Default is false.
+			 -->
+			<_config:property name="DisplayGroupWithNoName" value="false" />
+			
+			<!-- Dynamic Catalog Entry Recommendations -->
+			<!-- This is the search profile used in the dynamic catalog entry recommendation configuration -->
+			<_config:property name="dynamicCatalogEntryRecommendation_searchProfile" value="IBM_findCatalogEntryWithoutDescriptionByNameAndShortDescription" />
+			
+			<!-- 
+				Search profiles global defaults
+			 -->
+			 
+			<!--
+				SearchProfilesDebug
+				
+				Requests search server to generate additional debug messages in the REST response
+				when WAS tracing on com.ibm.commerce.foundation component is enabled.
+				Defaults to true.
+
+				This property acts as the default value for all search profile setting like this
+				<_config:profile>
+					<_config:query>
+						<_config:param name="debug" value="false"/>
+					</_config:query>
+				</_config:profils>
+				in the wc-search.xml file
+			-->
+			<_config:property name="SearchProfilesDebug" value="true" />
+			
+			<!--
+				SearchProfilesPreview
+				
+				Determines the level of details for preview. Defaults to 1.
+				0: Minimal  - includes marketing rules
+				1: Summary  - includes marketing rules, index status
+				2: Detailed - includes marketing rules, index status, query explain
+
+				This property acts as the default value for all search profile setting like this
+				<_config:profile>
+					<_config:query>
+						<_config:param name="preview" value="1"/>
+					</_config:query>
+				</_config:profils>
+				in the wc-search.xml file				
+			-->
+			<_config:property name="SearchProfilesPreview" value="1" />
+			
+			<!--
+				SearchProfilesPrice
+				
+				Determines the display mode for showing price in storefront. Defaults to 1.
+				0: Computed
+				   - summary: prices only for the current page are calculated at runtime
+				   - hide price facets
+				   - show computed price in each result
+				   - hide price range search in Advanced Search page
+				   - usage: prices are not populated in the search index
+				1: Indexed
+				   - summary: all prices are retrieved from search index
+				   - show price facets with price range configured in facet configuration table
+				   - show indexed price in each result
+				   - show price range search in Advanced Search page
+				   - usage: prices are populated in the search index
+				2: Mixed
+				   - summary: search result contains computed prices, while price facets use indexed prices
+				   - show price facets with price range configured in facet configuration table
+				   - show computed price in each result
+				   - show price range search in Advanced Search page
+				   - usage: prices for all supported currencies are populated in the search index
+
+				This property acts as the default value for all search profile setting like this
+				<_config:profile>
+					<_config:query>
+						<_config:param name="price" value="1"/>
+					</_config:query>
+				</_config:profile>
+				in the wc-search.xml file				
+			-->
+			<_config:property name="SearchProfilesPrice" value="1" />	
+					
+			<!--
+				SearchProfilesStatistics
+				
+				Requests search server to capture search related statistics in the WC runtime.
+				When this option is enabled, statistical data is cached in memory until the
+				batch size (defined as SearchStatisticsBatchInsertSize in wc-component.xml
+				under ExtendedConfiguration) has been reached. This is done to minimize the
+				amount of I/O traffic caused as a result of search statistics gathering.
+				Defaults to false.
+
+				This property acts as the default value for all search profile setting like this
+				<_config:profile>
+					<_config:query>
+						<_config:param name="statistics" value="false"/>
+					</_config:query>
+				</_config:profile>
+				in the wc-search.xml file				
+			-->
+			<_config:property name="SearchProfilesStatistics" value="false"/>
+			
+			<!-- 
+				Statistics
+			 -->
+			 
+			<!-- Batch processing size for capturing search statistics, unit is the number of cached entries.
+				 It should be a number bigger than the maximum number allowed for spell check related search hit. -->
+			<_config:property name="SearchStatisticsBatchInsertSize" value="10000" />
+			<!-- Time interval between batch processing updates, unit in second -->
+			<_config:property name="SearchStatisticsUpdateInterval" value="600" />
+			<!-- Track search rule statistics up to only the first number of search result pages -->
+			<_config:property name="SearchStatisticsResultPagesTrackingThreshold" value="1" />
+
+			<!--
+				The web alias of the store asset files.
+			 -->
+			<_config:property name="storeWebAlias" value="/wcsstore"/>
+			
+			<!--
+				The URL prefix of store preview for asset files.
+			 -->
+			<_config:property name="StorePreviewPrefix" value="/webapp/wcs/preview"/>
+
+			<!--
+				The eSite overwrite feature key.
+			 -->
+			<_config:property name="SearchResultESiteOverwrite" value="true"/>
+			
+			<!-- 
+			     This is a constant for the tie breaker parameter used by the dismax query parser. 
+			     Valid values are between 0.0 and 1.0. Feature packs 5, 6 and 7 were using the tie breaker 
+			     default value of 0. This makes the search engine use the score of the field with the maximum score 
+			     and ignore the scores from all other fields.  For values 0.1 and above, 
+			     scores from all matching fields are considered when calculating the document's final 
+			     relevancy score.
+			 -->
+			 <_config:property name="TieBreaker" value="0.1"/>
+			
+			 <!--  <_config:param name="MaximumSlop" value="100" />
+				    This parameter limits the max distance between the location of words 
+				    appearing in the documents to be 100 words in order for the document 
+				    to be boosted as more relevant -->
+		     <_config:property name="MaximumSlop" value="100"/>
+		       
+				<!--<_config:param name="MinimumMatch" value="1"/>
+					This parameter describes the search relevancy rules: at least 1 word match 
+					You can also change it to 2&lt;80% 6&lt;50% That means if there are less than
+					3 query keywords -> both have to be found in the document; if it's between 3
+					and 6 query keywords (inclusive) -> 80% needs to match, for example user searches
+					for 3 keywords, 80% of 3 is 2.4 and rounding down it down to 2, so results matching
+					at least 2 of the 3 entered words will be returned, if more than 6 keywords, 50% of the 
+					keywords need ot match in the document -->             
+             <_config:property name="MinimumMatch" value="1" />
+
+		</_config:configgrouping>
+		
+		<_config:configgrouping name="MultiplePDK">
+				<!-- If the enable is set as 'true', the integration with Sterling Configurator can support multiple predefined dynamic kit. By default, it is disabled. -->
+				<_config:property name="enable" value="false"/>
+			</_config:configgrouping>
+			
+	</_config:extendedconfiguration>
+</_config:DevelopmentComponentConfiguration>

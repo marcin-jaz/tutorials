@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+
+	<resource-bundle bundle="devtools.flow.ui.config"/>
+
+</display>

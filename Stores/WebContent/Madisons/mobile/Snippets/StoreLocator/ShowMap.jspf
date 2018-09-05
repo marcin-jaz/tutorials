@@ -1,0 +1,26 @@
+<%
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2009
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+%>
+<%--
+  *****
+  * This jspf contains dummy code to shows a static map of a store location.
+  *****
+--%>
+
+<!-- BEGIN ShowMap.jspf -->
+
+<div id="store_map_image"><img src="" width="80%" height="184" alt="${physicalStores[i].description[0].name} Map" /></div>
+
+<!-- END ShowMap.jspf -->

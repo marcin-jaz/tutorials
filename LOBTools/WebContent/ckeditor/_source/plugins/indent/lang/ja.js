@@ -1,0 +1,10 @@
+/*
+Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+								
+				Portions Copyright IBM Corp., 2009-2014.
+*/
+CKEDITOR.plugins.setLang( 'indent', 'ja', {
+	indent : "インデント間隔の拡大",
+	outdent : "インデント間隔の縮小"
+});

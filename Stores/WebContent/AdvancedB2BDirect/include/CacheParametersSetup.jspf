@@ -1,0 +1,90 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2001, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%-- 
+  *****
+  * This JSP file sets up variables used as parameters passed into JSP pages that enable caching on those pages.
+  * This file is used by JSP pages that do not use JSTL.
+  *****
+--%>
+<%@ page import="com.ibm.commerce.beans.DataBeanManager" %>
+<%@ page import="com.ibm.commerce.user.beans.UserRegistrationDataBean" %>
+<%@ page import="com.ibm.commerce.user.beans.RoleDataBean" %>
+
+<%
+	// LiveHelp
+	boolean liveHelp = com.ibm.commerce.collaboration.livehelp.beans.LiveHelpShopperConfiguration.isEnabled();
+
+	// User's information
+	UserRegistrationDataBean userRegistrationDataBean = new UserRegistrationDataBean();
+	userRegistrationDataBean.setCommandContext(cmdcontext);
+	com.ibm.commerce.beans.DataBeanManager.activate(userRegistrationDataBean, request);
+
+	Long   userId		= null;
+	String userState	= null;
+	String userType	= null;
+	Integer[] userRoles = null;
+	boolean bBuyerApprover	= false;
+	boolean bBuyerBuySide		= false;
+	boolean bBuyerAdmin		= false;
+	boolean rfqLinkDisplayed	= false;
+	boolean displayApproverLink= false;
+	boolean bRegisteredUser	= false;
+	boolean bGuessUser		= false;
+
+	if  (cmdcontext != null) {
+		userId	= cmdcontext.getUserId();
+		userState	= cmdcontext.getUser().getState();
+		userType	= cmdcontext.getUser().getRegisterType();
+		userRoles	= userRegistrationDataBean.getRoles();
+
+		if   (userRegistrationDataBean.findUser()) {
+			bRegisteredUser = true;
+			bGuessUser      = false;
+		}
+		else {
+			bRegisteredUser = false;
+			bGuessUser        = true;
+		}
+
+		if (userRoles != null) {
+		
+			for (int i=0; i < userRoles.length; i++) {
+				com.ibm.commerce.user.beans.RoleDataBean dbRole = new com.ibm.commerce.user.beans.RoleDataBean();
+				dbRole.setInitKey_RoleId (userRoles[i].toString());
+				DataBeanManager.activate(dbRole, request);
+	
+				if (dbRole.getRoleId().equals ("-22")) {
+					bBuyerApprover = true;
+				}
+				else if (dbRole.getRoleId().equals ("-24")) {
+					bBuyerBuySide = true;
+				}
+				else if (dbRole.getRoleId().equals ("-21")) {
+					bBuyerAdmin = true;
+				}		
+	
+				if ( (bBuyerBuySide) &&   (! rfqLinkDisplayed) ) {
+					rfqLinkDisplayed = true;
+				}
+	
+				if (bBuyerBuySide && (bBuyerApprover || bBuyerAdmin) ) {
+					displayApproverLink = true;
+				}
+			}
+		}
+	}
+%>

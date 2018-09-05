@@ -1,0 +1,35 @@
+<!DOCTYPE repository-entries SYSTEM "../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<page-components> 
+	<virtual-file id="vfile.logo"/>
+	<virtual-file-implementation virtual-file-id="vfile.logo" url="images/logo.jpg" id="vfile.logo.jpg"/>
+	<virtual-file-implementation virtual-file-id="vfile.logo" url="images/logo.gif" id="vfile.logo.gif"/>
+
+	<virtual-file id="vfile.stylesheet"/>
+	<!-- The following displays an example of how to create locale specific .css files.  If browsing a store in the iw_IL locale,
+		then the Master1_1iw_IL.css file will be used instead of the default Master1_1.css file -->
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/common1_1$locale$.css" id="vfile.style1.css" locale-specific="yes" locales="iw_IL,ja_JP,zh_CN,ko_KR,zh_TW"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/common1_2$locale$.css" id="vfile.style2.css" locale-specific="yes" locales="iw_IL,ja_JP,zh_CN,ko_KR,zh_TW"/>
+	
+
+	
+	<virtual-file id="vfile.stylesheetprint"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheetprint" url="css/print.css" id="vfile.styleprint1.css"/>
+	
+	<virtual-file id="vfile.stylesheetie"/>
+	<!-- The  displays an example of how to create locale specific .css files.  If browsing a store in the iw_IL locale,
+		then the commonie_iw_IL.css file will be used instead of the default commonie1_1.css file -->
+	<virtual-file-implementation virtual-file-id="vfile.stylesheetie" url="css/commonie1_1.css" id="vfile.styleie1.css" locale-specific="yes" locales="iw_IL"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheetie" url="css/commonie1_2.css" id="vfile.styleie2.css" locale-specific="yes" locales="iw_IL"/>
+
+	<virtual-file id="vfile.stylesheetie7"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheetie7" url="css/commonie7.css" id="vfile.styleie7_2.css"/>
+	
+	<virtual-file id="vfile.color"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color1/" id="vfile.color1.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color2/" id="vfile.color2.dir"/>
+	
+</page-components>
+</components>
+</repository-entries>

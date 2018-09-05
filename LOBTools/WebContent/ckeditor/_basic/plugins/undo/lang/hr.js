@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","hr",{redo:"Ponovno napravi",undo:"Poništi"});

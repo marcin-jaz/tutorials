@@ -1,0 +1,211 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%--
+  *****
+  * This JSP segment displays the address entry form for a registered user to update the quickcheckout profile
+  * for the following countries/regions:
+  *  - Russia
+  * The display order is as follows (* means mandatory):
+  *  - first name
+  *  - middle name
+  *  - last name*
+  *  - address*
+  *  - zip/postal code*  
+  *  - city*
+  *  - state/province
+  *  - country/region*
+  *  - phone
+  *  - email*
+  *****
+--%>
+<!-- BEGIN QuickCheckoutAddressUpdateForm_RU.jspf-->
+
+<%@ include file="AddressHelperCountrySelection.jspf" %>
+
+<%-- First name --%>
+<div class="label_spacer" id="WC_QuickCheckoutAddressUpdateForm_RU_div_1">
+			  <label for="<c:out value='${prefix}_firstName1'/>" class="nodisplay">
+			    <fmt:message key="SHIPPING_AND_BILLING_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+				<fmt:param><fmt:message key="FIRST_NAME" bundle="${storeText}"/></fmt:param>
+				<fmt:param>${prefix}</fmt:param>
+				<fmt:param> </fmt:param></fmt:message>
+			  </label>
+				  <fmt:message key="FIRST_NAME" bundle="${storeText}"/></div>
+		 <div id="WC_QuickCheckoutAddressUpdateForm_RU_div_2">
+		 	<input type="text" maxlength="40" size="35" id="<c:out value='${prefix}_firstName1'/>" name="<c:out value="${prefix}_firstName"/>" value="<c:out value='${param.firstName}'/>" class="form_input"/>
+		 </div>
+
+<%-- Middle name --%>
+<div class="label_spacer" id="WC_QuickCheckoutAddressUpdateForm_RU_div_25">
+			  <label for="<c:out value='${prefix}_middleName1'/>" class="nodisplay">
+			    <fmt:message key="SHIPPING_AND_BILLING_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+				<fmt:param><fmt:message key="MIDDLE_NAME" bundle="${storeText}"/></fmt:param>
+				<fmt:param>${prefix}</fmt:param>
+				<fmt:param> </fmt:param></fmt:message>
+			  </label>
+				  <fmt:message key="MIDDLE_NAME" bundle="${storeText}"/></div>
+		 <div id="WC_QuickCheckoutAddressUpdateForm_RU_div_26">
+		 	<input type="text" maxlength="40" size="35" id="<c:out value='${prefix}_middleName1'/>" name="<c:out value="${prefix}_middleName"/>" value="<c:out value='${param.middleName}'/>" class="form_input"/>
+		 </div>
+
+<%-- Last name --%>
+<div class="label_spacer" id="WC_QuickCheckoutAddressUpdateForm_RU_div_3">
+			  <label for="<c:out value='${prefix}_lastName1'/>" class="nodisplay">
+			  <fmt:message key="SHIPPING_AND_BILLING_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+			  <fmt:param><fmt:message key="LAST_NAME" bundle="${storeText}"/></fmt:param>
+			  <fmt:param>${prefix}</fmt:param>
+			  <fmt:param><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></fmt:param></fmt:message>
+				</label>
+			  <div class="required-field" id="WC_QuickCheckoutAddressUpdateForm_RU_div_4"> *</div>
+			  <fmt:message key="LAST_NAME" bundle="${storeText}"/></div>
+	<div id="WC_QuickCheckoutAddressUpdateForm_RU_div_5">
+		 <input type="text" maxlength="40" size="35" id="<c:out value='${prefix}_lastName1'/>" name="<c:out value="${prefix}_lastName"/>" value="<c:out value='${param.lastName}'/>" class="form_input"/>
+	</div>
+
+<%-- address --%>
+<div class="label_spacer" id="WC_QuickCheckoutAddressUpdateForm_RU_div_6">
+			  <label for="<c:out value='${prefix}_address11'/>" class="nodisplay">
+				<fmt:message key="SHIPPING_AND_BILLING_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+				<fmt:param><fmt:message key="STREET_ADDRESS" bundle="${storeText}"/></fmt:param>
+				<fmt:param>${prefix}</fmt:param>
+				<fmt:param><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></fmt:param></fmt:message>
+	</label>
+			  <div class="required-field" id="WC_QuickCheckoutAddressUpdateForm_RU_div_7"> *</div>
+			  <fmt:message key="STREET_ADDRESS" bundle="${storeText}"/></div>
+	<div id="WC_QuickCheckoutAddressUpdateForm_RU_div_8">
+		 <input type="text" maxlength="49" size="35" id="<c:out value='${prefix}_address11'/>" name="<c:out value="${prefix}_address1"/>" value="<c:out value='${param.street}'/>" class="form_input" />
+	</div>
+	<div id="WC_QuickCheckoutAddressUpdateForm_RU_div_9">
+		 <input type="text" maxlength="49" size="35" id="<c:out value='${prefix}_address21'/>" name="<c:out value="${prefix}_address2"/>" value="<c:out value='${param.street2}'/>" class="form_input" />
+		 <label for="<c:out value='${prefix}_address21'/>" class="nodisplay"><fmt:message key="STREET_ADDRESS" bundle="${storeText}"/></label>
+	</div>
+
+<%-- zipcode --%>
+<div class="label_spacer" id="WC_QuickCheckoutAddressUpdateForm_RU_div_10">
+		 
+			  <label for="<c:out value='${prefix}_zipCode1'/>" class="nodisplay">
+				<fmt:message key="SHIPPING_AND_BILLING_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+				<fmt:param><fmt:message key="ZIP_CODE" bundle="${storeText}"/></fmt:param>
+				<fmt:param>${prefix}</fmt:param>
+				<fmt:param><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></fmt:param></fmt:message>
+				</label>
+			  <div class="required-field" id="WC_QuickCheckoutAddressUpdateForm_RU_div_11"> *</div>
+			  <fmt:message key="ZIP_CODE" bundle="${storeText}"/></div>
+	<div id="WC_QuickCheckoutAddressUpdateForm_RU_div_12">
+		 <input type="text" maxlength="30" size="35" id="<c:out value='${prefix}_zipCode1'/>" name="<c:out value="${prefix}_zipCode"/>" value="<c:out value='${param.zipCode}'/>" class="form_input" />
+	</div>
+
+<%-- city --%>
+<div class="label_spacer" id="WC_QuickCheckoutAddressUpdateForm_RU_div_13">
+		 
+			  <label for="<c:out value='${prefix}_city1'/>" class="nodisplay">
+				<fmt:message key="SHIPPING_AND_BILLING_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+				<fmt:param><fmt:message key="CITY" bundle="${storeText}"/></fmt:param>
+				<fmt:param>${prefix}</fmt:param>
+				<fmt:param><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></fmt:param></fmt:message>
+				</label>
+			  <div class="required-field" id="WC_QuickCheckoutAddressUpdateForm_RU_div_14"> *</div>
+			  <fmt:message key="CITY2" bundle="${storeText}"/></div>
+	<div id="WC_QuickCheckoutAddressUpdateForm_RU_div_15">
+		 <input type="text" maxlength="40" size="35" id="<c:out value='${prefix}_city1'/>" name="<c:out value="${prefix}_city"/>" value="<c:out value='${param.city}'/>" class="form_input" />
+	</div>
+
+<%-- state/province --%>
+<div class="label_spacer" id="WC_QuickCheckoutAddressUpdateForm_RU_div_16">
+		  <label for="<c:out value='${prefix}_state1'/>" class="nodisplay">
+		    <fmt:message key="SHIPPING_AND_BILLING_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+			<fmt:param><fmt:message key="STATE_PROVINCE" bundle="${storeText}"/></fmt:param>
+			<fmt:param>${prefix}</fmt:param>
+			<fmt:param> </fmt:param></fmt:message>
+			</label>
+		  <fmt:message key="STATE_PROVINCE2" bundle="${storeText}"/></div>
+		  <jsp:setProperty name="countryBean" property="countryCode" value="${countryreg}" />		
+		  <c:choose>
+			<c:when test="${!empty countryBean.countryCodeStates}">
+				<div id="<c:out value='${prefix}_stateDiv'/>">
+				<select id="<c:out value='${prefix}_state1'/>" name="<c:out value="${prefix}_state"/>" class="drop_down_checkout">
+				<c:forEach var="state" items="${countryBean.countryCodeStates}">
+					<option value="<c:out value='${state.code}'/>" 
+					<c:if test="${state.code eq param.statePro || state.displayName eq param.statePro}">
+						selected="selected"
+					</c:if>
+				>
+						<c:out value="${state.displayName}"/>
+					</option>
+				</c:forEach>
+				</select>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div id="<c:out value='${prefix}_stateDiv'/>">
+				<input type="text" maxlength="40" size="35" id="<c:out value='${prefix}_state1'/>" name="<c:out value="${prefix}_state"/>" value="<c:out value='${param.statePro}'/>" class="form_input" />
+				</div>
+			</c:otherwise>
+	  </c:choose>
+
+<%-- country/region --%>
+<c:set var="countryreg" value="${param.countryReg}"/>
+<div class="label_spacer" id="WC_QuickCheckoutAddressUpdateForm_RU_div_17">
+		 
+			  <label for="<c:out value='${prefix}_country1'/>" class="nodisplay">
+			  <fmt:message key="SHIPPING_AND_BILLING_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+			  <fmt:param><fmt:message key="COUNTRY" bundle="${storeText}"/></fmt:param>
+			  <fmt:param>${prefix}</fmt:param>
+			  <fmt:param><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></fmt:param></fmt:message>
+			  </label>
+			  <div class="required-field" id="WC_QuickCheckoutAddressUpdateForm_RU_div_18"> *</div>
+			  <fmt:message key="COUNTRY2" bundle="${storeText}"/></div>
+	<div id="WC_QuickCheckoutAddressUpdateForm_RU_div_19">
+		  <select class="drop_down_checkout" id="<c:out value='${prefix}_country1'/>" name="<c:out value="${prefix}_country"/>" onchange="javascript:AddressHelper.loadStatesUI('QuickCheckout','<c:out value="${prefix}"/>','<c:out value="${prefix}_stateDiv"/>','_state1')">
+			<c:forEach var="country" items="${countryBean.countries}">
+				<option value="${country.code}" 
+			<c:if test="${country.code eq countryreg || country.displayName eq countryreg}">
+				selected="selected"
+			</c:if>
+		><c:out value="${country.displayName}"/></option>
+			</c:forEach>
+		</select>
+	</div>
+
+<%-- phone --%>
+<div class="label_spacer" id="WC_QuickCheckoutAddressUpdateForm_RU_div_20">
+		
+			<label for="<c:out value='${prefix}_phone11'/>" class="nodisplay">
+			<fmt:message key="SHIPPING_AND_BILLING_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+			<fmt:param><fmt:message key="PHONE_NUMBER" bundle="${storeText}"/></fmt:param>
+			<fmt:param>${prefix}</fmt:param>
+			<fmt:param> </fmt:param></fmt:message>
+			</label>
+				<fmt:message key="PHONE_NUMBER2" bundle="${storeText}"/></div>
+	<div id="WC_QuickCheckoutAddressUpdateForm_RU_div_21">
+		<input type="text" maxlength="32" size="35" id="<c:out value='${prefix}_phone11'/>" name="<c:out value="${prefix}_phone1"/>" value="<c:out value='${param.phone}'/>" class="form_input"/>
+	</div>
+
+<%-- email --%>
+<div class="label_spacer" id="WC_QuickCheckoutAddressUpdateForm_RU_div_22">
+			<label for="<c:out value='${prefix}_email11'/>" class="nodisplay">
+			<fmt:message key="SHIPPING_AND_BILLING_ADDRESS_LABEL_TEXT" bundle="${storeText}">
+			<fmt:param><fmt:message key="EMAIL" bundle="${storeText}"/></fmt:param>
+			<fmt:param>${prefix}</fmt:param>
+			<fmt:param><fmt:message key="Checkout_ACCE_required" bundle="${storeText}"/></fmt:param></fmt:message>
+			</label>
+			<div class="required-field" id="WC_QuickCheckoutAddressUpdateForm_RU_div_23"> *</div>
+				<fmt:message key="EMAIL" bundle="${storeText}"/></div>
+	<div id="WC_QuickCheckoutAddressUpdateForm_RU_div_24">
+		<input type="text" maxlength="32" size="35" id="<c:out value='${prefix}_email11'/>" name="<c:out value="${prefix}_email1"/>" value="<c:out value='${param.email1}'/>" class="form_input"/>
+	</div>
+
+<!-- END QuickCheckoutAddressUpdateForm_RU.jspf-->
+

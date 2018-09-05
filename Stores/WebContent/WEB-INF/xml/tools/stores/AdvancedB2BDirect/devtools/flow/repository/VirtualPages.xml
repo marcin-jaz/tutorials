@@ -1,0 +1,221 @@
+<!DOCTYPE repository-entries SYSTEM "../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<page-components>
+	<virtual-file id="vfile.logo"/>
+	<virtual-file-implementation virtual-file-id="vfile.logo" url="images/logo.jpg" id="vfile.logo.jpg"/>
+	<virtual-file-implementation virtual-file-id="vfile.logo" url="images/logo.gif" id="vfile.logo.gif"/>		
+
+	<virtual-file id="vfile.banner"/>
+	<virtual-file-implementation virtual-file-id="vfile.banner" url="images/banner.jpg" id="vfile.banner.jpg"/>
+	<virtual-file-implementation virtual-file-id="vfile.banner" url="images/banner.gif" id="vfile.banner.gif"/>
+
+	<virtual-file id="vfile.selectedBanner"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner1_1.gif" id="vfile.selectedBanner1.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner1_2.gif" id="vfile.selectedBanner2.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner1_3.gif" id="vfile.selectedBanner3.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner1_4.gif" id="vfile.selectedBanner4.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner1_5.gif" id="vfile.selectedBanner5.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner1_6.gif" id="vfile.selectedBanner6.img"/>	
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner2_1.gif" id="vfile.selectedBanner7.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner2_2.gif" id="vfile.selectedBanner8.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner2_3.gif" id="vfile.selectedBanner9.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner2_4.gif" id="vfile.selectedBanner10.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner2_5.gif" id="vfile.selectedBanner11.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner2_6.gif" id="vfile.selectedBanner12.img"/>	
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner3_1.gif" id="vfile.selectedBanner13.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner3_2.gif" id="vfile.selectedBanner14.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner3_3.gif" id="vfile.selectedBanner15.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner3_4.gif" id="vfile.selectedBanner16.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner3_5.gif" id="vfile.selectedBanner17.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/banner3_6.gif" id="vfile.selectedBanner18.img"/>		
+	
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_1_auto.gif" id="vfile.selectedBanner25.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_1_elec.gif" id="vfile.selectedBanner26.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_1_gov.gif" id="vfile.selectedBanner27.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_1_hrdware.gif" id="vfile.selectedBanner28.img"/>		
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_1_med.gif" id="vfile.selectedBanner29.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_1_retail.gif" id="vfile.selectedBanner30.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_2_auto.gif" id="vfile.selectedBanner31.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_2_elec.gif" id="vfile.selectedBanner32.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_2_gov.gif" id="vfile.selectedBanner33.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_2_hrdware.gif" id="vfile.selectedBanner34.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_2_med.gif" id="vfile.selectedBanner35.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_2_retail.gif" id="vfile.selectedBanner36.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_3_auto.gif" id="vfile.selectedBanner37.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_3_elec.gif" id="vfile.selectedBanner38.img"/>		
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_3_gov.gif" id="vfile.selectedBanner39.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_3_hrdware.gif" id="vfile.selectedBanner40.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_3_med.gif" id="vfile.selectedBanner41.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_3_retail.gif" id="vfile.selectedBanner42.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_4_auto.gif" id="vfile.selectedBanner43.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_4_elec.gif" id="vfile.selectedBanner44.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_4_gov.gif" id="vfile.selectedBanner45.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_4_hrdware.gif" id="vfile.selectedBanner46.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_4_med.gif" id="vfile.selectedBanner47.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_4_retail.gif" id="vfile.selectedBanner48.img"/>		
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_5_auto.gif" id="vfile.selectedBanner49.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_5_elec.gif" id="vfile.selectedBanner50.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_5_gov.gif" id="vfile.selectedBanner51.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_5_hrdware.gif" id="vfile.selectedBanner52.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_5_med.gif" id="vfile.selectedBanner53.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_5_retail.gif" id="vfile.selectedBanner54.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_6_auto.gif" id="vfile.selectedBanner55.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_6_elec.gif" id="vfile.selectedBanner56.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_6_gov.gif" id="vfile.selectedBanner57.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_6_hrdware.gif" id="vfile.selectedBanner58.img"/>		
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_6_med.gif" id="vfile.selectedBanner59.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style3_6_retail.gif" id="vfile.selectedBanner60.img"/>
+	
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_1_auto.gif" id="vfile.selectedBanner61.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_1_elec.gif" id="vfile.selectedBanner62.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_1_gov.gif" id="vfile.selectedBanner63.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_1_hardware.gif" id="vfile.selectedBanner64.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_1_med.gif" id="vfile.selectedBanner65.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_1_retail.gif" id="vfile.selectedBanner66.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_2_auto.gif" id="vfile.selectedBanner67.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_2_elec.gif" id="vfile.selectedBanner68.img"/>		
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_2_gov.gif" id="vfile.selectedBanner69.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_2_hardware.gif" id="vfile.selectedBanner70.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_2_med.gif" id="vfile.selectedBanner71.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_2_retail.gif" id="vfile.selectedBanner72.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_3_auto.gif" id="vfile.selectedBanner73.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_3_elec.gif" id="vfile.selectedBanner74.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_3_gov.gif" id="vfile.selectedBanner75.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_3_hardware.gif" id="vfile.selectedBanner76.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_3_med.gif" id="vfile.selectedBanner77.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_3_retail.gif" id="vfile.selectedBanner78.img"/>		
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_4_auto.gif" id="vfile.selectedBanner79.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_4_elec.gif" id="vfile.selectedBanner80.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_4_gov.gif" id="vfile.selectedBanner81.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_4_hardware.gif" id="vfile.selectedBanner82.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_4_med.gif" id="vfile.selectedBanner83.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_4_retail.gif" id="vfile.selectedBanner84.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_5_auto.gif" id="vfile.selectedBanner85.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_5_elec.gif" id="vfile.selectedBanner86.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_5_gov.gif" id="vfile.selectedBanner87.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_5_hardware.gif" id="vfile.selectedBanner88.img"/>		
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_5_med.gif" id="vfile.selectedBanner89.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_5_retail.gif" id="vfile.selectedBanner90.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_6_auto.gif" id="vfile.selectedBanner91.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_6_elec.gif" id="vfile.selectedBanner92.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_6_gov.gif" id="vfile.selectedBanner93.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_6_hardware.gif" id="vfile.selectedBanner94.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_6_med.gif" id="vfile.selectedBanner95.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style4_6_retail.gif" id="vfile.selectedBanner96.img"/>	
+	
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_1_auto.jpg" id="vfile.selectedBanner97.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_1_elec.jpg" id="vfile.selectedBanner98.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_1_gov.jpg" id="vfile.selectedBanner99.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_1_hardware.jpg" id="vfile.selectedBanner100.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_1_med.jpg" id="vfile.selectedBanner101.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_1_retail.jpg" id="vfile.selectedBanner102.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_2_auto.jpg" id="vfile.selectedBanner103.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_2_elec.jpg" id="vfile.selectedBanner104.img"/>		
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_2_gov.jpg" id="vfile.selectedBanner105.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_2_hardware.jpg" id="vfile.selectedBanner106.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_2_med.jpg" id="vfile.selectedBanner107.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_2_retail.jpg" id="vfile.selectedBanner108.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_3_auto.jpg" id="vfile.selectedBanner109.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_3_elec.jpg" id="vfile.selectedBanner110.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_3_gov.jpg" id="vfile.selectedBanner111.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_3_hardware.jpg" id="vfile.selectedBanner112.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_3_med.jpg" id="vfile.selectedBanner113.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_3_retail.jpg" id="vfile.selectedBanner114.img"/>		
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_4_auto.jpg" id="vfile.selectedBanner115.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_4_elec.jpg" id="vfile.selectedBanner116.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_4_gov.jpg" id="vfile.selectedBanner117.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_4_hardware.jpg" id="vfile.selectedBanner118.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_4_med.jpg" id="vfile.selectedBanner119.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_4_retail.jpg" id="vfile.selectedBanner120.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_5_auto.jpg" id="vfile.selectedBanner121.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_5_elec.jpg" id="vfile.selectedBanner122.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_5_gov.jpg" id="vfile.selectedBanner123.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_5_hardware.jpg" id="vfile.selectedBanner124.img"/>		
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_5_med.jpg" id="vfile.selectedBanner125.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_5_retail.jpg" id="vfile.selectedBanner126.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_6_auto.jpg" id="vfile.selectedBanner127.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_6_elec.jpg" id="vfile.selectedBanner128.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_6_gov.jpg" id="vfile.selectedBanner129.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_6_hardware.jpg" id="vfile.selectedBanner130.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_6_med.jpg" id="vfile.selectedBanner131.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedBanner" url="images/banners/style5_6_retail.jpg" id="vfile.selectedBanner132.img"/>	
+	
+	<virtual-file id="vfile.selectedLogonBanner"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedLogonBanner" url="images/banners/logonbanner_auto.jpg" id="vfile.selectedLogonBanner1.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedLogonBanner" url="images/banners/logonbanner_elec.jpg" id="vfile.selectedLogonBanner2.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedLogonBanner" url="images/banners/logonbanner_gov.jpg" id="vfile.selectedLogonBanner3.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedLogonBanner" url="images/banners/logonbanner_hrdware.jpg" id="vfile.selectedLogonBanner4.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedLogonBanner" url="images/banners/logonbanner_med.jpg" id="vfile.selectedLogonBanner5.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedLogonBanner" url="images/banners/logonbanner_retail.jpg" id="vfile.selectedLogonBanner6.img"/>
+	<virtual-file-implementation virtual-file-id="vfile.selectedLogonBanner" url="images/banners/logonbanner_plain.jpg" id="vfile.selectedLogonBanner7.img"/>
+	
+	<virtual-file id="vfile.stylesheet"/>
+	<!-- The following displays an example of how to create locale specific .css files.  If browsing a store in the ko_KR locale,
+		then the Master1_1ko_KR.css file will be used instead of the default Master1_1.css file -->
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master1_1$locale$.css" id="vfile.style1.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master1_2$locale$.css" id="vfile.style2.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master1_3$locale$.css" id="vfile.style3.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master1_4$locale$.css" id="vfile.style4.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master1_5$locale$.css" id="vfile.style5.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master1_6$locale$.css" id="vfile.style6.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master2_1$locale$.css" id="vfile.style7.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master2_2$locale$.css" id="vfile.style8.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master2_3$locale$.css" id="vfile.style9.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master2_4$locale$.css" id="vfile.style10.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master2_5$locale$.css" id="vfile.style11.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master2_6$locale$.css" id="vfile.style12.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master3_1$locale$.css" id="vfile.style13.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master3_2$locale$.css" id="vfile.style14.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master3_3$locale$.css" id="vfile.style15.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master3_4$locale$.css" id="vfile.style16.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master3_5$locale$.css" id="vfile.style17.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master3_6$locale$.css" id="vfile.style18.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master4_1$locale$.css" id="vfile.style19.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master4_2$locale$.css" id="vfile.style20.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master4_3$locale$.css" id="vfile.style21.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master4_4$locale$.css" id="vfile.style22.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master4_5$locale$.css" id="vfile.style23.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master4_6$locale$.css" id="vfile.style24.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master5_1$locale$.css" id="vfile.style25.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master5_2$locale$.css" id="vfile.style26.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master5_3$locale$.css" id="vfile.style27.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master5_4$locale$.css" id="vfile.style28.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master5_5$locale$.css" id="vfile.style29.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	<virtual-file-implementation virtual-file-id="vfile.stylesheet" url="css/Master5_6$locale$.css" id="vfile.style30.css" locale-specific="yes" locales="ko_KR,zh_CN"/>
+	
+	<virtual-file id="vfile.color"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color1/" id="vfile.color1.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color2/" id="vfile.color2.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color3/" id="vfile.color3.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color4/" id="vfile.color4.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color5/" id="vfile.color5.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color6/" id="vfile.color6.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color7/" id="vfile.color7.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color8/" id="vfile.color8.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color9/" id="vfile.color9.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color10/" id="vfile.color10.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color11/" id="vfile.color11.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color12/" id="vfile.color12.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color13/" id="vfile.color13.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color14/" id="vfile.color14.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color15/" id="vfile.color15.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color16/" id="vfile.color16.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color17/" id="vfile.color17.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color18/" id="vfile.color18.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color19/" id="vfile.color19.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color20/" id="vfile.color20.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color21/" id="vfile.color21.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color22/" id="vfile.color22.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color23/" id="vfile.color23.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color24/" id="vfile.color24.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color25/" id="vfile.color25.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color26/" id="vfile.color26.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color27/" id="vfile.color27.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color28/" id="vfile.color28.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color29/" id="vfile.color29.dir"/>
+	<virtual-file-implementation virtual-file-id="vfile.color" url="images/colors/color30/" id="vfile.color30.dir"/>
+		
+</page-components>
+</components>
+</repository-entries>

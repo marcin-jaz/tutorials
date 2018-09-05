@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+
+<Definitions>
+	<!---
+		This grid displays the contents and characteristics of a list of {@link CustomerSegmentExport Customer segment exports}.
+	-->
+ 	<ObjectGrid definitionName="mktCustomerSegmentExportGrid" preferenceKey="mktCustomerSegmentExportGrid">
+ 		<GridIconTypeImage name="type" text="${mktMarketingResources.customerSegmentExportType}" width="60"/>
+ 		<GridComboBox editable="false" name="status" propertyName="status" text="${mktMarketingResources.customerSegmentExportStatus}" width="100"/>
+		<GridStoreName name="store" text="${mktMarketingResources.customerSegmentExportStore}" width="125"/>
+		<GridText datatype="number" editable="false" name="customerSegmentExportId" propertyName="customerSegmentExportId" 
+			text="${mktMarketingResources.customerSegmentExportList_uniqueID}" visible="false" width="90"/>
+		<GridText editable="false" name="customerSegmentExportName" propertyName="customerSegmentExportName" 
+			text="${mktMarketingResources.customerSegmentExportList_name}" visible="true" width="230"/>
+		<GridNumeric alignment="left" editable="false" name="numOfRecords" propertyName="numOfRecords" 
+			text="${mktMarketingResources.customerSegmentExportList_numOfRecords}" visible="true" width="100"/>
+		<GridText editable="false" name="customerSegmentName" propertyName="customerSegmentName" 
+			text="${mktMarketingResources.customerSegmentExportList_customerSegmentName}" visible="true" width="230"/>
+		<GridDateTime editable="false" name="startTime" propertyName="startTime" 
+			text="${mktMarketingResources.customerSegmentExportList_startTime}" visible="true" width="150"/>
+		<GridDateTime editable="false" name="endTime" propertyName="endTime" 
+			text="${mktMarketingResources.customerSegmentExportList_endTime}" visible="true" width="150"/>					
+	</ObjectGrid>
+	
+	<ChildListEditor definitionName="mktCustomerSegmentExportGridEditor" listDefinitionName="mktCustomerSegmentExportGrid" 
+		objectTypes="CustomerSegmentExport,InheritedCustomerSegmentExport"/>
+	<!---
+		This navigation list definition is used to display {@link CustomerSegmentExport customer segment exports}.
+	-->
+	<NavigationListDefinition definitionName="mktCustomerSegmentExportGridChildList" displayName="${mktMarketingResources.customerSegmentExportListMenuTitle}" listDefinitionName="mktCustomerSegmentExportGridEditor" listTitle="${mktMarketingResources.customerSegmentExportListTitle}" helpLink="tasks/tprexportpromo.htm" toolbarIcon="listToolbarIcon"/>		
+	
+</Definitions>

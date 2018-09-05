@@ -1,0 +1,287 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2011, 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+<!-- START DefiningAttributes_UI.jspf -->
+	
+	<script type="text/javascript">
+		dojo.addOnLoad(function() { 
+			productDisplayJS.setSKUImageId('productMainImage');
+		});
+	</script>
+	
+	<c:if test="${!empty fulfillmentFrequencyAttrName}">
+		<script type="text/javascript">
+			dojo.addOnLoad(function() { 
+				productDisplayJS.setSelectedAttribute("<c:out value="${fn:replace(fulfillmentFrequencyAttrName, search01, replaceStr01)}"/>","<wcf:out value="${fn:replace(fulfillmentFrequency, search01, replaceStr01)}" escapeFormat='js'/>", "<c:out value="entitledItem_${catalogEntryID}"/>");
+			});
+		</script>
+	</c:if>
+	<c:if test="${!empty paymentFrequencyAttrName}">
+		<script type="text/javascript">
+			dojo.addOnLoad(function() { 
+				productDisplayJS.setSelectedAttribute("<c:out value="${fn:replace(paymentFrequencyAttrName, search01, replaceStr01)}"/>","<wcf:out value="${fn:replace(paymentFrequency, search01, replaceStr01)}" escapeFormat='js'/>", "<c:out value="entitledItem_${catalogEntryID}"/>");
+			});
+		</script>
+	</c:if>
+
+
+<c:if test = "${productAvailable ne 'true'}">
+	<c:set var="additionalCSSClass" value="no_border"/>
+</c:if>
+
+<div class="definingAttributes">
+
+	<!--START : DISPLAYING ATTRIBUTES FOR SHOPPER TO SELECT -->
+	<c:set var="attributesSelected" value="false"/>
+	<c:choose>
+		<c:when test="${numberOfSKUs == 1}">
+				
+			<c:forEach var="attribute" items="${definingAttributeList}" varStatus="aStatus" >
+				<c:set var="attributeName" value="${attribute[0]}" />
+				<c:set var="attributeValues" value="${attribute[1]}" />
+				<c:set var="displayValue" value="${attribute[2]}" />
+				<div class="heading">
+					<fmt:message key="ATTRNAMEKEY" bundle="${widgetText}">
+						<fmt:param value="${attributeName}"/>
+					</fmt:message>
+					<c:if test="${empty displayValue}">
+						<c:out value="${fn:replace(attributeValues, replaceStr01, search01)}"/>
+					</c:if>
+					<c:out value="${displayValue}"/>
+				</div>
+				<script type="text/javascript">
+					dojo.addOnLoad(function() { 
+						productDisplayJS.setSKUImageId('productMainImage');
+						productDisplayJS.setSelectedAttribute("<c:out value='${attributeName}'/>","<wcf:out value="${fn:replace(attributeValues, search, replaceStr)}" escapeFormat='js'/>", "<c:out value="entitledItem_${catalogEntryID}"/>");
+					});
+				</script>
+				<c:set var="attributesSelected" value="true"/>
+			</c:forEach>
+				
+		</c:when>
+		<c:when test="${!empty subsTimePeriodAttrList}" >
+			
+			<c:forEach var="attribute" items="${subsTimePeriodAttrList}" varStatus="aStatus" >
+				<c:set var="attributeName" value="${attribute[0]}" />
+				<c:set var="attributeValues" value="${attribute[1]}" />
+				<c:set var="attributeDisplayValues" value="${attribute[2]}" />
+				<c:if test="${not empty WCParam[attributeName]}">
+					<script type="text/javascript">
+						dojo.addOnLoad(function() { 
+						productDisplayJS.setSelectedAttribute("<c:out value='${attributeName}'/>",'<wcf:out value="${WCParam[attributeName]}" escapeFormat="js"/>', "<c:out value="entitledItem_${catalogEntryID}"/>");
+					});
+					</script>
+					<c:set var="attributesSelected" value="true"/>
+				</c:if>
+				<script type="text/javascript">
+					dojo.addOnLoad(function() { 
+						productDisplayJS.registerMouseDown("attrValue_<c:out value='${aStatus.count}'/><c:out value="${widgetSuffix}"/>");
+					});
+				</script>
+				<div class="heading" id="dropdown_options_label_entitledItem_<c:out value='${catalogEntryID}'/>_<c:out value='${attributeName}'/>">
+					<fmt:message key="ATTRNAMEKEY" bundle="${widgetText}">
+						<fmt:param value="${attributeName}"/>
+					</fmt:message>
+				</div>
+				<div class="clear_float"></div>
+				<div class="options_dropdown selectWrapper" role="menu" id="dropdown_options_list_entitledItem_<c:out value='${catalogEntryID}'/>_<c:out value='${attributeName}'/>">
+					<label for="attrValue_<c:out value='${aStatus.count}'/><c:out value="${widgetSuffix}"/>" style="display:none;"><c:out value='${attributeName}'/><fmt:message key="PD_ACCE_required" bundle="${widgetText}"/></label>
+					<select aria-label="${attributeName}" role="menuitem" data-dojo-type="dijit/form/Select" name="attrValue" id="attrValue_<c:out value='${aStatus.count}'/><c:out value="${widgetSuffix}"/>"
+								onChange='JavaScript:productDisplayJS.setSKUImageId("productMainImage");productDisplayJS.setSelectedAttribute("<c:out value='${attributeName}'/>",this.value, "<c:out value="entitledItem_${catalogEntryID}"/>");
+													productDisplayJS.notifyAttributeChange("${catalogEntryID}","entitledItem_<c:out value='${catalogEntryID}'/>",false,${displayPriceRange});'>
+						<option value="">
+							<fmt:message key="PD_CHOOSE" bundle="${widgetText}"/>
+						</option>
+						<c:forEach var="allowedValue" items="${attributeValues}" varStatus="vStatus">
+							<c:set var="index" value="${fn:trim(vStatus.count-1)}" />
+							<option value='<c:out value="${allowedValue}"/>' <c:if test="${allowedValue == WCParam[attributeName]}">selected="selected"</c:if>>
+								<c:out value="${attributeDisplayValues[index]}"/>
+							</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="item_spacer_3px"></div>
+				<div class="clear_float"></div>
+			</c:forEach>					
+		</c:when>
+		<c:otherwise>
+			<c:if test="${!empty swatchAttrList}">
+				<c:set var="defaultSelected" value="false"/>
+				<c:forEach var="attribute" items="${swatchAttrList}" varStatus="aStatus" >
+					<c:set var="swatchName" value="${attribute[0]}" />
+					<c:set var="swatchValues" value="${attribute[1]}" />
+					<c:set var="swatchImages" value="${attribute[2]}" />
+					<div class="heading color_swatch_label" id="swatch_selection_label_entitledItem_<c:out value='${catalogEntryID}'/>_<c:out value='${swatchName}'/>" >
+						<fmt:message key="ATTRNAMEKEY" bundle="${widgetText}">
+							<fmt:param value="${swatchName}"/>
+						</fmt:message>
+					</div>
+					<div class="heading" id="swatch_selection_entitledItem_<c:out value='${catalogEntryID}'/>_<c:out value='${swatchName}'/>"></div>
+					<div class="clear_float"></div>
+					<span class="spanacce" id="swatch_ACCE_description_<c:out value='${catalogEntryID}'/>_<c:out value="${fn:replace(swatchName, ' ', '-')}"/>"><fmt:message key="ACCE_Region_Price_Update" bundle="${widgetText}"/></span>
+					<div class="color_swatch_list" id="swatch_selection_list_entitledItem_<c:out value='${catalogEntryID}'/>_<c:out value='${swatchName}'/>">
+						<ul role="radiogroup" aria-label="${swatchName}" aria-describedby="swatch_ACCE_description_<c:out value='${catalogEntryID}'/>_<c:out value="${fn:replace(swatchName, ' ', '-')}"/>">
+							<c:forEach var="swatchValue" items="${swatchValues}" varStatus="vStatus">
+								<c:set var="index" value="${fn:trim(vStatus.count-1)}" />
+								<li>
+									<a role="radio" aria-setsize="${fn:length(swatchValues)}" aria-posinset="${vStatus.count}" aria-label="${swatchValue}" aria-checked="false" id="swatch_link_entitledItem_<c:out value='${catalogEntryID}'/>_<c:out value='${swatchValue}'/>" href='javascript: productDisplayJS.setSKUImageId("productMainImage");
+										productDisplayJS.selectSwatch("<c:out value='${swatchName}'/>","<wcf:out value='${swatchValue}' escapeFormat='js'/>","entitledItem_<c:out value='${catalogEntryID}'/>","<c:out value='${doNotDisable}'/>");
+										productDisplayJS.notifyAttributeChange("${catalogEntryID}","entitledItem_<c:out value='${catalogEntryID}'/>",false,${displayPriceRange});'
+										>													
+										<img aria-hidden="true" id="swatch_entitledItem_<c:out value='${catalogEntryID}'/>_<c:out value='${swatchValue}'/>" alt="<c:out value='${swatchValue}'/>" src="<c:out value='${swatchImages[index]}'/>" class="color_swatch" />															
+										<span class="spanacce"><c:out value='${swatchValue}'/></span>												
+									</a>
+									<c:if test="${!defaultSelected}">
+										<c:set var="defaultAttributeName" value="${swatchName}"/>
+										<c:set var="defaultAttributeValue" value="${swatchValue}"/>
+										<c:set var="defaultSelected" value="true"/>
+									</c:if>
+									<script type="text/javascript">
+										dojo.addOnLoad(function() {
+											productDisplayJS.addToAllSwatchsArray("<c:out value='${swatchName}'/>","<wcf:out value='${swatchValue}' escapeFormat='js'/>","<c:out value='${swatchImages[index]}'/>", "entitledItem_<c:out value='${catalogEntryID}'/>");
+										});
+									</script>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+					<div class="clear_float attBorder"></div>
+				</c:forEach>
+				<c:forEach var="attribute" items="${swatchAttrList}" varStatus="aStatus" >
+					<c:set var="swatchName" value="${attribute[0]}" />
+					<c:if test="${not empty WCParam[swatchName]}">
+						<script type="text/javascript">
+							dojo.addOnLoad(function() {
+								productDisplayJS.setSKUImageId('productMainImage');
+								productDisplayJS.selectSwatch("<c:out value='${swatchName}'/>","<wcf:out value='${WCParam[swatchName]}' escapeFormat='js'/>","entitledItem_<c:out value='${catalogEntryID}'/>","<c:out value='${doNotDisable}'/>");
+							});
+						</script>
+						<c:set var="attributesSelected" value="true"/>
+					</c:if>
+				</c:forEach>
+				<c:if test="${defaultSelected == 'true' and (not attributesSelected)}">
+					<script type="text/javascript">
+						dojo.addOnLoad(function() {
+							productDisplayJS.setSKUImageId('productMainImage');
+							productDisplayJS.selectSwatch("<c:out value='${defaultAttributeName}'/>","<wcf:out value='${defaultAttributeValue}' escapeFormat='js'/>","entitledItem_<c:out value='${catalogEntryID}'/>","<c:out value='${doNotDisable}'/>");
+							productDisplayJS.notifyAttributeChange("${catalogEntryID}","entitledItem_<c:out value='${catalogEntryID}'/>",false,${displayPriceRange});
+						});
+					</script>
+				</c:if>
+			</c:if>
+			<c:if test="${not empty definingAttributeList}">
+				<c:set var="currentUsedFiltersClasses" value="currentUsedFilters mobileVisible hidden"/>
+				<c:forEach var="attribute" items="${definingAttributeList}">
+					<c:set var="attributeName" value="${attribute[0]}"/>
+					<c:if test="${not empty WCParam[attributeName]}">
+						<c:set var="currentUsedFiltersClasses" value="currentUsedFilters mobileVisible"/>
+					</c:if>
+				</c:forEach>
+				<div id="currentUsedFilters_<c:out value="entitledItem_${catalogEntryID}"/>" class="${currentUsedFiltersClasses}">
+					<c:forEach var="attribute" items="${definingAttributeList}" varStatus="aStatus">
+						<c:set var="attributeName" value="${attribute[0]}"/>
+						<c:set var="attributeValue" value=""/>
+						<c:set var="usedFilterClasses" value="usedFilter"/>
+						<c:if test="${not empty WCParam[attributeName]}">
+							<c:set var="attributeValue" value="${fn:replace(WCParam[attributeName], replaceStr01, search01)}"/>
+							<c:set var="usedFilterClasses" value="${usedFilterClasses} visible"/>
+						</c:if>
+						<div id="usedFilter_<c:out value="${aStatus.count}"/><c:out value="${widgetSuffix}"/>" class="${usedFilterClasses}">
+							<div class="close" role="button" aria-label="<fmt:message key="LN_SEARCH_FACET_REMOVE" bundle="${widgetText}"/>" id="usedFilterRemove_<c:out value="${aStatus.count}"/><c:out value="${widgetSuffix}"/>" onclick="javascript:productDisplayJS.resetSelectedAttribute('<c:out value="${attributeName}"/>', '<c:out value="entitledItem_${catalogEntryID}"/>');"></div>
+							<c:out value="${attributeName}"/>: <span id="usedFilterValue_<c:out value="${aStatus.count}"/><c:out value="${widgetSuffix}"/>"><c:out value="${attributeValue}"/></span>
+						</div>
+					</c:forEach>
+				</div>
+				<div class="options_dropdown_column mobileVisible">
+					<div class="heading" id="dropdown_filter_label_<c:out value='${catalogEntryID}'/>"><fmt:message key="PD_CHOOSE_FILTER" bundle="${widgetText}"/></div>
+					<div class="options_dropdown selectWrapper" role="menu" id="dropdown_options_filter_<c:out value='${catalogEntryID}'/>">
+						<label for="attrName_<c:out value="${widgetSuffix}"/>" style="display:none;"><fmt:message key="PD_CHOOSE_FILTER" bundle="${widgetText}"/></label>
+						<select aria-label="<fmt:message key="PD_CHOOSE_FILTER" bundle="${widgetText}"/>" role="menuitem" data-dojo-type="dijit/form/Select" id="attrName_<c:out value="${widgetSuffix}"/>" onChange='JavaScript:productDisplayJS.setSelectedAttributeName(this.value, "<c:out value="entitledItem_${catalogEntryID}"/>");'>
+						<option value="">
+							<fmt:message key="PD_CHOOSE" bundle="${widgetText}"/>
+						</option>
+						<c:forEach var="attribute" items="${definingAttributeList}" varStatus="aStatus">
+							<c:set var="attributeName" value="${attribute[0]}" />
+							<option value="<c:out value="${attributeName}"/>">
+								<c:out value="${attributeName}"/>
+							</option>
+						</c:forEach>
+						</select>
+					</div>
+				</div>
+				<c:forEach var="attribute" items="${definingAttributeList}" varStatus="aStatus" >
+					<c:set var="attributeName" value="${attribute[0]}" />
+					<c:set var="attributeValues" value="${attribute[1]}" />
+					<c:if test="${not empty WCParam[attributeName]}">
+						<script type="text/javascript">
+							dojo.addOnLoad(function() { 
+								var defAttrValue = '<wcf:out value="${fn:replace(WCParam[attributeName], search, replaceStr)}" escapeFormat="js"/>';
+								productDisplayJS.setSelectedAttribute("<c:out value='${attributeName}'/>",defAttrValue.replace("${ampersand}","${replaceAmpersand}" ) , "<c:out value="entitledItem_${catalogEntryID}"/>");
+							});
+						</script>
+						<c:set var="attributesSelected" value="true"/>
+					</c:if>
+					<script type="text/javascript">
+						dojo.addOnLoad(function() { 
+							productDisplayJS.registerMouseDown("attrValue_<c:out value='${aStatus.count}'/><c:out value="${widgetSuffix}"/>");
+						});
+					</script>
+					<div class="options_dropdown_column mobileHidden" id="options_dropdown_column_<c:out value="${aStatus.count}"/><c:out value="${widgetSuffix}"/>">
+						<div class="heading mobileVisible" id="dropdown_option_label_<c:out value='${catalogEntryID}'/>"><fmt:message key="PD_CHOOSE_OPTION" bundle="${widgetText}"/></div>
+						<div class="heading mobileHidden" id="dropdown_options_label_entitledItem_<c:out value='${catalogEntryID}'/>_<c:out value='${attributeName}'/>"><c:out value="${attributeName}"/></div>
+						<div class="options_dropdown selectWrapper" role="menu" id="dropdown_options_list_entitledItem_<c:out value='${catalogEntryID}'/>_<c:out value='${attributeName}'/>">
+							<label for="attrValue_<c:out value='${aStatus.count}'/><c:out value="${widgetSuffix}"/>" style="display:none;"><c:out value='${attributeName}'/><fmt:message key="PD_ACCE_required" bundle="${widgetText}"/></label>
+							<select aria-label="${attributeName}" role="menuitem" data-dojo-type="dijit/form/Select" name="attrValue" id="attrValue_<c:out value='${aStatus.count}'/><c:out value="${widgetSuffix}"/>" onChange='JavaScript:productDisplayJS.setSKUImageId("productMainImage");productDisplayJS.setSelectedAttribute("<c:out value='${attributeName}'/>",this.value, "<c:out value="entitledItem_${catalogEntryID}"/>");
+								productDisplayJS.notifyAttributeChange("${catalogEntryID}","entitledItem_<c:out value='${catalogEntryID}'/>",false,${displayPriceRange});'>
+							<option value="">
+								<fmt:message key="PD_CHOOSE" bundle="${widgetText}"/>
+							</option>
+							<c:forEach var="allowedValue" items="${attributeValues}">							
+								<option value='<c:out value="${fn:replace(allowedValue, search, replaceStr)}"/>' <c:if test="${allowedValue == WCParam[attributeName]}">selected="selected"</c:if>>
+									<c:out value="${fn:replace(allowedValue, replaceStr01, search01 )}"/>
+								</option>
+							</c:forEach>
+							</select>
+						</div>
+					</div>
+				</c:forEach>
+			</c:if>
+			<script type="text/javascript">
+				dojo.addOnLoad(function() {
+					<c:forEach var="attribute" items="${definingAttributeList}" varStatus="aStatus">
+						<c:set var="attributeName" value="${attribute[0]}" />
+						productDisplayJS.registerAttributeIds("<c:out value="${attributeName}"/>", "<c:out value="entitledItem_${catalogEntryID}"/>", {
+							usedFilterId: "usedFilter_<c:out value="${aStatus.count}"/><c:out value="${widgetSuffix}"/>",
+							usedFilterValueId: "usedFilterValue_<c:out value="${aStatus.count}"/><c:out value="${widgetSuffix}"/>",
+							attributeValuesId: "options_dropdown_column_<c:out value="${aStatus.count}"/><c:out value="${widgetSuffix}"/>",
+							selectAttributeValueId: "attrValue_<c:out value="${aStatus.count}"/><c:out value="${widgetSuffix}"/>"
+						});
+					</c:forEach>
+				});
+			</script>
+		</c:otherwise>
+	</c:choose>	
+	<c:if test="${attributesSelected}">
+		<script type="text/javascript">
+			dojo.addOnLoad(function() {
+				if( typeof(InventoryStatusJS_${productId}) != "undefined"){
+					InventoryStatusJS_${productId}.isFetchInventoryStatus = true;
+				}
+				productDisplayJS.notifyAttributeChange("${catalogEntryID}","entitledItem_<c:out value='${catalogEntryID}'/>",false,${displayPriceRange});
+			});
+		</script>
+	</c:if>
+	<!--END : DISPLAYING ATTRIBUTES FOR SHOPPER TO SELECT -->
+</div>
+	
+<!-- END DefiningAttributes_UI.jspf -->

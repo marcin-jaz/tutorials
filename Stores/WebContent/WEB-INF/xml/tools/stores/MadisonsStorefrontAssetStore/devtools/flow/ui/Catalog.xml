@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE display SYSTEM "ui.dtd">
+<display version="1.0">
+	
+	<panel id="CatalogPanel" title="CatalogPanel.title" description="CatalogPanel.description" display-priority="2"/>
+
+	<option-group id="Search.checkbox" type="checkbox" display-priority="1" panel="CatalogPanel" >
+		
+		<option id="Search.checkboxEnable"
+			label="Search.checkboxEnable.label"
+			enables-features="search" />
+	</option-group>
+
+	<option-group id="ProductCompare.checkbox" type="checkbox" display-priority="2" panel="CatalogPanel" >
+		
+		<option id="ProductCompare.checkboxEnable"
+			label="ProductCompare.checkboxEnable.label"
+			enables-features="ProductCompare" />
+	</option-group>
+
+	<option-group id="InventoryAvailability.checkbox" type="checkbox" display-priority="3" panel="CatalogPanel" >
+		
+		<option id="InventoryAvailability.checkboxEnable"
+			label="InventoryAvailability.checkboxEnable.label"
+			enables-features="InventoryAvailability" />
+	</option-group>
+</display>

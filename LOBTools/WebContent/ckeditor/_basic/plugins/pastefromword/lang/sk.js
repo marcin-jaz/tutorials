@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("pastefromword","sk",{confirmCleanup:"Zdá sa, že chcete vložiť text skopírovaný z aplikácie Word. Chcete ho pred prilepením vyčistiť?",error:"Nastala interná chyba a nebolo možné vyčistiť prilepený obsah",title:"Prilepiť špeciálne",toolbar:"Prilepiť špeciálne"});

@@ -1,0 +1,161 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<library>
+
+	<!---
+		@keywords private
+		
+		This class resolves content URLs.
+	-->
+	<class name="attContentURLResolver" extends="wcfURLResolver">
+		<!---
+			URL prefix token that is used to identify unresolved content URLs.
+		-->
+		<attribute name="CMS_HOST_TOKEN" type="string" value="http://[cmsHost]"/>
+	
+		<!---
+			This method determines if the specified property is an unresolved content URL and resolves it
+			to a valid URL based on the store configuration.
+			If the property value is not an unresolved content URL, then
+			the property value is returned unchanged.
+			@param wcfModelProperty property the URL property
+			@return the resolved URL
+		-->
+		<method name="resolveURL" args="property">
+			<![CDATA[
+			var resolvedURL = property.value;
+			var storeConfig = wcfContextUtil.findStoreConfig(property.o);
+			if (resolvedURL.indexOf(this.CMS_HOST_TOKEN) == 0 && storeConfig != null && storeConfig.resolveContentURL != null) {
+				resolvedURL = resolvedURL.substring(this.CMS_HOST_TOKEN.length, resolvedURL.length);
+				var cmsHost = storeConfig.resolveContentURL.cmsPreviewHost;
+				if (cmsHost == null) {
+					cmsHost = storeConfig.resolveContentURL.cmsHost;
+				}
+				var cmsPath = storeConfig.resolveContentURL.cmsPreviewPath;
+				if (cmsPath == null) {
+					cmsPath = storeConfig.resolveContentURL.cmsPath;
+				}
+				var encode = storeConfig.resolveContentURL.encodeForPreview;
+				if (encode == null) {
+					encode = storeConfig.resolveContentURL.encode;
+				}
+				var path = "";
+				if (cmsHost != null) {
+					path += cmsHost;
+				}
+				if (cmsPath != null) {
+					path += cmsPath;
+				}
+				if ("false" != encode) {
+					resolvedURL = encodeURIComponent(resolvedURL);
+				}
+				resolvedURL = path + resolvedURL;
+			}
+			return resolvedURL;
+			]]>
+		</method>
+	</class>
+	
+	<!---
+		This enablement condition returns true if the resolved value starts with
+		http://[cmsHost].
+	-->
+	<class name="attContentURLEnablementCondition" extends="wcfEnablementCondition">
+		<!---
+			URL prefix token that is used to identify unresolved content URLs.
+		-->
+		<attribute name="CMS_HOST_TOKEN" type="string" value="http://[cmsHost]"/>
+		
+		<!--- @keywords private -->
+		<method name="isEnabled" args="o">
+			<![CDATA[
+			var val = this.getValue(o);
+			var enabled = val != null && val.indexOf(this.CMS_HOST_TOKEN) == 0;
+			return this.negate ? !enabled : enabled;
+			]]>
+		</method>
+	</class>
+	
+	<!---
+		<p>The <code>attImageContentURLValidator</code> class is a property level validator. If the property associated with the validator
+		is a content managed URL, then the URL is examined to ensure that it is an image. Validation will only occur
+		if the URL starts with http://[cmsHost]. If the URL contains a renderType parameter, then it must be set to RESOURCE.
+		If the URL contains a mimeType parameter, then the MIME type must be an image.
+		All other URLs will be considered valid.
+	 -->
+	<class name="attImageContentURLValidator" extends="wcfValidator">
+		<!---
+			The error message text to display when the property value is not a valid image URL. The message has one substitution variables denoted 
+			by {0} which is the property display name.
+		-->
+		<attribute name="errorMessage" value="${attachmentResources.contentMustBeImage.string}" type="string"/>
+		<!---
+			URL prefix token that is used to identify unresolved content URLs.
+		-->
+		<attribute name="CMS_HOST_TOKEN" type="string" value="http://[cmsHost]"/>
+		<!---
+			MIME type parameter.
+		-->
+		<attribute name="MIME_TYPE_PARAMETER" type="string" value="mimeType"/>
+		<!---
+			Render type parameter.
+		-->
+		<attribute name="RENDER_TYPE_PARAMETER" type="string" value="renderType"/>
+		<!---
+			Resource render type.
+		-->
+		<attribute name="RESOURCE_RENDER_TYPE" type="string" value="RESOURCE"/>
+		
+		<!---
+			@keywords private
+		-->
+		<method name="validate" args="o, property=null">
+			<![CDATA[		
+			if (this.isEnabled(o) && property != null) {
+				var contentType = null;
+				var renderType = null;
+				if (property.value != null && property.value.indexOf(this.CMS_HOST_TOKEN) == 0) {
+					var url = property.value;
+					var queryIndex = url.indexOf("?");
+					var query = queryIndex > -1 ? url.substring(queryIndex + 1, url.length) : null;
+					if (query != null) {				
+						var params = query.split("&");
+						if (params != null) {
+							for (var i = 0; i < params.length; i++) {
+								var param = params[i].split("=");
+								if (param != null && param.length == 2) {
+									if (this.MIME_TYPE_PARAMETER == param[0] && contentType == null) {
+										contentType = param[1];
+									}
+									else if (this.RENDER_TYPE_PARAMETER == param[0] && renderType == null) {
+										renderType = param[1];
+									}
+								}
+							}
+						}
+					}
+				}
+				if ((renderType != null && renderType != RESOURCE_RENDER_TYPE) ||
+					(contentType != null && contentType.indexOf("image") != 0)) {
+					var message = wcfStringUtil.replaceParams(this.errorMessage, [property.propertyDefinition.displayName]);						
+					property.addValidationError(this, message);
+				}
+				else {
+					property.clearValidationError(this);
+				}				
+			}
+			]]>
+		</method>
+	</class>
+</library>

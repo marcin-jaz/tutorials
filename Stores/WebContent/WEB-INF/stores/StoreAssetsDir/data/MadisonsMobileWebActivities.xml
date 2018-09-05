@@ -1,0 +1,514 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<!-- Define E-Marketing spots within the store.  This can be modified through WebSphere Commerce Accelerator.  The JSP hardcodes these eMarketing spot names. -->
+<emspot emspot_id="@madisons_emspot_id_1" storeent_id="&TARGET_STORE_ID;"  name="MobileHomePageFeaturedProducts" description="Display suggestive sellings in the mobile home page." usagetype="MARKETING" />
+<emspot emspot_id="@madisons_emspot_id_2" storeent_id="&TARGET_STORE_ID;"  name="MobileFurnitureFeaturedProducts" description="Display suggestive sellings in the furniture top category mobile page." usagetype="MARKETING" />
+<emspot emspot_id="@madisons_emspot_id_3" storeent_id="&TARGET_STORE_ID;"  name="MobileTablewareFeaturedProducts" description="Display suggestive sellings in the tableware top category mobile page." usagetype="MARKETING" />
+<emspot emspot_id="@madisons_emspot_id_4" storeent_id="&TARGET_STORE_ID;"  name="MobileKitchenwareFeaturedProducts" description="Display suggestive sellings in the kitchenware top category mobile page." usagetype="MARKETING" />
+<emspot emspot_id="@madisons_emspot_id_5" storeent_id="&TARGET_STORE_ID;"  name="MobileApparelFeaturedProducts" description="Display suggestive sellings in the apparel top category mobile page." usagetype="MARKETING" />
+<emspot emspot_id="@madisons_emspot_id_6" storeent_id="&TARGET_STORE_ID;"  name="MobileHomePage" description="Display category recommendation in the mobile home page." usagetype="MARKETING" />
+
+
+
+<!-- 
+	Web activity 1 - Mobile Home page featured products
+	
+	Made up of the following parts:
+	1) Create a product recommendation web activity 
+-->
+<dmactivity
+  dmactivity_id="@dmactivity_id_p1"
+  storeent_id="&TARGET_STORE_ID;"
+  name="Mobile Home page featured products"
+  version="1"
+  published="1"
+  state="1"
+  startdate="2007-10-01 16:00:00.001"
+  enddate="9999-12-31 23:59:59.001"
+  priority="1"
+  dmacttype_id="0"
+  repeatable="1"
+  created="2007-10-01 16:00:00.001"
+  lastupdate="2007-10-01 16:00:00.001"
+  lastupdatedby="DM_MbrId=-1000&amp;DM_StoreId=10101&amp;DM_PznId=GenericPersonalizationId"
+  description="Recommend a product to a customer that satisfies the chosen target conditions."
+  flowxml="&lt;Flow&gt;&lt;FlowElement insertableAfter=&quot;true&quot; insertableBefore=&quot;false&quot; elemTemplateName=&quot;viewEMarketingSpot&quot; id=&quot;1&quot;/&gt;&lt;FlowElement insertableBefore=&quot;true&quot; insertableAfter=&quot;false&quot; elemTemplateName=&quot;displayProduct&quot; id=&quot;2&quot;/&gt;&lt;/Flow&gt;"
+  optcounter="0"
+/>
+
+<dmelement
+  dmelement_id="@dmelement_id1_p1"
+  name="1"
+  dmeletemplate_id="105"
+  dmactivity_id="@dmactivity_id_p1"
+  optcounter="0"
+/>
+<dmelement
+  dmelement_id="@dmelement_id2_p1"
+  name="2"
+  dmeletemplate_id="303"
+  dmactivity_id="@dmactivity_id_p1"
+  optcounter="0"
+/>
+<dmtriglstn
+  dmelement_id="@dmelement_id1_p1"
+  name="DisplayEms"
+  storeent_id="&TARGET_STORE_ID;"
+  allusers="1"
+  dmactivity_id="@dmactivity_id_p1"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id1_p1"
+  name="emsId"
+  value="@dmelement_id1_p1"
+  triggermatch="1"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p1"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p1_prod1"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p1"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p1_prod2"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p1"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p1_prod3"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p1"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p1_prod4"
+  triggermatch="0"
+  optcounter="0"
+/>
+
+
+
+<!-- 
+	Web activity 2 - Mobile Furniture featured products
+	
+	Made up of the following parts:
+	1) Create a product recommendation web activity 
+-->
+<dmactivity
+  dmactivity_id="@dmactivity_id_p2"
+  storeent_id="&TARGET_STORE_ID;"
+  name="Mobile Furniture featured products"
+  version="1"
+  published="1"
+  state="1"
+  startdate="2007-10-01 16:00:00.001"
+  enddate="9999-12-31 23:59:59.001"
+  priority="1"
+  dmacttype_id="0"
+  repeatable="1"
+  created="2007-10-01 16:00:00.001"
+  lastupdate="2007-10-01 16:00:00.001"
+  lastupdatedby="DM_MbrId=-1000&amp;DM_StoreId=10101&amp;DM_PznId=GenericPersonalizationId"
+  description="Recommend a product to a customer that satisfies the chosen target conditions."
+  flowxml="&lt;Flow&gt;&lt;FlowElement insertableAfter=&quot;true&quot; insertableBefore=&quot;false&quot; elemTemplateName=&quot;viewEMarketingSpot&quot; id=&quot;1&quot;/&gt;&lt;FlowElement insertableBefore=&quot;true&quot; insertableAfter=&quot;false&quot; elemTemplateName=&quot;displayProduct&quot; id=&quot;2&quot;/&gt;&lt;/Flow&gt;"
+  optcounter="0"
+/>
+
+<dmelement
+  dmelement_id="@dmelement_id1_p2"
+  name="1"
+  dmeletemplate_id="105"
+  dmactivity_id="@dmactivity_id_p2"
+  optcounter="0"
+/>
+<dmelement
+  dmelement_id="@dmelement_id2_p2"
+  name="2"
+  dmeletemplate_id="303"
+  dmactivity_id="@dmactivity_id_p2"
+  optcounter="0"
+/>
+<dmtriglstn
+  dmelement_id="@dmelement_id1_p2"
+  name="DisplayEms"
+  storeent_id="&TARGET_STORE_ID;"
+  allusers="1"
+  dmactivity_id="@dmactivity_id_p2"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id1_p2"
+  name="emsId"
+  value="@dmelement_id1_p2"
+  triggermatch="1"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p2"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p2_prod1"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p2"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p2_prod2"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p2"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p2_prod3"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p2"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p2_prod4"
+  triggermatch="0"
+  optcounter="0"
+/>
+
+
+<!-- 
+	Web activity 3 - Mobile Tableware featured products
+	
+	Made up of the following parts:
+	1) Create a product recommendation web activity 
+-->
+<dmactivity
+  dmactivity_id="@dmactivity_id_p3"
+  storeent_id="&TARGET_STORE_ID;"
+  name="Mobile Tableware featured products"
+  version="1"
+  published="1"
+  state="1"
+  startdate="2007-10-01 16:00:00.001"
+  enddate="9999-12-31 23:59:59.001"
+  priority="1"
+  dmacttype_id="0"
+  repeatable="1"
+  created="2007-10-01 16:00:00.001"
+  lastupdate="2007-10-01 16:00:00.001"
+  lastupdatedby="DM_MbrId=-1000&amp;DM_StoreId=10101&amp;DM_PznId=GenericPersonalizationId"
+  description="Recommend a product to a customer that satisfies the chosen target conditions."
+  flowxml="&lt;Flow&gt;&lt;FlowElement insertableAfter=&quot;true&quot; insertableBefore=&quot;false&quot; elemTemplateName=&quot;viewEMarketingSpot&quot; id=&quot;1&quot;/&gt;&lt;FlowElement insertableBefore=&quot;true&quot; insertableAfter=&quot;false&quot; elemTemplateName=&quot;displayProduct&quot; id=&quot;2&quot;/&gt;&lt;/Flow&gt;"
+  optcounter="0"
+/>
+
+<dmelement
+  dmelement_id="@dmelement_id1_p3"
+  name="1"
+  dmeletemplate_id="105"
+  dmactivity_id="@dmactivity_id_p3"
+  optcounter="0"
+/>
+<dmelement
+  dmelement_id="@dmelement_id2_p3"
+  name="2"
+  dmeletemplate_id="303"
+  dmactivity_id="@dmactivity_id_p3"
+  optcounter="0"
+/>
+<dmtriglstn
+  dmelement_id="@dmelement_id1_p3"
+  name="DisplayEms"
+  storeent_id="&TARGET_STORE_ID;"
+  allusers="1"
+  dmactivity_id="@dmactivity_id_p3"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id1_p3"
+  name="emsId"
+  value="@dmelement_id1_p3"
+  triggermatch="1"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p3"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p3_prod1"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p3"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p3_prod2"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p3"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p3_prod3"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p3"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p3_prod4"
+  triggermatch="0"
+  optcounter="0"
+/>
+
+
+<!-- 
+	Web activity 4 - Mobile Kitchenware featured products
+	
+	Made up of the following parts:
+	1) Create a product recommendation web activity 
+-->
+<dmactivity
+  dmactivity_id="@dmactivity_id_p4"
+  storeent_id="&TARGET_STORE_ID;"
+  name="Mobile Kitchenware featured products"
+  version="1"
+  published="1"
+  state="1"
+  startdate="2007-10-01 16:00:00.001"
+  enddate="9999-12-31 23:59:59.001"
+  priority="1"
+  dmacttype_id="0"
+  repeatable="1"
+  created="2007-10-01 16:00:00.001"
+  lastupdate="2007-10-01 16:00:00.001"
+  lastupdatedby="DM_MbrId=-1000&amp;DM_StoreId=10101&amp;DM_PznId=GenericPersonalizationId"
+  description="Recommend a product to a customer that satisfies the chosen target conditions."
+  flowxml="&lt;Flow&gt;&lt;FlowElement insertableAfter=&quot;true&quot; insertableBefore=&quot;false&quot; elemTemplateName=&quot;viewEMarketingSpot&quot; id=&quot;1&quot;/&gt;&lt;FlowElement insertableBefore=&quot;true&quot; insertableAfter=&quot;false&quot; elemTemplateName=&quot;displayProduct&quot; id=&quot;2&quot;/&gt;&lt;/Flow&gt;"
+  optcounter="0"
+/>
+
+<dmelement
+  dmelement_id="@dmelement_id1_p4"
+  name="1"
+  dmeletemplate_id="105"
+  dmactivity_id="@dmactivity_id_p4"
+  optcounter="0"
+/>
+<dmelement
+  dmelement_id="@dmelement_id2_p4"
+  name="2"
+  dmeletemplate_id="303"
+  dmactivity_id="@dmactivity_id_p4"
+  optcounter="0"
+/>
+<dmtriglstn
+  dmelement_id="@dmelement_id1_p4"
+  name="DisplayEms"
+  storeent_id="&TARGET_STORE_ID;"
+  allusers="1"
+  dmactivity_id="@dmactivity_id_p4"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id1_p4"
+  name="emsId"
+  value="@dmelement_id1_p4"
+  triggermatch="1"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p4"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p4_prod1"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p4"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p4_prod2"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p4"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p4_prod3"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p4"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p4_prod4"
+  triggermatch="0"
+  optcounter="0"
+/>
+
+
+<!-- 
+	Web activity 5 - Mobile Apparel featured products
+	
+	Made up of the following parts:
+	1) Create a product recommendation web activity 
+-->
+<dmactivity
+  dmactivity_id="@dmactivity_id_p5"
+  storeent_id="&TARGET_STORE_ID;"
+  name="Mobile Apparel featured products"
+  version="1"
+  published="1"
+  state="1"
+  startdate="2007-10-01 16:00:00.001"
+  enddate="9999-12-31 23:59:59.001"
+  priority="1"
+  dmacttype_id="0"
+  repeatable="1"
+  created="2007-10-01 16:00:00.001"
+  lastupdate="2007-10-01 16:00:00.001"
+  lastupdatedby="DM_MbrId=-1000&amp;DM_StoreId=10101&amp;DM_PznId=GenericPersonalizationId"
+  description="Recommend a product to a customer that satisfies the chosen target conditions."
+  flowxml="&lt;Flow&gt;&lt;FlowElement insertableAfter=&quot;true&quot; insertableBefore=&quot;false&quot; elemTemplateName=&quot;viewEMarketingSpot&quot; id=&quot;1&quot;/&gt;&lt;FlowElement insertableBefore=&quot;true&quot; insertableAfter=&quot;false&quot; elemTemplateName=&quot;displayProduct&quot; id=&quot;2&quot;/&gt;&lt;/Flow&gt;"
+  optcounter="0"
+/>
+
+<dmelement
+  dmelement_id="@dmelement_id1_p5"
+  name="1"
+  dmeletemplate_id="105"
+  dmactivity_id="@dmactivity_id_p5"
+  optcounter="0"
+/>
+<dmelement
+  dmelement_id="@dmelement_id2_p5"
+  name="2"
+  dmeletemplate_id="303"
+  dmactivity_id="@dmactivity_id_p5"
+  optcounter="0"
+/>
+<dmtriglstn
+  dmelement_id="@dmelement_id1_p5"
+  name="DisplayEms"
+  storeent_id="&TARGET_STORE_ID;"
+  allusers="1"
+  dmactivity_id="@dmactivity_id_p5"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id1_p5"
+  name="emsId"
+  value="@dmelement_id1_p5"
+  triggermatch="1"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p5"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p5_prod1"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p5"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p5_prod2"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p5"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p5_prod3"
+  triggermatch="0"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_p5"
+  name="catalogEntryIdList"
+  value="@dmelement_id2_p5_prod4"
+  triggermatch="0"
+  optcounter="0"
+/>
+
+
+<!-- 
+	Web activity 6 - Mobile Home page recommended category
+	
+	Made up of the following parts:
+	1) Create a product recommendation web activity 
+-->
+<dmactivity
+  dmactivity_id="@dmactivity_id_c1"
+  storeent_id="&TARGET_STORE_ID;"
+  name="Mobile Home page category recommendations"
+  version="1"
+  published="1"
+  state="1"
+  startdate="2007-10-01 16:00:00.001"
+  enddate="9999-12-31 23:59:59.001"
+  priority="1"
+  dmacttype_id="0"
+  repeatable="1"
+  created="2007-10-01 16:00:00.001"
+  lastupdate="2007-10-01 16:00:00.001"
+  lastupdatedby="DM_MbrId=-1000&amp;DM_StoreId=10101&amp;DM_PznId=GenericPersonalizationId"
+  description="Recommend categories to a customer that satisfies the chosen target conditions."
+  flowxml="&lt;Flow&gt;&lt;FlowElement insertableAfter=&quot;true&quot; insertableBefore=&quot;false&quot; elemTemplateName=&quot;viewEMarketingSpot&quot; id=&quot;1&quot;/&gt;&lt;FlowElement insertableBefore=&quot;true&quot; insertableAfter=&quot;false&quot; elemTemplateName=&quot;displayCategory&quot; id=&quot;2&quot;/&gt;&lt;/Flow&gt;"
+  optcounter="0"
+/>
+
+<dmelement
+  dmelement_id="@dmelement_id1_c1"
+  name="1"
+  dmeletemplate_id="105"
+  dmactivity_id="@dmactivity_id_c1"
+  optcounter="0"
+/>
+<dmelement
+  dmelement_id="@dmelement_id2_c1"
+  name="2"
+  dmeletemplate_id="302"
+  dmactivity_id="@dmactivity_id_c1"
+  optcounter="0"
+/>
+
+<dmtriglstn
+  dmelement_id="@dmelement_id1_c1"
+  name="DisplayEms"
+  storeent_id="&TARGET_STORE_ID;"
+  allusers="1"
+  dmactivity_id="@dmactivity_id_c1"
+  optcounter="0"
+/>
+
+<dmelementnvp
+  dmelement_id="@dmelement_id1_c1"
+  name="emsId"
+  value="@dmelement_id1_c1"
+  triggermatch="1"
+  optcounter="0"
+/>
+<dmelementnvp
+  dmelement_id="@dmelement_id2_c1"
+  name="categoryIdList"
+  value="@dmelement_id2_c1_cat1"
+  triggermatch="0"
+  optcounter="0"
+/>

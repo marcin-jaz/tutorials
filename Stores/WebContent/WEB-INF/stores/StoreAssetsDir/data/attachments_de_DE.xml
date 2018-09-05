@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attachment-asset SYSTEM "../attachment.dtd">
+<attachment-asset>
+  <!-- Attachments -->
+  <!-- New Attachment feature does NOT use ATTACHMENT or ATTACHUSG tables -->
+  <!-- Valid Attachment Object Types are CATALOG, CATGROUP, CATENTRY, CALLATERAL -->
+  <!-- Valid Attachment Relations are No Usages Selected, Warranty, Images, Full Images, User Manual -->
+  <!-- Attachments #1 will be the category image used by the mobile store   -->
+  <!-- Resolve the Object Types that will be referenced
+<atchobjtyp
+   atchobjtyp_id="@atchobjtyp_id_CATENTRY"
+   identifier="CATENTRY"
+/>
+-->
+  <!-- Holds the usage information of attachment relations -->
+  <atchrlus atchrlus_id="@atchrlus_id_Mobile" identifier="MOBILE"/>
+  <!--               -->
+  <!-- Attachment #1 -->
+  <!--               -->
+  <!-- Holds information about the target, which is used to hold a collection of assets -->
+  <atchtgt atchtgt_id="@atchtgt_id_mobilecategory_1" identifier="furniture category image used by mobile page" member_id="&CAT_MEMBER_ID;" storeent_id="&TARGET_STORE_ID;"/>
+  <!-- Attachment relation between a business object and an attachment target -->
+  <catgroup catgroup_id="@catgroup_id_furniture" identifier="Furniture" markfordelete="0" member_id="&CAT_MEMBER_ID;">
+    <ISA>
+      <atchrel atchobjtyp_id="2" atchrel_id="@atchrel_id_mobilecategory_1" atchrlus_id="@atchrlus_id_Mobile" atchtgt_id="@atchtgt_id_mobilecategory_1" object_id="@catgroup_id_furniture"/>
+    </ISA>
+  </catgroup>
+  <!-- Holds the meta data for the attachment asset in the attachment target -->
+  <atchast atchast_id="@atchast_id_mobilecategory_1" atchastpath="mobile/images/index_banner.jpg" atchtgt_id="@atchtgt_id_mobilecategory_1" directorypath="mobile/images/" mimetype="image/jpeg" storeent_id="&TARGET_STORE_ID;"/>
+</attachment-asset>

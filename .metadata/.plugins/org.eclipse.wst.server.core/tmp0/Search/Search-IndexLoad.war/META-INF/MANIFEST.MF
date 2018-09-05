@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: Foundation-Core.jar 
+ Foundation-DataLoad.jar 
+ Foundation-Server-FEP.jar 
+ Foundation-DataImport.jar
+

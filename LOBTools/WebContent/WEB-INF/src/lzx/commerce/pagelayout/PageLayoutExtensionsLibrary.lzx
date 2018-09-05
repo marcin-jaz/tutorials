@@ -1,0 +1,25 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<library>
+
+<!-- 
+	Include all the .lzx library files that you created as part of your customization here.
+	
+	The path for each include element must be relative to this extensions library file's location. 
+	For example, if you added a library file for the Page Layout tool, your include element would be similar to this: 
+	
+	<include href="../../myCompanyName/pagelayout/MyPageLayoutExtensionClass.lzx" />
+ -->
+
+</library>

@@ -1,0 +1,40 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%-- 
+  *****
+  * This JSP snippet displays the order item details along with the order total for a particular order. 
+  * This snippet is used by the OrderDetailDisplay jsp page
+  *****
+--%>
+
+<!-- BEGIN OrderItemOrderTotalDisplay.jspf -->
+
+
+<ul>  
+	<li><fmt:message key="MO_ORD_SUBTOTAL" bundle="${storeText}"/> <fmt:formatNumber value="${order.orderAmount.totalProductPrice.value}" type="currency" 
+		maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></li>  
+    <li><fmt:message key="MO_ORD_DISCOUNT" bundle="${storeText}"/> <fmt:formatNumber value="${order.orderAmount.totalAdjustment.value}" type="currency" 
+		maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></li>  
+    <li><fmt:message key="MO_ORD_TAX" bundle="${storeText}"/> <fmt:formatNumber value="${order.orderAmount.totalSalesTax.value}" type="currency" 
+		maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></li>  
+    <li><fmt:message key="MO_ORD_SHIPPING" bundle="${storeText}"/> <fmt:formatNumber value="${order.orderAmount.totalShippingCharge.value}" type="currency" 
+		maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></li>  
+</ul>  
+<div class="bold"><fmt:message key="MO_ORD_TOTAL" bundle="${storeText}"/> <fmt:formatNumber value="${order.orderAmount.grandTotal.value}" type="currency" 
+	maxFractionDigits="${currencyDecimal}" currencySymbol="${currencyFormatterDB.currencySymbol}"/></div>
+
+
+
+<!-- END OrderItemOrderTotalDisplay.jspf -->

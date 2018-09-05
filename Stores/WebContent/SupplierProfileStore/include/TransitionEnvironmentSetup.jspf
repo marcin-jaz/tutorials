@@ -1,0 +1,76 @@
+<%
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2001, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+%>
+
+<%@ page import="com.ibm.commerce.server.JSPResourceBundle" %>
+
+<wcbase:useBean id="sdbx" classname="com.ibm.commerce.common.beans.StoreDataBean" scope="request"/>
+<%
+CommandContext cmdcontext = (CommandContext) request.getAttribute(ECConstants.EC_COMMANDCONTEXT);
+Locale locale = cmdcontext.getLocale();
+Integer lang = cmdcontext.getLanguageId();
+
+  // URL pointing to the hosted store home directory.  Use this to reference images 
+String storeImgDir = sdbx.getFilePath();
+  // URL pointing to the shared image directory.  Use this to reference images
+String jspStoreImgDir = (String) new String(sdbx.getJspStoreDirFilePath());         
+
+  // WebAsset directory of the hosted store.  Includes JSPs, HTML, Image files...
+String storeDir = sdbx.getJspPath();
+  // WebAsset directory of the shared file directory.  Includes JSPs, HTML, Image files...
+String jspStoreDir = "/" + request.getAttribute(ECConstants.EC_JSP_STORE_DIR) + "/";
+
+String fileDir = sdbx.getFilePath();
+
+  // Name of the store
+String storeName;
+try {  
+	storeName = sdbx.getDescription(cmdcontext.getLanguageId()).getDisplayName();
+} catch (Exception e) {
+	// store name is not defined
+	storeName = " ";
+}
+
+String sessionStoreId = null; 
+try {
+	sessionStoreId=cmdcontext.getSessionData().getStoreId().toString();
+} catch (Exception e) {
+	sessionStoreId=cmdcontext.getStoreId().toString();
+}
+
+JSPResourceBundle storeText = (JSPResourceBundle) request.getAttribute("ResourceText");
+JSPResourceBundle storeDynamicText = (JSPResourceBundle) request.getAttribute("ResourceDynamicText");
+
+if (storeText == null) 
+{
+	storeText =  new JSPResourceBundle(sdbx.getResourceBundle("tooltechtext"));
+	request.setAttribute("ResourceText", storeText);
+}
+
+if (storeDynamicText == null)
+{
+	storeDynamicText =   new JSPResourceBundle(sdbx.getResourceBundle("storetext_dynamic"));
+	request.setAttribute("ResourceDynamicText", storeDynamicText);	
+}
+
+ResourceBundle ccResBundle = storeText;
+
+boolean multiSeller = false;
+if (sdbx.getStoreType().equals("SCP")) {
+	multiSeller = true;
+}
+
+%>

@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("ibmimagedatauri","sv",{error:"Det går inte att klistra in bilder. Du kan använda alternativet Infoga bild i verktygsfältet i stället."});

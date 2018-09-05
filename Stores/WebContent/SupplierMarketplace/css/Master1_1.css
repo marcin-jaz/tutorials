@@ -1,0 +1,249 @@
+/**
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright IBM Corp. 2006
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+
+/****************************************
+ * Master1_1.css						*
+ * Style 1 - color 1					*
+ * class Styles used in B2B Pages  		*
+ ****************************************/
+
+/*****************************/
+/* HTML Tag style definition */
+
+UNKNOWN 	{	FONT-SIZE: 10pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica }
+
+/* Body class Styles */
+BODY 		{	FONT-SIZE: 10pt; COLOR: black  ; FONT-FAMILY: Verdana,  Arial, Helvetica; PADDING-RIGHT: 0px; PADDING-LEFT: 0px;  PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px;  BACKGROUND-COLOR: white}
+BODY.noMargin {   MARGIN-LEFT:  0px; MARGIN-RIGHT:  0px; MARGINWIDTH: 0px; MARGINHEIGHT: 0px;}
+H1 			{	FONT-SIZE: 12pt; COLOR: #4c6178; FONT-FAMILY: Verdana,  Arial, Helvetica; FONT-WEIGHT: bold;   }
+TH 			{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica }
+/* Body class Styles */
+
+/* A class Styles */
+A 			{	FONT-SIZE: 10pt; FONT-FAMILY: Verdana,  Arial, Helvetica}
+A.nav 		{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none}
+A.nav:hover {	FONT-SIZE: 10pt; COLOR: #bccbdb; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none}
+A.search	{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: underline}
+A.button	{	FONT-SIZE:  8pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none; 
+				FONT-WEIGHT: bold; BACKGROUND-COLOR: #ea2b2b; PADDING: 1px 2px 2px 1px;
+				BORDER-LEFT: thin solid #ff2d2d; BORDER-RIGHT:  thin solid #7a1616 ;
+				BORDER-TOP:  thin solid #ff2d2d; BORDER-BOTTOM: thin solid #7a1616; }
+/* A class Styles */
+
+		
+
+STRONG 		{	FONT-WEIGHT: bold;   }
+I 			{	FONT-STYLE: italic; }
+P 			{	FONT-SIZE: 10pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica}
+SELECT 		{	FONT-SIZE:  8pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica}
+INPUT 		{	FONT-SIZE:  8pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica}
+OPTION 		{	FONT-SIZE:  8pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica}
+HEADER 		{	FONT-SIZE:  8pt; COLOR: #ffffff; FONT-FAMILY: Verdana,  Arial, Helvetica; TEXT-DECORATION: none}
+
+
+/* Span class Styles */
+SPAN.reqd{	FONT-FAMILY: Verdana; COLOR: #ea2b2b; FONT_SIZE: 2pt;	}
+
+/* TABLE class Styles */
+TABLE.noBorder		{	BORDER-STYLE: none; BORDER-COLLAPSE: collapse; }
+TABLE.noBorderWide	{	BORDER-STYLE: none; BORDER-COLLAPSE: collapse; WIDTH: 100%; }
+
+/* TD class Styles */
+TD 			{	FONT-SIZE: 10pt; COLOR: #32404f; FONT-FAMILY: Verdana,  Arial, Helvetica }
+TD.header 	{	FONT-SIZE: 10pt; COLOR: #4c6178; FONT-FAMILY: Verdana; PADDING-LEFT: 3px; FONT-WEIGHT: bold;   }
+TD.buttontext{	FONT-SIZE:  9pt; COLOR: white  ; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif; FONT-WEIGHT: bold;    BACKGROUND-COLOR: #ea2b2b; TEXT-DECORATION: none}
+TD.pixel 	{	FONT-SIZE:  1px; LINE-HEIGHT: 0px;}
+TD.content 	{	FONT-SIZE: 10pt; COLOR: black  ; FONT-FAMILY: Verdana; MARGIN-TOP: 10pt;  MARGIN-LEFT: 10pt;}
+TD.subtitle{	COLOR: #b7d9ff;	BACKGROUND-COLOR: #394959; FONT-WEIGHT: bold;	}
+TD.colHeader{	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: Verdana; FONT-WEIGHT: bold; }
+TD.price 	{	FONT-SIZE:  9pt; COLOR: #32404f; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: right;}
+
+/*End HTML Tag Style definition */
+/********************************/
+
+/*Begin common portlet and logon classes*/
+TD.c_topline {background-image: url(../images/c_top_side.gif);}
+TD.c_leftline {background-image: url(../images/c_left_side.gif);}
+TD.c_rightline {background-image: url(../images/c_right_side.gif);}
+TD.c_botline {background-image: url(../images/c_bot_side.gif);}
+TD.white {background-color: white;}
+
+TD.portlet {padding: 4px 10px 8px 1px;}
+TD.portlet_main {padding: 4px 0px 0px 0px;}
+TD.portlet_title {border-width : 1px; border-style : solid none solid solid; border-color : #79ACD1 #575757 #575757 #79ACD1; font-family : Verdana, Arial, Helvetica, sans-serif; font-size : 11px; font-weight : bold; color: #DAE7F0; padding-left: 4px; height: 17px;}
+TD.portlet_title_nobg {font: bold 11px Verdana; color:white;}
+TD.portlet_content {font: 11px Verdana;}
+TD.portlet_colHeader{font: bold 11px Verdana; color:white;}
+TD.portlet_price{FONT-SIZE: 11px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #32404f; TEXT-ALIGN: right;}
+TD.portlet_discountPrice{FONT-SIZE: 11px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: purple; TEXT-ALIGN: right;}
+TD.portlet_maximize {TEXT-ALIGN: right; padding: 0px 4px 0px 0px;}
+A.portlet_content {font: 11px Verdana;}
+A.portlet_button {COLOR: #ffffff; font: bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif; TEXT-DECORATION: none; 
+				BACKGROUND-COLOR: #ea2b2b; 
+				BORDER-LEFT: thin solid #ff2d2d; BORDER-RIGHT:  thin solid #7a1616 ;
+				BORDER-TOP:  thin solid #ff2d2d; BORDER-BOTTOM: thin solid #7a1616;
+				height:20px; text-decoration:none; padding-left:5px; padding-right:5px; padding-top:1px; text-align: center;
+}
+TD.portlet_shadow {background-image : url(../images/colors/color1/shadow.gif); line-height: 2px;}
+A.garbage {vertical-align: top;background-image: url(../images/garbage.gif);width:16px; height: 16px;background-repeat: no-repeat; text-decoration: none;}
+A.garbage:hover {vertical-align: top;background-image: url(../images/garbage2.gif);width:16px; height: 16px;background-repeat: no-repeat;}
+A.copy {vertical-align: top;background-image: url(../images/copy_icon1.gif);width:16px; height: 16px;background-repeat: no-repeat; text-decoration: none;}
+A.copy:hover {vertical-align: top;background-image: url(../images/copy_icon2.gif);width:16px; height: 16px;background-repeat: no-repeat;}
+
+
+/*Begin style specific portlet classes*/
+TD.p_content {padding: 4px;}
+TABLE.outline {border-width : 1px; border-style : solid; border-color : #848484; background: #F3F3F3;}
+
+TD.logonLogo {background-color:#FFFFFF;}
+
+BODY.logon {MARGIN-LEFT:  0px; MARGIN-RIGHT:  0px; MARGINWIDTH: 0px; MARGINHEIGHT: 0px; background-color: #4c6178; padding-top: 100px;}
+TD.logonwhite {background-color: white; padding-left:8px; padding-top:5px;}
+TD.logontitle {font: bold 16px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #4c6178;}
+SPAN.logontitle {font: bolder 15px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #A6A4A4;}
+TD.logonheading {font: bold 13px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black; padding-top: 3px; padding-bottom: 1px;}
+TD.logonspacing {padding-left:13px; padding-top:4px;}
+A.logon {font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: #4c6178;}
+hr.logon {border: 1px solid #BDBDBD; height:1px;}
+TD.logontxt {font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif; color: black; padding-top: 3px; padding-bottom: 1px;}
+TD.button {padding-bottom:12px;}
+/*End common portlet and logon classes*/
+
+.headercontainer {
+	padding: 0px;
+	width: 100%;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	display:table;
+}
+.sidebarcontainer {
+	padding: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	margin-left: 0px;
+	display:table;
+	height: 100%;
+}
+.contentcontainer {
+	padding: 0px;
+	width: 100%;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	display:table;
+	vertical-align: top;
+}
+.headsupcontainer {
+	padding: 0px;
+	width: 300px;
+	overflow : hidden;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	display:table;
+	vertical-align: top;
+}
+.footercontainer {
+	padding: 0px;
+	width: 100%;
+	overflow : hidden;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	display:table;
+	/*height: 400px;*/
+}
+.sitecontainer {
+	padding: 0px;
+	height: 100%;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	margin-right: 0px;
+	margin-left: 0px;
+	display:table;
+}
+/* General Class Styles */
+.title		{	FONT-SIZE: 17pt; COLOR: #32404f ;FONT-FAMLY: Verdana	}
+.smallText	{	FONT-SIZE: -1pt; COLOR: #ffffff ;FONT-FAMILY: Verdana;  }
+.smallerText{font: 11px Verdana; color:white;}
+.amount		{ 	FONT-SIZE: 8pt; FONT-FAMILY: Arial, Helvetica, Verdana;  TEXT-ALIGN: right;	}
+.summary	{	FONT-SIZE: 8pt;	}
+.bgColor 	{	BACKGROUND-COLOR: #4c6178	}
+.cellBG_1	{	BACKGROUND-COLOR: #ffffff; }
+.cellBG_2	{	BACKGROUND-COLOR: #bccbdb; }
+.warning	{	COLOR: red;	}
+
+
+/****************************************
+ * delta from Snippet.css
+ * classes to be used in snippets
+ ****************************************/
+
+/* Button link styles */
+a.button	{	font-size:  8pt; color: #ffffff; font-family: verdana,  arial, helvetica; text-decoration: none; 
+				font-weight: bold; background-color: #ea2b2b; padding: 1px 2px 2px 1px;
+				border-left: thin solid #ff2d2d; border-right:  thin solid #7a1616;
+				border-top:  thin solid #ff2d2d; border-bottom: thin solid #7a1616;}
+
+/* TD class styles */
+th.colHeader	{font-size: 10pt; color: #ffffff; font-family: verdana; font-weight: bold;}
+td.price 		{font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif; text-align: right;}
+td.listPrice	{font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif; text-align: right; text-decoration: line-through;}
+td.offerPrice	{font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif; text-align: right;}
+td.discountPrice{font-size:  9pt; color: purple; font-family: arial, helvetica, sans-serif; text-align: right;}
+
+/* This class is used to bold regular text */
+strong 		{	font-weight: bold;}
+
+/* The following classes format how currency is displayed */
+.price		{	font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif;}
+.listPrice	{	font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif; text-decoration: line-through;}
+.offerPrice	{	font-size:  9pt; color: #32404f; font-family: arial, helvetica, sans-serif;}
+.discountPrice{	font-size:  9pt; color: purple; font-family: arial, helvetica, sans-serif;}
+
+/* This class is used to format text for discounts */
+.discount	{	font-size:  10pt; color: purple; font-family: arial, helvetica, sans-serif;}
+
+/* This class is used to format product names */
+.productName{	font-size:  10pt; color: #32404f; font-family: arial, helvetica, sans-serif;}
+
+/* Class to highlight a required field on a form */
+.required	{	font-family: verdana; color: #ea2b2b; FONT_SIZE: 2pt;}
+.strongRedText {	font-family: verdana; color: #ea2b2b; FONT_SIZE: 2pt;}
+
+/* Class to highlight an error message */
+.error		{	color: red;}
+
+/* The background color of a table and alternating row background colors */
+.bgColor 	{	background-color: #4c6178;}
+.cellBG_1	{	background-color: #ffffff;}
+.cellBG_2	{	background-color: #bccbdb;}
+
+/* This class is used for the section heading */
+.heading {font-family: verdana, arial, helvetica, sans-serif;font-size: 11pt;font-weight: bold;text-align: left;color: #333333;padding: 0px;margin: 0px;}
+
+/* This class is used for the section sub-heading */
+.subHeading {font-family: verdana, arial, helvetica, sans-serif;font-size: 10pt;font-weight: bold;text-align: left;color: #666666;padding: 0px;margin: 0px;}
+
+/* Breadcrumb trail for checkout pages */
+a.chkout_done {color: black; text-decoration:}
+td.chkout {font: bold 11px Verdana; color: #C6C6C6; padding-right: 7px;}
+td.chkout_active {font: bold 11px Verdana; color:#950000;}
+td.divider {width: 1px;}

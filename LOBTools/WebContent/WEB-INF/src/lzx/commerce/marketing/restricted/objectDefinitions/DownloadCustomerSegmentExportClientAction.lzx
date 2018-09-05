@@ -1,0 +1,83 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2014 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<library>
+	<!-- Custom client action class to download a customer segment export -->
+	<class name="mktDownloadCustomerSegmentExportClientAction" extends="wcfClientAction" 
+		allowMultipleSelection="false" toolbarIcon="downloadCustomerSegmentExportToolbarIcon">
+
+		<attribute name="exportUrl" type="string" />
+
+		<!---
+			@keywords private
+			Returns true if the context is not read only.
+			
+			@param wcfModelObject o: the object on which you want to perform this client action
+			@return boolean: true if the client action is enabled
+		-->
+		<method name="isEnabled" args="o">
+			<![CDATA[
+			var enabled = super.isEnabled(o);
+			if (enabled && o.model.oEditor.respectWorkspaceContext) {
+				var readOnlyModeContextValue = wcfContextUtil.findContextValue(null, "readOnlyMode");				
+				enabled = (readOnlyModeContextValue.value != "true");
+			}
+			if (enabled && o.isContextReadOnly()) {
+				enabled = false;
+			}
+			return enabled;
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			@param wcfModelObject objects: The array of selected model objects.
+		-->
+		<method name="performAction" args="objects">
+			<![CDATA[
+				if (objects) {
+					// construct the URL to launch export page
+					var timeZoneId = wcfContextUtil.findContextValue(null, "timeZoneId").value;
+					var workspaceName = wcfContextUtil.findContextValue(null, "workspaceName").value;
+					var workspaceTaskGroup = wcfContextUtil.findContextValue(null, "workspaceTaskGroup").value;
+					var workspaceTask = wcfContextUtil.findContextValue(null, "workspaceTask").value;
+				
+					var storeId = objects[0].getPropertyValue("objectStoreId");
+					var uploadFileId = objects[0].getPropertyValue("customerSegmentExportId");
+					var type = "CustomerSegment";
+					this.exportUrl = "ExportServlet?storeId=" + storeId + "&type=" + type + "&uploadFileId=" + uploadFileId + "&timeZoneId=" + timeZoneId
+					+ "&workspaceName=" + workspaceName + "&workspaceTaskGroup=" + workspaceTaskGroup +"&workspaceTask=" + workspaceTask ;
+					getSSOToken.doRequest(this, {});
+				}
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+		-->
+		<method name="popupExportWindow">
+			<![CDATA[
+				var SSOToken = wcfContextUtil.findContextValue(null, "SSOToken").value;
+				this.exportUrl = this.exportUrl + "&ActivityToken=" + SSOToken;
+				
+				// put together an object containing all required parameters
+				var newWindowObj = new Object();
+				newWindowObj.URL = exportUrl;
+				newWindowObj.windowName = "Export";
+				newWindowObj.windowFeatures = "left=0,top=0,width=1014,height=710,scrollbars=no,toolbar=no,directories=no,status=no,menubar=no,copyhistory=no,resizable=yes";
+				// call the javascript method in the parent window to launch export page
+				callJSFunction("openNewWindow", newWindowObj);
+			]]>
+		</method>		
+	</class>
+</library>

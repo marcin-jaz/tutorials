@@ -1,0 +1,50 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2001, 2004
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%-- 
+  *****
+  * This JSP fragment is included in content JSP pages to construct the top and left portion of the layout.
+  *****
+--%>
+<!-- BEGIN LayoutContainerTop.jspf -->
+
+<%-- %@ include file="JSTLCacheEnvironmentSetup.jspf" --%>
+
+<!-- Layout enclosing table -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td colspan="3"  valign="top">
+	<!--Header--> 
+	<%@ include file="HeaderDisplay.jspf"%>
+	<!-- /Header --> 
+    </td>
+  </tr>
+  <tr> 
+    <td height="100%"  valign="top">
+	<!-- Sidebar -->
+	<%@ include file="SidebarDisplay.jspf"%>
+	<!-- /Sidebar -->
+    </td>
+    <td width="100%" height="100%"  valign="top"> 
+      <!-- Content Container -->
+      	<% out.flush(); %>
+      	<c:import url="${jspStoreDir}${StyleDir}ContentContainerTop.jsp">
+			<c:param name="frameTitle" value="${frameTitle}" />
+		</c:import>
+		<% out.flush(); %>
+      <!-- Content -->
+        
+<!-- END LayoutContainerTop.jspf -->

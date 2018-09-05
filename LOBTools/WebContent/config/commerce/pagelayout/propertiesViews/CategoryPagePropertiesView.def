@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<Definitions>
+
+	<PropertyPane definitionName="plmManageCategoryBrowsingPage">
+		
+		<PropertyGroup baseDefinitionName="wcfPropertyAssetInformationGroup" name="assetGroup" />
+		
+		<!-- Property Group: General Page Information. This properties group contains general page information such as name, description etc -->
+		<PropertyGroup groupTitle="${plmPageLayoutResources.pageProperties}" name="generalInfoPropGrp" open="true">
+           	<PropertyInputText promptText="${plmPageLayoutResources.pageNamePrompt}" propertyName="identifier" extendedHelpText="${plmPageLayoutResources.extendedHelpText_CategoryCode}" />
+			<PropertyInputText promptText="${plmPageLayoutResources.categoryNamePrompt}" propertyName="name" extendedHelpText="${plmPageLayoutResources.extendedHelpText_CategoryName}" />
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the catalog group SEO properties inherited from the catalog asset store -->
+		<PropertyGroup groupTitle="${catalogResources.searchEngineOptimizationTab}"  name="plmCatGroupSeoAssetStoreSection" baseDefinitionName="plmManageInheritedCatalogGroupSeoAttributes" open="true"/>
+		
+		<!-- Property Group: Contains the catalog group SEO properties of the local store (shows store name in the group title) -->
+		<PropertyGroup groupTitle="${catalogResources.searchEngineOptimizationTab}"  name="plmCatGroupSeoESiteStoreSection" baseDefinitionName="plmManageCatalogGroupSeoAttributes" open="true">
+			<EnablementAndCondition conditionId="inheritedObjectTypesAndStoreCondition">
+					<EnablementCondition conditionId="seoEnabledCondition" contextName="seoEnabled" enablementValue="true"/>
+					<EnablementCondition checkObjectDefinition="true" conditionId="inheritedCategoryBrowsingPageCondition" enablementValue="InheritedCatalogGroupBrowsingPage" propertyName="objectType"/>
+			</EnablementAndCondition>
+
+		</PropertyGroup>
+		
+		<!-- Property Group: Contains the catalog group SEO properties of the local store (no group title) -->
+		<PropertyGroup groupTitle="${catalogResources.searchEngineOptimizationTab}" name="plmCatGroupSeoLocalStoreSection" baseDefinitionName="plmManageCatalogGroupSeoAttributes" displayObjectStoreName="false" displayStoreName="false" open="true">
+			<EnablementAndCondition conditionId="localObjectTypesCondition" >
+					<EnablementCondition conditionId="seoEnabledCondition" contextName="seoEnabled" enablementValue="true"/>
+					<EnablementCondition checkObjectDefinition="true" conditionId="catalogGroupBrowsingPageCondition" enablementValue="CatalogGroupBrowsingPage" propertyName="objectType"/>
+			</EnablementAndCondition>
+		</PropertyGroup>
+	</PropertyPane>
+	
+
+	<ObjectProperties definitionName="plmCategoryBrowsingPageProperties">
+		<!-- 
+			An instantiation of 'plmManageCategoryBrowsingPage', which represents a property pane displaying
+			property groups containing the page information for the Category Page.
+		 -->
+		<PropertyPane baseDefinitionName="plmManageCategoryBrowsingPage"/>
+
+	</ObjectProperties>
+
+</Definitions>

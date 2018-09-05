@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+ 
+	<!--
+            Defines the views to display top level folder, sub folders and the corresponding Content Page in the folders.
+            A list view lists objects in the form of a table, providing selected information about the object, within table cells.
+            For example, a list of folders showing the type, Store, Name, Description, etc.
+       -->
+<Definitions>
+      <!--- This grid displays the contents and characteristics of a list of top level ContentPageFolder Page Layouts folders. -->
+      <ObjectGrid definitionName="plmTopContentPageFolderGrid" preferenceKey="plmContentPageFolderGrid">
+            <GridIconTypeImage name="type" required="true" text="${plmPageLayoutResources.ContentPageFolderType}" width="60"/>
+            <GridStoreName name="store" text="${plmPageLayoutResources.ContentPageFolderStore}" width="125"/>
+            <GridText datatype="number" editable="false" name="uniqueID" propertyName="folderId"  text="${plmPageLayoutResources.ContentPageFolderList_uniqueID}" visible="false" width="90"/>
+            <GridText editable="true" name="folderName" propertyName="identifier" required="true" text="${plmPageLayoutResources.ContentPageFolderList_identifier}" visible="true" width="180"/>
+            <GridText editable="true"  name="folderDescription" propertyName="description" text="${plmPageLayoutResources.ContentPageFolderList_description}" visible="true" width="350"/>          
+      </ObjectGrid>
+     
+      <!-- This child list editor shows a list of top level folders when the 'Content Page Folders' organizational node is selected in the navigation view. -->
+      <ChildListEditor definitionName="plmTopContentPageFolderGridEditor" listDefinitionName="plmTopContentPageFolderGrid" objectTypes="ContentPageFolder,InheritedContentPageFolder"/>
+     
+      <!--- This navigation list definition is used to display top level ContentPageFolder. -->
+      <NavigationListDefinition definitionName="plmTopContentPageFolderGridChildList" displayName="${plmPageLayoutResources.ContentPageFolderListMenuTitle}" listDefinitionName="plmTopContentPageFolderGridEditor" listTitle="${plmPageLayoutResources.ContentPageFolderListTitle}" toolbarIcon="folderListToolbarIcon"/>
+     
+      <!--- This grid displays the contents and characteristics of a list of ContentPageFolders -->
+      <ObjectGrid definitionName="plmContentPageFolderGrid" preferenceKey="plmContentPageFolderGrid">
+            <GridIconTypeImage name="type" required="true" text="${plmPageLayoutResources.ContentPageFolderType}" width="60"/>
+            <GridStoreName name="store" text="${plmPageLayoutResources.ContentPageFolderStore}" width="125"/>
+            <GridText datatype="number" editable="false" name="uniqueID" propertyName="folderId" objectPath="ContentPageFolderGroup" text="${plmPageLayoutResources.ContentPageFolderList_uniqueID}" visible="false" width="90"/>
+            <GridText editable="true" name="folderName" propertyName="identifier" objectPath="ContentPageFolderGroup" required="true" text="${plmPageLayoutResources.ContentPageFolderList_identifier}" visible="true" width="180"/>
+            <GridText editable="true"  name="folderDescription" propertyName="description" objectPath="ContentPageFolderGroup" text="${plmPageLayoutResources.ContentPageFolderList_description}" visible="true" width="350"/>          
+      </ObjectGrid>
+     
+      <!-- This child list editor shows a list of Content Page folders that are children of a Content Page folder. -->
+      <ChildListEditor definitionName="plmContentPageFolderGridEditor" listDefinitionName="plmContentPageFolderGrid" objectTypes="ContentPageFolderReference,InheritedContentPageFolderReference"/>
+     
+      <!--- This navigation list definition is used to display ContentPageFolders -->
+      <NavigationListDefinition definitionName="plmContentPageFolderGridChildList" displayName="${plmPageLayoutResources.ContentPageFolderListMenuTitle}" listDefinitionName="plmContentPageFolderGridEditor" listTitle="${plmPageLayoutResources.ContentPageFolderListTitle}" toolbarIcon="listToolbarIcon"/>          
+      
+      <!--- This grid displays the contents and characteristics of a list of Content Pages -->
+      <ObjectGrid definitionName="plmContentPageFolderReferenceGrid" preferenceKey="plmContentPageFolderReferenceGrid">
+            <GridIconTypeImage name="typeIcon" objectPath="ContentPageAlias" propertyName="null" enableFilter="true" required="true" text="${plmPageLayoutResources.contentPageType_ColumnHeader}" visible="true" width="100"/>             
+            <GridText editable="false" objectPath="ContentPageAlias" name="contentPageName" propertyName="name" text="${plmPageLayoutResources.contentPageName_ColumnHeader}" visible="true" width="200"/>
+      </ObjectGrid>
+     
+      <!-- Child list editor to display Content Page in a folder. -->
+      <ChildListEditor definitionName="plmContentPageFolderItemGridEditor" listDefinitionName="plmContentPageFolderReferenceGrid" objectTypes="ContentPageFolderItemReference,ContentPageFolderInheritedItemReference,InheritedContentPageFolderInheritedItemReference"/>
+  
+      <!--- This navigation list definition is used to display Content Page Folder Item References} -->
+      <NavigationListDefinition definitionName="plmContentPageFolderItemGridChildList" displayName="${plmPageLayoutResources.ContentPageFolderItemListMenuTitle}" listDefinitionName="plmContentPageFolderItemGridEditor" listTitle="${plmPageLayoutResources.ContentPageFolderItemListTitle}" toolbarIcon="listToolbarIcon"/>
+      
+      <!--- 
+        This grid displays the contents and characteristics of a list of {@link ContentPageFolder Content Page Folders}.
+      -->
+      <ObjectGrid definitionName="plmContentPageFolderListDefinition" preferenceKey="plmContentPageFolderListDefinition">
+        <GridIconTypeImage name="type" required="true" text="${plmPageLayoutResources.ContentPageFolderType}" width="60"/>
+        <GridStoreName name="store" text="${plmPageLayoutResources.ContentPageFolderStore}" width="125"/>
+        <GridText datatype="number" editable="false" name="uniqueID" propertyName="folderId" text="${plmPageLayoutResources.ContentPageFolderList_uniqueID}" visible="false" width="100"/>
+        <GridText editable="false" name="folderName" propertyName="identifier" required="true" text="${plmPageLayoutResources.ContentPageFolderList_identifier}" visible="true" width="150"/>
+        <GridText editable="false" name="description" propertyName="description" text="${plmPageLayoutResources.ContentPageFolderList_description}" visible="false" width="250"/>
+        <GridText editable="false" name="path" propertyName="path" text="${plmPageLayoutResources.ContentPageFolderList_path}" visible="true" width="250"/>
+      </ObjectGrid>
+
+      <!--- 
+    	This definition displays the contents and characteristics of a list of
+			{@link plmContentPage}    	
+    		{@link plmInheritedContentPage}
+    	in a folder.
+      -->
+      <ObjectGrid definitionName="plmContentPageFolderBrowseGrid" preferenceKey="plmContentPageFolderBrowseGrid">
+    	<GridColumn editable="false" visible="false" name="id" text="${plmPageLayoutResources.contentPageUniqueID_ColumnHeader}" width="90">
+			<GridTextCellDescriptor name="pageId" objectPath="ContentPageAlias" propertyName="pageId"/>
+			<GridTextCellDescriptor name="folderId" objectPath="ContentPageFolderGroup" propertyName="folderId"/>
+		</GridColumn>
+    	<GridIconTypeImage name="typeIcon" enableFilter="true" required="true" text="${plmPageLayoutResources.contentPageType_ColumnHeader}" visible="true" width="100"/>             
+        <GridStoreName name="store" /> 
+        <GridDisplayName name="contentPageName" text="${plmPageLayoutResources.contentPageName_ColumnHeader}" visible="true" width="200"/>
+      </ObjectGrid>
+
+</Definitions>

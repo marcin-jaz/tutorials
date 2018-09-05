@@ -1,0 +1,89 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<script type="text/javascript" src="<c:out value="${jsAssetsDir}javascript/CheckoutArea/B2BOrderPricingPopup.js"/>"></script>
+<script type="text/javascript">
+	dojo.addOnLoad(function() { 
+		<flow:ifEnabled feature="MultipleActiveOrders"> 
+			<c:if test="${pendingOrderDetailsPage}">
+				B2BOrderPricingPopup.setOrderId('${orderId}');
+				B2BOrderPricingPopup.setFromPage('pendingOrderDisplay');
+			</c:if>
+		</flow:ifEnabled>		
+		<fmt:message key="SHOPCART_UPDATE" bundle="${storeText}" var="BUTTON_SHOPCART_UPDATE"/>
+		B2BOrderPricingPopup.setShopcartUpdate(<wcf:json object="${BUTTON_SHOPCART_UPDATE}"/>);		
+		<fmt:message key="CurrentOrder_NO_PRICE_AVAILABLE" bundle="${storeText}" var="ERROR_NO_PRICE_AVAILABLE"/>
+		B2BOrderPricingPopup.setNotPriceErrorMsg(<wcf:json object="${ERROR_NO_PRICE_AVAILABLE}"/>);
+		B2BOrderPricingPopup.setCommonParameters('${WCParam.langId}','${WCParam.storeId}','${WCParam.catalogId}');		
+		<flow:ifDisabled feature="AjaxCheckout"> 
+			B2BOrderPricingPopup.setAjaxCheckOut(false);
+		</flow:ifDisabled>
+	});
+</script>
+
+<script type="text/javascript">dojo.require("dijit.Dialog");</script>
+<div id="pricing_popup_main_div">
+	<div id="pricing_popup" dojoType="dijit.Dialog">
+		<div class="top_left" id="WC_B2BOrderPricingPopupJSPF_div_1"><img alt="" src="<c:out value="${jspStoreImgDir}" />images/trasparent.gif" /></div>
+	  <div class="top_right" id="WC_B2BOrderPricingPopupJSPF_div_2"><img alt="" src="<c:out value="${jspStoreImgDir}" />images/trasparent.gif" /></div>
+		<div class="header" id="pricingPopupHeader"> 
+			<div class="close" id="WC_B2BOrderPricingPopupJSPF_div_3">
+			    <a id="pricingPopupCloseLink" href="javascript:hidePopup('pricing_popup');" onkeydown="javaScript:B2BOrderPricingPopup.setbackFocus(event);" onmousedown="javaScript:B2BOrderPricingPopup.setbackFocus(event);">
+			        <span onclick="javaScript:hidePopup('pricing_popup');" class="icon" id="WC_B2BOrderPricingPopupJSPF_div_4">
+			            <img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}" />popup_close.png" />
+			        </span>
+			        <fmt:message key="CLOSE" bundle="${storeText}"/>
+			    </a>
+			</div>
+		</div>	
+		
+		<div class="bodyarea" id="WC_B2BOrderPricingPopupJSPF_div_5">
+			<div class="bodycontent" id="WC_B2BOrderPricingPopupJSPF_div_6">
+				<h2 class="black"><fmt:message key="PRICING_POPUP_TITLE" bundle="${storeText}"/></h2>
+				<div id="bopis_table_container" class="body">				
+					<div id="distributor_pricing_popup" class="table pricingTable" role="grid" aria-describeby="pricing_popup_table_summary">
+						<div id="pricing_popup_table_summary" class="hidden_summary">
+							<fmt:message key="PRICING_TABLE_SUMMARY" bundle="${storeText}"/>
+						</div>
+						<div id="contractPriceTable_header" role="row" class="row column_heading">
+							<div role="columnheader" class="gridcell price_column" id="contractPriceTable_header1"><span id="contractPriceTable_header1_span"><fmt:message key="PRICING_POPUP_PRICE" bundle="${storeText}"/></span></div>
+							<div role="columnheader" class="gridcell contract_column" id="contractPriceTable_header2"><fmt:message key="PRICING_POPUP_CONTRACT" bundle="${storeText}"/></div>
+							<div class="gridcell clear_float"></div>
+						</div>
+						<div id="contractPriceTable"></div>		
+					</div>
+				</div>
+				<div id="contractPriceUpdateButton" class="pricingPopupButton"></div>
+			</div>
+		</div>
+		<div class="footer" id="WC_B2BOrderPricingPopupJSPF_div_7">
+	    <div class="bot_left" id="WC_B2BOrderPricingPopupJSPF_div_8"></div>
+	    <div class="bot_right" id="WC_B2BOrderPricingPopupJSPF_div_9"></div>
+	  </div>
+	</div>
+</div>
+<script type="text/javascript">dojo.addOnLoad(
+		function() {
+			parseWidget("pricing_popup");
+			<fmt:message key="FF_PRICERANGE_TITLE" bundle="${storeText}" var="FF_PRICERANGE_TITLE"/>
+			<fmt:message key="QuickInfo_Qty" bundle="${storeText}" var="QuickInfo_Qty"/>
+			<fmt:message key="SHIPPING_PRICE" bundle="${storeText}" var="SHIPPING_PRICE"/>
+			B2BOrderPricingPopup.setImgPath('<c:out value="${jspStoreImgDir}${vfileColor}"/>');
+			B2BOrderPricingPopup.setLinkText(<wcf:json object="${FF_PRICERANGE_TITLE}"/>);
+			B2BOrderPricingPopup.setQuantityText(<wcf:json object="${QuickInfo_Qty}"/>);
+			B2BOrderPricingPopup.setPriceText(<wcf:json object="${SHIPPING_PRICE}"/>);
+		} 
+	);
+</script>
+

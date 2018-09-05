@@ -1,0 +1,69 @@
+<%--
+/*
+ *-------------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (c) Copyright International Business Machines Corporation. 2007
+ *     All rights reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *
+ *-------------------------------------------------------------------
+ */
+--%>
+<%-- 
+  *****
+  * This JSP fragment is included in content JSP pages to construct the right and bottom portion of the layout.
+  *****
+--%>
+      					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+  
+<flow:fileRef id="vfileBanner" fileId="vfile.banner"/>
+<flow:fileRef id="vfileSelectedBanner" fileId="vfile.selectedBanner"/>
+
+<!--START FOOTER-->
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center" id="WC_CachedFooterDisplay_Table_1">
+	<tbody><tr>
+		<td valign="top" id="WC_CachedFooterDisplay_TableCell_1" class="f_back">
+			<table align="center" cellpadding="0" cellspacing="0" border="0" class="p_width" id="WC_CachedFooterDisplay_Table_2">
+				<tr>
+					<td valign="top" id="WC_CachedFooterDisplay_TableCell_2">
+						<table cellpadding="0" cellspacing="0" border="0" id="WC_CachedFooterDisplay_Table_3">
+							<tr>
+								<td class="f_padding">
+									
+								</td>
+								<td class="f_padding" id="WC_CachedFooterDisplay_Table_7">
+									
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td align="right" id="WC_CachedFooterDisplay_TableCell_12">
+					<flow:ifEnabled  feature="CustomBanner">
+						<img src="<c:out value="${hostPath}"/><c:out value="${jspStoreImgDir}${vfileBanner}" />" alt="" width="228" height="80" border="0"/>
+					</flow:ifEnabled>
+					<flow:ifDisabled  feature="CustomBanner">
+						<img src="<c:out value="${hostPath}"/><c:out value="${jspStoreImgDir}${vfileSelectedBanner}" />" alt="" width="228" height="80" border="0"/>
+					</flow:ifDisabled>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</tbody>
+</table>
+    </td>
+  </tr>
+</table>
+<!-- /Layout enclosing table -->
+
+<!-- END LayoutContainerBottom.jspf -->

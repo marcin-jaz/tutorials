@@ -1,0 +1,38 @@
+{
+	"suggestionView": [
+		{
+			"categorySeparator": " > ",
+			"entry": [
+				{
+					"fullPath": "Apparel",
+					"image": "images\/catalog\/apparel\/women\/category\/catr_wcl_pants.png",
+					"name": "Apparel",
+					"shortDescription": "The latest styles for the entire family.",
+					"value": "10001"
+				},
+				{
+					"fullPath": "Apparel > Men",
+					"image": "images\/catalog\/apparel\/men\/category\/catr_app_men.png",
+					"name": "Men",
+					"shortDescription": "Men",
+					"value": "10002"
+				},
+				{
+					"fullPath": "Apparel > Women",
+					"image": "images\/catalog\/apparel\/women\/category\/catr_app_women.png",
+					"name": "Women",
+					"shortDescription": "Women",
+					"value": "10003"
+				},
+				{
+					"fullPath": "Apparel > Boys",
+					"image": "images\/catalog\/apparel\/boys\/category\/catr_app_boys.png",
+					"name": "Boys",
+					"shortDescription": "boys",
+					"value": "10004"
+				}
+			],
+			"identifier": "Category"
+		}
+	]
+}

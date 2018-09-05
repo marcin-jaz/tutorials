@@ -1,0 +1,53 @@
+<%
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2001, 2002
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+%>
+
+<%@ page import="java.io.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.ibm.commerce.server.*" %>
+<%@ page import="com.ibm.commerce.command.*" %>
+
+<%@ page import="com.ibm.commerce.catalog.beans.*" %>
+<%@ page import="com.ibm.commerce.catalog.objects.*" %>
+<%@ page import="com.ibm.commerce.beans.*" %>
+<%@ page import="com.ibm.commerce.user.beans.*" %>
+<%@ page import="com.ibm.commerce.payment.beans.*" %>
+
+<%
+String lastCmdName =  cmdcontext.getCommandName().trim();
+
+String productId = jhelper.getParameter("productId");
+String parentCategoryId = jhelper.getParameter("parent_category_rn");
+
+%>
+
+ <!-- Begin Cross Sell Sidebar -->
+
+<table cellspacing="0" cellpadding="0" width="150" border="0">
+<tbody>
+
+	<!--START PROMO -->
+	<jsp:include page="../../../include/ProductCrossSellAssocESpot.jsp" flush="true">
+		<jsp:param name="emsName" value="ProductCrossSellPage" />
+		<jsp:param name="catalogId" value="<%= catalogId %>" />
+		<jsp:param name="parentCategoryId" value="<%= parentCategoryId %>" />
+		<jsp:param name="productId" value="<%= productId %>" />
+	</jsp:include>
+	<!--END PROMO -->
+
+</tbody></table>
+
+
+<!-- End Cross Sell TD -->

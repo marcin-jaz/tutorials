@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ENTITY CATALOG_TARGET_STORE_ID "">
+<!ENTITY EMSPOT_ID_1 "@emspot_id_1">
+<!ENTITY el_GR "-11">
+<!ENTITY HOS_ORGANIZATION_DN "ou=elite,o=seller organization,o=root organization">
+<!ENTITY EMSPOT_ID_2 "@emspot_id_2">
+<!ENTITY CAT_STOREENT_ID "@catalogStore">
+<!ENTITY HOS_MEMBER_ID "@hosting_mbr_id">
+<!ENTITY CAT_ORGANIZATION_DN "ou=elite,o=seller organization,o=root organization">
+<!ENTITY MARKETING_TARGET_STORE_ID "">
+<!ENTITY MAR_STOREENT_ID "@marketingStore">
+<!ENTITY MAR_ORGANIZATION_DN "ou=elite,o=seller organization,o=root organization">
+<!ENTITY CAT_MEMBER_ID "@catalog_mbr_id">
+<!ENTITY HOS_STORE_IDENTIFIER "Elite">
+<!ENTITY zh_CN "-7">
+<!ENTITY HOS_STORE_DIR "Elite">
+<!ENTITY AOP_CHOICE "asset:foreignKeys#AOP_CHOICE">
+<!ENTITY pl_PL "-22">
+<!ENTITY fr_FR "-2">
+<!ENTITY MAR_MEMBER_ID "@marketing_mbr_id">
+<!ENTITY STORE_DIRECTORY_LOWERCASE "elite">
+<!ENTITY CATALOG_ID "@catalog_id_1">
+<!ENTITY ko_KR "-9">
+<!ENTITY HOSTING_TARGET_STORE_ID "">
+<!ENTITY CAT_STORE_DIR "Elite">
+<!ENTITY USER_DN_BUYER_B_ADMIN_PART "uid=buyerbadmin,">
+<!ENTITY MAR_STORE_DIR "Elite">
+<!ENTITY ORGENTITYNAME "b2b">
+<!ENTITY zh_TW "-8">
+<!ENTITY FREE_SHIPPING_CARRIER "XYZ Carrier">
+<!ENTITY ORG_DN_BUYER_A "o=buyer a organization,o=root organization">
+<!ENTITY ORG_DN_BUYER_B "o=buyer b organization,o=root organization">
+<!ENTITY ru_RU "-20">
+<!ENTITY it_IT "-4">
+<!ENTITY MAR_STORE_IDENTIFIER "Elite">
+<!ENTITY FREE_SHIPPING_CODE "A1">
+<!ENTITY REGCUST_MBRGRPNAME "RegisteredCustomers">
+<!ENTITY ja_JP "-10">
+<!ENTITY USER_DN_BUYER_A_ADMIN_PART "uid=buyeraadmin,">
+<!ENTITY CAT_STORE_IDENTIFIER "Elite">
+<!ENTITY iw_IL "-11">
+<!ENTITY SAMPLE_CHOICE "EliteAutomotiveCatalog">
+<!ENTITY FFMCENTER_ID "@ffmcenter_id_1">
+<!ENTITY NEW_ESPOT_01 "HomePageRow1Ads">
+<!ENTITY NEW_ESPOT_02 "HomePageRow4Ads">
+<!ENTITY NEW_ESPOT_03 "HomePageGeneralFeaturedProducts">
+<!ENTITY NEW_ESPOT_05 "HomePageRightSideBarAds">
+<!ENTITY NEW_ESPOT_06 "RightSideBarAds">
+<!ENTITY NEW_ESPOT_07 "RightSideBarFeaturedProducts">
+<!ENTITY es_ES "-5">
+<!ENTITY NEW_ESPOT_08 "ShoppingCartFeaturedProducts">
+<!ENTITY NEW_ESPOT_09 "CategoryPageRecommendations">
+<!ENTITY pt_BR "-6">
+<!ENTITY STORE_DIR "Elite">
+<!ENTITY ar_EG "-23">
+<!ENTITY VENDOR_ID "@vendor_id_1">
+<!ENTITY en_US "-1">
+<!ENTITY NEW_ESPOT_10 "CategoryPageFeaturedProducts">
+<!ENTITY NEW_ESPOT_11 "WishListFeaturedProducts">
+<!ENTITY NEW_ESPOT_12 "ShoppingCartRightSideBarAds">
+<!ENTITY NEW_ESPOT_13 "BrakescomponentsTopCategories">
+<!ENTITY NEW_ESPOT_14 "ElectricalsystemsTopCategories">
+<!ENTITY NEW_ESPOT_15 "EntertainmentOnboardcomputingTopCategories">
+<!ENTITY NEW_ESPOT_16 "SuspensionscomponentsTopCategories">
+<!ENTITY HOS_STOREENT_ID "@hostingStore">
+<!ENTITY NEW_ESPOT_17 "TransmissioncomponentsTopCategories">
+<!ENTITY NEW_ESPOT_18 "HomePageRow2Ads">
+<!ENTITY ro_RO "-21">
+<!ENTITY de_DE "-3">
+<!ENTITY TRADEPOSCN_ID "@tradeposcn_id_101">
+

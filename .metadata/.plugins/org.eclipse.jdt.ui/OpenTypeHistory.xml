@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><typeInfoHistroy>
+<typeInfo handle="=LOBTools/\/WC\/Enablement-BaseComponentsLogic.jar&lt;com.ibm.commerce.security.commands(LogonCmdImpl.class[LogonCmdImpl" modifiers="1" timestamp="-1"/>
+<typeInfo handle="=LOBTools/\/WC\/Order-OrderCaptureLogic.jar&lt;com.ibm.commerce.orderitems.commands(OrderItemAddCmd.class[OrderItemAddCmd" modifiers="1537" timestamp="-1"/>
+<typeInfo handle="=LOBTools/\/WC\/Order-OrderCaptureLogic.jar&lt;com.ibm.commerce.orderitems.commands(OrderItemAddCmdImpl.class[OrderItemAddCmdImpl" modifiers="33" timestamp="-1"/>
+<typeInfo handle="=LOBTools/\/WC\/Order-OrderCaptureData.jar&lt;com.ibm.commerce.order.objects(OrderAccessBean.class[OrderAccessBean" modifiers="33" timestamp="-1"/>
+<typeInfo handle="=LOBTools/\/WC\/Member-MemberManagementLogic.jar&lt;com.ibm.commerce.usermanagement.commands(UserRegistrationAddCmdImpl.class[UserRegistrationAddCmdImpl" modifiers="33" timestamp="-1"/>
+</typeInfoHistroy>

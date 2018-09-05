@@ -1,0 +1,63 @@
+<%--
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2003, 2004
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+--%>
+
+<%--
+  ***
+  *	This JSPF creates an HTML table showing a radio button to choose whether to ship
+  * the order as complete or partial shipments.
+  * The snippet included is as generic as possible, but the classes in the style sheets
+  * will need to be changed to match your site's look and feel.
+  *
+  * Prerequisites:
+  * Required parameters (required variables instantiated on the page):
+  * orderBean:  an instance of com.ibm.commerce.order.beans.OrderDataBean containing the
+  *				current order information.
+  *
+  * How to use this snippet?
+  * 1. To display this feature in your store's checkout page, you can cut and
+  *    paste the code from the snippet to your checkout page, or simply include it:
+  *<tr>
+  *		<td>
+  *			<%@ include file="../../Snippets/Order/Ship/ShipAsCompleteChoice.jspf" %>
+  *		</td>
+  *	</tr>
+  *
+  ***
+--%>
+
+
+<table cellpadding="0" cellspacing="0" border="0" id="WC_ShipAsCompleteChoice_Table_1" width="100%">
+	<%-- If all order items are not ready to ship, show choice to ship as partial or complete shipments --%>
+		<tr>
+			<td id="WC_ShipAsCompleteChoice_TableCell_1"><h2><fmt:message key="ShipAsCompleteChoice_CHOOSE_SHIPPING_PREFERENCE" bundle="${storeText}" /></h2></td>
+		</tr>
+
+		<%--send/update ShipAsComplete = 'Y' --%>
+		<tr>
+			<td id="WC_ShipAsCompleteChoice_TableCell_2">
+				<input class="radio" name="ShipAsComplete" id = "Order_ShipAsComplete_Y" checked="checked" type="radio" value="Y" />
+				<label for="Order_ShipAsComplete_Y"><fmt:message key="ShipAsCompleteChoice_WAIT_UNTIL_READY" bundle="${storeText}"  /></label>
+			</td>
+		</tr>
+
+		<%--send/update ShipAsComplete = 'N' --%>
+		<tr>
+			<td id="WC_ShipAsCompleteChoice_TableCell_3">
+				<input class="radio" name="ShipAsComplete" id="Order_ShipAsComplete_N" type="radio" value="N" />
+				<label for="Order_ShipAsComplete_N"><fmt:message key="ShipAsCompleteChoice_SHIP_AVAIL_ITEMS_NOW" bundle="${storeText}"  /></label>
+			</td>
+		</tr>
+</table>

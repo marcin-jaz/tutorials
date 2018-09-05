@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE store-front SYSTEM "StoreFront.dtd">
+<store-front>
+    <store-front-images>
+        <image id="logo" max-height="50" max-width="150"/>
+        <image id="banner" max-height="50" max-width="815"/>
+    </store-front-images>
+
+    <store-front-text>
+              
+    </store-front-text>
+
+</store-front>

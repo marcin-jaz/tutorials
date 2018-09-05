@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<Definitions>
+
+	<GridObjectProperties definitionName="plmWidgetProperties_ProductRecommendationWidget">
+		<PropertyPane>
+
+			<!-- Widget properties -->
+
+   		<PropertyGroup name="widgetProperties" collapsable="false" groupTitle="${plmPageLayoutResources.widgetPropertiesPrompt}">
+				<PropertyInputText propertyName="widgetName" 
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_productRecommendationWidgetWidgetName}" 
+					promptText="${plmPageLayoutResources.widgetNamePrompt}" />					
+				<PropertyRadioGroup propertyName="xWidgetProp_widgetOrientation" 
+					extendedHelpText="${plmPageLayoutResources.extendedHelpText_productRecommendationWidgetWidgetOrientation}"
+					promptText="${plmPageLayoutResources.productRecommendationWidgetWidgetOrientationPrompt}"/>
+
+				<PropertyGroup name="pageSizeGroup" collapsable="false">
+					<EnablementCondition conditionId="productRecommendationWidgetOrientationConditionPageSize" propertyName="xWidgetProp_widgetOrientation" enablementValue="vertical" />				
+					<PropertyStepper propertyName="xWidgetProp_pageSize" minimumValue="1"
+						extendedHelpText="${plmPageLayoutResources.extendedHelpText_productRecommendationWidgetMaxProductsToDisplay}"
+						promptText="${plmPageLayoutResources.productRecommendationWidgetMaxProductsToDisplay}"/>
+				</PropertyGroup>
+				<PropertyGroup name="pageDisplayReferenceGroup" collapsable="false">
+					<EnablementCondition conditionId="productRecommendationWidgetOrientationConditionDisplayPref" propertyName="xWidgetProp_widgetOrientation" enablementValue="horizontal"/>				
+					<PropertyCombobox propertyName="xWidgetProp_displayPreference" promptText="${plmPageLayoutResources.productRecommendationWidgetDisplayPreferencesPrompt}" />
+				</PropertyGroup>
+
+				<PropertyCheckbox propertyName="xWidgetProp_showFeed" text="${plmPageLayoutResources.productRecommendationWidgetShowFeed}"  extendedHelpText ="${plmPageLayoutResources.productRecommendationWidgetShowFeedToolTip}" />
+				
+		</PropertyGroup>	
+
+		<!-- Widget content -->
+
+		<PropertyGroup name="widgetContents" collapsable="false"
+				groupTitle="${plmPageLayoutResources.widgetContentPrompt}">
+
+				<!-- Radio button to select how to populate the widget -->
+				<PropertyRadioGroup propertyName="xWidgetProp_populationChoice" 
+					promptText="${plmPageLayoutResources.selectMethod}" />
+			
+				<!-- Use default content to populate the widget -->
+				<PropertyGroup collapsable="false" name="widgetUseCatalogEntry">
+				
+					<EnablementCondition conditionId="widgetUseCatalogEntryCondition" 
+						propertyName="xWidgetProp_populationChoice" 
+						enablementValue="useCatalogEntry" />
+							
+
+					<!--  Property group for widget display title of local page layout-->
+					<PropertyGroup collapsable="false" name="widgetDisplayTitle">
+						<EnablementCondition checkObjectDefinition="true" conditionId="layoutCondition" enablementValue="PageLayout" propertyName="objectType" parentProperty="true"/>
+						<PropertyInputText objectPath="WidgetDisplayTitle" promptText="${plmPageLayoutResources.widgetDisplayTitle}" propertyName="xExtData_displayTitle" extendedHelpText="${plmPageLayoutResources.productRecommendationWidgetDisplayTitleToolTip}" />
+					</PropertyGroup>
+					<!--  Property group for widget display title of inherited page layout-->
+					<PropertyGroup collapsable="false" name="inheritedWidgetDisplayTitle">
+						<EnablementCondition checkObjectDefinition="true" conditionId="inheritedLayoutCondition" enablementValue="InheritedPageLayout" propertyName="objectType" parentProperty="true"/>
+						<PropertyInputText objectPath="InheritedWidgetDisplayTitle" promptText="${plmPageLayoutResources.widgetDisplayTitle}" propertyName="xExtData_displayTitle" displayObjectStoreName="true" extendedHelpText="${plmPageLayoutResources.productRecommendationWidgetDisplayTitleToolTip}" />
+						<PropertyInputText objectPath="WidgetDisplayTitle" promptText="${plmPageLayoutResources.widgetDisplayTitle}" propertyName="xExtData_displayTitle" displayStoreName="true" extendedHelpText="${plmPageLayoutResources.productRecommendationWidgetDisplayTitleToolTip}" />
+					</PropertyGroup>
+			
+
+
+					<PropertyGroup collapsable="false" name="mktEMarketingSpotDefaultContentGridPropertyGroup1">
+						<EnablementCondition checkObjectDefinition="true" conditionId="layoutCondition" 
+						enablementValue="PageLayout" propertyName="objectType" parentProperty="true"/>
+						
+							<PropertyChildListEditor
+								listDefinitionName="mktProductSequenceGrid" 
+								name="prodEditor"
+								objectTypes="DefaultEMarketingSpotCatalogEntryContentReference,InheritedDefaultEMarketingSpotCatalogEntryContentReference"
+								promptText="${mktMarketingResources.products}" 
+								required="false"
+								sequencePropertyName="sequence" 
+								extendedHelpText="${plmPageLayoutResources.productRecommendationWidgetDefaultCatalogEntryContentToolTip}"/>	
+								
+
+							
+					</PropertyGroup>
+					
+					<PropertyGroup collapsable="false" name="mktEMarketingSpotDefaultContentGridPropertyGroup2">
+						<EnablementCondition checkObjectDefinition="true" conditionId="inheritedLayoutCondition" 
+							enablementValue="InheritedPageLayout" propertyName="objectType" parentProperty="true"/>
+						
+							<PropertyChildListEditor
+								displayObjectStoreName="true" 
+								listDefinitionName="mktProductSequenceGrid" 
+								name="prodEditor"
+								objectTypes="InheritedDefaultEMarketingSpotInheritedCatalogEntryContentReference"
+								promptText="${mktMarketingResources.products}" 
+								sequencePropertyName="sequence"						
+								required="false" 
+								extendedHelpText="${plmPageLayoutResources.productRecommendationWidgetDefaultCatalogEntryContentToolTip}"/>	
+								
+							<PropertyChildListEditor 
+							displayStoreName="true" 
+							listDefinitionName="mktProductSequenceGrid" 
+							name="DefaultEMarketingSpotContent3" 
+							objectTypes="DefaultEMarketingSpotCatalogEntryContentReference,
+										InheritedDefaultEMarketingSpotCatalogEntryContentReference" 
+							promptText="${mktMarketingResources.products}"  
+							sequencePropertyName="sequence"
+							required="false"
+							extendedHelpText="${plmPageLayoutResources.productRecommendationWidgetDefaultCatalogEntryContentToolTip}"/>	
+							
+							
+					</PropertyGroup>			
+	
+				</PropertyGroup>
+
+
+	
+				<!-- Use a web activity to populate the widget -->			
+				<PropertyGroup collapsable="false" name="widgetUseWebactivity">
+				
+					<EnablementCondition conditionId="widgetUseWebActivityCondition" 
+						propertyName="xWidgetProp_populationChoice" 
+						enablementValue="useWebactivity" />
+					
+					<!--  Property group for widget default content of local page layout-->
+					<PropertyGroup collapsable="false" name="widgetLocalWebActivity">
+						<EnablementCondition checkObjectDefinition="true" conditionId="layoutCondition" 
+							enablementValue="PageLayout" propertyName="objectType" parentProperty="true"/>
+						<PropertyChildListEditor 
+							listDefinitionName="plmActivityGrid" 
+							name="plmActivityGrid" 
+							objectTypes="ActivityReference,InheritedActivityReference" 
+							promptText="${plmPageLayoutResources.webActivitySelection}" 
+							allowCreateReferencedPrimary="true"
+							extendedHelpText="${plmPageLayoutResources.productRecommendationWidgetWebActivityToolTip}"
+							validatorTypes="noWebActivitySelected">
+							
+							<NewMarketingObjectHandler package="mkt" objectType="RecommendCatentry" focusComponentPath="path/displayProductCombined" focusComponentProperty="recommendationMethod"/>
+						</PropertyChildListEditor>
+					</PropertyGroup>
+					
+					<!--  Property group for widget default content of inherited page layout-->
+					<PropertyGroup collapsable="false" name="widgetWebActivityInherited">
+						<EnablementCondition checkObjectDefinition="true" conditionId="inheritedLayoutCondition" 
+							enablementValue="InheritedPageLayout" propertyName="objectType" parentProperty="true"/>
+						<PropertyChildListEditor 
+							listDefinitionName="plmActivityGrid"
+							name="plmInheritedActivityGrid"
+							objectTypes="InheritedActivityInheritedReference" 
+							promptText="${plmPageLayoutResources.webActivitySelection}" 
+							allowCreateReferencedPrimary="true"
+							displayObjectStoreName="true"
+							extendedHelpText="${plmPageLayoutResources.productRecommendationWidgetWebActivityInheritedToolTip}"
+							validatorTypes="noWebActivitySelected">
+							
+						</PropertyChildListEditor>
+						<PropertyChildListEditor 
+							listDefinitionName="plmActivityGrid" 
+							name="plmLocalActivityGrid" 
+							objectTypes="ActivityReference,InheritedActivityReference" 
+							promptText="${plmPageLayoutResources.webActivitySelection}" 
+							allowCreateReferencedPrimary="true"
+							displayStoreName="true"
+							extendedHelpText="${plmPageLayoutResources.productRecommendationWidgetWebActivityToolTip}"
+							validatorTypes="noWebActivitySelected">
+							
+							<NewMarketingObjectHandler package="mkt" objectType="RecommendCatentry" focusComponentPath="path/displayProductCombined" focusComponentProperty="recommendationMethod"/>
+						</PropertyChildListEditor>
+													
+					</PropertyGroup>
+				</PropertyGroup>
+			</PropertyGroup>
+
+		</PropertyPane>
+	</GridObjectProperties>
+
+</Definitions>

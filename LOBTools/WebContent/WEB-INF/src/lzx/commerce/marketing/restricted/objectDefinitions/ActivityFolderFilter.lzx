@@ -1,0 +1,57 @@
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2013 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+
+<library>
+	<!---
+		@keywords final
+		This class filters a list of {@link wcfModelObject objects} to exclude
+		activity folders that have a parent.
+	-->
+	<class name="mktUnassignedActivityFolderFilter" extends="wcfFilter">
+		<!---
+			@keywords private
+			This method checks if an object has a parent or its parentId property is set.
+			Model objects that have neither will match the filter.
+			
+			@param wcfModelObject o The model object to test. 
+			@return boolean Returns true if the object has no parent, false otherwise
+		-->
+		<method name="matchesFilter" args="o">
+			<![CDATA[
+			var hasNoParent = true;
+			if (o.objectType == "ActivityFolder" || o.objectType == "InheritedActivityFolder") {
+				hasNoParent = o.getParentPrimaryObject() == null;
+				if (hasNoParent) {
+					var parentId = o.getPropertyValue("parentFolderId", null, true);
+					hasNoParent = (parentId == null || parentId.length == 0);
+				}
+			}
+			return hasNoParent;
+			]]>
+		</method>
+		
+		<!---
+			@keywords private
+			Register a delegate to be executed when the resolved value changes
+			for the specified model object.
+			@param wcfModelObject o: the model object
+			@param lz.Delegate del: the delegate
+		-->
+		<method name="registerDelegate" args="o, del">
+			<![CDATA[
+			del.register(o, "onreferences");
+			]]>
+		</method>
+	</class>
+</library>	

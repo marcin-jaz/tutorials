@@ -1,0 +1,12 @@
+<!-- BEGIN EmptyShopCartDisplay.jspf-->
+
+<div class="left" id="WC_EmptyShopCartDisplayf_div_1">
+	<fmt:message key="CART_EMPTY" bundle="${storeText}"/>
+</div>
+<div class="right" id="WC_EmptyShopCartDisplayf_div_2">
+	<img src="<c:out value='${jspStoreImgDir}${vfileColor}'/>shopping_cart.jpg" alt="<fmt:message key="CART_EMPTY_IMAGE" bundle="${storeText}"/>" border="0"/>
+</div>
+<br clear="all" />
+
+
+<!-- END EmptyShopCartDisplay.jspf-->

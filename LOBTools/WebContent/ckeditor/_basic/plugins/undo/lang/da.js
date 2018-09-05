@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","da",{redo:"Annullér Fortryd",undo:"Fortryd"});

@@ -1,0 +1,60 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%-- this jspf is included in a refresh area. Scripts in this jspf may not get executed if you add products from
+the recommended products section on a empty checkout page. --%>
+	
+		
+	<c:choose>
+		<c:when test="${isShoppingCartPage}">
+			<c:if test="${!empty CommandContext.eligibleTradingAgreementIds}">
+				<fmt:message key="PRICING_POPUP_LINK" bundle="${storeText}"/>
+				<a class="order_content" 
+					href="#" id="B2BContractSelectExt_id_<c:out value='${status.count}'/>"
+					onclick="javaScript: hidePopup('second_level_category_popup'); B2BOrderPricingPopup.showPopup('${catEntryIdentifier}','${WCParam.storeId}','${WCParam.langId}','${WCParam.catalogId}','${orderItem.orderItemIdentifier.uniqueID}','${orderItem.contractIdentifier.uniqueID}',event,null,'pricing_link_${catEntryIdentifier}_${status.count}');"  
+				>
+					<wcbase:useBean id="contractDataBean" classname="com.ibm.commerce.contract.beans.ContractDataBean">
+						<c:set target="${contractDataBean}" property="dataBeanKeyReferenceNumber" value="${orderItem.contractIdentifier.uniqueID}"/>
+					</wcbase:useBean>
+					<c:out value="${contractDataBean.name}" escapeXml="false"/>
+					<c:remove var="contractDataBean"/>
+				</a>
+				<c:set var="foundContractForItem" value="false"/>
+				<c:forEach items="${CommandContext.eligibleTradingAgreementIds}" var="contractId">
+					<c:if test="${contractId==orderItem.contractIdentifier.uniqueID}">
+						<c:set var="foundContractForItem" value="true"/>
+					</c:if>
+				</c:forEach>
+				<c:if test="${!foundContractForItem}">
+					<c:set var="allContractsValid" value="false" scope="request"/>
+					<div id="contract_error_<c:out value='${status.count}'/>" class="error_msg">
+						<fmt:message key="PRICING_POPUP_INVALID_CONTRACT" bundle="${storeText}"/>
+					</div>
+				</c:if>
+				<c:remove var="foundContractForItem"/>
+				<div class="br"></div>
+			</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:if test="${!empty orderItem.contractIdentifier.uniqueID}">
+				<wcbase:useBean id="contractDataBean" classname="com.ibm.commerce.contract.beans.ContractDataBean">
+					<c:set target="${contractDataBean}" property="dataBeanKeyReferenceNumber" value="${orderItem.contractIdentifier.uniqueID}"/>
+				</wcbase:useBean>							
+				<fmt:message key="PRICING_POPUP_LINK" bundle="${storeText}"/>
+				<c:out value="${contractDataBean.name}" escapeXml="false"/>
+				<c:remove var="contractDataBean"/>
+			</c:if>
+		</c:otherwise>
+	</c:choose>
+	

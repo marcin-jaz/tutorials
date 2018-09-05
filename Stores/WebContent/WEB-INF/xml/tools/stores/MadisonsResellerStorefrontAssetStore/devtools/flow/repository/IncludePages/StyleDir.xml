@@ -1,0 +1,13 @@
+<!DOCTYPE repository-entries SYSTEM "../../../../../dtd/repository/Repository.dtd">
+<repository-entries>
+<components>
+<page-components>
+	<virtual-page id="StyleDir"/>
+
+	<virtual-page-interface id="StyleDir.i1" virtual-page-id="StyleDir"/>
+
+	<simple-implementation id="StyleDir.i1.impl1" url="include/styles/style1/" virtual-page-interface-id="StyleDir.i1" />
+
+</page-components>
+</components>
+</repository-entries>

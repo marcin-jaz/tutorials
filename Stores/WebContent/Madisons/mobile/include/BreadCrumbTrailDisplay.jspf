@@ -1,0 +1,924 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%-- 
+  *****
+  * This JSP snippet will display the Bread Crumb Trail during the catalog borwsing
+  * for the mobile store pages
+  *****
+--%>
+
+<!-- BEGIN BreadCrumbTrailDisplay.jspf -->
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://commerce.ibm.com/base" prefix="wcbase" %>
+<%@ taglib uri="http://commerce.ibm.com/foundation" prefix="wcf" %>
+
+<wcf:url var="MobileIndexURL" value="mIndex">
+  <wcf:param name="langId" value="${langId}" />
+  <wcf:param name="storeId" value="${WCParam.storeId}" />
+  <wcf:param name="catalogId" value="${WCParam.catalogId}" />
+</wcf:url>
+
+<%-- 
+Every request will have a page group variable and the page variable. The page group variable will tell from which
+section the user is coming from. For. e.g. the user can reach a product display page from five sections
+	a) category navigation
+	b) search results
+	c) wishlist
+	d) product compare
+	e) shopping cart
+If the user reached the product display from search results, the page group variable will be 'searchPageGroup' and the 
+page variable will be 'productPage'   	   
+--%>
+
+<div id="breadcrumb">
+
+	<a href="${fn:escapeXml(MobileIndexURL)}"><fmt:message key="BCT_HOME" bundle="${storeText}" /></a>
+
+	<c:choose>
+		<c:when test="${accountPageGroup}">
+			<%-- Breadcrumbs for My Account display Pages. The breadcrumbs will start with 'Home | My Account | ...' --%>
+			
+			<wcf:url var="MyAccountURL" value="mMyAccountDisplay">
+				<wcf:param name="storeId" value="${WCParam.storeId}" />
+				<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+				<wcf:param name="langId" value="${langId}" />
+			</wcf:url>
+			
+			<c:choose>
+				<c:when test="${accountDisplayPage}"> <%-- Account display page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />			
+					<span class="current_page"><fmt:message key="BCT_MY_ACCOUNT" bundle="${storeText}" /></span>
+				</c:when>
+				<c:when test="${orderHistoryPage}"> <%-- Order history page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />		
+					<a href="${fn:escapeXml(MyAccountURL)}"><fmt:message key="BCT_MY_ACCOUNT" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />		
+					<span class="current_page"><fmt:message key="BCT_ORDERS" bundle="${storeText}" /></span>				
+				</c:when>
+				<c:when test="${orderDetailsPage}"> <%-- Order details page --%>
+					<wcf:url var="OrderHistoryURL" value="mOrderHistory">
+						<wcf:param name="storeId" value="${WCParam.storeId}" />
+					  	<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+					  	<wcf:param name="langId" value="${langId}" />
+					</wcf:url>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />					
+					<a href="${fn:escapeXml(MyAccountURL)}"><fmt:message key="BCT_MY_ACCOUNT" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />		
+					<a href="${fn:escapeXml(OrderHistoryURL)}"><fmt:message key="BCT_ORDERS" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />		
+					<span class="current_page"><fmt:message key="BCT_ORDER_DETAILS" bundle="${storeText}" /></span>
+				</c:when>
+				<c:when test="${subscriptionDisplayPage}"> <%-- My subscriptions page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />							
+					<a href="${fn:escapeXml(MyAccountURL)}">My Account</a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />		
+					<span class="current_page"><fmt:message key="SUB_SCR_TITLE" bundle="${storeText}"/></span>				
+				</c:when>
+				<c:when test="${personalInfoDisplayPage}">
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />		
+					<a href="${fn:escapeXml(MyAccountURL)}"><fmt:message key="BCT_MY_ACCOUNT" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />		
+					<span class="current_page"><fmt:message key="MUSER_REGU" bundle="${storeText}" /></span>
+				</c:when>
+				<c:when test="${billingSelectionPage}"> <%-- My Address Book page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />		
+					<a href="${fn:escapeXml(MyAccountURL)}"><fmt:message key="BCT_MY_ACCOUNT" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />		
+					<span class="current_page"><fmt:message key="MA_MYADDRESS_BOOK" bundle="${storeText}" /></span>				
+				</c:when>
+				<c:when test="${billingDetailsPage}"> <%-- Address Details page --%>
+					<wcf:url var="addressSelection" value="mOrderBillingAddressSelection">
+						<wcf:param name="storeId" value="${WCParam.storeId}" />
+					  	<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+					  	<wcf:param name="langId" value="${langId}" />
+					  	<wcf:param name="fromPage" value="${WCParam.fromPage}" />
+					</wcf:url>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(MyAccountURL)}"><fmt:message key="BCT_MY_ACCOUNT" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(addressSelection)}"><fmt:message key="MA_MYADDRESS_BOOK" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<span class="current_page"><fmt:message key="BCT_ADDRESSDETAILS" bundle="${storeText}" /></span>
+				</c:when>				
+			</c:choose>		
+		</c:when>
+		
+		<%-- Breadcrumb for change language and currency --%>
+		<c:when test="${languageCurrencyDisplayPage}">
+			<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+			<span class="current_page"><fmt:message key="BCT_LANGUAGE_CURRENCY" bundle="${storeText}" /></span>
+		</c:when>
+
+		<%-- Breadcrumbs for Product compare page. The breadcrumbs will start with 'Home | Product Compare List ' --%>
+		<c:when test="${prodComparePageGroup}">
+			<c:choose>
+				<c:when test="${prodComparePage}">  <%-- Product compare page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />		
+					<span class="current_page"><fmt:message key="BCT_PROD_COMPARE_LIST" bundle="${storeText}" /></span>
+				</c:when>
+				<c:when test="${productPage || storeAvailPage || storeDetailPage}"> <%-- Product display page which is reached by clicking a product on the compare page --%>
+					<wcf:url var="ProductCompareResultView" value="mProductCompareResultView">
+					 	<wcf:param name="langId" value="${langId}" />
+					  	<wcf:param name="storeId" value="${WCParam.storeId}" />
+					  	<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+					</wcf:url>
+					<c:set var="catEntryValues" value="" />
+					<c:forEach var="catEntId" items="${sessionScope.productCompareCatentryIds}">
+						<c:set var="catEntryValues" value="${catEntryValues}&catentryId=${catEntId}" />
+					</c:forEach>
+					<c:set var="ProductCompareResultView" value="${ProductCompareResultView}${catEntryValues}" />
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(ProductCompareResultView)}"><fmt:message key="BCT_PROD_COMPARE_LIST" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+
+					<c:choose>
+						<c:when test="${productPage}">
+							<span class="current_page"><c:out value="${catalogEntry.description.name}" /></span>
+						</c:when>
+						<c:when test="${storeAvailPage || storeDetailPage}">
+							<c:remove var="bctCatalogEntry" scope="page"/>
+							<wcbase:useBean id="bctCatalogEntry" classname="com.ibm.commerce.catalog.beans.CatalogEntryDataBean"/>
+							<wcf:url var="productDisplayUrl" value="mProduct2">
+								<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+								<wcf:param name="storeId" value="${WCParam.storeId}"/>
+								<wcf:param name="productId" value="${WCParam.productId}"/>
+								<wcf:param name="langId" value="${WCParam.langId}"/>
+								<wcf:param name="pgGrp" value="${WCParam.pgGrp}"/>
+								<wcf:param name="categoryId" value="${WCParam.categoryId}"/>
+							</wcf:url>							
+							<a href="${fn:escapeXml(productDisplayUrl)}"><c:out value="${bctCatalogEntry.description.name}" /></a>
+							<c:choose>
+								<c:when test="${storeDetailPage}">
+									<wcf:url var="inStoreAvailDetails" value="mInStoreAvailabilityDetailsView">
+									    <wcf:param name="physicalStoreId" value="${WCParam.physicalStoreId}"/>
+									    <wcf:param name="physicalStoreIndex" value="${WCParam.physicalStoreIndex}"/>
+										 <wcf:param name="langId" value="${WCParam.langId}"/>
+									    <wcf:param name="productId" value="${WCParam.productId}"/>
+									    <wcf:param name="itemId" value="${WCParam.itemId}"/>
+									    <wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+									    <wcf:param name="viewTaskName" value="${WCParam.viewTaskName}"/>
+						 				 <wcf:param name="categoryId" value="${WCParam.categoryId}"/>
+									    <wcf:param name="storeId" value="${WCParam.storeId}"/>
+									    <wcf:param name="selectedValues" value="${WCParam.selectedValues}"/>
+									    <wcf:param name="pgGrp" value="prodComp"/>
+									</wcf:url>
+									<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+									<a href="${fn:escapeXml(inStoreAvailDetails)}"><c:out value="${physicalStores[i].description[0].name}" /></a>
+									<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+									<span class="current_page">						
+										<fmt:message key="MST_VIEW_MAP" bundle="${storeText}"/>
+									</span>								
+								</c:when>
+								<c:otherwise>
+									<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+									<span class="current_page"><c:out value="${physicalStore.description[0].name}" /></span>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+					</c:choose>					
+				</c:when>	
+							
+			</c:choose>
+		</c:when>
+		
+		<%-- Breadcrumbs for Search results page. The breadcrumbs will start with 'Home | Search Results ' --%>
+		<c:when test="${searchPageGroup}">
+			<c:choose>
+				<c:when test="${searchForm}"> <%-- Advanced search form page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />					
+					<span class="current_page"><fmt:message key="BCT_SEARCH_FORM" bundle="${storeText}" /></span>					
+				</c:when>
+				<c:when test="${searchPageType}">
+					<wcf:url var="AdvancedSearchDispURL" value="mAdvancedSearchDisplay">
+						<wcf:param name="langId" value="${langId}" />
+						<wcf:param name="storeId" value="${WCParam.storeId}" />
+						<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+					</wcf:url>
+
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(AdvancedSearchDispURL)}">
+						<fmt:message key="BCT_SEARCH_FORM" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<span class="current_page"><fmt:message key="BCT_SEARCH_RESULTS" bundle="${storeText}" /></span>
+				</c:when>
+				<c:when test="${searchPage}">  <%-- Search results page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+					<span class="current_page"><fmt:message key="BCT_SEARCH_RESULTS" bundle="${storeText}" /></span>					
+				</c:when>
+				<c:when test="${productPage || wishlistDisplayPage || prodComparePage || storeAvailPage || storeDetailPage || shoppingcartDisplayPage}"> <%-- Product display page which is reached by clicking a product on the search page --%>
+					<wcf:url var="SearchResultsURL" value="mCatalogSearchResultView">
+						<wcf:param name="storeId" value="${WCParam.storeId}" />
+					  	<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+						<wcf:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+						<wcf:param name="pageSize" value="${WCParam.pageSize}"/>
+						<wcf:param name="searchTerm" value="${WCParam.searchTerm}"/>
+						<wcf:param name="beginIndex" value="${WCParam.beginIndex}"/>		  
+						<wcf:param name="sType" value="${WCParam.sType}"/>
+					</wcf:url>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+					<a href="${fn:escapeXml(SearchResultsURL)}">
+						<fmt:message key="BCT_SEARCH_RESULTS" bundle="${storeText}" /></a>
+					
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />	
+	
+					<c:choose>
+						<c:when test="${productPage}">
+							<span class="current_page"><c:out value="${catalogEntry.description.name}" /></span>
+						</c:when>
+						<c:otherwise>
+							<c:remove var="bctCatalogEntry" scope="page"/>
+							<wcbase:useBean id="bctCatalogEntry" classname="com.ibm.commerce.catalog.beans.CatalogEntryDataBean"/>
+							<wcf:url var="productDisplayUrl" value="mProduct3">
+								<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+								<wcf:param name="storeId" value="${WCParam.storeId}"/>
+								<wcf:param name="productId" value="${WCParam.productId}"/>
+								<wcf:param name="langId" value="${WCParam.langId}"/>
+								<wcf:param name="pgGrp" value="${WCParam.pgGrp}"/>
+								<wcf:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+								<wcf:param name="pageSize" value="${WCParam.pageSize}"/>
+								<wcf:param name="searchTerm" value="${WCParam.searchTerm}"/>
+								<wcf:param name="beginIndex" value="${WCParam.beginIndex}"/>
+								<wcf:param name="sType" value="${WCParam.sType}"/>
+							</wcf:url>							
+							<a href="${fn:escapeXml(productDisplayUrl)}"><c:out value="${bctCatalogEntry.description.name}" /></a>
+
+							<c:choose>
+								<c:when test="${wishlistDisplayPage || prodComparePage || shoppingcartDisplayPage}">
+									<c:if test="${wishlistDisplayPage}">
+										<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+										<span class="current_page"><fmt:message key="BCT_WISHLIST" bundle="${storeText}" /></span>
+									</c:if>
+									<c:if test="${shoppingcartDisplayPage}">
+										<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+										<span class="current_page"><fmt:message key="BCT_SHOPPINGCART" bundle="${storeText}" /></span>
+									</c:if>														
+									<c:if test="${prodComparePage}">
+										<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+										<span class="current_page"><fmt:message key="BCT_PROD_COMPARE_LIST" bundle="${storeText}" /></span>
+									</c:if>													
+								</c:when>
+								<c:when test="${storeDetailPage}">
+									<wcf:url var="inStoreAvailDetails" value="mInStoreAvailabilityDetailsView">
+									   <wcf:param name="sequence" value="${WCParam.sequence}"/>
+									   <wcf:param name="physicalStoreId" value="${WCParam.physicalStoreId}"/>
+									   <wcf:param name="physicalStoreIndex" value="${WCParam.physicalStoreIndex}"/>
+									 	<wcf:param name="langId" value="${WCParam.langId}"/>
+									   <wcf:param name="productId" value="${WCParam.productId}"/>
+									   <wcf:param name="itemId" value="${WCParam.itemId}"/>
+									   <wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+									   <wcf:param name="viewTaskName" value="${WCParam.viewTaskName}"/>
+									   <wcf:param name="storeId" value="${WCParam.storeId}"/>
+									   <wcf:param name="selectedValues" value="${WCParam.selectedValues}"/>
+		  								<wcf:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+		  								<wcf:param name="pageSize" value="${WCParam.pageSize}"/>
+										<wcf:param name="searchTerm" value="${WCParam.searchTerm}"/>
+										<wcf:param name="beginIndex" value="${WCParam.beginIndex}"/>
+										<wcf:param name="sType" value="${WCParam.sType}"/>
+										<wcf:param name="pgGrp" value="${WCParam.pgGrp}"/>
+									</wcf:url>
+									<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+									<a href="${fn:escapeXml(inStoreAvailDetails)}"><c:out value="${physicalStores[i].description[0].name}" /></a>
+									<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+									<span class="current_page">						
+										<fmt:message key="MST_VIEW_MAP" bundle="${storeText}"/>
+									</span>								
+								</c:when>
+								<c:otherwise>
+									<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+									<span class="current_page"><c:out value="${physicalStore.description[0].name}" /></span>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+						
+				</c:when>
+			</c:choose>
+		</c:when>
+		
+		<%-- Breadcrumbs for the wishlist pages. The breadcrumbs will start with 'Home | Wish list' --%>
+		<c:when test="${wishlistPageGroup}">
+			<c:choose>
+				<c:when test="${wishlistDisplayPage}">  <%-- Wishlist page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+					<span class="current_page"><fmt:message key="BCT_WISHLIST" bundle="${storeText}" /></span>					
+				</c:when>
+				<c:when test="${productPage || storeAvailPage || storeDetailPage}"> <%-- Product display page which is reached by clicking a product on the wishlist page --%>
+					<wcf:url var="WishListDispURL" value="InterestItemDisplay">
+			  			<wcf:param name="langId" value="${langId}" />
+			  			<wcf:param name="storeId" value="${WCParam.storeId}" />
+			  			<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+			  			<wcf:param name="listId" value="." />  			
+			  			<wcf:param name="URL" value="mInterestListDisplay" />  			
+					</wcf:url>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+					<a href="${fn:escapeXml(WishListDispURL)}">
+						<fmt:message key="BCT_WISHLIST" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />	
+
+					<c:choose>
+						<c:when test="${productPage}">
+							<span class="current_page"><c:out value="${catalogEntry.description.name}" /></span>
+						</c:when>
+						<c:otherwise>
+							<c:remove var="bctCatalogEntry" scope="page"/>
+							<wcbase:useBean id="bctCatalogEntry" classname="com.ibm.commerce.catalog.beans.CatalogEntryDataBean"/>
+							<wcf:url var="productDisplayUrl" value="mProduct4">
+								<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+								<wcf:param name="storeId" value="${WCParam.storeId}"/>
+								<wcf:param name="productId" value="${WCParam.productId}"/>
+								<wcf:param name="langId" value="${WCParam.langId}"/>
+								<wcf:param name="pgGrp" value="${WCParam.pgGrp}"/>
+							</wcf:url>							
+							<a href="${fn:escapeXml(productDisplayUrl)}"><c:out value="${bctCatalogEntry.description.name}" /></a>
+							<c:choose>
+								<c:when test="${storeDetailPage}">
+									<wcf:url var="inStoreAvailDetails" value="mInStoreAvailabilityDetailsView">
+									    <wcf:param name="physicalStoreId" value="${WCParam.physicalStoreId}"/>
+									    <wcf:param name="physicalStoreIndex" value="${WCParam.physicalStoreIndex}"/>
+										 <wcf:param name="langId" value="${WCParam.langId}"/>
+									    <wcf:param name="productId" value="${WCParam.productId}"/>
+									    <wcf:param name="itemId" value="${WCParam.itemId}"/>
+									    <wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+									    <wcf:param name="viewTaskName" value="${WCParam.viewTaskName}"/>
+						 				 <wcf:param name="categoryId" value="${WCParam.categoryId}"/>
+									    <wcf:param name="storeId" value="${WCParam.storeId}"/>
+									    <wcf:param name="selectedValues" value="${WCParam.selectedValues}"/>
+									    <wcf:param name="pgGrp" value="wishlist"/>
+									</wcf:url>
+									<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+									<a href="${fn:escapeXml(inStoreAvailDetails)}"><c:out value="${physicalStores[i].description[0].name}" /></a>
+									<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+									<span class="current_page">						
+										<fmt:message key="MST_VIEW_MAP" bundle="${storeText}"/>
+									</span>								
+								</c:when>
+								<c:otherwise>
+									<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+									<span class="current_page"><c:out value="${physicalStore.description[0].name}" /></span>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+
+				</c:when>
+				<c:when test="${emailWishlistPage}"> <%-- Email wishlist page --%>
+					<wcf:url var="WishListDispURL" value="InterestItemDisplay">
+			  			<wcf:param name="langId" value="${langId}" />
+			  			<wcf:param name="storeId" value="${WCParam.storeId}" />
+			  			<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+			  			<wcf:param name="listId" value="." />  			
+			  			<wcf:param name="URL" value="mInterestListDisplay" />  			
+					</wcf:url>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+					<a href="${fn:escapeXml(WishListDispURL)}">
+						<fmt:message key="BCT_WISHLIST" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />						
+					<span class="current_page"><fmt:message key="BCT_EMAIL_WISHLIST" bundle="${storeText}" /></span>					
+				</c:when>				
+			</c:choose>
+		</c:when>
+		
+		<%-- Breadcrumbs for Shopping Cart display pages. The breadcrumbs will start with 'Home | Shopping Cart | ...' --%>
+		<c:when test="${shoppingcartPageGroup}">
+			<wcf:url var="ShoppingCartURL" value="mOrderItemDisplay">
+				<wcf:param name="storeId" value="${WCParam.storeId}" />
+				<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+				<wcf:param name="langId" value="${langId}" />
+			</wcf:url>
+			<wcf:url var="CheckoutLogonURL" value="mCheckoutLogon">
+				<wcf:param name="storeId" value="${WCParam.storeId}" />
+				<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+				<wcf:param name="langId" value="${langId}" />
+			</wcf:url>
+			<wcf:url var="StoreSelectionURL" value="mSelectedStoreListView">
+				<wcf:param name="langId" value="${langId}" />
+				<wcf:param name="storeId" value="${WCParam.storeId}" />
+				<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+				<wcf:param name="fromPage" value="ShoppingCart" />
+			</wcf:url>
+			<wcf:url var="BillingSelectionURL" value="mOrderBillingAddressSelection">
+				<wcf:param name="langId" value="${langId}" />
+				<wcf:param name="storeId" value="${WCParam.storeId}" />
+				<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+			</wcf:url>
+			<wcf:url var="PaymentSelectionURL" value="mOrderPaymentDetails">
+				<wcf:param name="langId" value="${langId}" />
+				<wcf:param name="storeId" value="${WCParam.storeId}" />
+				<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+				<wcf:param name="addressId" value="${billingAddressId}" />				
+			</wcf:url>
+
+			<c:choose>
+				<c:when test="${shoppingcartDisplayPage}">  <%-- Shopping Cart page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<span class="current_page"><fmt:message key="BCT_SHOPPINGCART" bundle="${storeText}" /></span>
+				</c:when>
+				<c:when test="${productPage}">  <%-- Product display page which is reached by clicking a product on the shopping cart page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(ShoppingCartURL)}"><fmt:message key="BCT_SHOPPINGCART" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<span class="current_page"><c:out value="${catalogEntry.description.name}" /></span>
+				</c:when>
+
+				<c:when test="${storeAvailPage || storeDetailPage}">  <%-- Product in store availability page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href='${fn:escapeXml(ShoppingCartURL)}'><fmt:message key="BCT_SHOPPINGCART" bundle="${storeText}" /></a>
+					<c:if test="${!empty WCParam.productId || (productPage && !empty WCParam.identifier)}">
+						<c:remove var="bctCatalogEntry" scope="page"/>
+						<wcbase:useBean id="bctCatalogEntry" classname="com.ibm.commerce.catalog.beans.CatalogEntryDataBean"/>
+						<c:choose>
+							<c:when test="${!empty WCParam.productId && productPage}">
+								<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+								<span class="current_page"><c:out value="${bctCatalogEntry.description.name}" escapeXml="false"/></span>
+							</c:when>
+							<c:otherwise>
+								<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+								<wcf:url var="catEntryDisplayUrl" value="mProduct1">
+								    <wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+								    <wcf:param name="storeId" value="${WCParam.storeId}"/>
+								    <wcf:param name="productId" value="${bctCatalogEntry.catalogEntryID}"/>
+								    <wcf:param name="langId" value="${langId}"/>
+								    <wcf:param name="categoryId" value="${WCParam.categoryId}"/>
+								    <wcf:param name="parent_category_rn" value="${WCParam.parent_category_rn}"/>
+								    <wcf:param name="top_category" value="${WCParam.top_category}"/>
+								    <wcf:param name="pgGrp" value="shoppingcart"/>
+								</wcf:url>
+								<a href="${fn:escapeXml(catEntryDisplayUrl)}"><c:out value="${bctCatalogEntry.description.name}" escapeXml="false"/></a>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+
+					<c:choose>
+						<c:when test="${storeDetailPage}">
+							<wcf:url var="inStoreAvailDetails" value="mInStoreAvailabilityDetailsView">
+								<wcf:param name="physicalStoreId" value="${WCParam.physicalStoreId}"/>
+								<wcf:param name="physicalStoreIndex" value="${WCParam.physicalStoreIndex}"/>
+								<wcf:param name="langId" value="${WCParam.langId}"/>
+								<wcf:param name="productId" value="${WCParam.productId}"/>
+								<wcf:param name="itemId" value="${WCParam.itemId}"/>
+								<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+								<wcf:param name="viewTaskName" value="${WCParam.viewTaskName}"/>
+								<wcf:param name="categoryId" value="${WCParam.categoryId}"/>
+								<wcf:param name="storeId" value="${WCParam.storeId}"/>
+								<wcf:param name="selectedValues" value="${WCParam.selectedValues}"/>
+								<wcf:param name="pgGrp" value="shoppingcart"/>
+							</wcf:url>
+							<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+							<a href="${fn:escapeXml(inStoreAvailDetails)}"><c:out value="${physicalStores[i].description[0].name}" /></a>
+							<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+							<span class="current_page">						
+								<fmt:message key="MST_VIEW_MAP" bundle="${storeText}"/>
+							</span>								
+						</c:when>
+						<c:otherwise>
+							<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+							<span class="current_page"><c:out value="${physicalStore.description[0].name}" /></span>
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+
+				<c:when test="${checkoutLogonPage}">  <%-- Checkout logon page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(ShoppingCartURL)}"><fmt:message key="BCT_SHOPPINGCART" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<span class="current_page"><fmt:message key="BCT_CHECKOUTLOGON" bundle="${storeText}" /></span>
+				</c:when>
+
+				<c:when test="${billingSelectionPage}">
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(ShoppingCartURL)}"><fmt:message key="BCT_SHOPPINGCART" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(StoreSelectionURL)}"><fmt:message key="BCT_STORESELECTION" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<span class="current_page"><fmt:message key="BCT_BILLINGSELECTION" bundle="${storeText}" /></span>
+				</c:when>
+
+				<c:when test="${billingDetailsPage}">
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(ShoppingCartURL)}"><fmt:message key="BCT_SHOPPINGCART" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(StoreSelectionURL)}"><fmt:message key="BCT_STORESELECTION" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(BillingSelectionURL)}"><fmt:message key="BCT_BILLINGSELECTION" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<span class="current_page"><fmt:message key="BCT_BILLINGDETAILS" bundle="${storeText}" /></span>
+				</c:when>
+
+				<c:when test="${paymentSelectionPage}">
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(ShoppingCartURL)}"><fmt:message key="BCT_SHOPPINGCART" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(StoreSelectionURL)}"><fmt:message key="BCT_STORESELECTION" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(BillingSelectionURL)}"><fmt:message key="BCT_BILLINGSELECTION" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<span class="current_page"><fmt:message key="BCT_PAYMENTSELECTION" bundle="${storeText}" /></span>
+				</c:when>
+
+				<c:when test="${orderSummaryPage}">
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(ShoppingCartURL)}"><fmt:message key="BCT_SHOPPINGCART" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(StoreSelectionURL)}"><fmt:message key="BCT_STORESELECTION" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(BillingSelectionURL)}"><fmt:message key="BCT_BILLINGSELECTION" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<a href="${fn:escapeXml(PaymentSelectionURL)}"><fmt:message key="BCT_PAYMENTSELECTION" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<span class="current_page"><fmt:message key="BCT_ORDERSUMMARY" bundle="${storeText}" /></span>
+				</c:when>
+
+			</c:choose>
+		</c:when>
+
+		<%-- Breadcrumbs for the store locator pages. The breadcrumbs will start with 'Home | Store Locator' --%>
+		<c:when test="${storeLocatorPageGroup}">
+			<wcf:url var="mStoreLocatorURL" value="mStoreLocatorView">
+				<wcf:param name="langId" value="${langId}" />	
+				<wcf:param name="storeId" value="${storeId}" />
+				<wcf:param name="catalogId" value="${catalogId}" />
+				<wcf:param name="fromPage" value="${WCParam.fromPage}" />
+				<c:if test="${WCParam.fromPage == 'ProductDetails'}">
+					<wcf:param name="productId" value="${WCParam.productId}" />
+					<c:if test="${!empty WCParam.pgGrp}">
+						<wcf:param name="pgGrp" value="${WCParam.pgGrp}" />
+						<c:choose>
+							<c:when test="${WCParam.pgGrp == 'catNav'}">
+								<wcf:param name="categoryId" value="${WCParam.categoryId}" />
+								<wcf:param name="parent_category_rn" value="${WCParam.parent_category_rn}" />
+								<wcf:param name="top_category" value="${WCParam.top_category}" />
+								<wcf:param name="sequence" value="${WCParam.sequence}" />
+							</c:when>
+							<c:when test="${WCParam.pgGrp == 'search'}">
+								<wcf:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}" />
+								<wcf:param name="pageSize" value="${WCParam.pageSize}" />
+								<wcf:param name="searchTerm" value="${WCParam.searchTerm}" />
+								<wcf:param name="sType" value="${WCParam.sType}" />
+								<wcf:param name="beginIndex" value="${WCParam.beginIndex}" />
+							</c:when>
+						</c:choose>
+					</c:if>																
+				</c:if>
+			</wcf:url>
+			
+			<c:choose>
+				<%-- Store locator integration with Shopping cart --%>
+				<c:when test="${WCParam.fromPage == 'ShoppingCart'}">
+					<wcf:url var="ShoppingCartURL" value="mOrderItemDisplay">
+						<wcf:param name="storeId" value="${WCParam.storeId}" />
+						<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+						<wcf:param name="langId" value="${langId}" />
+					</wcf:url>
+					<wcf:url var="StoreSelectionURL" value="mSelectedStoreListView">
+						<wcf:param name="langId" value="${langId}" />
+						<wcf:param name="storeId" value="${WCParam.storeId}" />
+						<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+						<wcf:param name="fromPage" value="ShoppingCart" />
+					</wcf:url>
+					
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+					<a href="${fn:escapeXml(ShoppingCartURL)}"><fmt:message key="BCT_SHOPPINGCART" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					
+					<c:choose>
+						<c:when test="${storeLocatorPage}">  <%-- Store locator page --%>
+							<a href="${fn:escapeXml(StoreSelectionURL)}"><fmt:message key="BCT_STORESELECTION" bundle="${storeText}" /></a>
+							<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+							<span class="current_page"><fmt:message key="MSTORE_LOCATOR" bundle="${storeText}" /></span>
+						</c:when>
+						<c:when test="${storeLocatorResultPage}">  <%-- Store locator results page --%>
+							<a href="${fn:escapeXml(StoreSelectionURL)}"><fmt:message key="BCT_STORESELECTION" bundle="${storeText}" /></a>
+							<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+							<a href="${fn:escapeXml(mStoreLocatorURL)}"><fmt:message key="MSTORE_LOCATOR" bundle="${storeText}" /></a>
+							<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+							<span class="current_page"><fmt:message key="MSTORE_LOCATOR_RESULTS" bundle="${storeText}" /></span>
+						</c:when>
+						<c:when test="${storeDetailPage}"> <%-- Store details page --%>
+							<a href="${fn:escapeXml(StoreSelectionURL)}"><fmt:message key="BCT_STORESELECTION" bundle="${storeText}" /></a>
+
+							<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />	
+							<c:if test="${storeMap}">		
+								<wcf:url var="storeDetailURL" value="mStoreDetailView">
+									<wcf:param name="storeListIndex" value="${WCParam.storeListIndex}"/>
+									<wcf:param name="storeId" value="${WCParam.storeId}"/>
+									<wcf:param name="langId" value="${WCParam.langId}"/>
+									<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+									<wcf:param name="productId" value="${WCParam.productId}"/>									
+									<wcf:param name="fromPage" value="${WCParam.fromPage}"/>
+								</wcf:url>								
+
+								<a href="${fn:escapeXml(storeDetailURL)}"><c:out value="${physicalStoreIdentifier}" /></a>
+								<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+								<span class="current_page"><fmt:message key='MST_VIEW_MAP' bundle='${storeText}' /></span>
+							</c:if>
+							<c:if test="${!storeMap}">
+								<span class="current_page"><c:out value="${physicalStoreIdentifier}" /></span>
+							</c:if>
+														
+						</c:when>						
+						<c:otherwise>
+							<span class="current_page"><fmt:message key="BCT_STORESELECTION" bundle="${storeText}" /></span>
+						</c:otherwise>
+					</c:choose>											
+				</c:when>
+				
+				<c:when test="${storeLocatorPage}">  <%-- Store locator page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+					<span class="current_page"><fmt:message key="MSTORE_LOCATOR" bundle="${storeText}" /></span>
+				</c:when>
+				<c:when test="${storeLocatorResultPage}">  <%-- Store locator results page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+					<a href="${fn:escapeXml(mStoreLocatorURL)}">
+					<fmt:message key="MSTORE_LOCATOR" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+					<span class="current_page"><fmt:message key="MSTORE_LOCATOR_RESULTS" bundle="${storeText}" /></span>
+				</c:when>				
+				<c:when test="${selectedStoreListPage}"> <%-- Select store list page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+					<a href="${fn:escapeXml(mStoreLocatorURL)}">
+					<fmt:message key="MSTORE_LOCATOR" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+					<span class="current_page"><fmt:message key="MSTORE_LIST" bundle="${storeText}" /></span>
+				</c:when>			
+				<c:when test="${storeDetailPage}"> <%-- Store details page --%>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+					<a href="${fn:escapeXml(mStoreLocatorURL)}">
+					<fmt:message key="MSTORE_LOCATOR" bundle="${storeText}" /></a>
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />				
+					
+					<c:choose>
+						<c:when test="${!empty WCParam.storeList}">
+							<wcf:url var="mSelectedStoreListView" value="mSelectedStoreListView">
+								<wcf:param name="langId" value="${WCParam.langId}" />
+								<wcf:param name="productId" value="${WCParam.productId}" />
+								<wcf:param name="pgGrp" value="${WCParam.pgGrp}" />
+								<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+								<wcf:param name="viewTaskName" value="mProductDisplayView" />
+								<wcf:param name="fromPage" value="ProductDetails" />
+								<wcf:param name="storeId" value="${WCParam.storeId}" />
+								<wcf:param name="selectedValues" value="${WCParam.selectedValues}" />
+								
+								<c:if test="${!empty WCParam.storeList}">
+									<wcf:param name="storeList" value="${WCParam.storeList}" />
+								</c:if>
+
+								<c:choose>
+									<c:when test="${WCParam.pgGrp == 'search'}">
+										<wcf:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+										<wcf:param name="pageSize" value="${WCParam.pageSize}"/>
+										<wcf:param name="searchTerm" value="${WCParam.searchTerm}"/>
+										<wcf:param name="beginIndex" value="${WCParam.beginIndex}"/>		  
+										<wcf:param name="sType" value="${WCParam.sType}"/>								
+									</c:when>
+									<c:otherwise>
+										<wcf:param name="sequence" value="${WCParam.sequence}" />
+										<wcf:param name="top_category" value="${WCParam.top_category}" />
+										<wcf:param name="parent_category_rn" value="${WCParam.parent_category_rn}" />
+										<wcf:param name="categoryId" value="${WCParam.categoryId}" />
+									</c:otherwise>
+								</c:choose>	
+							</wcf:url>
+							<a href="${fn:escapeXml(mSelectedStoreListView)}"><fmt:message key="MSTORE_LIST" bundle="${storeText}" /></a>
+						</c:when>
+						<c:otherwise>
+							<wcf:url var="mStoreLocatorResultURL" value="mStoreLocatorResultView">
+								<wcf:param name="storeId" value="${WCParam.storeId}" />
+								<wcf:param name="geoNodeId" value="${WCParam.geoNodeId}" />
+								<wcf:param name="geoCodeLatitude" value="${WCParam.geoCodeLatitude}" />
+								<wcf:param name="geoCodeLongitude" value="${WCParam.geoCodeLongitude}" />				
+								<wcf:param name="langId" value="${WCParam.langId}" />
+								<wcf:param name="productId" value="${WCParam.productId}" />
+								<wcf:param name="pgGrp" value="${WCParam.pgGrp}" />
+								<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+								<wcf:param name="fromPage" value="ProductDetails" />
+								<c:choose>
+									<c:when test="${WCParam.pgGrp == 'search'}">
+										<wcf:param name="resultCatEntryType" value="${WCParam.resultCatEntryType}"/>
+										<wcf:param name="pageSize" value="${WCParam.pageSize}"/>
+										<wcf:param name="searchTerm" value="${WCParam.searchTerm}"/>
+										<wcf:param name="beginIndex" value="${WCParam.beginIndex}"/>		  
+										<wcf:param name="sType" value="${WCParam.sType}"/>								
+									</c:when>
+									<c:otherwise>
+										<wcf:param name="sequence" value="${WCParam.sequence}" />
+										<wcf:param name="top_category" value="${WCParam.top_category}" />
+										<wcf:param name="parent_category_rn" value="${WCParam.parent_category_rn}" />
+										<wcf:param name="categoryId" value="${WCParam.categoryId}" />
+									</c:otherwise>
+								</c:choose>
+							</wcf:url>					
+							<a href="${fn:escapeXml(mStoreLocatorResultURL)}"><fmt:message key="MSTORE_LOCATOR_RESULTS" bundle="${storeText}" /></a>
+						</c:otherwise>
+					</c:choose>
+					
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />	
+					<c:if test="${storeMap}">
+						<c:url var="mStoreDetailURL" value="mStoreDetailView">
+							<c:param name="storeId" value="${WCParam.storeId}" />
+							<c:param name="langId" value="${WCParam.langId}" />
+							<c:param name="catalogId" value="${WCParam.catalogId}" />
+							<c:param name="productId" value="${WCParam.productId}" />											
+							<c:param name="geoNodeId" value="${geoNodeId}" />
+							<c:param name="geoCodeLatitude" value="${geoCodeLatitude}" />
+							<c:param name="geoCodeLongitude" value="${geoCodeLongitude}" />
+							<c:param name="page" value="${detailInfoPage}" />
+						</c:url>
+						<a href="${fn:escapeXml(mStoreDetailURL)}"><c:out value="${physicalStoreIdentifier}" /></a>
+						<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+						<span class="current_page"><fmt:message key='MST_VIEW_MAP' bundle='${storeText}' /></span>
+					</c:if>
+					<c:if test="${!storeMap}">
+						<span class="current_page"><c:out value="${physicalStoreIdentifier}" /></span>
+					</c:if>
+				</c:when>							
+			</c:choose>
+		</c:when>
+
+
+		<%-- Breadcrumbs for the category navigation pages --%>
+		<c:when test="${categoryNavPageGroup}">
+			<c:choose>
+				<c:when test="${categoryPage || productPage || wishlistDisplayPage || prodComparePage || storeAvailPage || storeDetailPage || shoppingcartDisplayPage}">
+ 
+					<c:if test="${!empty WCParam.top_category}">
+						<wcbase:useBean id="bctTopCategory" classname="com.ibm.commerce.catalog.beans.CategoryDataBean">
+							<c:set target="${bctTopCategory}" property="categoryId" value="${WCParam.top_category}" />
+						</wcbase:useBean>
+								
+						<wcf:url var="CategoryDisplayURL" value="mCategory1">
+							<wcf:param name="langId" value="${langId}" />
+							<wcf:param name="storeId" value="${WCParam.storeId}" />
+							<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+							<wcf:param name="top" value="Y" />
+							<wcf:param name="categoryId" value="${bctTopCategory.categoryId}" />
+							<wcf:param name="top_category" value="${WCParam.top_category}" />
+							
+						</wcf:url>
+								
+						<c:choose>
+							<c:when test="${WCParam.top_category == WCParam.categoryId && categoryPage}">
+								<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />							
+								<span class="current_page"><c:out value="${bctTopCategory.description.name}" escapeXml="false"/></span>
+							</c:when>
+							<c:otherwise>
+								<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />							
+								<a href="${fn:escapeXml(CategoryDisplayURL)}"><c:out value="${bctTopCategory.description.name}" escapeXml="false"/></a>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+					
+					<c:if test="${!empty WCParam.parent_category_rn && WCParam.parent_category_rn != WCParam.top_category}">
+						<wcbase:useBean id="bctParentCategory" classname="com.ibm.commerce.catalog.beans.CategoryDataBean">
+							<c:set target="${bctParentCategory}" property="categoryId" value="${WCParam.parent_category_rn}" />
+						</wcbase:useBean>
+				
+						<wcf:url var="ParentCategoryDisplayURL" value="mCategory2">
+							<wcf:param name="langId" value="${langId}" />
+							<wcf:param name="storeId" value="${WCParam.storeId}" />
+							<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+							<wcf:param name="categoryId" value="${bctParentCategory.categoryId}" />
+							<wcf:param name="parent_category_rn" value="${WCParam.top_category}" />
+							<wcf:param name="top_category" value="${WCParam.top_category}" />
+						</wcf:url>
+						
+						<c:choose>
+							<c:when test="${WCParam.parent_category_rn == WCParam.categoryId && categoryPage}">
+								<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+								<span class="current_page"><c:out value="${bctParentCategory.description.name}" escapeXml="false"/></span>
+							</c:when>
+							<c:otherwise>
+								<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+								<a href="${fn:escapeXml(ParentCategoryDisplayURL)}"><c:out value="${bctParentCategory.description.name}" escapeXml="false"/></a>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+					<c:if test="${!empty WCParam.categoryId || (categoryPage && !empty WCParam.identifier)}">
+						<c:if test="${WCParam.categoryId != WCParam.top_category && WCParam.categoryId != WCParam.parent_category_rn}">
+							<wcbase:useBean id="bctCategory" classname="com.ibm.commerce.catalog.beans.CategoryDataBean"/>
+							
+								
+							<c:choose>
+								<c:when test="${(categoryPage && empty WCParam.parent_category_rn) || (categoryPage && WCParam.parent_category_rn == WCParam.categoryId) || (categoryPage && !empty WCParam.identifier)}">
+									<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+									<span class="current_page"><c:out value="${bctCategory.description.name}" escapeXml="false"/></span>
+								</c:when>
+								<c:when test="${categoryPage && !empty WCParam.parent_category_rn && !empty WCParam.top_category && WCParam.parent_category_rn == WCParam.top_category}">
+									<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+									<span class="current_page"><c:out value="${bctCategory.description.name}" escapeXml="false"/></span>
+								</c:when>
+								<c:otherwise>
+									<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+									<wcf:url var="SubCategoryDisplayURL" value="mCategory2">
+										<wcf:param name="langId" value="${langId}" />
+										<wcf:param name="storeId" value="${WCParam.storeId}" />
+										<wcf:param name="catalogId" value="${WCParam.catalogId}" />
+										<wcf:param name="categoryId" value="${bctCategory.categoryId}" />
+										<wcf:param name="parent_category_rn" value="${WCParam.parent_category_rn}" />
+										<wcf:param name="top_category" value="${WCParam.top_category}" />
+									</wcf:url>
+									<a href="${fn:escapeXml(SubCategoryDisplayURL)}"><c:out value="${bctCategory.description.name}" escapeXml="false"/></a>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</c:if>			
+					
+					
+					<c:if test="${!empty WCParam.productId || (productPage && !empty WCParam.identifier)}">
+						<c:remove var="bctCatalogEntry" scope="page"/>
+						<wcbase:useBean id="bctCatalogEntry" classname="com.ibm.commerce.catalog.beans.CatalogEntryDataBean"/>
+							
+						<c:choose>
+							<c:when test="${!empty WCParam.productId && productPage}">
+								<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+								<span class="current_page"><c:out value="${bctCatalogEntry.description.name}" escapeXml="false"/></span>
+							</c:when>
+							<c:otherwise>
+								<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+								<wcf:url var="catEntryDisplayUrl" value="mProduct1">
+								    <wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+								    <wcf:param name="storeId" value="${WCParam.storeId}"/>
+								    <wcf:param name="productId" value="${bctCatalogEntry.catalogEntryID}"/>
+								    <wcf:param name="langId" value="${langId}"/>
+								    <wcf:param name="categoryId" value="${WCParam.categoryId}"/>
+								    <wcf:param name="parent_category_rn" value="${WCParam.parent_category_rn}"/>
+								    <wcf:param name="top_category" value="${WCParam.top_category}"/>
+								    <wcf:param name="pgGrp" value="catNav"/>
+								</wcf:url>
+								<a href="${fn:escapeXml(catEntryDisplayUrl)}"><c:out value="${bctCatalogEntry.description.name}" escapeXml="false"/></a>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+					<c:if test="${wishlistDisplayPage}">
+						<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+						<span class="current_page"><fmt:message key="BCT_WISHLIST" bundle="${storeText}" /></span>
+					</c:if>
+					<c:if test="${prodComparePage}">
+						<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+						<span class="current_page"><fmt:message key="BCT_PROD_COMPARE_LIST" bundle="${storeText}" /></span>
+					</c:if>
+					<c:if test="${shoppingcartDisplayPage}">
+						<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+						<span class="current_page"><fmt:message key="BCT_SHOPPINGCART" bundle="${storeText}" /></span>
+					</c:if>					
+										
+					<c:if test="${storeAvailPage}">
+						<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+						<span class="current_page"><c:out value="${physicalStore.description[0].name}" /></span>
+					</c:if>
+					<c:if test="${storeDetailPage}">
+						<wcf:url var="inStoreAvailDetails" value="mInStoreAvailabilityDetailsView">
+						    <wcf:param name="sequence" value="${WCParam.sequence}"/>
+						    <wcf:param name="physicalStoreId" value="${WCParam.physicalStoreId}"/>
+						    <wcf:param name="physicalStoreIndex" value="${WCParam.physicalStoreIndex}"/>
+						    <wcf:param name="top_category" value="${WCParam.top_category}"/>
+						    <wcf:param name="parent_category_rn" value="${WCParam.parent_category_rn}"/>
+						    <wcf:param name="langId" value="${WCParam.langId}"/>
+						    <wcf:param name="productId" value="${WCParam.productId}"/>
+						    <wcf:param name="itemId" value="${WCParam.itemId}"/>
+						    <wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+						    <wcf:param name="viewTaskName" value="${WCParam.viewTaskName}"/>
+						    <wcf:param name="categoryId" value="${WCParam.categoryId}"/>
+						    <wcf:param name="storeId" value="${WCParam.storeId}"/>
+						    <wcf:param name="selectedValues" value="${WCParam.selectedValues}"/>
+						    <wcf:param name="pgGrp" value="catNav"/>
+						</wcf:url>
+						<a href="${fn:escapeXml(inStoreAvailDetails)}"><c:out value="${physicalStores[i].description[0].name}" /></a>
+						<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />
+						<span class="current_page">						
+							<fmt:message key="MST_VIEW_MAP" bundle="${storeText}"/>
+						</span>
+					</c:if>
+				</c:when>
+			</c:choose>
+		</c:when>		
+		<c:otherwise>
+			<c:choose>
+				<c:when test="${privacyDispPage}">
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />			
+					<span class="current_page"><fmt:message key="PRIVACY_POLICY_TITLE" bundle="${storeText}"/></span>
+				</c:when>
+				<c:when test="${contactUsDispPage}">
+					<fmt:message key="DIVIDING_BAR" bundle="${storeText}" />			
+					<span class="current_page"><fmt:message key="CONTACT_US_TITLE" bundle="${storeText}"/></span>
+				</c:when>
+			</c:choose>	
+		</c:otherwise>
+	</c:choose>
+</div>
+
+<!-- END BreadCrumbTrailDisplay.jspf -->

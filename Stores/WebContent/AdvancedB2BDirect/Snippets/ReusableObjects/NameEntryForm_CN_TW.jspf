@@ -1,0 +1,72 @@
+<%--
+//********************************************************************
+//*-------------------------------------------------------------------
+//* Licensed Materials - Property of IBM
+//*
+//* WebSphere Commerce
+//*
+//* (c) Copyright IBM Corp. 2003, 2004
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*-------------------------------------------------------------------
+//*
+--%>
+<%--
+  *****
+  * This JSP segment displays the user name section of the registration forms
+  * for the following countries/regions:
+  *  - China
+  *  - Taiwan
+  * The display order is as follows (* means mandatory):
+  *  - last name*
+  *  - first name
+  *  - title
+  *****
+--%>
+
+<!-- Start - JSP File Name:  NameEntryForm_CN_TW.jspf -->
+<tr>
+	<td class="logonheading t_td2" id="WC_NameEntryForm_CN_TW_TableCell_1">
+		<span class="required">*</span><label for="<c:out value="WC_${pageName}_NameEntryForm_FormInput_${paramPrefix}lastName_1"/>"><fmt:message key="LAST_NAME" bundle="${storeText}" />
+	</td>
+</tr>
+<tr>
+	<td id="WC_NameEntryForm_CN_TW_TableCell_2">
+		<input class="logon input" size="35" maxlength="128" id="<c:out value="WC_${pageName}_NameEntryForm_FormInput_${paramPrefix}lastName_1"/>" name="<c:out value="${paramPrefix}lastName"/>" value="<c:out value="${paramSource.lastName}"/>" type="text"/>
+	</td>
+</tr>
+<tr>
+	<td class="logonheading t_td2" id="WC_NameEntryForm_CN_TW_TableCell_3">
+		<label for="<c:out value="WC_${pageName}_NameEntryForm_FormInput_${paramPrefix}firstName_1"/>"><fmt:message key="FIRST_NAME" bundle="${storeText}" />
+	</td>
+</tr>
+<tr>
+	<td id="WC_NameEntryForm_CN_TW_TableCell_4">
+		<input class="logon input" size="35" maxlength="128" name="<c:out value="${paramPrefix}firstName" />" id="<c:out value="WC_${pageName}_NameEntryForm_FormInput_${paramPrefix}firstName_1"/>" value="<c:out value="${paramSource.firstName}"/>" type="text"/>
+	</td>
+</tr>
+<tr>
+	<td class="logonheading t_td2" id="<c:out value="WC_${pageName}_NameEntryForm_CN_TW_TableCell_5"/>">
+		<label for="<c:out value="WC_${pageName}_NameEntryForm_FormInput_${paramPrefix}personTitle_1"/>"><fmt:message key="NAME_TITLE" bundle="${storeText}"/></label>
+	</td>
+</tr>
+<tr>
+	<td id="<c:out value="WC_${pageName}_NameEntryForm_CN_TW_TableCell_6"/>">
+		<c:set var="personTitle" value="${paramSource.personTitle}"/>
+		<c:set var="Reg_Drop1"><fmt:message key="TITLE_DROP1" bundle="${storeText}"/></c:set>
+		<c:set var="Reg_Drop2"><fmt:message key="TITLE_DROP2" bundle="${storeText}"/></c:set>
+		<c:set var="Reg_Drop3"><fmt:message key="TITLE_DROP3" bundle="${storeText}"/></c:set>
+		<c:set var="Reg_Drop4"><fmt:message key="TITLE_DROP4" bundle="${storeText}"/></c:set>
+
+		<select class="logon select" id="<c:out value="WC_${pageName}_NameEntryForm_FormInput_${paramPrefix}personTitle_1"/>" name="<c:out value="${paramPrefix}personTitle"/>">
+		<option value=""<c:if test="${empty personTitle}"> selected="selected"</c:if>/>
+		<option value="<c:out value="${Reg_Drop1}"/>"<c:if test="${personTitle == Reg_Drop1}"> selected="selected"</c:if>><c:out value="${Reg_Drop1}"/></option>
+		<option value="<c:out value="${Reg_Drop2}"/>"<c:if test="${personTitle == Reg_Drop2}"> selected="selected"</c:if>><c:out value="${Reg_Drop2}"/></option>
+		<option value="<c:out value="${Reg_Drop3}"/>"<c:if test="${personTitle == Reg_Drop3}"> selected="selected"</c:if>><c:out value="${Reg_Drop3}"/></option>
+		<option value="<c:out value="${Reg_Drop4}"/>"<c:if test="${personTitle == Reg_Drop4}"> selected="selected"</c:if>><c:out value="${Reg_Drop4}"/></option>
+		</select>
+	</td>
+</tr>
+<!-- End - JSP File Name:  NameEntryForm_CN_TW.jspf -->

@@ -1,0 +1,440 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<!-- BEGIN FastFinderNavDisplay.jspf-->
+<c:choose>
+	<c:when test="${!empty WCParam.pageView}">
+		<c:set var="pageView" value="${WCParam.pageView}"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="pageView" value="${defaultPageView}"/>
+	</c:otherwise>
+</c:choose>
+ 
+  <c:set var="pageSize" value="12"/>
+	<c:set value="${pageContext.request.scheme}://${pageContext.request.serverName}" var="hostPath" />
+
+	<wcbase:useBean id="catEntSearchListBean" scope="page" classname="com.ibm.commerce.search.beans.CatEntrySearchListDataBean" >
+		<c:set property="catGroupId" value="${categoryId}" target="${catEntSearchListBean}" />
+		<c:set property="isProduct" value="true" target="${catEntSearchListBean}" />
+		<c:set property="isBundle" value="true" target="${catEntSearchListBean}" />
+		<c:set property="isPackage" value="true" target="${catEntSearchListBean}" />
+		<c:set property="pageSize" value="${pageSize}" target="${catEntSearchListBean}" />
+		<c:set property="orderBy1" value="OfferPricePrice" target="${catEntSearchListBean}" />
+	</wcbase:useBean>
+	<c:set var="totalCountByPrice" value="${catEntSearchListBean.resultCount}"/>
+	
+	<form name="tempForm" id="tempForm" action="">
+		<input type="hidden" name="temp" value="${pageView}" id="temp"/>
+	</form>
+<flow:ifEnabled feature="Analytics">
+	<script type="text/javascript">
+		dojo.addOnLoad(function() {
+		analyticsJS.loadFastFinderHandlers('<c:out value="${WCParam.categoryId}"/>');
+					  });
+	</script>
+</flow:ifEnabled>
+	<script type="text/javascript">
+		fastFinderJS.priceMessage = "<fmt:message key="PriceIs" bundle="${storeText}"/>";
+		fastFinderJS.totalResultsMessage = "<fmt:message key="FF_RESULTS" bundle="${storeText}"/>";
+		fastFinderJS.pagingMessage = "<fmt:message key="FF_RESULTS_DISPLAYING" bundle="${storeText}"/>";
+		fastFinderJS.pagingMessage2 = "<fmt:message key="FF_RESULTS_PAGES" bundle="${storeText}"/>"
+		fastFinderJS.add2cart = "<fmt:message key="ADDTOCART" bundle="${storeText}"/>";
+		fastFinderJS.quickinfo = "<fmt:message key="QUICKINFO" bundle="${storeText}"/>";
+		fastFinderJS.totalProductsInCategory = ${totalCountByPrice};
+		fastFinderJS.imagePath = "${jspStoreImgDir}${vfileColor}";
+		fastFinderJS.noImageIconPath = "${jspStoreImgDir}images/";
+		fastFinderJS.storeId = "${WCParam.storeId}";
+		fastFinderJS.catalogId = "${WCParam.catalogId}";
+		fastFinderJS.langId = "${WCParam.langId}";
+		fastFinderJS.categoryId = "${WCParam.categoryId}";
+		fastFinderJS.parent_category_rn= "${WCParam.parent_category_rn}";
+		fastFinderJS.top_category= "${WCParam.top_category}";
+		fastFinderJS.leftMarkerMessage = "<fmt:message key="FF_PAGING_BACK" bundle="${storeText}"/>";
+		fastFinderJS.rightMarkerMessage = "<fmt:message key="FF_PAGING_NEXT" bundle="${storeText}"/>";
+		fastFinderJS.setViewType('<c:out value="${pageView}"/>');
+		var uniqueProductsList = new Vector();
+		
+		<c:set var="maxPrice" value="0" />
+		<c:set var="minPrice" value="99999999" />
+		<jsp:useBean id="brandsHash" class="java.util.Hashtable" scope="request"/>
+		<jsp:useBean id="featuresHash" class="java.util.Hashtable" scope="request"/>
+		<c:forEach var="catEntry" items="${catEntSearchListBean.resultList}" varStatus="counter">
+			<c:choose>
+				<c:when test="${catEntry.product}">
+					<%-- set the catalogEntry var to the product bean --%>
+					<c:set var="catalogEntry" value="${catEntry.productDataBean}"/>
+					<c:set var="type" value="product" />
+					<c:if test="${empty catalogEntry.entitledItems[1] && !empty catalogEntry.entitledItems[0].partNumber && empty catalogEntry.definingAttributes[0]}">
+						<c:set var="type" value="item" />
+					</c:if>
+				</c:when>
+				<c:when test="${catEntry.item}">
+					<%-- set the catalogEntry var to the item bean --%>
+					<c:set var="catalogEntry" value="${catEntry.itemDataBean}"/>
+					<c:set var="type" value="item" />
+				</c:when>
+				<c:when test="${catEntry.package}">
+					<%-- set the catalogEntry var to the package bean --%>
+					<c:set var="catalogEntry" value="${catEntry.packageDataBean}"/>
+					<c:set var="type" value="package" />
+				</c:when>
+				<c:when test="${catEntry.bundle}">
+					<%-- set the catalogEntry var to the bundle bean --%>
+					<c:set var="catalogEntry" value="${catEntry.bundleDataBean}"/>
+					<c:set var="type" value="bundle" />
+				</c:when>
+			</c:choose>
+			
+			<wcf:url var="catEntryDisplayUrl" value="Product2">
+				<wcf:param name="catalogId" value="${WCParam.catalogId}"/>
+				<wcf:param name="storeId" value="${WCParam.storeId}"/>
+				<wcf:param name="productId" value="${catEntry.catalogEntryID}"/>
+				<wcf:param name="langId" value="${langId}"/>
+				<wcf:param name="categoryId" value="${WCParam.categoryId}"/>
+				<wcf:param name="parent_category_rn" value="${WCParam.parent_category_rn}"/>
+				<wcf:param name="top_category" value="${WCParam.top_category}"/>
+				<wcf:param name="errorViewName" value="ProductDisplayErrorView"/>
+			</wcf:url>
+			
+		
+				<c:set value="false" var="hasFeatures"/>
+				<c:forEach var='attribute' items='${catalogEntry.attributeDataBeans}' varStatus='aStatus'>
+					<c:if test="${attribute.usage eq '2'}">
+						<c:set value="true" var="hasFeatures"/>
+					</c:if>
+				</c:forEach>
+				<c:if test="${hasFeatures == 'true'}">
+	
+					<c:set property="attachmentUsage" value="IMAGE_SIZE_40" target="${catalogEntry}" />
+					<c:set var="image40AttachmentDataBeans" value="${catalogEntry.attachmentsByUsage}" />
+					<c:choose>
+						<c:when test="${!empty image40AttachmentDataBeans[0]}">
+							<c:set var="productCompareImagePath" value="${image40AttachmentDataBeans[0].objectPath}${image40AttachmentDataBeans[0].path}" />
+						</c:when>
+						<c:when test="${!empty catalogEntry.description.thumbNail}">
+							<c:set var="productCompareImagePath" value="${catalogEntry.objectPath}${catalogEntry.description.thumbNail}" />
+						</c:when>
+						<c:otherwise>
+							<c:set var="productCompareImagePath" value="${jspStoreImgDir}images/NoImageIcon_sm.jpg" />
+						</c:otherwise>
+					</c:choose> 
+					<c:set var="smallImageSrc" value="" />
+					<c:if test="${!empty catalogEntry.description.thumbNail}">
+						<c:set var="smallImageSrc" value="${catalogEntry.objectPath}${catalogEntry.description.thumbNail}" />
+					</c:if>
+	
+					<c:set var="mediumImageSrc" value="" />
+					<c:if test="${!empty catalogEntry.description.thumbNail}">
+						<c:set var="mediumImageSrc" value="${catalogEntry.objectPath}${catalogEntry.description.thumbNail}" />
+					</c:if>
+					<c:set var="catEntryIdentifier" value="catBrowse${counter.count}"/>
+					<c:set var="showAdvancedTooltip" value="true"/>
+					<c:if test="${type == 'product'}">
+					
+					fastFinderJS.addElementToVector(fastFinderJS.catalogEntriesByPrice, "${catEntry.catalogEntryID}", "${catalogEntry.partNumber}", "<c:out value='${catalogEntry.description.name}' escapeXml='true'/>", 
+										"${counter.count}", "<c:out value='${catalogEntry.description.shortDescription}' escapeXml='true'/>", "${smallImageSrc}","${productCompareImagePath}",
+										"${mediumImageSrc}", "${catalogEntry.calculatedContractPrice.amount}",
+										"<fmt:formatNumber value='${catalogEntry.calculatedContractPrice.amount}' type='currency' currencySymbol='${currencyFormatterDB.currencySymbol}' maxFractionDigits='${currencyDecimal}'/>", "${catalogEntry.manufacturerName}",
+										"${catEntryDisplayUrl}", "${type}", 
+										[<c:set var="hasAttributes" value="false"/>
+										<c:forEach var='attribute' items='${catalogEntry.attributeDataBeans}' varStatus='aStatus'>
+													<c:if test="${attribute.usage eq '2'}">
+														<c:if test='${hasAttributes eq "true"}'><c:out value=',' /></c:if>
+														'<c:out value="${attribute.name}"/>'
+														<c:set var="hasAttributes" value="true"/>
+														<c:set target='${featuresHash}' property='${attribute.name}' value='${attribute.name}'/>
+													</c:if>
+											</c:forEach>],[<c:forEach var='entitledItem' items='${catalogEntry.entitledItems}' varStatus='outerStatus'>
+								<c:set var="someItemIDs" value=''/>
+								<c:forEach var='definingAttrValue' items='${entitledItem.definingAttributeValueDataBeans}' varStatus='innerStatus'>
+									<c:choose>
+										<c:when test="${empty someItemIDs}">
+											<c:set var="someItemIDs" value="${definingAttrValue.attributeDataBean.name}_${definingAttrValue.value}" />
+										</c:when>	
+									<c:otherwise>
+											<c:set var="someItemIDs" value="${someItemIDs},${definingAttrValue.attributeDataBean.name}_${definingAttrValue.value}" />
+										</c:otherwise>	
+									</c:choose>	
+								</c:forEach>		
+								'<c:out value='${someItemIDs}'/>'
+								<c:if test='${!outerStatus.last}'>,</c:if>
+				</c:forEach>]
+											,"","",[<c:forEach var='entitledItem' items='${catalogEntry.entitledItems}' varStatus='outerStatus'>
+													'<c:out value='${entitledItem.itemID}' />'
+													<c:if test='${!outerStatus.last}'>,</c:if>
+												</c:forEach>]);
+					
+					</c:if>
+					
+					<c:if test="${type != 'product'}">
+					
+					fastFinderJS.addElementToVector(fastFinderJS.catalogEntriesByPrice, "${catEntry.catalogEntryID}", "${catalogEntry.partNumber}", "<c:out value='${catalogEntry.description.name}' escapeXml='true'/>", 
+										"${counter.count}", "<c:out value='${catalogEntry.description.shortDescription}' escapeXml='true'/>", "${smallImageSrc}","${productCompareImagePath}",
+										"${mediumImageSrc}", "${catalogEntry.calculatedContractPrice.amount}",
+										"<fmt:formatNumber value='${catalogEntry.calculatedContractPrice.amount}' type='currency' currencySymbol='${currencyFormatterDB.currencySymbol}' maxFractionDigits='${currencyDecimal}'/>", "${catalogEntry.manufacturerName}",
+										"${catEntryDisplayUrl}", "${type}", 
+										[<c:set var="hasAttributes" value="false"/>
+										<c:forEach var='attribute' items='${catalogEntry.attributeDataBeans}' varStatus='aStatus'>
+													<c:if test="${attribute.usage eq '2'}">
+														<c:if test='${hasAttributes eq "true"}'><c:out value=',' /></c:if>
+														'<c:out value="${attribute.name}"/>'
+														<c:set var="hasAttributes" value="true"/>
+														<c:set target='${featuresHash}' property='${attribute.name}' value='${attribute.name}'/>
+													</c:if>
+											</c:forEach>],"","","");
+					
+					</c:if>
+					<c:set var="prefix" value="${currencyFormatterDB.currencySymbol}"/>
+	
+					<c:if test="${catalogEntry.calculatedContractPrice.amount > maxPrice}">
+						<c:set var="maxPrice" value="${catalogEntry.calculatedContractPrice.amount}" />
+					</c:if>
+					<c:if test="${catalogEntry.calculatedContractPrice.amount < minPrice}">
+						<c:set var="minPrice" value="${catalogEntry.calculatedContractPrice.amount}" />
+					</c:if>
+					<c:set target="${brandsHash}" property="${catalogEntry.manufacturerName}" value="${catalogEntry.manufacturerName}"/>
+					fastFinderJS.addBrand("<c:out value='${catalogEntry.manufacturerName}' escapeXml='true'/>");
+				</c:if>
+		
+		</c:forEach>
+
+		
+
+		<c:forEach var="feature" items="${featuresHash}">
+		
+			fastFinderJS.addFeature("<c:out value='${feature.value}' escapeXml='true'/>");
+		
+		</c:forEach>
+		
+		dojo.addOnLoad(fastFinderJS.processBookmarkURL);
+	
+
+		function filterWithPrevIndex(){
+			var params = [];
+			var actionArray = [];
+			var formArray = [];
+
+			actionArray = fastFinderJS.addAction(actionArray, fastFinderJS.filterResultsWithFeatures, fastFinderJS, params);
+			formArray = fastFinderJS.getFormArray(formArray, "FastFinderForm");
+			formArray = fastFinderJS.getFormArray(formArray, "BrandsForm");
+			formArray = fastFinderJS.getFormArray(formArray, "FeatureNamesForm");
+			formArray = fastFinderJS.getFormArray(formArray, "SortResultForm");
+			fastFinderJS.add2History(actionArray, formArray);
+
+			fastFinderJS.filterResultsWithPrevIndex();
+		}
+
+		function filterWithNextIndex(){
+			var params = [];
+			var actionArray = [];
+			var formArray = [];
+
+			actionArray = fastFinderJS.addAction(actionArray, fastFinderJS.filterResultsWithFeatures, fastFinderJS, params);
+			formArray = fastFinderJS.getFormArray(formArray, "FastFinderForm");
+			formArray = fastFinderJS.getFormArray(formArray, "BrandsForm");
+			formArray = fastFinderJS.getFormArray(formArray, "FeatureNamesForm");
+			formArray = fastFinderJS.getFormArray(formArray, "SortResultForm");
+
+			fastFinderJS.add2History(actionArray, formArray);
+			
+			fastFinderJS.filterResultsWithNextIndex();
+		}
+
+		function filterWithOrderBy(orderByNode){
+			var params = [];
+			params.push(orderByNode.value);
+
+			var actionArray = [];
+			var formArray = [];
+
+			actionArray = fastFinderJS.addAction(actionArray, fastFinderJS.filterResultsWithFeatures, fastFinderJS, params);
+			formArray = fastFinderJS.getFormArray(formArray, "FastFinderForm");
+			formArray = fastFinderJS.getFormArray(formArray, "BrandsForm");
+			formArray = fastFinderJS.getFormArray(formArray, "FeatureNamesForm");
+			formArray = fastFinderJS.getFormArray(formArray, "SortResultForm");
+			
+			fastFinderJS.add2History(actionArray, formArray);
+			
+			fastFinderJS.filterResultsWithOrderBy(orderByNode);
+		}
+
+		function filterWithBrands(){
+			var params = [];
+			var actionArray = [];
+			var formArray = [];
+
+			actionArray = fastFinderJS.addAction(actionArray, fastFinderJS.filterResultsWithFeatures, fastFinderJS, params);
+			formArray = fastFinderJS.getFormArray(formArray, "FastFinderForm");
+			formArray = fastFinderJS.getFormArray(formArray, "BrandsForm");
+			formArray = fastFinderJS.getFormArray(formArray, "FeatureNamesForm");
+			formArray = fastFinderJS.getFormArray(formArray, "SortResultForm");
+
+			fastFinderJS.add2History(actionArray, formArray);
+			
+			fastFinderJS.filterResultsWithBrands();
+		}
+
+		function filterWithFeatures(){
+			var params = [];
+			var actionArray = [];
+			var formArray = [];
+
+			actionArray = fastFinderJS.addAction(actionArray, fastFinderJS.filterResultsWithFeatures, fastFinderJS, params);
+			formArray = fastFinderJS.getFormArray(formArray, "FastFinderForm");
+			formArray = fastFinderJS.getFormArray(formArray, "BrandsForm");
+			formArray = fastFinderJS.getFormArray(formArray, "FeatureNamesForm");
+			formArray = fastFinderJS.getFormArray(formArray, "SortResultForm");
+
+			fastFinderJS.add2History(actionArray, formArray);
+
+			fastFinderJS.filterResultsWithFeatures();
+		}
+
+		function filterWithView(view){
+			var params = [];
+			params.push(view);
+
+			var actionArray = [];
+			var formArray = [];
+
+			actionArray = fastFinderJS.addAction(actionArray, fastFinderJS.filterResultsWithView, fastFinderJS, params);
+			formArray = fastFinderJS.getFormArray(formArray, "FastFinderForm");
+			formArray = fastFinderJS.getFormArray(formArray, "BrandsForm");
+			formArray = fastFinderJS.getFormArray(formArray, "FeatureNamesForm");
+			formArray = fastFinderJS.getFormArray(formArray, "SortResultForm");
+
+			fastFinderJS.add2History(actionArray, formArray);
+
+			fastFinderJS.filterResultsWithView(view);
+		}
+
+
+		function filterWithPrice(e){
+			var params = [];
+			var actionArray = [];
+			var formArray = [];
+			
+			params = [];
+			params.push(e.firstHandle);
+			params.push(Math.floor(e.getCurrentValues().lower));
+			actionArray = fastFinderJS.addAction(actionArray, e.setUnitPosition, e, params);
+
+			params = [];
+			params.push(e.secondHandle);
+			params.push(Math.ceil(e.getCurrentValues().upper));
+			actionArray = fastFinderJS.addAction(actionArray, e.setUnitPosition, e, params);
+			params = [];
+			params.push(Math.ceil(e.getCurrentValues().upper));
+			params.push(Math.floor(e.getCurrentValues().lower));
+			actionArray = fastFinderJS.addAction(actionArray, fastFinderJS.filterResultsWithPriceRange, fastFinderJS, params);
+			
+			formArray = fastFinderJS.getFormArray(formArray, "FastFinderForm");
+			formArray = fastFinderJS.getFormArray(formArray, "BrandsForm");
+			formArray = fastFinderJS.getFormArray(formArray, "FeatureNamesForm");
+			formArray = fastFinderJS.getFormArray(formArray, "SortResultForm");
+
+			fastFinderJS.add2History(actionArray, formArray);
+
+			fastFinderJS.filterResultsWithPrice(e);
+		}
+	
+	
+		function retrievePriceRangePositions() 
+		{
+			var rangeSlider = dijit.byId("horizontalRangeSelector");
+			rangeSlider.setUnitPosition(rangeSlider.firstHandle, document.FastFinderForm.selectedMinPrice.value);
+			rangeSlider.setUnitPosition(rangeSlider.secondHandle, document.FastFinderForm.selectedMaxPrice.value);
+		}
+	</script>
+
+
+<form name="FastFinderForm" id="FastFinderForm" method="post" action="">
+	<input type="hidden" name="maxPrice" value="<c:out value="${maxPrice}"/>" id="WC_FastFinderLeftSidebarDisplayf_inputs_1"/>
+	<input type="hidden" name="minPrice" value="<c:out value="${minPrice}"/>" id="WC_FastFinderLeftSidebarDisplayf_inputs_2"/>
+	<input type="hidden" name="selectedMaxPrice" value="<c:out value="${maxPrice}"/>" id="WC_FastFinderLeftSidebarDisplayf_inputs_1_2"/>
+	<input type="hidden" name="selectedMinPrice" value="<c:out value="${minPrice}"/>" id="WC_FastFinderLeftSidebarDisplayf_inputs_2_2"/>
+	<input type="hidden" name="pageView" value="<c:out value="${pageView}"/>" id="pageView"/>
+	<input type="hidden" name="beginIndex" value="0" id="WC_FastFinderLeftSidebarDisplayf_inputs_3"/>
+	<input type="hidden" name="orderBy1" value="OfferPricePrice" id="WC_FastFinderLeftSidebarDisplayf_inputs_4"/>
+	<input type="hidden" name="manufacturerNames" value="" id="WC_FastFinderLeftSidebarDisplayf_inputs_5"/>
+	<input type="hidden" name="attributeValues" value="" id="WC_FastFinderLeftSidebarDisplayf_inputs_6"/>
+	<input type="hidden" name="initialState" value="true" id="WC_FastFinderLeftSidebarDisplayf_inputs_7"/>
+</form>
+<img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}left_nav_divider.gif"/>" /><br />
+<fieldset>
+<legend class="sidebar_legend"><fmt:message key="FF_BRANDS" bundle="${storeText}"/></legend>
+<form name="BrandsForm" id="BrandsForm" method="post" action="">
+	<c:set var="numberOfResults" value="0"/>
+	<c:set var="resultsPerRow" value="2"/>
+	<c:forEach var="brand" items="${brandsHash}" varStatus="brandsCounter">
+		<c:set var="numberOfResults" value="${numberOfResults + 1}"/>
+		<p class="label">
+			<input type="checkbox" title="<c:out value='${brand.value}'/>" name="brandName.value<c:out value='${brandsCounter.count}'/>" id="brand<c:out value='${brandsCounter.count}'/>" value="<c:out value="${brand.value}"/>" checked="checked" onclick="javascript: setCurrentId('brand<c:out value='${brandsCounter.count}'/>'); filterWithBrands()" class="checkbox"/>
+			<label for="brand<c:out value='${brandsCounter.count}'/>"><c:out value="${brand.value}"/></label>
+		</p>
+	</c:forEach>
+</form>
+</fieldset>
+<br />
+<img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}left_nav_divider.gif"/>"/><br />
+<fieldset>
+<legend class="sidebar_legend"><fmt:message key="FF_FEATURES" bundle="${storeText}"/></legend>
+<form name="FeatureNamesForm" id="FeatureNamesForm" method="post" action="">
+	<c:set var="numberOfResults" value="0"/>
+	<c:set var="resultsPerRow" value="3"/>
+	<c:forEach var="featureName" items="${featuresHash}" varStatus="featuresCounter">
+		<c:set var="numberOfResults" value="${numberOfResults + 1}"/>
+		<p class="label">
+			<input type="checkbox" title="<c:out value='${featureName.value}'/>" name="featureName.value<c:out value='${featuresCounter.count}'/>" id="feature<c:out value='${featuresCounter.count}'/>" value="<c:out value="${featureName.value}"/>" onclick="javascript: setCurrentId('feature<c:out value='${featuresCounter.count}'/>'); filterWithFeatures()" class="checkbox"/>
+			<label for="feature<c:out value='${featuresCounter.count}'/>"><c:out value="${featureName.value}"/></label>
+		</p>
+	</c:forEach>
+</form>
+</fieldset>
+<br />
+<img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}left_nav_divider.gif"/>" /><br />
+<h2 class="sidebar_header"><fmt:message key="FF_PRICE" bundle="${storeText}"/></h2>
+<br/>
+
+<div style="padding-left: 15px;" id="horizontalRangeSelector" title="<fmt:message key="FF_PRICERANGE_TITLE" bundle="${storeText}"/>"
+							dojoType="wc.widget.RangeSlider" 												
+							onChangeMade="filterWithPrice"													
+							startRange="<c:out value='${minPrice - 1}'/>"											
+							totalRange="<c:out value='${maxPrice - minPrice + 1}'/>"								
+							prefix="<c:out value='${prefix}'/>"	
+							currencyCode="<c:out value='${CommandContext.currency}'/>"
+							defaultStart="0"
+							defaultEnd="0"
+							clickSelect="true"
+							snapToGrid="false"
+							activeDrag="true"
+							incrementValue="1"
+							decimalPoints="0"
+							showTooltip="true"
+							showTooltipAllTime="true"
+							rangeSliderTitle="<fmt:message key="FF_RANGESLIDER_TITLE" bundle="${storeText}"/>"
+							firstHandleTitle="<fmt:message key="FF_FIRSTHANDLE_TITLE" bundle="${storeText}"/>"
+							secondHandleTitle="<fmt:message key="FF_SECONDHANDLE_TITLE" bundle="${storeText}"/>"
+							emptyImagePath= "<c:out value="${jspStoreImgDir}"/>images/empty.gif"
+>
+</div>
+<script type="text/javascript">dojo.addOnLoad(function() { 
+parseWidget("horizontalRangeSelector");
+retrievePriceRangePositions();
+});</script>
+<br />
+<img alt="" src="<c:out value="${jspStoreImgDir}${vfileColor}left_nav_divider.gif"/>" /><br />
+<img alt="<fmt:message key="FOOTER_CUSTOMER_SUPPORT" bundle="${storeText}"/>" src="<c:out value="${jspStoreImgDir}images/advertisements/${locale}/img_customer_support.png"/>" /> 
+<!-- END FastFinderNavDisplay.jspf-->

@@ -1,0 +1,30 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+		<%-- 
+  *****
+  * This JSP fragment is used to make CachedHeaderDisplay.jsp cachable.
+  *****
+--%>
+
+<!-- BEGIN HeaderDisplay.jspf -->
+
+<% out.flush(); %>
+<c:import url="${jspStoreDir}${StyleDir}CachedHeaderDisplay.jsp">
+	<c:param name="storeId" value="${WCParam.storeId}" />
+	<c:param name="catalogId" value="${catalogId}" />
+	<c:param name="langId" value="${WCParam.langId}" />
+</c:import>
+<% out.flush(); %>
+<!-- END HeaderDisplay.jspf -->

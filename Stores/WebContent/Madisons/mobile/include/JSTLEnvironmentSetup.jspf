@@ -1,0 +1,177 @@
+<%--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+--%>
+
+<%--
+  *****
+  * This file retrieves and prepares the JSP path, file path, and resource bundle, which are used by other JSPs
+  * Since this file is called by many JSP files in the store, the commonly needed attributes are retrieved here.
+  *****
+--%>
+
+<!-- BEGIN JSTLEnvironmentSetup.jspf -->
+
+<%@ taglib uri="flow.tld" prefix="flow" %>
+
+<%@ page pageEncoding="UTF-8"%>
+<%@ page import="com.ibm.commerce.server.ECConstants" %>
+<%@ page import="com.ibm.commerce.datatype.WcParam" %>
+<%@ page import="com.ibm.commerce.tools.util.UIUtil" %>
+
+<%@ page errorPage="/GenericJSPPageError.jsp" %>
+
+<%!
+	// Constants which will be used in various store pages
+	final String WISHLIST_PRODUCTID_KEY = "wishlistProductIds";
+	final String SEARCH_PRODUCTIDS_KEY = "searchProductIds";
+	final String SHOPPINGCART_PRODUCTID_KEY = "shoppingcartProductIds";
+
+	final String ORDER_IDS_KEY = "orderIds";
+
+	final String PRODUCT_COMPARE_CATENTRYIDS_KEY = "productCompareCatentryIds";
+	final String NUM_PROD_TO_COMPARE_KEY = "numProdToCompare";
+%>
+
+
+<c:set var="departmentMaxPageSize" value="10" />
+<c:set var="categoryMaxPageSize" value="10" />
+<c:set var="productsMaxPageSize" value="10" />
+<c:set var="searchResultsMaxPageSize" value="10" />
+<c:set var="storeLocatorResultMaxPageSize" value="10" />
+<c:set var="wishlistMaxPageSize" value="10" />
+<c:set var="orderHistoryMaxPageSize" value="10" />
+<c:set var="shopcartMaxPageSize" value="5" />
+<c:set var="orderSummaryMaxPageSize" value="10" />
+
+<c:set var="physicalStoreCookieMaxSize" value="5" />
+
+<c:set var="numProdToCompare" value="0" />
+<%-- The maximum number of products/items that can be compared at a time  --%>
+<c:set var="maxProdToCompare" value="2" />
+
+<c:if test="${sessionScope.numProdToCompare != null}">
+	<c:set var="numProdToCompare" value="${sessionScope.numProdToCompare}" />
+</c:if>
+
+<%
+// check to see if the wcparam is available; initialise it if it is not available
+if( null == request.getAttribute(com.ibm.commerce.server.ECConstants.EC_INPUT_PARAM)){
+	request.setAttribute(com.ibm.commerce.server.ECConstants.EC_INPUT_PARAM, new WcParam(request));
+}
+%>
+
+<wcbase:useBean id="sdb" classname="com.ibm.commerce.common.beans.StoreDataBean" scope="request" />
+
+<%-- These are variables to use on pages --%>
+<c:set var="locale" value="${CommandContext.locale}" scope="page" />
+<c:set var="langId" value="${CommandContext.languageId}" scope="page" />
+<c:set var="storeName" value="${sdb.storeEntityDescriptionDataBean.displayName}" scope="page" />
+<c:choose>
+	<c:when test="${CommandContext.locale eq 'iw_IL'}">
+		<c:set var="shortLocale" value="he"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="shortLocale" value="${fn:substring(CommandContext.locale,0,2)}"/>
+	</c:otherwise>
+</c:choose>
+
+<c:set var="userType" value="${CommandContext.user.registerType}" scope="page" />
+<c:set var="lastCmdName" value="${CommandContext.commandName}" scope="page" />
+<c:set var="storeId" value="${CommandContext.storeId}"/>
+
+<c:choose>
+	<c:when test="${empty WCParam.catalogId}">
+		<c:set var="catalogId" value="${sdb.masterCatalogDataBean.catalogId}"/>
+		<c:set property="catalogId" value="${catalogId}" target="${WCParam}"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="catalogId" value="${WCParam.catalogId}"/>
+	</c:otherwise>
+</c:choose>
+
+
+<c:set var="userId" value="${CommandContext.userId}"/>
+
+
+<%-- URL pointing to the hosted store home directory.  Use this to reference images --%>
+<c:set var="storeImgDir" value="${sdb.filePath}" scope="page" />
+<%-- WebAsset directory of the hosted store.  Includes JSPs, HTML, Image files, etc --%>
+<c:set var="storeDir" value="${sdb.jspPath}" scope="page" />
+
+<%-- URL pointing to the shared image directory.  Use this to reference images --%>
+<c:set var="jspStoreImgDir" value="${sdb.jspStoreDirFilePath}" scope="page" />
+<%-- WebAsset directory of the shared file directory.  Includes JSPs, HTML, Image files, etc --%>
+<c:set var="jspStoreDir" value="/${sdb.jspStoreDir}/" scope="page" />
+
+<%-- Load the store bundles --%>
+<fmt:setLocale value="${CommandContext.locale}" />
+<fmt:setBundle basename="${jspStoreDir}mobile/storetext" var="storeText" />
+
+<%--
+  ****
+  * BEGIN Comment out for use in the JSP preview environment.
+--%>
+
+<c:set var="snippetJspStoreDir" value="/${requestScope.jspStoreDir}/" scope="request" />
+<%--
+  * END Comment out for use in the JSP preview environment.
+  ***
+--%>
+
+<c:set var="request" value="${pageContext.request}"/>
+<c:set var="absoluteStoreJspUrl" value="${request.scheme}://${request.serverName}${request.contextPath}/servlet${jspStoreDir}"/>
+
+<%
+String sWebPath=UIUtil.getWebPrefix(request);
+String sWebAppPath=UIUtil.getWebappPath(request);
+%>
+
+<%-- Mobile Store Styles --%>
+<flow:fileRef id="vfileStylesheet" fileId="vfile.stylesheet"/>
+<flow:fileRef id="vfileColor" fileId="vfile.color"/>
+<flow:fileRef id="StyleDir" fileId="StyleDir" />
+
+<c:set var="StyleDir" value="mobile/${StyleDir}" />
+<c:set var="ColorDir" value="mobile/${vfileColor}" />
+
+<c:set var="cssPath" value="${jspStoreImgDir}mobile/${vfileStylesheet}" />
+
+<%--	currency symbol of this store
+			example usage:
+			<c:out value="${currencyFormatterDB.currencySymbol}" escapeXml="false"/>
+--%>
+<wcbase:useBean id="currencyFormatterDB" classname="com.ibm.commerce.common.beans.CurrencyFormatDescriptionDataBean" scope="request" >
+	<c:set property="dataBeanKeyNumberUsgId" value="-1" target="${currencyFormatterDB}" />
+	<c:set property="dataBeanKeyCurrencyCode" value="${CommandContext.currency}" target="${currencyFormatterDB}" />
+	<c:set property="dataBeanKeyStoreEntityId" value="-1" target="${currencyFormatterDB}" />
+	<c:set property="dataBeanKeyLanguageId" value="${langId}" target="${currencyFormatterDB}" />
+</wcbase:useBean>
+
+<%-- Set decimal places to use for currency --%>
+<%-- JPY and KRW do not have any decimal places, other currencies have 2 --%>
+<c:choose>
+	<c:when test="${CommandContext.currency == 'JPY' || CommandContext.currency == 'KRW'}">
+		<c:set var="currencyDecimal" value="0"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="currencyDecimal" value="2"/>
+	</c:otherwise>
+</c:choose>
+
+<c:if test="${CommandContext.currency == 'KRW'}">
+	<c:set property="currencySymbol" value='&#8361;' target="${currencyFormatterDB}"/>
+</c:if>
+
+<!-- END JSTLEnvironmentSetup.jspf -->
+
+

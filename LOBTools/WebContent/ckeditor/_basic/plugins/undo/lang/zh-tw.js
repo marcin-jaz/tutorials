@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","zh-tw",{redo:"重做",undo:"復原"});

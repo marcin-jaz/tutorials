@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("undo","pl",{redo:"Przywróć",undo:"Cofnij"});

@@ -1,0 +1,962 @@
+/*
+ *-----------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ *-----------------------------------------------------------------
+ */
+
+/* General Styling */
+body {
+	color: #3b4453;
+	font: 11px verdana, arial;
+	margin: 0; padding: 0;
+}
+
+a {
+	color: #3b4453;	
+}
+	
+	a:hover {
+		text-decoration: none;
+	}
+
+/* Helps set the standard font size for headings */
+h3, h4{
+	font-size: 1.0em;
+}
+	
+p, h4 {
+	margin: 0; padding: 0;
+}
+
+ul {
+	list-style: none;
+	margin: 0; padding: 0;
+}
+
+/* Helps to standardized the layout of ordered list among browsers */
+ol {
+	margin: 6px 0 10px 20px; padding: 0;
+}
+	
+	ol li {
+		vertical-align: top;
+	}
+	
+/* Create a standard base layout for definition lists */
+dl {
+	margin: 0; padding: 0;
+}
+
+	dt {
+		clear: both;
+		float: left;
+		margin: 0; padding: 2px 4px 2px 0;
+	}
+	
+	dd {
+		margin: 0; padding: 2px 0;
+	}
+	
+img {
+	border: 0;
+}
+
+/* Common form styling */
+form {
+	margin: 0; padding: 0;
+}
+
+fieldset, legend {
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+select, input, textarea {
+	font-size: 11px;
+	padding: 2px;
+}
+
+input.coloured_input,
+textarea.coloured_input {
+	background-color: #ebf3fa;
+	border: 1px solid #aab2bc;
+}
+
+/* For input submit buttons which are on a new line */
+input.input_button {
+	margin-top: 4px;
+}
+
+/* For input submit buttons which need to be on the same line */
+input.input_button_float {
+	margin-top: 4px;
+	margin-right: 6px;
+}
+
+select.coloured_input {
+	background-color: #ebf3fa;
+	border: 1px solid #aab2bc;
+	color: #3b4453;
+}
+
+span.field_required_symbol {
+	color: #ef6d00;
+}
+
+form div.input_container,
+form div.dropdown_container {
+	margin-top: 8px;
+}
+
+	form div.input_container input,
+	form div.dropdown_container select {
+		margin-top: 3px;
+	}
+
+	form div.checkbox_container input {
+		margin-left: 0;
+		margin-right: 0;
+		vertical-align: middle;
+	}
+
+/* Used when input sections need to be side-by-side. */
+form div.input_container div.column,
+form div.dropdown_container div.column {
+	float: left;
+	margin-right: 10px;
+}
+	
+/* This is when input fields are linked, the margin between them is smaller to show visual correlation */
+form div.linked_fields {
+	margin-top: 8px;
+}
+
+form div.linked_fields div.input_container,
+form div.linked_fields div.dropdown_container {
+	margin-top: 1px;
+}
+
+/* Vertically align radio inputs with their labels */
+.radio_container {
+	margin: 3px 0;
+}
+
+	.radio_container a,
+	.radio_container label,
+	.radio_container input {
+		vertical-align: middle;
+	}
+	
+/* Common colour for the bullet */
+span.bullet {
+	color: #ff791f;
+}
+
+/* Use to bold a price */
+span.price {
+	font-weight: bold;
+}
+span.listprice {
+	font-weight: bold;
+	text-decoration: line-through;	
+}
+/* General class to bold text */
+.bold {
+	font-weight: bold;
+}
+
+/* Use this class to clear floats.  Since the div container doesn't stretch to accomodate float elements,
+ * the use of this special clear float class will resize the container to fit floating elements. */
+div.clear_float {
+	clear: both;
+}
+
+/* Class to highlight an error message */
+.error {
+	color: red;
+}
+
+.nodisplay {
+	display: none;
+}
+
+/*--------------------------------*/
+
+/* Common UI Elements Used In Several Pages */
+/* Wraps free standing text to provide proper padding */
+div.text_container {
+	padding: 2px 6px 6px 6px;
+}
+
+	div.text_container p {
+		padding: 3px 0;
+	}
+	
+/* Pagination styling with top divider */
+div.paging_control,
+div.paging_control_with_underline {
+	border-top: 1px solid #C6D0DC;
+	padding-top: 6px;
+}
+
+div.paging_control_with_underline {	
+	border-bottom: 1px solid #C6D0DC;
+	margin-bottom: 4px;
+	padding-bottom: 6px;
+}
+
+	div.paging_control div.page_number,
+	div.paging_control_with_underline div.page_number {
+		display: inline;
+		float: left;
+		padding-right: 10px;
+	}
+
+/* Featured products container box, styles the ordered list */
+div#featured_products ol li img {
+	float: left;
+}
+	
+div#featured_products ol li ul {
+	padding-left: 50px;
+}
+
+/* Provides styling for the notice/information box */
+div.notice_box {
+	background-color: #fdf4c5;
+	border: 1px solid #f9ad17;
+	margin: 6px 0; padding: 7px;
+}
+
+/*--------------------------------*/
+
+/* Common UI */
+/* This contains the basic common structure of all the mobile web pages. */
+div#header {
+	background: #0B5DAD url('../images/colors/color2/header_bg.gif') repeat-x;
+	border-bottom: 1px solid #f9ad17;
+	overflow: auto;
+	width: 100%;
+}
+
+	div#header img {
+		float: left;
+	}
+	
+	div#header p {
+		float: right;
+		padding: 9px 9px 0 0;
+	}
+
+	div#header p a {
+		color: #fff;
+	}
+
+div#info_bar {
+	background-color: #E7EEF2;
+	border-bottom: 1px solid #f9ad17;
+	border-top: 1px solid #fff;
+	padding: 4px 8px;
+}
+
+div#breadcrumb {
+	background: transparent url('../images/colors/color2/divider_gradient_bg.gif') repeat-x;
+	line-height: 16px;
+	padding: 7px 6px;
+}
+
+div.content_box {
+	background: transparent url('../images/colors/color2/divider_gradient_bg.gif') repeat-x;
+	border-top: 1px solid #c6d0dc;
+	padding: 6px;
+}
+
+	div.content_box div.heading_container {
+		padding: 1px;
+	}
+	
+	div.content_box div.heading_container_with_underline {
+		border-bottom: 1px solid #c6d0dc;
+		margin-bottom: 5px; padding: 1px 0 5px 1px;
+	}
+
+	div.content_box h2,
+	div#info_bar h2,
+	div.child_heading_container h3{
+		color: #000;
+		float: left;
+		font-size: 1.1em;
+		font-weight: normal;
+		margin: 0;
+	}
+	
+	div.content_box p.skip,
+	div#info_bar p.skip,
+	div.child_heading_container p.skip{
+		float: right;
+		padding-right: 2px;
+		text-align: right;
+		width: 70px;
+	}
+	
+	div.content_box div.skip {
+		padding-right: 2px;
+		text-align: right;
+	}
+	
+	/* if a text container is wrapped inside a content box, it no longer requires side padding since it inherits padding from parent */  
+	div.content_box div.text_container {  
+		padding: 0;  
+	} 
+	
+	div.content_box ul,
+	div.text_container ul {
+		padding: 3px 0;
+	}
+	
+		div.content_box ul li,
+		div.text_container ul li {
+			padding: 3px 0;
+		}
+		
+/* This styling is used when there is a parent container with sub sections requiring a heading */
+div.child_heading_container {
+	background-color: #fdf4c5;
+	padding: 5px 8px;
+}
+
+ul#navigation {
+	clear: both;
+	margin-top: 6px;
+}
+	
+	ul#navigation li a {
+		color: #0070b6;
+		display: block;
+		padding: 6px 5px;
+		text-decoration: none;
+	}
+
+	ul#navigation li.even a {
+		background-color: #E7EEF2;
+	}
+
+	ul#navigation li.odd a {
+		background-color: #DAE2E7;
+	}
+
+		ul#navigation li a:hover {
+			background-color: #188dec;
+			color: #fff;
+		}
+
+	ul#navigation li.desktop_site a span.text {  
+  		text-decoration: underline;  
+  	}
+  	       
+  		ul#navigation li.desktop_site a:hover span.text {  
+  			text-decoration: none;  
+  		}  
+
+	ul#navigation li.copyright {
+		background-color: #000;
+		color: #fff;
+		display: block;
+		padding: 6px 5px;
+	}
+	
+div#privacy_policy a {
+	color: #0070b6;
+}
+/*--------------------------------*/
+
+/*----------------------------------- 
+  * Page Specific Styling 
+  *----------------------------------- */
+
+/* Homepage */
+div.banner {
+	background: transparent url('../images/index_banner_bg.gif') repeat-x;
+	height: 76px;
+}
+
+div#featured_products  div.product_row {
+	padding: 7px;
+	text-align: center;
+}
+
+	div.product_row a {
+		display: block;
+		float: left;
+		width: 22%;
+	}
+		
+		div.product_row img {
+			padding: 0 2px;
+		}	
+/*--------------------------------*/
+
+/* Contact Us */
+div#contact_us p {
+	margin-bottom: 10px;
+}
+
+div#contact_us ul {
+	margin-bottom: 6px;
+}
+
+	div#contact_us ul li {
+		padding: 1px 0;
+	}
+	
+	div#contact_us ul li.office_info {  
+		padding-left: 11px;  
+	}
+/*--------------------------------*/
+
+/* Privay Policy */
+div#privacy_policy_sub_container div.content_box p {
+	margin-bottom: 10px;
+}
+/*--------------------------------*/
+
+/* Category Page */
+div#product_listings ol li img {
+	float: left;
+}
+	
+div#product_listings ol li ul {
+	padding-left: 50px;
+}
+
+	div#product_listings ol li ul li{
+		padding: 1px 0;
+	}
+/*--------------------------------*/
+
+/* Wish List Page */
+div#wish_list ol li img {
+	float: left;
+}
+	
+div#wish_list ol li ul {
+	padding-left: 50px;
+}
+
+	div#wish_list ol li ul li{
+		padding: 1px 0;
+	}
+/*--------------------------------*/
+
+/* Product Page */
+div#product h2 {
+	padding: 0 0 4px 0;
+}
+
+div#product div.text_container {
+	border-top: 1px solid #C6D0DC;
+	margin: 4px 0; padding-top: 6px;
+}
+
+	div.text_container h3 {
+		margin: 0;
+	}
+
+	/* blackberry 4.5 doesn't inherit the global override, so we need to explicitly remove side padding from this text_container */  
+	div#check_availability,  
+	div#product_description {  
+		padding-left: 0;  
+		padding-right: 0;  
+	}
+	
+	div#product form#product_customization {  
+		margin-bottom: 8px;  
+	} 
+	
+	/* styles unordered lists when it is embedded in product description */  
+	div#product_description ul {  
+		list-style-type: disc;  
+		margin-left: 20px;  
+	}
+	
+div#product_combo div.products {
+	margin: 6px 0 6px 10px;
+}
+
+	div#product_combo div.products span.plus_sign {
+		color: #aab2bc;
+		font-size: 17px;
+	}
+
+	div#product_combo div.products img {
+		vertical-align: middle;
+	}
+	
+	div#product_combo ul {
+		margin: 0 0 6px 0;
+	}
+	
+		div#product_combo ul li {
+			padding: 1px 0;
+		}
+	
+	div#product_combo div.paging_control {
+		margin-top: 10px;
+	}
+/*--------------------------------*/
+	
+/* Product Bundles */
+div#product_bundles_breakdown div.content_box p.product_description {
+	border-bottom: 1px solid #C6D0DC;
+	padding-bottom: 8px;
+	margin-bottom: 4px;
+}
+/*--------------------------------*/
+
+/* Product Package */
+div#product_package div#check_availability {
+	border-top: 1px solid #C6D0DC;
+	padding-top: 8px;
+	margin-top: 4px;
+}
+
+div#product_package_breakdown div.content_box p.product_description {
+	padding: 8px 0;
+}
+
+.status img {
+	padding-bottom: 2px;
+	padding-right: 2px;
+	vertical-align: middle;
+}
+/*--------------------------------*/
+
+/* Sign In Page */
+div#sign_in form#sign_in_form input#login_id {
+	margin-bottom: 10px;
+}
+
+div#sign_in form#sign_in_form input#sign_in_button {
+	display: block;
+	margin-top: 10px;
+}
+
+div#sign_in form#register_link {
+	border-top: 1px solid #C6D0DC;
+	margin-top: 8px;
+	padding-top: 6px;
+}
+	form#register_link  h2 {
+		color: #000;
+		font-size: 1.1em;
+	}
+	
+	form#register_link fieldset p {
+		padding: 4px 0;
+	}
+/*--------------------------------*/
+
+/* Product Compare List */
+div#product_compare_list ol {
+	margin-left: 20px; padding: 0;
+}
+
+	div#product_compare_list ol li {
+		padding: 5px 0;
+	}
+	
+	/* this applies a bottom border to all entries except the last one in the product compare view */
+	div#product_compare_list ol li.entry {
+		border-bottom: 1px solid #C6D0DC;
+	}
+
+		div#product_compare_list ol li ul li{
+			padding: 1px 0;
+		}
+			
+			div#product_compare_list ol li ul li img {
+				vertical-align: top;
+			}
+/*--------------------------------*/
+
+/* Product Compare Grid */
+div#product_compare_grid div.compare_grid {
+
+}
+
+	div#product_compare_grid div.grid_heading_row {
+		border-bottom: 1px solid #c6d3de;
+		padding: 0 0 6px 0;
+	}
+	
+	div#product_compare_grid div.grid_row {
+		border-bottom: 1px solid #c6d3de;
+		padding: 4px 0;
+	}
+	
+	div#product_compare_grid div.compare_criteria { 
+		border-bottom: none;
+		padding: 4px 0 0 0;
+	}
+		
+		div#product_compare_grid div.grid_heading_row div.grid_column,
+		div#product_compare_grid div.grid_row div.grid_column {
+			 float: left;
+			 width: 48.5%;
+		}
+		
+		div#product_compare_grid div.compare_criteria div.grid_column {
+			width: auto;
+		}
+		
+			div#product_compare_grid div.grid_heading_row div.grid_column div.grid_column_padding,
+			div#product_compare_grid div.grid_row div.grid_column div.grid_column_padding {
+				padding: 0 14px 0 0;
+			}
+/*--------------------------------*/
+
+/* Advanced Search */
+div#advanced_search p.paragraph_blurb {
+	border-bottom: 1px solid #C6D0DC;
+	margin: 6px 0 1px 0;
+	padding-bottom: 9px;
+}
+
+div#advanced_search input#advanced_search_form_submit {
+	margin: 10px 0 0 0;
+}
+/*--------------------------------*/
+
+/* Search Results */
+div#search_results ol li img {
+	float: left;
+}
+
+div#search_results ol li ul {
+	padding-left: 50px;
+}
+
+	div#search_results ol li ul li{
+		padding: 1px 0;
+	}
+/*--------------------------------*/
+
+/* Orders */
+div#orders ul {
+	margin-bottom: 6px;
+	padding-left: 3px;
+}
+
+div#orders ul.entry {
+	border-bottom: 1px solid #C6D0DC;
+	margin-bottom: 6px;
+	padding-bottom: 10px;
+}
+
+	div#orders ul li {
+		padding: 1px 0;
+	}
+
+div#orders form#order_period_container div.order_period_dropdown {
+	margin: 3px 0 4px 0;
+}
+/*--------------------------------*/
+
+/* Order Details */
+div#order_details_sub_container li {
+	padding: 1px 0; /* this reduces the padding between lines */
+}
+
+div#order_details_sub_container 
+div#order_details_sub_container div.child_content_box div.content_box {
+	padding: 6px 8px;
+}
+
+div#order_details_sub_container div#items_container div#items_content ul {
+	border-bottom: 1px solid #C6D0DC;
+	padding-bottom: 5px;
+}
+
+div#order_details_sub_container div#items_container div#items_content div.order_total {
+	font-weight: bold;
+	margin-top: 3px;
+}
+
+div#order_details_sub_container div#shipping_information_container div#shipping_information_content ul,
+div#order_details_sub_container div#billing_information_container div#billing_information_content ul {
+	margin-bottom: 6px;
+}
+/*--------------------------------*/
+
+ /* Order Summary / Order Confirmation */  
+ div#order_summary p.paragraph_blurb,  
+ div#order_confirmation p.paragraph_blurb {  
+         margin-top: 10px;  
+ }  
+  
+ div#order_confirmation dl#order_info {  
+         margin-top: 4px;  
+ }  
+  
+         div#order_confirmation dl#order_info dt {  
+                 font-weight: bold;  
+         }  
+  
+ div#store_location,  
+ div#billing_info,  
+ div#items {  
+         border-top: 1px solid #c6d0dc;  
+         margin: 6px 0; padding: 8px 0 4px 0;  
+ }  
+  
+ div#items {  
+         margin-bottom: 0;  
+         padding-bottom: 0;  
+ }  
+  
+ div#store_location p {  
+         margin-bottom: 4px;  
+ }  
+  
+ div#billing_info div#billing_address {  
+         margin-bottom: 8px;  
+ }  
+  
+ div#order_summary div#shopping_cart_costs,  
+ div#order_confirmation div#shopping_cart_costs {  
+         border-bottom: 1px solid #c6d0dc;  
+         margin-bottom: 8px;  
+ }  
+  
+ div#order_summary ol#shopping_cart_items li h4,  
+ div#order_confirmation ol#shopping_cart_items li h4 {  
+         font-weight: normal;  
+ }  
+ /*--------------------------------*/  
+  
+  
+  
+/* Store Locator */
+form#store_locator_form div.bold {
+	margin: 8px 0;
+}
+/*--------------------------------*/
+
+/* Store Locator Results */
+div#store_locator_results div.heading_container_with_underline {
+	margin-bottom: 3px;
+}
+
+div#store_locator_results div.heading_container_with_underline div.notice_box p {
+	margin: 0 0 6px 0;
+}
+
+div#store_locator_results div.information p.search_results_text {
+	padding: 3px 0 6px 0;
+}
+
+div#store_locator_results div.information p.checkout_instruction {
+	border-top: 1px solid #c6d0dc;
+	padding: 6px 0 2px 0;
+}
+
+div#store_locator_results ul {
+	border-top: 1px solid #c6d0dc;
+	margin: 5px 0;
+}
+
+	div#store_locator_results p.paragraph_separator {
+		border-top: 1px solid #c6d0dc;
+		padding-top: 6px;
+	}
+
+	div#store_locator_results p.paragraph_blurb {
+		border-bottom: 1px solid #c6d0dc;
+		margin-bottom: 2px;
+		padding-bottom: 6px;
+	}
+
+	div#store_locator_results ul li {
+		padding: 1px 0;
+	}
+
+	div#store_locator_results ul li.align_with_bullet {
+		padding-left: 10px;
+	}
+/*--------------------------------*/
+
+/* Store Details / Store Availability Details */
+div#store_details ul,
+div#store_availability_details ul {
+	margin-bottom: 6px;
+}
+
+	div#store_details ul li,
+	div#store_availability_details ul li {
+		padding: 1px 0;
+	}
+/*--------------------------------*/
+
+/* Address List */
+div#address_list ul {
+	border-bottom: 1px solid #c6d0dc;
+	margin-bottom: 5px; padding-bottom: 10px;
+}
+
+	div#address_list p.paragraph_blurb {
+		border-bottom: 1px solid #c6d0dc;
+		margin-bottom: 2px;
+		padding-bottom: 6px;
+	}
+
+	div#address_list ul li {
+		padding: 1px 0;
+	}
+	
+	div#address_list ul li.align_with_bullet {
+		padding-left: 10px;
+	}
+	
+	div#address_list ul li.align_with_radio {
+		padding-left: 20px;
+	}
+	
+	div#address_list ul li.align_with_radio {
+		padding-left: 21px;
+	}
+	
+div#address_list form {
+	display: inline;
+}
+/*--------------------------------*/
+
+/* E-mail Wish List */
+div#email_wish_list p.paragraph_blurb {
+	margin: 10px 0;
+}
+
+div#email_wish_list input.coloured_input,
+div#email_wish_list textarea.coloured_input {
+	margin-bottom: 8px;
+}
+/*--------------------------------*/
+
+/* E-mail Wish List */
+div#language_and_currency_selector  p.paragraph_blurb  {
+	margin-bottom: 5px;
+}
+
+div#language_and_currency_selector  form#language_and_currency_form div select {
+	margin-bottom: 6px;
+}
+/*--------------------------------*/
+
+/* Register */
+div#register p.paragraph_blurb {
+	margin-bottom: 5px;
+}
+
+div#register form#register_form div.checkbox_container {
+	margin-bottom: 8px;
+}
+
+div#register form#register_form input.submit {
+	margin-top: 8px;
+}
+/*--------------------------------*/
+
+/* My Subscriptions */
+div#my_subscriptions p.paragraph_blurb {
+	padding-bottom: 6px;
+	padding-top: 6px;
+}
+
+div#my_subscriptions_emails form#my_subscriptions_emails_form fieldset {
+	padding-top: 6px;
+}
+
+div#my_subscriptions_texting p.bold{
+	margin-top: 6px;
+}
+
+div#my_subscriptions_texting form#my_subscriptions_texting_form fieldset {
+	border-bottom: 1px solid #C6D0DC;
+	margin-bottom: 6px;
+	padding-bottom: 6px;
+}
+/*--------------------------------*/
+
+/* Store Map */
+div#store_map div#store_map_image {
+	margin-bottom: 5px;
+	padding: 3px 0;
+	text-align: center;
+}
+/*--------------------------------*/
+
+/* Personal Information - My Account */
+div#my_account_personal_information p.paragraph_blurb {
+	padding-bottom: 6px;
+}
+
+div#my_account_personal_information form#my_account_personal_information_form fieldset {
+	border-bottom: 1px solid #C6D0DC;
+	padding-bottom: 6px;
+}
+
+div#my_account_personal_information form#my_account_personal_information_form input#my_account_personal_information_form_submit {
+	margin-top: 6px;
+}
+/*--------------------------------*/
+
+/* Shopping Cart */
+
+div#shopping_cart p.paragraph_blurb {
+	margin: 10px 0 0 0;
+}
+
+div#shopping_cart ol {
+	list-style-type: none;
+	margin: 8px 0 0 0;
+}
+
+div#shopping_cart ol li.item_container {
+	margin-bottom: 8px;
+}
+
+div#shopping_cart ol li.item_container ul {
+	padding-top: 0;
+}
+
+div#promotion_codes {
+	border-bottom: 1px solid #c6d0dc;
+	border-top: 1px solid #c6d0dc;
+	padding: 5px 0;
+}
+
+div#promotion_codes label,
+div#promotion_codes input {
+	vertical-align: middle;
+}
+
+div#shopping_cart_costs {
+	border-bottom: 1px solid #c6d0dc;
+	padding: 6px 0 8px 0;
+}
+
+div#shopping_cart_costs dl {
+	margin-bottom: 6px;
+}
+
+div#shipping_options input#proceed_to_checkout {
+	margin-top: 4px;
+}
