@@ -3878,6 +3878,8 @@
 		<forward className="com.ibm.commerce.struts.ECActionForward" name="BuyerApprovalDetailView/10701" path="/OrganizationManagement/ApprovalSection/BuyerApprovalDetailDisplay.jsp"/>
 		<forward name="MyNewView/10651" path="/CustomStuff/MyNewJSPTemplate.jsp" className="com.ibm.commerce.struts.ECActionForward">
 		</forward>
+		<forward name="MyNewView2/10651" path="/CustomStuff/MyNewJspTemplate2.jsp" className="com.ibm.commerce.struts.ECActionForward">
+		</forward>
 				
 
 
@@ -5477,6 +5479,10 @@
 		<set-property property="https" value="10701:1"/>
 	</action>
 <action path="/MyNewView" type="com.ibm.commerce.struts.BaseAction">
+</action>
+<action path="/MyNewView2" type="com.ibm.commerce.struts.BaseAction">
+</action>
+<action path="/MyNewController2Cmd" type="com.ibm.commerce.struts.BaseAction" parameter="com.ibm.commerce.sample.commands.MyNewController2Cmd">
 </action>
 </action-mappings>
 

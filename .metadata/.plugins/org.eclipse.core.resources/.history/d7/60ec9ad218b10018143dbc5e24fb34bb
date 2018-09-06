@@ -1,0 +1,6 @@
+package com.ibm.commerce.sample.commands;
+
+public class MyNewController2CmdImpl implements MyNewController2Cmd {
+	
+static final String DEFAULT_COMMAND_CLASS_NAME = "com.ibm.commerce.sample.commands.MyNewController2CmdImpl";
+}

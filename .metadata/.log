@@ -865,3 +865,468 @@ Created Time: 2018-09-04 14:25:30.733
 
 !ENTRY com.ibm.commerce.toolkit.internal.openlaszlo.migration 4 0 2018-09-04 14:25:35.229
 !MESSAGE zipEntryName:config/commerce/attachment/AttachmentManagementToolDefinition.def
+
+!ENTRY org.eclipse.ui 4 0 2018-09-05 11:36:38.360
+!MESSAGE Unable to create editor ID com.ibm.etools.webedit.editor.HTMLEditor: The specified file is not found.
+!STACK 1
+org.eclipse.ui.PartInitException: The specified file is not found.
+	at com.ibm.etools.webedit.editor.HTMLEditor.init(Unknown Source)
+	at org.eclipse.ui.internal.EditorManager.createSite(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.createPartHelper(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.createPart(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.getEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditorBatched(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.access$11(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage$10.run(Unknown Source)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.ide.IDE.openEditor(Unknown Source)
+	at org.eclipse.ui.ide.IDE.openEditor(Unknown Source)
+	at org.eclipse.ui.wizards.newresource.BasicNewFileResourceWizard.performFinish(Unknown Source)
+	at org.eclipse.jface.wizard.WizardDialog.finishPressed(Unknown Source)
+	at org.eclipse.jface.wizard.WizardDialog.buttonPressed(Unknown Source)
+	at org.eclipse.jface.dialogs.Dialog$2.widgetSelected(Unknown Source)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(Unknown Source)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Unknown Source)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Unknown Source)
+	at org.eclipse.jface.window.Window.runEventLoop(Unknown Source)
+	at org.eclipse.jface.window.Window.open(Unknown Source)
+	at org.eclipse.ui.internal.actions.NewWizardShortcutAction.run(Unknown Source)
+	at org.eclipse.jface.action.Action.runWithEvent(Unknown Source)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(Unknown Source)
+	at org.eclipse.jface.action.ActionContributionItem.access$2(Unknown Source)
+	at org.eclipse.jface.action.ActionContributionItem$5.handleEvent(Unknown Source)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Unknown Source)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runUI(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.access$4(Unknown Source)
+	at org.eclipse.ui.internal.Workbench$7.run(Unknown Source)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(Unknown Source)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.basicRun(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.run(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.main(Unknown Source)
+!SUBENTRY 1 org.eclipse.ui 4 0 2018-09-05 11:36:38.364
+!MESSAGE The specified file is not found.
+
+!ENTRY org.eclipse.ui 2 2 2018-09-05 11:36:38.383
+!MESSAGE Ignored attempt to add saveable that was already registered
+!STACK 0
+org.eclipse.core.runtime.AssertionFailedException: unknown saveable: org.eclipse.ui.internal.DefaultSaveable@6ba66ba6 from part: org.eclipse.ui.internal.ErrorEditorPart@6ba66ba6
+	at org.eclipse.ui.internal.SaveablesList.logWarning(Unknown Source)
+	at org.eclipse.ui.internal.SaveablesList.addModel(Unknown Source)
+	at org.eclipse.ui.internal.SaveablesList.addModels(Unknown Source)
+	at org.eclipse.ui.internal.SaveablesList.postOpen(Unknown Source)
+	at org.eclipse.ui.internal.PartList.partOpened(Unknown Source)
+	at org.eclipse.ui.internal.PartList.access$0(Unknown Source)
+	at org.eclipse.ui.internal.PartList$1.propertyChanged(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPartReference.fireInternalPropertyChange(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.getEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditorBatched(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.access$11(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage$10.run(Unknown Source)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.ide.IDE.openEditor(Unknown Source)
+	at org.eclipse.ui.ide.IDE.openEditor(Unknown Source)
+	at org.eclipse.ui.wizards.newresource.BasicNewFileResourceWizard.performFinish(Unknown Source)
+	at org.eclipse.jface.wizard.WizardDialog.finishPressed(Unknown Source)
+	at org.eclipse.jface.wizard.WizardDialog.buttonPressed(Unknown Source)
+	at org.eclipse.jface.dialogs.Dialog$2.widgetSelected(Unknown Source)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(Unknown Source)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Unknown Source)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Unknown Source)
+	at org.eclipse.jface.window.Window.runEventLoop(Unknown Source)
+	at org.eclipse.jface.window.Window.open(Unknown Source)
+	at org.eclipse.ui.internal.actions.NewWizardShortcutAction.run(Unknown Source)
+	at org.eclipse.jface.action.Action.runWithEvent(Unknown Source)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(Unknown Source)
+	at org.eclipse.jface.action.ActionContributionItem.access$2(Unknown Source)
+	at org.eclipse.jface.action.ActionContributionItem$5.handleEvent(Unknown Source)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Unknown Source)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runUI(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.access$4(Unknown Source)
+	at org.eclipse.ui.internal.Workbench$7.run(Unknown Source)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(Unknown Source)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.basicRun(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.run(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.main(Unknown Source)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2018-09-05 11:37:06.857
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 11:37:06.857
+!MESSAGE Conflict for 'org.eclipse.ui.navigate.next':
+HandlerActivation(commandId=org.eclipse.ui.navigate.next,
+	handler=ActionHandler(org.eclipse.ui.texteditor.GotoAnnotationAction@33d133d1),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.navigate.next,
+	handler=ActionHandler(org.eclipse.ui.texteditor.GotoAnnotationAction@39543954),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 11:37:06.857
+!MESSAGE Conflict for 'org.eclipse.ui.navigate.previous':
+HandlerActivation(commandId=org.eclipse.ui.navigate.previous,
+	handler=ActionHandler(org.eclipse.ui.texteditor.GotoAnnotationAction@34b934b9),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.navigate.previous,
+	handler=ActionHandler(org.eclipse.ui.texteditor.GotoAnnotationAction@3a413a41),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 11:37:06.857
+!MESSAGE Conflict for 'org.eclipse.ui.file.refresh':
+HandlerActivation(commandId=org.eclipse.ui.file.refresh,
+	handler=ActionHandler(org.eclipse.ui.internal.editors.text.RefreshEditorAction@4b744b74),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.file.refresh,
+	handler=ActionHandler(org.eclipse.ui.internal.editors.text.RefreshEditorAction@51515151),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+
+!ENTRY org.eclipse.ui 4 0 2018-09-05 13:00:04.636
+!MESSAGE Unable to create editor ID com.ibm.etools.webedit.editor.HTMLEditor: The specified file is not found.
+!STACK 1
+org.eclipse.ui.PartInitException: The specified file is not found.
+	at com.ibm.etools.webedit.editor.HTMLEditor.init(Unknown Source)
+	at org.eclipse.ui.internal.EditorManager.createSite(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.createPartHelper(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.createPart(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.getEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditorBatched(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.access$11(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage$10.run(Unknown Source)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.ide.IDE.openEditor(Unknown Source)
+	at org.eclipse.ui.ide.IDE.openEditor(Unknown Source)
+	at org.eclipse.ui.wizards.newresource.BasicNewFileResourceWizard.performFinish(Unknown Source)
+	at org.eclipse.jface.wizard.WizardDialog.finishPressed(Unknown Source)
+	at org.eclipse.jface.wizard.WizardDialog.buttonPressed(Unknown Source)
+	at org.eclipse.jface.dialogs.Dialog$2.widgetSelected(Unknown Source)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(Unknown Source)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Unknown Source)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Unknown Source)
+	at org.eclipse.jface.window.Window.runEventLoop(Unknown Source)
+	at org.eclipse.jface.window.Window.open(Unknown Source)
+	at org.eclipse.ui.internal.actions.NewWizardShortcutAction.run(Unknown Source)
+	at org.eclipse.jface.action.Action.runWithEvent(Unknown Source)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(Unknown Source)
+	at org.eclipse.jface.action.ActionContributionItem.access$2(Unknown Source)
+	at org.eclipse.jface.action.ActionContributionItem$5.handleEvent(Unknown Source)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Unknown Source)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runUI(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.access$4(Unknown Source)
+	at org.eclipse.ui.internal.Workbench$7.run(Unknown Source)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(Unknown Source)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.basicRun(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.run(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.main(Unknown Source)
+!SUBENTRY 1 org.eclipse.ui 4 0 2018-09-05 13:00:04.637
+!MESSAGE The specified file is not found.
+
+!ENTRY org.eclipse.ui 2 2 2018-09-05 13:00:04.642
+!MESSAGE Ignored attempt to add saveable that was already registered
+!STACK 0
+org.eclipse.core.runtime.AssertionFailedException: unknown saveable: org.eclipse.ui.internal.DefaultSaveable@f850f85 from part: org.eclipse.ui.internal.ErrorEditorPart@f850f85
+	at org.eclipse.ui.internal.SaveablesList.logWarning(Unknown Source)
+	at org.eclipse.ui.internal.SaveablesList.addModel(Unknown Source)
+	at org.eclipse.ui.internal.SaveablesList.addModels(Unknown Source)
+	at org.eclipse.ui.internal.SaveablesList.postOpen(Unknown Source)
+	at org.eclipse.ui.internal.PartList.partOpened(Unknown Source)
+	at org.eclipse.ui.internal.PartList.access$0(Unknown Source)
+	at org.eclipse.ui.internal.PartList$1.propertyChanged(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPartReference.fireInternalPropertyChange(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.getEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditorBatched(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.access$11(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage$10.run(Unknown Source)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.ide.IDE.openEditor(Unknown Source)
+	at org.eclipse.ui.ide.IDE.openEditor(Unknown Source)
+	at org.eclipse.ui.wizards.newresource.BasicNewFileResourceWizard.performFinish(Unknown Source)
+	at org.eclipse.jface.wizard.WizardDialog.finishPressed(Unknown Source)
+	at org.eclipse.jface.wizard.WizardDialog.buttonPressed(Unknown Source)
+	at org.eclipse.jface.dialogs.Dialog$2.widgetSelected(Unknown Source)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(Unknown Source)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Unknown Source)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Unknown Source)
+	at org.eclipse.jface.window.Window.runEventLoop(Unknown Source)
+	at org.eclipse.jface.window.Window.open(Unknown Source)
+	at org.eclipse.ui.internal.actions.NewWizardShortcutAction.run(Unknown Source)
+	at org.eclipse.jface.action.Action.runWithEvent(Unknown Source)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(Unknown Source)
+	at org.eclipse.jface.action.ActionContributionItem.access$2(Unknown Source)
+	at org.eclipse.jface.action.ActionContributionItem$5.handleEvent(Unknown Source)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Unknown Source)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runUI(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.access$4(Unknown Source)
+	at org.eclipse.ui.internal.Workbench$7.run(Unknown Source)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(Unknown Source)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.basicRun(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.run(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.main(Unknown Source)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.edit.addTask':
+HandlerActivation(commandId=org.eclipse.ui.edit.addTask,
+	handler=ActionHandler(org.eclipse.ui.texteditor.AddTaskAction@3a473a47),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.edit.addTask,
+	handler=ActionHandler(org.eclipse.ui.texteditor.AddTaskAction@3b8c3b8c),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.file.print':
+HandlerActivation(commandId=org.eclipse.ui.file.print,
+	handler=ActionHandler(org.eclipse.ui.texteditor.AbstractDecoratedTextEditor$12@4a3e4a3e),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.file.print,
+	handler=ActionHandler(org.eclipse.ui.texteditor.AbstractDecoratedTextEditor$12@4bad4bad),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.edit.undo':
+HandlerActivation(commandId=org.eclipse.ui.edit.undo,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@7cde7cde),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.edit.undo,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@42b342b3),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.edit.redo':
+HandlerActivation(commandId=org.eclipse.ui.edit.redo,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@590059),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.edit.redo,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@45da45da),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.file.properties':
+HandlerActivation(commandId=org.eclipse.ui.file.properties,
+	handler=ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@38263826),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.file.properties,
+	handler=ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@39bb39bb),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.edit.paste':
+HandlerActivation(commandId=org.eclipse.ui.edit.paste,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@4eb74eb7),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.edit.paste,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@4fec4fec),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.edit.delete':
+HandlerActivation(commandId=org.eclipse.ui.edit.delete,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@4fe54fe5),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.edit.delete,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@512e512e),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.file.revert':
+HandlerActivation(commandId=org.eclipse.ui.file.revert,
+	handler=ActionHandler(org.eclipse.ui.texteditor.RevertToSavedAction@1fb91fb9),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.file.revert,
+	handler=ActionHandler(org.eclipse.ui.texteditor.RevertToSavedAction@20e620e6),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.edit.cut':
+HandlerActivation(commandId=org.eclipse.ui.edit.cut,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@4d8a4d8a),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.edit.cut,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@4eab4eab),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.edit.selectAll':
+HandlerActivation(commandId=org.eclipse.ui.edit.selectAll,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@15971597),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.edit.selectAll,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@172c172c),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.edit.text.toggleShowWhitespaceCharacters':
+HandlerActivation(commandId=org.eclipse.ui.edit.text.toggleShowWhitespaceCharacters,
+	handler=ActionHandler(org.eclipse.ui.texteditor.ShowWhitespaceCharactersAction@35023502),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.edit.text.toggleShowWhitespaceCharacters,
+	handler=ActionHandler(org.eclipse.ui.texteditor.ShowWhitespaceCharactersAction@36883688),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.edit.addBookmark':
+HandlerActivation(commandId=org.eclipse.ui.edit.addBookmark,
+	handler=ActionHandler(org.eclipse.ui.texteditor.AddMarkerAction@390a390a),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.edit.addBookmark,
+	handler=ActionHandler(org.eclipse.ui.texteditor.AddMarkerAction@3aa33aa3),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.edit.text.toggleBlockSelectionMode':
+HandlerActivation(commandId=org.eclipse.ui.edit.text.toggleBlockSelectionMode,
+	handler=ActionHandler(org.eclipse.ui.texteditor.BlockSelectionModeToggleAction@37383738),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.edit.text.toggleBlockSelectionMode,
+	handler=ActionHandler(org.eclipse.ui.texteditor.BlockSelectionModeToggleAction@38c838c8),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.edit.findReplace':
+HandlerActivation(commandId=org.eclipse.ui.edit.findReplace,
+	handler=ActionHandler(org.eclipse.ui.texteditor.FindReplaceAction@19da19da),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.edit.findReplace,
+	handler=ActionHandler(org.eclipse.ui.texteditor.FindReplaceAction@1b331b33),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2018-09-05 13:00:04.664
+!MESSAGE Conflict for 'org.eclipse.ui.edit.copy':
+HandlerActivation(commandId=org.eclipse.ui.edit.copy,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@49e049e),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+HandlerActivation(commandId=org.eclipse.ui.edit.copy,
+	handler=ActionHandler(org.eclipse.ui.texteditor.TextOperationAction@5ce05ce),
+	expression=AndExpression(LegacyEditorActionBarExpression(com.ibm.etools.webedit.editor.HTMLEditor),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@3f833f83)),sourcePriority=4210689)
+
+!ENTRY org.eclipse.ui 4 0 2018-09-05 16:12:31.341
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.ClassCastException: com.ibm.etools.struts.strutsconfig.presentation.StrutsconfigEditor incompatible with org.eclipse.ui.texteditor.ITextEditor
+	at cucumber.eclipse.editor.editors.GherkinFormatterUtil.format(Unknown Source)
+	at cucumber.eclipse.editor.editors.GherkinPrettyFormatHandler.execute(Unknown Source)
+	at org.eclipse.ui.internal.handlers.HandlerProxy.execute(Unknown Source)
+	at org.eclipse.core.commands.Command.executeWithChecks(Unknown Source)
+	at org.eclipse.core.commands.ParameterizedCommand.executeWithChecks(Unknown Source)
+	at org.eclipse.ui.internal.handlers.HandlerService.executeCommand(Unknown Source)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.executeCommand(Unknown Source)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.press(Unknown Source)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.processKeyEvent(Unknown Source)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.filterKeySequenceBindings(Unknown Source)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.access$3(Unknown Source)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard$KeyDownFilter.handleEvent(Unknown Source)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Display.filterEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Unknown Source)
+	at org.eclipse.swt.widgets.Widget.wmChar(Unknown Source)
+	at org.eclipse.swt.widgets.Control.WM_CHAR(Unknown Source)
+	at org.eclipse.swt.widgets.Control.windowProc(Unknown Source)
+	at org.eclipse.swt.widgets.Display.windowProc(Unknown Source)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessageW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessage(Unknown Source)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runUI(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.access$4(Unknown Source)
+	at org.eclipse.ui.internal.Workbench$7.run(Unknown Source)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(Unknown Source)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.basicRun(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.run(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.main(Unknown Source)
+
+!ENTRY com.ibm.ws.ast.st.common.core 4 0 2018-09-06 09:57:18.792
+!MESSAGE JVM debug port 7777 is in use.

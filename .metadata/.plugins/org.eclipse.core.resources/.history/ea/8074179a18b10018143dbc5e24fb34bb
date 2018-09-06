@@ -1,0 +1,5 @@
+package com.ibm.commerce.sample.commands;
+
+public class WebSphereCommerceServerExtensionsLogic {
+
+}
