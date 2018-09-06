@@ -1,8 +1,11 @@
-#Wed Sep 05 16:18:49 CEST 2018
-org.eclipse.debug.ui.consoleBackground=192,192,192
-Console.limitConsoleOutput=false
-eclipse.preferences.version=1
-Console.highWaterMark=88000
-preferredDetailPanes=DefaultDetailPane\:DefaultDetailPane|
-preferredTargets=default\:default|
+#Thu Sep 06 12:35:31 CEST 2018
 org.eclipse.debug.ui.PREF_LAUNCH_PERSPECTIVES=<?xml version\="1.0" encoding\="UTF-8"?><launchPerspectives/>
+org.eclipse.debug.ui.consoleBackground=192,192,192
+Console.highWaterMark=88000
+pref_state_memento.org.eclipse.debug.ui.DebugVieworg.eclipse.debug.ui.DebugView=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<DebugViewMemento org.eclipse.debug.ui.BREADCRUMB_DROPDOWN_AUTO_EXPAND\="false"/>
+preferredDetailPanes=DefaultDetailPane\:DefaultDetailPane|
+Console.limitConsoleOutput=false
+org.eclipse.debug.ui.switch_perspective_on_suspend=always
+preferredTargets=default\:default|
+eclipse.preferences.version=1
+org.eclipse.debug.ui.save_dirty_editors_before_launch=never

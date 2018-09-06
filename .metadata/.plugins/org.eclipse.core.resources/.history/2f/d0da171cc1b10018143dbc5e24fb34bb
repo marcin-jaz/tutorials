@@ -5,7 +5,7 @@ Tutorial=Tutorial: Creating new business logic
 ParametersFromCmd= List of parameter-value pairs sent from the controller command 
 CalledByControllerCmd=MyNewView was called by a controller command
 CalledByWhichControllerCmd=MyNewView was called by the controller command which is - 
-ControllerParam1=ControllerParam1 value specified is:
+ControllerParam1=ControllerParam1=
 Example=This is an example of using the <if> tag from JSP Standard Tag Library (JSTL)
 UserName=UserName=
 Points=Points=

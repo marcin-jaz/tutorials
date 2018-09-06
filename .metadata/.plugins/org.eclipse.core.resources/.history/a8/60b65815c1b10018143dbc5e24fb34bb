@@ -45,8 +45,8 @@
 
 <h3><fmt:message key="ParametersFromCmd" bundle="${tutorial}" /> </h3>
 
-<fmt:message key="ControllerParam1" bundle="${tutorial}" />
-<c:out value="${controllerParam1}"/> <br />
+<fmt:message key="ControllerParm1" bundle="${tutorial}" />
+<c:out value="${controllerParm1}"/> <br />
  
   
 <!-- END OF SECTION 4 --> 

@@ -10,10 +10,8 @@ public class MyNewController2CmdImpl extends ControllerCommandImpl implements My
 	public void performExecute() throws ECException{
 		super.performExecute();
 		TypedProperty properties = new TypedProperty();
+		
 		properties.put(ECConstants.EC_VIEWTASKNAME, "MyNewView2");
-		
-		properties.put("controllerParam1", "parameter 1 text");
-		
 		setResponseProperties(properties);
 	}
 	
