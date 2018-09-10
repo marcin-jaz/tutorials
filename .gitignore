@@ -1,0 +1,13 @@
+*.jar
+*.class
+.metadata
+.project
+bin/**
+tmp/**
+*.bak
+*.tmp
+.loadpath
+.settings/
+.classpath
+local.properties
+
